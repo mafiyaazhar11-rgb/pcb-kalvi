@@ -9,6 +9,13 @@ Interactive PCB learning app. Every board is drawn as a digital diagram you can 
 - Search box for boards and parts
 - Parts library (66 components) and PCB basics
 - Language switch: English, Tamil, or both, plus read-aloud
+- My Workshop: your own boards with photos, stock count, location, price and project (PIN-protected editing)
 
-## Hosting
-It is a single static file, `index.html`, with no build step and no server code. Serve it from any static host (Nginx, Render Static Site, GitHub Pages).
+## Run
+```
+npm install
+WORKSHOP_PIN=your-pin PORT=3070 node server.js
+```
+- `index.html` is the whole front end; `server.js` serves it and the My Workshop API.
+- Workshop data and photos are saved in `data/` (not in git). Back it up if you move servers.
+- Photos are resized in the browser to max 1600 px before upload.
