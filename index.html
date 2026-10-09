@@ -368,6 +368,19 @@ main{max-width:1280px;margin:0 auto;padding-block:22px 60px;padding-inline:16px}
 .codebox .copy{position:absolute;top:8px;right:8px;height:32px;font-size:.8rem;background:#1f2a25;color:#d9f2e4;border-color:#33433b}
 .glinks a{text-decoration:none;font-weight:500}
 @media (prefers-reduced-motion:reduce){.wdiag .wflow{animation:none}}
+
+/* printed pin names */
+.pinsilk text{fill:#f3f3f0;font-family:var(--f-mono);font-weight:600;pointer-events:none;opacity:.92}
+.pinbig{display:none;pointer-events:none}
+.pinbig rect{fill:#111316;stroke:var(--hl);stroke-width:.7}
+.pinbig text{fill:#ffd9a8;font-family:var(--f-mono);font-weight:700}
+.hs.on .pinbig{display:inline}
+.hs.on .pinsilk{display:none}
+.pinchips{display:flex;flex-wrap:wrap;gap:5px;margin:2px 0 6px}
+.pchip{display:inline-flex;align-items:center;gap:5px;font-family:var(--f-mono);font-size:.78rem;font-weight:600;background:var(--surface2);border:1px solid var(--line);border-radius:6px;padding:2px 7px}
+.pchip b{color:var(--muted);font-weight:500;font-size:.85em}
+.pinwarn{margin:0;font-size:.8rem;color:var(--muted)}
+.pinwarn .t-dual{color:var(--muted);opacity:1}
 </style>
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
 
@@ -1121,7 +1134,7 @@ const BOARDS = [
         ["School and college lab experiments","பள்ளி, கல்லூரி ஆய்வக சோதனைகள்"]],
   tip:["Pins 0 and 1 are used by USB serial. Keep them free while uploading.","பின் 0, 1 USB சீரியலுக்குப் பயன்படுகின்றன. Upload செய்யும்போது அவற்றில் எதையும் இணைக்க வேண்டாம்."],
   holes:[[60,200],[94,24],[262,34],[262,172]],
-  silk:[[180,26,"DIGITAL (PWM ~)",7],[144,194,"POWER",6],[224,194,"ANALOG IN",6],[190,112,"UNO R3",9]],
+  silk:[[180,40,"DIGITAL (PWM ~)",7],[144,180,"POWER",6],[224,180,"ANALOG IN",6],[190,112,"UNO R3",9]],
   c:[
    ["usbb","usbb",-8,28,64,48,"USB‑B","Connect to the PC with a USB A‑to‑B (printer) cable. Gives 5V power and uploads.","PC-யுடன் USB A‑to‑B (பிரிண்டர்) கேபிள் மூலம் இணைக்கவும். 5V மின்சாரமும் upload-ம் இதன் வழியே.",{e:"l"}],
    ["dcjack","jack",-6,150,56,36,"","7–12V adapter input. It passes through the on-board 5V regulator.","7–12V அடாப்டர் உள்ளீடு. போர்டின் 5V ரெகுலேட்டர் வழியாகச் செல்கிறது.",{e:"l"}],
@@ -1153,7 +1166,7 @@ const BOARDS = [
         ["Drones, RC and robot controllers","ட்ரோன், RC, ரோபோ கட்டுப்படுத்திகள்"],
         ["Sensor data loggers","சென்சார் data logger-கள்"]],
   tip:["Clone Nanos use the CH340 chip and often need 'ATmega328P (Old Bootloader)' selected in the IDE.","Clone Nano-க்கள் CH340 சிப் பயன்படுத்துகின்றன; IDE-இல் 'ATmega328P (Old Bootloader)' தேர்வு செய்ய வேண்டியிருக்கும்."],
-  holes:[], silk:[[100,62,"NANO V3",6]],
+  holes:[], silk:[],
   c:[
    ["usbmini","usbmicro",-6,22,32,28,"","Mini-USB for power and upload.","மின்சாரம், upload-க்கான Mini-USB.",{e:"l"}],
    ["usbserial","chip",42,26,24,18,"CH340","CH340 USB-serial chip on clone boards (FT232 on originals).","Clone போர்டுகளில் CH340 USB-சீரியல் சிப் (அசலில் FT232).",{pins:"tb"}],
@@ -1181,7 +1194,7 @@ const BOARDS = [
         ["LED matrix and big display projects","LED matrix, பெரிய டிஸ்ப்ளே ப்ராஜெக்ட்கள்"]],
   tip:["Uno shields fit on the Mega, but SPI and I2C pins are in different places (SPI 50–53, I2C 20/21).","Uno shield-கள் Mega-வில் பொருந்தும்; ஆனால் SPI, I2C பின்கள் வேறு இடத்தில் உள்ளன (SPI 50–53, I2C 20/21)."],
   holes:[[60,200],[94,24],[352,32],[352,172]],
-  silk:[[200,26,"DIGITAL",7],[140,194,"POWER",6],[270,194,"ANALOG IN",6],[205,148,"MEGA 2560",9]],
+  silk:[[200,40,"DIGITAL",7],[140,180,"POWER",6],[270,180,"ANALOG IN",6],[205,148,"MEGA 2560",9]],
   c:[
    ["usbb","usbb",-8,28,64,48,"USB‑B","Power and upload from the PC.","PC-யிலிருந்து மின்சாரமும் upload-ம்.",{e:"l"}],
    ["dcjack","jack",-6,150,56,36,"","7–12V adapter input.","7–12V அடாப்டர் உள்ளீடு.",{e:"l"}],
@@ -1214,7 +1227,7 @@ const BOARDS = [
         ["Hidden controllers inside switches and toys","ஸ்விட்ச், பொம்மைகளுக்குள் மறைந்திருக்கும் கட்டுப்படுத்தி"],
         ["Wireless nodes with nRF24L01","nRF24L01 உடன் வயர்லெஸ் node-கள்"]],
   tip:["Check whether yours is 3.3V/8 MHz or 5V/16 MHz and choose the same in the IDE, or uploads will fail.","உங்களுடையது 3.3V/8 MHz-ஆ அல்லது 5V/16 MHz-ஆ என்று பார்த்து IDE-இல் அதையே தேர்வு செய்யுங்கள்; இல்லையெனில் upload தோல்வியடையும்."],
-  holes:[], silk:[[70,62,"PRO MINI",6]],
+  holes:[], silk:[],
   c:[
    ["header","pads",2,6,0,0,"","FTDI programming pads: GND, CTS, VCC, RXI, TXO, DTR. Connect a USB-serial adapter here.","FTDI program பேட்கள்: GND, CTS, VCC, RXI, TXO, DTR. இங்கே USB-சீரியல் அடாப்டரை இணைக்கவும்.",{n:6,o:"v"}],
    ["crystal","crystal",30,30,18,9,"16M","Resonator: 16 MHz (5V) or 8 MHz (3.3V).","Resonator: 16 MHz (5V) அல்லது 8 MHz (3.3V).",{smd:1}],
@@ -1223,8 +1236,8 @@ const BOARDS = [
    ["reset","button",92,42,16,16,"","Reset button.","Reset பட்டன்.",{}],
    ["ledpwr","led",116,22,8,4,"","Power LED. Remove it to save battery in sleep mode.","பவர் LED. Sleep mode-இல் பேட்டரியைச் சேமிக்க இதை நீக்கலாம்.",{col:"#e33"}],
    ["ledbuilt","led",116,34,8,4,"","LED on pin 13.","பின் 13-இல் LED.",{col:"#3bd36b"}],
-   ["hdrdig","pads",20,0,0,0,"","TX0, RXI, RST, GND, D2–D9.","TX0, RXI, RST, GND, D2–D9.",{n:11}],
-   ["hdrana","pads",20,62,0,0,"","RAW, GND, RST, VCC, A3–A0, D13–D10.","RAW, GND, RST, VCC, A3–A0, D13–D10.",{n:11}]
+   ["hdrdig","pads",20,0,0,0,"","TX0, RXI, RST, GND, D2–D9.","TX0, RXI, RST, GND, D2–D9.",{n:12,p:9.4}],
+   ["hdrana","pads",20,62,0,0,"","RAW, GND, RST, VCC, A3–A0, D13–D10.","RAW, GND, RST, VCC, A3–A0, D13–D10.",{n:12,p:9.4}]
   ]},
 
 { id:"nodemcu", n:"NodeMCU ESP8266 (v3)", al:["nodemcu","esp8266","esp-12e","lolin"], cat:"iot", col:"#25282c", W:232, H:124,
@@ -1238,7 +1251,7 @@ const BOARDS = [
         ["Small web server pages and IoT switches","சிறிய web server பக்கங்கள், IoT ஸ்விட்ச்கள்"],
         ["MQTT nodes for Home Assistant","Home Assistant-க்கான MQTT node-கள்"]],
   tip:["GPIO pins are 3.3V. Use a level shifter or voltage divider for 5V sensors. Avoid D3, D4, D8 for inputs: they decide the boot mode.","GPIO பின்கள் 3.3V. 5V சென்சார்களுக்கு level shifter அல்லது voltage divider பயன்படுத்துங்கள். D3, D4, D8 பின்கள் boot mode-ஐத் தீர்மானிப்பதால் உள்ளீட்டுக்குத் தவிர்க்கவும்."],
-  holes:[[10,10],[222,10],[10,114],[222,114]], silk:[[110,108,"NodeMCU V3",7]],
+  holes:[[10,10],[222,10],[10,114],[222,114]], silk:[[72,92,"NodeMCU V3",6]],
   c:[
    ["usbmicro","usbmicro",-6,44,30,36,"","Micro-USB: 5V power and upload.","Micro-USB: 5V மின்சாரமும் upload-ம்.",{e:"l"}],
    ["reset","button",28,18,16,16,"RST","RST button: restarts the ESP8266.","RST பட்டன்: ESP8266-ஐ மீண்டும் தொடங்குகிறது.",{}],
@@ -1249,8 +1262,8 @@ const BOARDS = [
    ["wifimod","shield",124,24,64,74,"ESP-12E|ESP8266","ESP-12E module: ESP8266EX chip + 4 MB Flash + crystal under the can. This is the brain.","ESP-12E மாட்யூல்: மூடியின் கீழ் ESP8266EX சிப் + 4 MB Flash + கிரிஸ்டல். இதுவே மூளை.",{}],
    ["antenna","antenna",188,24,40,74,"","Wi‑Fi antenna of the ESP-12E. Keep it clear of metal.","ESP-12E-இன் Wi‑Fi ஆன்டெனா. உலோகத்திலிருந்து தள்ளி வையுங்கள்.",{}],
    ["ledbuilt","led",194,14,9,5,"","Blue LED on GPIO2 (D4), active-LOW.","GPIO2 (D4)-இல் நீல LED, active-LOW.",{col:"#3a8bff"}],
-   ["hdrana","header",40,2,0,0,"","A0, RSV, RSV, SD3, SD2, SD1, CMD, SD0, CLK, GND, 3V3, EN, RST, GND, VIN. A0 reads 0–3.3V.","A0, RSV, RSV, SD3, SD2, SD1, CMD, SD0, CLK, GND, 3V3, EN, RST, GND, VIN. A0 0–3.3V படிக்கும்.",{n:15}],
-   ["hdrdig","header",40,112,0,0,"","D0–D8, RX, TX, GND, 3V3. D1 = SCL, D2 = SDA (I2C).","D0–D8, RX, TX, GND, 3V3. D1 = SCL, D2 = SDA (I2C).",{n:15}]
+   ["hdrana","header",40,2,0,0,"","VIN, GND, RST, EN, 3V3, GND, CLK, SD0, CMD, SD1, SD2, SD3, RSV, RSV, A0 (left to right, USB on the left). A0 reads 0–3.3V.","VIN, GND, RST, EN, 3V3, GND, CLK, SD0, CMD, SD1, SD2, SD3, RSV, RSV, A0 (இடமிருந்து வலம், USB இடப்பக்கம்). A0 0–3.3V படிக்கும்.",{n:15}],
+   ["hdrdig","header",40,112,0,0,"","3V3, GND, TX, RX, D8, D7, D6, D5, GND, 3V3, D4, D3, D2, D1, D0. D1 = SCL, D2 = SDA (I2C).","3V3, GND, TX, RX, D8, D7, D6, D5, GND, 3V3, D4, D3, D2, D1, D0. D1 = SCL, D2 = SDA (I2C).",{n:15}]
   ]},
 
 { id:"esp01", n:"ESP‑01 (ESP8266)", al:["esp01","esp-01","esp8266","esp-01s"], cat:"iot", col:"#1b1c1e", W:100, H:58,
@@ -1309,7 +1322,7 @@ const BOARDS = [
         ["Robots and drones controlled from a phone","போனிலிருந்து கட்டுப்படுத்தும் ரோபோ, ட்ரோன்"],
         ["Vehicle tracking with GPS + GSM","GPS + GSM மூலம் வாகனக் கண்காணிப்பு"]],
   tip:["GPIO 34–39 are input-only. ADC2 pins cannot be used while Wi‑Fi is on; use ADC1 (GPIO 32–39) for sensors.","GPIO 34–39 உள்ளீடு மட்டும். Wi‑Fi இயங்கும்போது ADC2 பின்கள் வேலை செய்யாது; சென்சார்களுக்கு ADC1 (GPIO 32–39) பயன்படுத்துங்கள்."],
-  holes:[], silk:[[100,108,"ESP32 DEVKIT V1",6]],
+  holes:[], silk:[[66,94,"ESP32 DEVKIT V1",5]],
   c:[
    ["usbmicro","usbmicro",-6,40,30,32,"","Micro-USB for power and upload.","மின்சாரம், upload-க்கான Micro-USB.",{e:"l"}],
    ["reset","button",26,18,16,16,"EN","EN button: resets the ESP32.","EN பட்டன்: ESP32-ஐ reset செய்கிறது.",{}],
@@ -1321,7 +1334,7 @@ const BOARDS = [
    ["ldo","reg",80,64,24,20,"1117","AMS1117-3.3 regulator: 5V to 3.3V, about 800 mA.","AMS1117-3.3 ரெகுலேட்டர்: 5V-ஐ 3.3V ஆக, சுமார் 800 mA.",{}],
    ["wifimod","shield",112,20,70,72,"ESP32-|WROOM-32","ESP32-WROOM-32 module: dual-core CPU, Wi‑Fi, Bluetooth and 4 MB Flash.","ESP32-WROOM-32 மாட்யூல்: dual-core CPU, Wi‑Fi, Bluetooth, 4 MB Flash.",{}],
    ["antenna","antenna",182,20,36,72,"","Wi‑Fi / Bluetooth antenna.","Wi‑Fi / Bluetooth ஆன்டெனா.",{}],
-   ["hdrdig","header",32,2,0,0,"","EN, VP(36), VN(39), D34, D35, D32, D33, D25, D26, D27, D14, D12, D13, GND, VIN.","EN, VP(36), VN(39), D34, D35, D32, D33, D25, D26, D27, D14, D12, D13, GND, VIN.",{n:15}],
+   ["hdrdig","header",32,2,0,0,"","VIN, GND, D13, D12, D14, D27, D26, D25, D33, D32, D35, D34, VN(39), VP(36), EN. VIN gives USB 5V.","VIN, GND, D13, D12, D14, D27, D26, D25, D33, D32, D35, D34, VN(39), VP(36), EN. VIN USB 5V தரும்.",{n:15}],
    ["hdrdig","header",32,100,0,0,"","3V3, GND, D15, D2, D4, RX2, TX2, D5, D18, D19, D21 (SDA), RX0, TX0, D22 (SCL), D23.","3V3, GND, D15, D2, D4, RX2, TX2, D5, D18, D19, D21 (SDA), RX0, TX0, D22 (SCL), D23.",{n:15}]
   ]},
 
@@ -1344,8 +1357,8 @@ const BOARDS = [
    ["wifimod","shield",20,72,68,56,"ESP32-S","ESP32-S module: the processor, Wi‑Fi and Bluetooth.","ESP32-S மாட்யூல்: ப்ராசசர், Wi‑Fi, Bluetooth.",{}],
    ["antenna","antenna",20,128,68,28,"","PCB antenna. Range is short; use the U.FL socket for more.","PCB ஆன்டெனா. வரம்பு குறைவு; அதிகத்துக்கு U.FL பயன்படுத்துங்கள்.",{}],
    ["ufl","ufl",74,138,10,10,"","U.FL socket for an external antenna (a tiny resistor selects which antenna is used).","வெளி ஆன்டெனாவுக்கான U.FL சாக்கெட் (எந்த ஆன்டெனா என்பதை ஒரு சிறிய resistor தீர்மானிக்கும்).",{}],
-   ["header","pads",2,74,0,0,"","5V, GND, IO12, IO13, IO15, IO14, IO2, IO4.","5V, GND, IO12, IO13, IO15, IO14, IO2, IO4.",{n:8,o:"v"}],
-   ["header","pads",96,74,0,0,"","3V3, IO16, IO0, GND, VCC, U0R (RX), U0T (TX), GND. IO0 to GND = upload mode.","3V3, IO16, IO0, GND, VCC, U0R (RX), U0T (TX), GND. IO0-ஐ GND-உடன் இணைத்தால் upload mode.",{n:8,o:"v"}],
+   ["header","pads",2,74,0,0,"","IO4, IO2, IO14, IO15, IO13, IO12, GND, 5V (5V is at the far end from the camera).","IO4, IO2, IO14, IO15, IO13, IO12, GND, 5V (5V கேமராவுக்கு எதிர் முனையில்).",{n:8,o:"v"}],
+   ["header","pads",96,74,0,0,"","GND, U0T (TX), U0R (RX), VCC, GND, IO0, IO16, 3V3. IO0 to GND = upload mode.","GND, U0T (TX), U0R (RX), VCC, GND, IO0, IO16, 3V3. IO0-ஐ GND-உடன் இணைத்தால் upload mode.",{n:8,o:"v"}],
    ["sd","sd",14,14,80,64,"","microSD slot on the back. Save photos and video; uses GPIO 2, 4, 12–15.","பின்பக்கம் மைக்ரோSD ஸ்லாட். புகைப்படம், வீடியோ சேமிக்கலாம்; GPIO 2, 4, 12–15 பயன்படுத்தும்.",{b:1}],
    ["ram","chip",56,92,28,20,"PSRAM","4 MB PSRAM for camera frames.","கேமரா frame-களுக்கான 4 MB PSRAM.",{pins:"tb",b:1}],
    ["ldo","reg",20,92,24,20,"1117","AMS1117-3.3: makes 3.3V from the 5V pin.","AMS1117-3.3: 5V பின்னிலிருந்து 3.3V உருவாக்குகிறது.",{b:1}],
@@ -1363,7 +1376,7 @@ const BOARDS = [
         ["Data loggers and battery projects","Data logger, பேட்டரி ப்ராஜெக்ட்கள்"],
         ["Robotics with many PWM servos","பல PWM servo-களுடன் ரோபோட்டிக்ஸ்"]],
   tip:["Hold BOOTSEL while plugging in USB: the Pico appears as a USB drive. Drop the .uf2 file on it to install firmware.","USB இணைக்கும்போது BOOTSEL-ஐ அழுத்திப் பிடியுங்கள்: Pico ஒரு USB டிரைவாகத் தெரியும். Firmware நிறுவ .uf2 கோப்பை அதில் போடுங்கள்."],
-  holes:[[182,26],[182,58]], silk:[[110,72,"Pico",7]],
+  holes:[[182,26],[182,58]], silk:[],
   c:[
    ["usbmicro","usbmicro",-6,26,28,32,"","Micro-USB: power, upload and USB device (keyboard, serial).","Micro-USB: மின்சாரம், upload, USB சாதனம் (கீபோர்டு, சீரியல்).",{e:"l"}],
    ["ledbuilt","led",34,16,9,5,"","Green LED on GPIO25 (on Pico W it is controlled through the Wi‑Fi chip).","GPIO25-இல் பச்சை LED (Pico W-இல் Wi‑Fi சிப் வழியாக).",{col:"#30d158"}],
@@ -1374,8 +1387,8 @@ const BOARDS = [
    ["buckic","chip",156,24,14,12,"RT6150","RT6150 buck-boost: gives steady 3.3V from 1.8–5.5V, good for batteries.","RT6150 buck-boost: 1.8–5.5V-இலிருந்து நிலையான 3.3V; பேட்டரிக்கு ஏற்றது.",{pins:"lr"}],
    ["inductor","inductor",156,42,16,16,"","Inductor for the buck-boost regulator.","Buck-boost ரெகுலேட்டருக்கான இண்டக்டர்.",{}],
    ["swd","pads",192,30,0,0,"","SWD debug pads: SWCLK, GND, SWDIO.","SWD டீபக் பேட்கள்: SWCLK, GND, SWDIO.",{n:3,o:"v",p:8}],
-   ["pads","pads",6,0,0,0,"","GP0–GP15 with GND pads between (castellated, can be soldered flat).","GP0–GP15, இடையே GND பேட்கள் (castellated; தட்டையாக சோல்டர் செய்யலாம்).",{n:20,p:9.6}],
-   ["pads","pads",6,74.4,0,0,"","VBUS, VSYS, GND, 3V3_EN, 3V3, ADC_VREF, GP28–GP26 (ADC), RUN, GP22–GP16.","VBUS, VSYS, GND, 3V3_EN, 3V3, ADC_VREF, GP28–GP26 (ADC), RUN, GP22–GP16.",{n:20,p:9.6}]
+   ["pads","pads",6,0,0,0,"","VBUS, VSYS, GND, 3V3_EN, 3V3, ADC_VREF, GP28, AGND, GP27, GP26 (ADC), RUN, GP22–GP16.","VBUS, VSYS, GND, 3V3_EN, 3V3, ADC_VREF, GP28, AGND, GP27, GP26 (ADC), RUN, GP22–GP16.",{n:20,p:9.6}],
+   ["pads","pads",6,74.4,0,0,"","GP0–GP15 with GND pads between (castellated, can be soldered flat).","GP0–GP15, இடையே GND பேட்கள் (castellated; தட்டையாக சோல்டர் செய்யலாம்).",{n:20,p:9.6}]
   ]},
 
 { id:"rpi4", n:"Raspberry Pi 4 Model B", al:["raspberry pi","pi 4","rpi","bcm2711","raspberry pi 4"], cat:"sbc", col:"#1e7a3a", W:340, H:224,
@@ -1435,7 +1448,7 @@ const BOARDS = [
    ["reset","button",140,52,16,16,"","Reset button.","Reset பட்டன்.",{}],
    ["swd","header",182,26,0,0,"","SWD: 3.3V, SWDIO, SWCLK, GND for ST-Link.","SWD: ST-Link-க்கான 3.3V, SWDIO, SWCLK, GND.",{n:4,o:"v"}],
    ["pads","pads",6,0,0,0,"","B12–B15, A8–A15, B3–B9, 5V, GND, 3V3.","B12–B15, A8–A15, B3–B9, 5V, GND, 3V3.",{n:20}],
-   ["pads","pads",6,82,0,0,"","GND, 3V3, VBAT, C13–C15, A0–A7 (ADC), B0, B1, B10, B11, R.","GND, 3V3, VBAT, C13–C15, A0–A7 (ADC), B0, B1, B10, B11, R.",{n:20}]
+   ["pads","pads",6,82,0,0,"","GND, GND, 3V3, R (reset), B11, B10, B1, B0, A7–A0 (ADC), C15, C14, C13, VBAT.","GND, GND, 3V3, R (reset), B11, B10, B1, B0, A7–A0 (ADC), C15, C14, C13, VBAT.",{n:20}]
   ]},
 
 { id:"relay1", n:"1‑Channel 5V Relay Module", al:["relay","relay module","srd-05vdc","5v relay"], cat:"drv", col:"#1f55b5", W:200, H:104,
@@ -1909,8 +1922,8 @@ BOARDS.push(
    ["ldo","reg",90,62,24,20,"","3.3V regulator.","3.3V ரெகுலேட்டர்.",{}],
    ["wifimod","shield",128,18,102,68,"ESP32-S3-|WROOM-1","ESP32-S3-WROOM-1 module with Flash (and PSRAM on N8R8 versions).","Flash (N8R8 பதிப்புகளில் PSRAM-ம்) கொண்ட ESP32-S3-WROOM-1 மாட்யூல்.",{}],
    ["antenna","antenna",230,18,46,68,"","PCB antenna.","PCB ஆன்டெனா.",{}],
-   ["hdrdig","header",30,2,0,0,"","3V3, 3V3, RST, GPIO4–7, 15–18, 8, 3, 46, 9–14, 5V, GND.","3V3, 3V3, RST, GPIO4–7, 15–18, 8, 3, 46, 9–14, 5V, GND.",{n:22}],
-   ["hdrdig","header",30,92,0,0,"","GND, TX, RX, GPIO1, 2, 42, 41, 40, 39, 38, 37, 36, 35, 0, 45, 48, 47, 21, 20 (USB D+), 19 (USB D−), GND, GND.","GND, TX, RX, GPIO1, 2, 42, 41, 40, 39, 38, 37, 36, 35, 0, 45, 48, 47, 21, 20 (USB D+), 19 (USB D−), GND, GND.",{n:22}]
+   ["hdrdig","header",30,2,0,0,"","GND, 5V, GPIO14–9, 46, 3, 8, GPIO18–15, GPIO7–4, RST, 3V3, 3V3 (USB end on the left).","GND, 5V, GPIO14–9, 46, 3, 8, GPIO18–15, GPIO7–4, RST, 3V3, 3V3 (USB முனை இடப்பக்கம்).",{n:22}],
+   ["hdrdig","header",30,92,0,0,"","GND, GND, GPIO19 (USB D−), 20 (USB D+), 21, 47, 48, 45, 0, 35–42, 2, 1, RX, TX, GND.","GND, GND, GPIO19 (USB D−), 20 (USB D+), 21, 47, 48, 45, 0, 35–42, 2, 1, RX, TX, GND.",{n:22}]
   ]},
 
 { id:"digispark", n:"Digispark ATtiny85", al:["digispark","attiny85","attiny","usb attiny"], cat:"mcu", col:"#2b2c31", W:110, H:76,
@@ -2299,6 +2312,76 @@ BOARDS.push(
    ["header","header",104,22,0,0,"","VCC, OUT, GND. Read OUT on an analog pin.","VCC, OUT, GND. OUT-ஐ அனலாக் பின்னில் படியுங்கள்.",{n:3,o:"v"}]
   ]}
 );
+/* ---------- PIN NAMES printed next to every header (order = drawing order) ---------- */
+const range = (pre, a, b, post = "") => { const out = []; const st = a <= b ? 1 : -1; for (let i = a; st > 0 ? i <= b : i >= b; i += st) out.push(pre + i + post); return out; };
+const PI40_EDGE = ["5V", "5V", "GND", "TX", "RX", "IO18", "GND", "IO23", "IO24", "GND", "IO25", "CE0", "CE1", "ID_SC", "GND", "IO12", "GND", "IO16", "IO20", "IO21"];
+const PI40_INNER = ["3V3", "SDA", "SCL", "IO4", "GND", "IO17", "IO27", "IO22", "3V3", "MOSI", "MISO", "SCLK", "GND", "ID_SD", "IO5", "IO6", "IO13", "IO19", "IO26", "GND"];
+const PINS = {
+  uno: { 9: ["SCL", "SDA", "AREF", "GND", "13", "12", "~11", "~10", "~9", "8"], 10: ["7", "~6", "~5", "4", "~3", "2", "TX1", "RX0"],
+         15: ["NC", "IOREF", "RST", "3V3", "5V", "GND", "GND", "VIN"], 16: range("A", 0, 5) },
+  nano: { 10: ["D12", "D11", "D10", "D9", "D8", "D7", "D6", "D5", "D4", "D3", "D2", "GND", "RST", "RX0", "TX1"],
+          11: ["D13", "3V3", "AREF", ...range("A", 0, 7), "5V", "RST", "GND", "VIN"] },
+  mega: { 13: ["SCL", "SDA", "AREF", "GND", "13", "12", "11", "10", "9", "8"], 14: ["7", "6", "5", "4", "3", "2", "TX0", "RX0"],
+          15: ["TX3", "RX3", "TX2", "RX2", "TX1", "RX1", "SDA", "SCL"],
+          16: ["5V", ...range("", 22, 52).filter(x => x % 2 === 0), "GND", "5V", ...range("", 23, 53).filter(x => x % 2 === 1), "GND"],
+          17: ["NC", "IOREF", "RST", "3V3", "5V", "GND", "GND", "VIN"], 18: range("A", 0, 15) },
+  promini: { 0: ["GND", "CTS", "VCC", "RXI", "TXO", "DTR"], 7: ["TXO", "RXI", "RST", "GND", ...range("", 2, 9)],
+             8: ["RAW", "GND", "RST", "VCC", "A3", "A2", "A1", "A0", "13", "12", "11", "10"] },
+  nodemcu: { 9: ["VIN", "GND", "RST", "EN", "3V3", "GND", "CLK", "SD0", "CMD", "SD1", "SD2", "SD3", "RSV", "RSV", "A0"],
+             10: ["3V3", "GND", "TX", "RX", "D8", "D7", "D6", "D5", "GND", "3V3", "D4", "D3", "D2", "D1", "D0"] },
+  esp01: { 6: ["RX", "IO0", "IO2", "GND", "VCC", "RST", "EN", "TX"] },
+  d1mini: { 7: ["RST", "A0", "D0", "D5", "D6", "D7", "D8", "3V3"], 8: ["TX", "RX", "D1", "D2", "D3", "D4", "GND", "5V"] },
+  esp32: { 10: ["VIN", "GND", "D13", "D12", "D14", "D27", "D26", "D25", "D33", "D32", "D35", "D34", "VN", "VP", "EN"],
+           11: ["3V3", "GND", "D15", "D2", "D4", "RX2", "TX2", "D5", "D18", "D19", "D21", "RX0", "TX0", "D22", "D23"] },
+  esp32cam: { 6: ["IO4", "IO2", "IO14", "IO15", "IO13", "IO12", "GND", "5V"], 7: ["GND", "U0T", "U0R", "VCC", "GND", "IO0", "IO16", "3V3"] },
+  pico: { 8: ["SWCLK", "GND", "SWDIO"],
+          9: ["VBUS", "VSYS", "GND", "3V3_EN", "3V3", "VREF", "GP28", "AGND", "GP27", "GP26", "RUN", "GP22", "GND", "GP21", "GP20", "GP19", "GP18", "GND", "GP17", "GP16"],
+          10: ["GP0", "GP1", "GND", "GP2", "GP3", "GP4", "GP5", "GND", "GP6", "GP7", "GP8", "GP9", "GND", "GP10", "GP11", "GP12", "GP13", "GND", "GP14", "GP15"] },
+  rpi4: { 0: [...PI40_EDGE, ...PI40_INNER] },
+  rpi5: { 0: [...PI40_EDGE, ...PI40_INNER] },
+  pizero2: { 0: [...PI40_EDGE, ...PI40_INNER] },
+  bluepill: { 9: ["3V3", "DIO", "CLK", "GND"],
+              10: ["B12", "B13", "B14", "B15", "A8", "A9", "A10", "A11", "A12", "A15", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "5V", "GND", "3V3"],
+              11: ["GND", "GND", "3V3", "R", "B11", "B10", "B1", "B0", "A7", "A6", "A5", "A4", "A3", "A2", "A1", "A0", "C15", "C14", "C13", "VB"] },
+  relay1: { 7: ["DC+", "DC−", "IN"] },
+  relay4: { 17: ["GND", "IN1", "IN2", "IN3", "IN4", "VCC"], 18: ["JD", "VCC", "GND"] },
+  l298n: { 6: ["ENA", "IN1", "IN2", "IN3", "IN4", "ENB"] },
+  a4988: { 4: ["EN", "MS1", "MS2", "MS3", "RST", "SLP", "STEP", "DIR"], 5: ["VMOT", "GND", "2B", "2A", "1A", "1B", "VDD", "GND"] },
+  lm2596: { 6: ["IN+", "IN−"], 7: ["OUT+", "OUT−"] },
+  tp4056: { 6: ["OUT+", "OUT−"], 7: ["B+", "B−"] },
+  hc05: { 0: ["STATE", "RXD", "TXD", "GND", "VCC", "EN"] },
+  nrf24: { 0: ["GND", "CE", "SCK", "MISO", "VCC", "CSN", "MOSI", "IRQ"] },
+  rc522: { 4: ["SDA", "SCK", "MOSI", "MISO", "IRQ", "GND", "RST", "3.3V"] },
+  sim800l: { 2: ["NET", "VCC", "RST", "RXD", "TXD", "GND"], 3: ["RING", "DTR", "MIC+", "MIC−", "SPK+", "SPK−"] },
+  oled: { 0: ["GND", "VCC", "SCL", "SDA"] },
+  mpu6050: { 4: ["VCC", "GND", "SCL", "SDA", "XDA", "XCL", "AD0", "INT"] },
+  hcsr04: { 3: ["VCC", "TRIG", "ECHO", "GND"] },
+  dht11: { 3: ["S", "+", "−"] },
+  pir: { 5: ["H", "", "L"], 6: ["VCC", "OUT", "GND"] },
+  soil: { 3: ["VCC", "GND", "DO", "AO"], 4: ["+", "−"] },
+  esp32c3: { 8: ["5V", "GND", "3V3", "IO4", "IO3", "IO2", "IO1", "IO0"], 9: ["IO5", "IO6", "IO7", "IO8", "IO9", "IO10", "RX", "TX"] },
+  esp32s3: { 9: ["GND", "5V", "14", "13", "12", "11", "10", "9", "46", "3", "8", "18", "17", "16", "15", "7", "6", "5", "4", "RST", "3V3", "3V3"],
+             10: ["GND", "GND", "19", "20", "21", "47", "48", "45", "0", "35", "36", "37", "38", "39", "40", "41", "42", "2", "1", "RX", "TX", "GND"] },
+  digispark: { 6: range("P", 0, 5), 7: ["5V", "GND", "VIN"] },
+  uln2003: { 3: ["IN1", "IN2", "IN3", "IN4"], 5: ["−", "+"] },
+  irf520: { 5: ["SIG", "VCC", "GND"] },
+  mt3608: { 0: ["VIN+", "VIN−"], 6: ["OUT+", "OUT−"] },
+  ams1117: { 4: ["VIN", "GND"], 5: ["3V3", "GND"] },
+  neo6m: { 6: ["VCC", "RX", "TX", "GND"] },
+  lora: { 2: ["ANT", "GND", "3V3", "RST", "DIO0", "DIO1", "DIO2", "DIO3"], 3: ["GND", "DIO4", "DIO5", "SCK", "MISO", "MOSI", "NSS", "GND"] },
+  enc28j60: { 0: ["CLKOUT", "WOL", "SI", "CS", "VCC", "INT", "SO", "SCK", "RST", "GND"] },
+  max7219: { 1: ["VCC", "GND", "DIN", "CS", "CLK"], 2: ["VCC", "GND", "DOUT", "CS", "CLK"] },
+  lcd1602: { 0: ["VSS", "VDD", "V0", "RS", "RW", "E", ...range("D", 0, 7), "A", "K"], 5: ["GND", "VCC", "SDA", "SCL"] },
+  tm1637: { 1: ["CLK", "DIO", "VCC", "GND"] },
+  ds3231: { 0: ["32K", "SQW", "SCL", "SDA", "VCC", "GND"], 5: ["SCL", "SDA", "VCC", "GND"] },
+  microsd: { 4: ["GND", "VCC", "MISO", "MOSI", "SCK", "CS"] },
+  levelshift: { 0: ["LV1", "LV2", "LV", "GND", "LV3", "LV4"], 6: ["HV1", "HV2", "HV", "GND", "HV3", "HV4"] },
+  bme280: { 3: ["VCC", "GND", "SCL", "SDA", "CSB", "SDO"] },
+  mq2: { 1: ["VCC", "GND", "DO", "AO"] },
+  irsensor: { 0: ["VCC", "GND", "OUT"] },
+  hx711: { 0: ["E+", "E−", "A−", "A+", "B−", "B+"], 3: ["GND", "DT", "SCK", "VCC"] },
+  acs712: { 4: ["VCC", "OUT", "GND"] }
+};
 /* ---------- SVG RENDERER (pure functions) ---------- */
 const f = n => Math.round(n * 100) / 100;
 const esc = s => String(s).replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
@@ -2723,12 +2806,34 @@ function normBoard(b) {
       const p = o.p || 10, n = o.n || 1, r = o.r || 1;
       if (o.o === "v") { w = r * p; h = n * p; } else { w = n * p; h = r * p; }
     }
-    return { i, p: a[0], t: a[1], x: a[2], y: a[3], w, h, lb: a[6] || "", ne: a[7] || "", nt: a[8] || "", o, back: !!o.b };
+    return { i, p: a[0], t: a[1], x: a[2], y: a[3], w, h, lb: a[6] || "", ne: a[7] || "", nt: a[8] || "", o, back: !!o.b, pins: (typeof PINS !== "undefined" && PINS[b.id] && PINS[b.id][i]) || null };
   });
   return b;
 }
 
 const PAD = 16;
+/* printed pin names next to headers: small silkscreen always, big tags when selected */
+function pinLabels(c, b) {
+  if (!c.pins || !["header", "pads", "jhdr"].includes(c.t)) return { small: "", big: "" };
+  const o = c.o, v = o.o === "v", r = o.r || 1, n = o.n || 1, p = o.p || 10, bh = b.bh || b.H;
+  const nearTop = c.y + c.h / 2 < bh / 2, nearLeft = c.x + c.w / 2 < b.W / 2;
+  const fs = Math.min(4.3, p * 0.43), off = p * 0.5 + 0.6, bfs = 6.6;
+  let small = "", big = "";
+  hdrPins(c).forEach(([x, y], k) => {
+    const name = c.pins[k]; if (!name) return;
+    const j = Math.floor(k / n);
+    const dir = v ? (r === 2 ? (j === 0 ? "left" : "right") : (nearLeft ? "right" : "left"))
+                  : (r === 2 ? (j === 0 ? "up" : "down") : (nearTop ? "down" : "up"));
+    const rot = dir === "up" || dir === "down";
+    const start = dir === "up" || dir === "right";
+    const tx0 = dir === "left" ? x - off : dir === "right" ? x + off : x, ty0 = dir === "up" ? y - off : dir === "down" ? y + off : y;
+    const tr = `translate(${f(tx0)} ${f(ty0)})${rot ? " rotate(-90)" : ""}`;
+    small += `<text transform="${tr}" font-size="${f(fs)}" text-anchor="${start ? "start" : "end"}" dominant-baseline="central">${esc(name)}</text>`;
+    const bw = name.length * bfs * 0.62 + 3.4, bhh = bfs + 2.6;
+    big += `<g transform="${tr}"><rect x="${f(start ? 0 : -bw)}" y="${f(-bhh / 2)}" width="${f(bw)}" height="${f(bhh)}" rx="1.6"/><text x="${f(start ? 1.7 : -1.7)}" y="0.3" font-size="${bfs}" text-anchor="${start ? "start" : "end"}" dominant-baseline="central">${esc(name)}</text></g>`;
+  });
+  return { small: small ? `<g class="pinsilk">${small}</g>` : "", big: big ? `<g class="pinbig">${big}</g>` : "" };
+}
 function boardSVG(b, side, inter) {
   normBoard(b);
   const W = b.W, H = b.H, bh = b.bh || H, back = side === "back";
@@ -2747,10 +2852,11 @@ function boardSVG(b, side, inter) {
   }
   b.cs.forEach(c => {
     if (c.back !== back) return;
-    const art = drawComp(c);
+    const pl = pinLabels(c, b);
+    const art = drawComp(c) + pl.small;
     if (!inter) { s += art; return; }
     const m = 3;
-    s += `<g class="hs" data-i="${c.i}" tabindex="-1">${art}<rect class="hl" x="${f(c.x - m)}" y="${f(c.y - m)}" width="${f(c.w + m * 2)}" height="${f(c.h + m * 2)}" rx="3"/><g class="mk"><circle cx="${f(c.x - 1)}" cy="${f(c.y - 1)}" r="6.4"/><text x="${f(c.x - 1)}" y="${f(c.y - 0.6)}">${c.i + 1}</text></g></g>`;
+    s += `<g class="hs" data-i="${c.i}" tabindex="-1">${art}<rect class="hl" x="${f(c.x - m)}" y="${f(c.y - m)}" width="${f(c.w + m * 2)}" height="${f(c.h + m * 2)}" rx="3"/>${pl.big}<g class="mk"><circle cx="${f(c.x - 1)}" cy="${f(c.y - 1)}" r="6.4"/><text x="${f(c.x - 1)}" y="${f(c.y - 0.6)}">${c.i + 1}</text></g></g>`;
   });
   return s + `</svg>`;
 }
@@ -2806,7 +2912,9 @@ const UI = {
   partsSub: ["Every component that appears on the boards, explained once in detail.", "போர்டுகளில் வரும் ஒவ்வொரு கூறும் விரிவாக விளக்கப்பட்டுள்ளது."],
   basicsTitle: ["PCB basics", "PCB அடிப்படைகள்"],
   basicsSub: ["The ideas you need before reading any board.", "எந்த போர்டையும் படிக்கும் முன் தெரிய வேண்டியவை."],
-  layers: ["Layers of a PCB, cut from the side", "PCB-இன் அடுக்குகள், பக்கவாட்டு வெட்டுத் தோற்றம்"]
+  layers: ["Layers of a PCB, cut from the side", "PCB-இன் அடுக்குகள், பக்கவாட்டு வெட்டுத் தோற்றம்"],
+  pinsT: ["Pin names (as printed on the board)", "பின் பெயர்கள் (போர்டில் அச்சிடப்பட்டபடி)"],
+  pinWarn: ["Names follow the common version of this board and are shown on the picture. Always confirm with the printing on your own board before wiring.", "பின் பெயர்கள் இந்த போர்டின் பொதுவான பதிப்பைப் பின்பற்றுகின்றன; படத்திலும் காட்டப்பட்டுள்ளன. வயர் இணைக்கும் முன் உங்கள் போர்டில் உள்ள அச்சையும் சரிபாருங்கள்."]
 };
 const TA_FONT_NOTE = ["Tamil voice depends on your phone or computer having a Tamil (ta-IN) voice installed.", "தமிழ் குரல், உங்கள் போன் அல்லது கணினியில் தமிழ் (ta-IN) voice நிறுவப்பட்டிருப்பதைப் பொறுத்தது."];
 
@@ -3083,6 +3191,7 @@ function renderDetail() {
       <div class="d-icon">${partIcon(c.p)}</div>
     </div>
     ${c.ne ? row("here", [c.ne, c.nt]) : ""}
+    ${c.pins ? `<div class="drow"><h3>${tx(UI.pinsT)}</h3><div class="pinchips">${c.pins.map((nm, k) => nm ? `<span class="pchip"><b>${k + 1}</b>${esc(nm)}</span>` : "").join("")}</div><p class="pinwarn">${tx(UI.pinWarn)}</p></div>` : ""}
     ${row("what", p.w)}${row("does", p.d)}${row("test", p.t)}
     <div class="d-nav">
       <button type="button" class="cb wide" data-nav="-1">← ${LANG === "ta" ? "முந்தைய" : "Previous"}</button>
@@ -3509,8 +3618,8 @@ void loop() {
   d: ["Control a relay from an ESP32. Test it with the click sound first; connect a lamp only after it works.", "ESP32 மூலம் ரிலேயைக் கட்டுப்படுத்துங்கள். முதலில் 'கிளிக்' சத்தத்தால் சோதியுங்கள்; வேலை செய்த பிறகே விளக்கை இணையுங்கள்."],
   W: 800, H: 380, boards: [{ id: "esp32", x: 20, y: 90, w: 400 }, { id: "relay1", x: 480, y: 100, w: 300 }],
   wires: [
-    { a: [0, 10, 14, "VIN (5V)"], b: [1, 7, 0, "DC+"], col: "red", n: ["VIN gives the USB 5V the relay coil needs. Do not use 3V3 here.", "ரிலே காயிலுக்குத் தேவையான USB 5V-ஐ VIN தருகிறது. இங்கே 3V3 பயன்படுத்த வேண்டாம்."] },
-    { a: [0, 10, 13, "GND"], b: [1, 7, 1, "DC−"], col: "black", n: ["Common ground.", "பொது கிரவுண்ட்."] },
+    { a: [0, 10, 0, "VIN (5V)"], b: [1, 7, 0, "DC+"], col: "red", n: ["VIN gives the USB 5V the relay coil needs. Do not use 3V3 here.", "ரிலே காயிலுக்குத் தேவையான USB 5V-ஐ VIN தருகிறது. இங்கே 3V3 பயன்படுத்த வேண்டாம்."] },
+    { a: [0, 10, 1, "GND"], b: [1, 7, 1, "DC−"], col: "black", n: ["Common ground.", "பொது கிரவுண்ட்."] },
     { a: [0, 11, 14, "D23"], b: [1, 7, 2, "IN"], col: "green", n: ["Signal. Most relay modules turn ON when IN is LOW.", "சிக்னல். பெரும்பாலான ரிலே மாட்யூல்கள் IN LOW ஆனால் ON ஆகும்."] }
   ],
   extra: [["Lamp wiring on NO / COM only by a qualified person, with power OFF", "NO / COM-இல் விளக்கு வயரிங்: மின்சாரம் OFF செய்து, தகுதியான நபர் மட்டும்"]],
