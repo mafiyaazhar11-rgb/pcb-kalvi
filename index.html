@@ -878,6 +878,150 @@ pt("gpio40","header","40‑pin GPIO header","40‑பின் GPIO ஹெடர
 "சென்சார்கள், LED, ரிலே, மோட்டார் டிரைவர், HAT எனப்படும் கூடுதல் போர்டுகளை இணைக்கிறது.",
 "Pi GPIO pins are 3.3V only and NOT 5V tolerant. 5V on a GPIO pin can destroy the Pi.",
 "Pi GPIO பின்கள் 3.3V மட்டுமே; 5V தாங்காது. GPIO பின்னுக்கு 5V கொடுத்தால் Pi பழுதாகலாம்.");
+/* ---------- MORE PARTS (batch 2) ---------- */
+pt("pwrbtn","button","Power button","பவர் பட்டன்",
+"A push button that turns the board on and off.",
+"போர்டை on/off செய்யும் அழுத்து பட்டன்.",
+"One press shuts the system down safely; another press starts it again. On Raspberry Pi 5 it replaces pulling the plug.",
+"ஒருமுறை அழுத்தினால் சிஸ்டம் பாதுகாப்பாக நிற்கும்; மீண்டும் அழுத்தினால் தொடங்கும். Raspberry Pi 5-இல் பிளக்கை இழுப்பதற்குப் பதிலாக இதைப் பயன்படுத்தலாம்.",
+"Hold it for about 5 seconds to force power-off if the system hangs.",
+"சிஸ்டம் உறைந்தால் சுமார் 5 விநாடி அழுத்திப் பிடித்து கட்டாயமாக அணைக்கலாம்.");
+
+pt("jst","jst","JST connector","JST கனெக்டர்",
+"A small white plastic socket with a locking shape, for a matching cable plug.",
+"பொருந்தும் கேபிள் பிளக்குக்கான, பூட்டும் வடிவம் கொண்ட சிறிய வெள்ளை பிளாஸ்டிக் சாக்கெட்.",
+"Connects motors, fans, batteries or sensors with a plug that only fits one way round.",
+"மோட்டார், மின்விசிறி, பேட்டரி, சென்சார்களை ஒரே திசையில் மட்டும் பொருந்தும் பிளக் மூலம் இணைக்கிறது.",
+"Pull the plug by its body, not the wires. Check the red wire position before plugging a battery.",
+"வயர்களை அல்ல, பிளக்கைப் பிடித்து இழுங்கள். பேட்டரியை இணைக்கும் முன் சிவப்பு வயர் இருக்கும் இடத்தைச் சரிபாருங்கள்.");
+
+pt("coin","coin","Coin cell battery","காயின் செல் பேட்டரி",
+"A flat round battery (CR2032 or a small rechargeable cell) in a holder.",
+"ஹோல்டரில் உள்ள தட்டையான வட்ட பேட்டரி (CR2032 அல்லது சிறிய ரீசார்ஜ் செல்).",
+"Keeps the clock or settings alive when the main power is off.",
+"முக்கிய மின்சாரம் இல்லாதபோதும் கடிகாரம் அல்லது அமைப்புகளை உயிருடன் வைத்திருக்கிறது.",
+"The + side faces up. A CR2032 normally lasts several years.",
+"+ பக்கம் மேலே இருக்க வேண்டும். CR2032 பொதுவாக பல ஆண்டுகள் நீடிக்கும்.");
+
+pt("usbfinger","usbfinger","PCB USB plug","PCB USB பிளக்",
+"Gold strips printed on the board edge, shaped to fit straight into a USB-A port.",
+"USB-A போர்ட்டில் நேரடியாகப் பொருந்தும்படி போர்டின் ஓரத்தில் அச்சிடப்பட்ட தங்கப் பட்டைகள்.",
+"The whole board plugs into your computer like a pen drive, for power and programming.",
+"முழு போர்டும் பென் டிரைவ் போல கணினியில் செருகப்படுகிறது; மின்சாரத்துக்கும் program செய்வதற்கும்.",
+"It fits loosely in some ports. A USB extension cable makes it easier and safer.",
+"சில போர்ட்களில் தளர்வாகப் பொருந்தும். USB extension கேபிள் பயன்படுத்தினால் எளிதும் பாதுகாப்பும்.");
+
+pt("boostic","sot","Boost converter IC","பூஸ்ட் கன்வெர்ட்டர் IC",
+"A small switching chip (MT3608) that raises voltage.",
+"வோல்டேஜை உயர்த்தும் சிறிய ஸ்விட்சிங் சிப் (MT3608).",
+"Steps a lower voltage up, for example 3.7V from a lithium cell to 5V or 12V.",
+"குறைந்த வோல்டேஜை உயர்த்துகிறது; உதாரணமாக லித்தியம் செல்லின் 3.7V-ஐ 5V அல்லது 12V ஆக.",
+"Output current drops as you raise the voltage. Set the output with a multimeter before connecting a load.",
+"வோல்டேஜை உயர்த்தும்போது output மின்னோட்டம் குறையும். சுமையை இணைக்கும் முன் மல்டிமீட்டரில் output-ஐ அமையுங்கள்.");
+
+pt("mosfet","to220","Power MOSFET","பவர் MOSFET",
+"A 3-pin power switch transistor (IRF520, IRLZ44N) in a TO-220 package.",
+"TO-220 வடிவில் உள்ள 3-பின் பவர் ஸ்விட்ச் டிரான்சிஸ்டர் (IRF520, IRLZ44N).",
+"Switches DC loads like LED strips, motors, pumps and solenoids using a PWM signal, so you can also control speed or brightness.",
+"PWM சிக்னல் மூலம் LED ஸ்ட்ரிப், மோட்டார், பம்ப், solenoid போன்ற DC சுமைகளை on/off செய்கிறது; வேகம் அல்லது ஒளியையும் கட்டுப்படுத்தலாம்.",
+"IRF520 does not fully turn on at 3.3V or 5V logic; for ESP32 choose a logic-level MOSFET such as IRLZ44N. DC only, never AC mains.",
+"IRF520 3.3V அல்லது 5V லாஜிக்கில் முழுமையாக on ஆகாது; ESP32-க்கு IRLZ44N போன்ற logic-level MOSFET தேர்வு செய்யுங்கள். DC மட்டும்; AC மின்சாரத்துக்கு ஒருபோதும் வேண்டாம்.");
+
+pt("ioexp","chip","I/O expander chip","I/O விரிவாக்க சிப்",
+"A chip (PCF8574) that gives 8 extra input/output pins over I2C.",
+"I2C மூலம் 8 கூடுதல் உள்ளீடு/வெளியீடு பின்களைத் தரும் சிப் (PCF8574).",
+"Lets two wires (SDA, SCL) drive something that needs many pins, such as a 16×2 LCD.",
+"பல பின்கள் தேவைப்படும் 16×2 LCD போன்றவற்றை இரண்டு வயர்களால் (SDA, SCL) இயக்க உதவுகிறது.",
+"Common addresses are 0x27 or 0x3F. Run an I2C scanner if the screen stays blank.",
+"பொதுவான முகவரிகள் 0x27 அல்லது 0x3F. திரை வெறுமையாக இருந்தால் I2C scanner இயக்குங்கள்.");
+
+pt("ledctrl","chip","LED display driver chip","LED டிஸ்ப்ளே டிரைவர் சிப்",
+"A chip (MAX7219, TM1637) that drives many LEDs or digits by itself.",
+"பல LED-களை அல்லது இலக்கங்களைத் தானே இயக்கும் சிப் (MAX7219, TM1637).",
+"Keeps the display lit and refreshed, so your microcontroller only sends the numbers or pattern.",
+"டிஸ்ப்ளேயை எரியவைத்து புதுப்பிக்கிறது; உங்கள் மைக்ரோகண்ட்ரோலர் எண்கள் அல்லது வடிவத்தை மட்டும் அனுப்பினால் போதும்.",
+"Brightness is set in code. Full brightness on many modules draws a lot of current.",
+"ஒளி அளவு code-இல் அமைக்கப்படும். பல மாட்யூல்களில் முழு ஒளி அதிக மின்னோட்டம் எடுக்கும்.");
+
+pt("rtc","chip","Real-time clock chip (RTC)","நிகழ்நேர கடிகார சிப் (RTC)",
+"A chip (DS3231) that keeps the date and time.",
+"தேதி, நேரத்தை வைத்திருக்கும் சிப் (DS3231).",
+"Counts seconds, minutes, hours and dates even when your board is off, using the backup battery.",
+"பேக்அப் பேட்டரி மூலம், போர்டு அணைந்திருக்கும்போதும் விநாடி, நிமிடம், மணி, தேதியை எண்ணுகிறது.",
+"The DS3231 has a built-in temperature-compensated crystal, accurate to about 1 minute per year.",
+"DS3231-இல் வெப்பநிலை ஈடுசெய்யும் கிரிஸ்டல் உள்ளது; ஆண்டுக்கு சுமார் 1 நிமிடம் மட்டுமே பிழை.");
+
+pt("lvl","chip","Level shifter chip","லெவல் ஷிஃப்டர் சிப்",
+"A buffer chip (74LVC125) that converts 5V signals to 3.3V.",
+"5V சிக்னல்களை 3.3V ஆக மாற்றும் buffer சிப் (74LVC125).",
+"Protects a 3.3V device like an SD card when it is connected to a 5V Arduino.",
+"5V Arduino-வுடன் இணைக்கும்போது SD கார்டு போன்ற 3.3V சாதனத்தைப் பாதுகாக்கிறது.",
+"Some cheap modules lack this chip; with ESP32 (3.3V) you can wire the SD card directly.",
+"சில மலிவான மாட்யூல்களில் இந்த சிப் இல்லை; ESP32 (3.3V) உடன் SD கார்டை நேரடியாக இணைக்கலாம்.");
+
+pt("gassens","usonic","Gas sensing element (MQ series)","வாயு உணரும் பகுதி (MQ வரிசை)",
+"A tin-oxide sensor with a small heater inside a steel mesh cap.",
+"எஃகு வலை மூடிக்குள் சிறிய ஹீட்டருடன் உள்ள tin-oxide சென்சார்.",
+"Its resistance drops when gases like LPG, smoke or alcohol are present, so the output voltage rises.",
+"LPG, புகை, ஆல்கஹால் போன்ற வாயுக்கள் இருக்கும்போது அதன் எதிர்ப்பு குறைகிறது; இதனால் output வோல்டேஜ் உயர்கிறது.",
+"It gets hot and needs about 1–2 minutes to warm up (24 hours the first time). It shows trends, not exact ppm, unless calibrated.",
+"இது சூடாகும்; சூடாக சுமார் 1–2 நிமிடம் தேவை (முதல் முறை 24 மணி நேரம்). Calibrate செய்யாவிட்டால் துல்லியமான ppm அல்ல, மாற்றத்தை மட்டும் காட்டும்.");
+
+pt("irled","rled","IR LED and receiver","IR LED மற்றும் ரிசீவர்",
+"A clear infrared LED and a dark photodiode placed side by side.",
+"அருகருகே வைக்கப்பட்ட தெளிவான infrared LED-ம் கருப்பு photodiode-ம்.",
+"The LED shines invisible light; when an object is near, light bounces back into the receiver and the output changes.",
+"LED கண்ணுக்குத் தெரியாத ஒளியை வீசுகிறது; பொருள் அருகில் இருந்தால் ஒளி எதிரொளித்து ரிசீவருக்குள் வந்து output மாறுகிறது.",
+"View the IR LED through a phone camera: you will see it glow purple. Black surfaces and sunlight reduce range.",
+"போன் கேமரா வழியாக IR LED-ஐப் பாருங்கள்: ஊதா நிறத்தில் ஒளிர்வது தெரியும். கருப்புப் பரப்பும் சூரிய ஒளியும் தூரத்தைக் குறைக்கும்.");
+
+pt("adcchip","chip","Precision ADC chip","துல்லிய ADC சிப்",
+"A high-resolution analog-to-digital converter (HX711, 24-bit).",
+"அதிகத் துல்லிய அனலாக்-டு-டிஜிட்டல் கன்வெர்ட்டர் (HX711, 24-bit).",
+"Amplifies and reads the tiny signal from a load cell so you can measure weight.",
+"Load cell-இன் மிகச்சிறிய சிக்னலைப் பெருக்கிப் படிக்கிறது; இதனால் எடையை அளக்கலாம்.",
+"Calibrate with a known weight. Keep load-cell wires short and twisted to reduce noise.",
+"தெரிந்த எடையை வைத்து calibrate செய்யுங்கள். இரைச்சலைக் குறைக்க load cell வயர்களைக் குறுகியதாக, முறுக்கி வையுங்கள்.");
+
+pt("cursens","chip","Hall-effect current sensor","ஹால்-விளைவு மின்னோட்ட சென்சார்",
+"A chip (ACS712) with a thick copper path inside; current flowing through it makes a magnetic field.",
+"உள்ளே தடிமனான செம்புப் பாதை கொண்ட சிப் (ACS712); அதன் வழியே பாயும் மின்னோட்டம் காந்தப்புலத்தை உருவாக்குகிறது.",
+"Turns the measured current into a voltage your ADC can read, while keeping the load circuit isolated.",
+"அளக்கப்பட்ட மின்னோட்டத்தை உங்கள் ADC படிக்கக்கூடிய வோல்டேஜாக மாற்றுகிறது; சுமைச் சுற்று தனித்தே இருக்கும்.",
+"Output is 2.5V at zero current. Pick the right range (5A, 20A, 30A) for better resolution.",
+"மின்னோட்டம் இல்லாதபோது output 2.5V. நல்ல துல்லியத்துக்கு சரியான வரம்பைத் (5A, 20A, 30A) தேர்வு செய்யுங்கள்.");
+
+pt("lcd16","lcd","Character LCD (16×2)","எழுத்து LCD (16×2)",
+"A backlit screen that shows 2 rows of 16 letters or numbers.",
+"2 வரிகளில் 16 எழுத்துகள் அல்லது எண்களைக் காட்டும் backlight கொண்ட திரை.",
+"Displays readings, menus and messages. The HD44780 controller is built in.",
+"அளவீடுகள், மெனுக்கள், செய்திகளைக் காட்டுகிறது. HD44780 கண்ட்ரோலர் உள்ளே உள்ளது.",
+"If you see only blocks or nothing, turn the contrast pot slowly.",
+"கட்டங்கள் மட்டும் தெரிந்தாலோ எதுவும் தெரியவில்லை என்றாலோ, contrast pot-ஐ மெதுவாகத் திருப்புங்கள்.");
+
+pt("seg7","seg","7-segment display","7-segment டிஸ்ப்ளே",
+"Digits made of 7 LED bars each, with a colon in the middle.",
+"ஒவ்வொன்றும் 7 LED பட்டைகளால் ஆன இலக்கங்கள்; நடுவில் colon.",
+"Shows numbers clearly from far away: clocks, timers, counters and temperatures.",
+"தூரத்திலிருந்தும் எண்களைத் தெளிவாகக் காட்டுகிறது: கடிகாரம், டைமர், கவுண்டர், வெப்பநிலை.",
+"Letters are limited; only some (like A, b, C, E, F) can be shown.",
+"எழுத்துகள் குறைவு; A, b, C, E, F போன்ற சிலவற்றை மட்டுமே காட்ட முடியும்.");
+
+pt("matrix","matrix","8×8 LED matrix","8×8 LED matrix",
+"A block of 64 LEDs arranged in 8 rows and 8 columns.",
+"8 வரிசை, 8 நெடுவரிசைகளில் அமைக்கப்பட்ட 64 LED-களின் தொகுப்பு.",
+"Shows icons, scrolling text and simple animations. Modules can be chained for long signs.",
+"ஐகான்கள், நகரும் எழுத்துகள், எளிய அனிமேஷன்களைக் காட்டுகிறது. நீண்ட பலகைகளுக்கு மாட்யூல்களை இணைக்கலாம்.",
+"Four chained modules at full brightness can draw over 1A; power them separately.",
+"நான்கு இணைந்த மாட்யூல்கள் முழு ஒளியில் 1A-க்கு மேல் எடுக்கலாம்; தனி மின்சாரம் கொடுங்கள்.");
+
+pt("gpsrx","shield","GPS receiver module","GPS ரிசீவர் மாட்யூல்",
+"A shielded receiver (u-blox NEO-6M) that listens to GPS satellites.",
+"GPS செயற்கைக்கோள்களைக் கேட்கும் மூடியுடன் உள்ள ரிசீவர் (u-blox NEO-6M).",
+"Works out latitude, longitude, speed and exact UTC time, and sends them as NMEA text over serial.",
+"Latitude, longitude, வேகம், துல்லியமான UTC நேரத்தைக் கணக்கிட்டு, சீரியல் வழியாக NMEA எழுத்தாக அனுப்புகிறது.",
+"The first fix needs an open sky and can take 1–5 minutes. It will not work well indoors.",
+"முதல் fix-க்கு திறந்த வானம் தேவை; 1–5 நிமிடம் ஆகலாம். கட்டிடத்துக்குள் சரியாக வேலை செய்யாது.");
 /* ---------- CATEGORIES, SPEC LABELS ---------- */
 const CATS = {
   mcu: ["Microcontroller boards", "மைக்ரோகண்ட்ரோலர் போர்டுகள்"],
@@ -1580,6 +1724,516 @@ const BASICS = [
   "Use a 60W iron at about 330 °C with flux. Heat pad and pin together, then add solder. Touch a metal object before handling boards (static). Never work on 230V wiring while it is plugged in.",
   "சுமார் 330 °C-இல் 60W iron, flux பயன்படுத்துங்கள். பேட், பின் இரண்டையும் சேர்த்து சூடாக்கி, பிறகு சோல்டர் சேருங்கள். போர்டுகளைத் தொடும் முன் ஒரு உலோகப் பொருளைத் தொடுங்கள் (static). 230V வயரிங் இணைப்பில் இருக்கும்போது ஒருபோதும் வேலை செய்ய வேண்டாம்."]
 ];
+/* ---------- MORE BOARDS (batch 2) ---------- */
+CATS.util = ["Clock, storage & level shifting", "கடிகாரம், சேமிப்பு & லெவல் ஷிஃப்டிங்"];
+
+const relay4 = [];
+for (let k = 0; k < 4; k++) {
+  const x = 14 + k * 70, n = k + 1;
+  relay4.push(["term", "term", x, 2, 60, 34, "", `K${n} load terminals: NO, COM, NC.`, `K${n} சுமை டெர்மினல்கள்: NO, COM, NC.`, { n: 3 }]);
+  relay4.push(["relay", "relay", x, 42, 60, 58, `K${n}|SRD-05VDC`, `Relay ${n}, rated 10A 250V AC.`, `ரிலே ${n}, 250V AC-யில் 10A திறன்.`, {}]);
+  relay4.push(["opto", "chip", x + 8, 116, 18, 14, "817", `Optocoupler for channel ${n}.`, `சேனல் ${n}-க்கான ஆப்டோகப்ளர்.`, { pins: "lr" }]);
+  relay4.push(["ledstat", "led", x + 36, 120, 10, 5, "", `Channel ${n} LED: lights when relay ${n} is ON.`, `சேனல் ${n} LED: ரிலே ${n} ON ஆனால் எரியும்.`, { col: "#ff3b30" }]);
+}
+
+BOARDS.push(
+{ id:"rpi5", n:"Raspberry Pi 5", al:["pi 5","raspberry pi 5","bcm2712","rp1","rpi5"], cat:"sbc", col:"#1e7a3a", W:340, H:224,
+  chip:"BCM2712", volt:"3.3V GPIO",
+  ab:["The fastest Raspberry Pi: about 2–3× quicker than the Pi 4, with its own RP1 I/O chip, a PCIe connector for NVMe SSDs, a power button and a real-time clock.",
+      "மிக வேகமான Raspberry Pi: Pi 4-ஐ விட சுமார் 2–3 மடங்கு வேகம்; சொந்த RP1 I/O சிப், NVMe SSD-க்கான PCIe கனெக்டர், பவர் பட்டன், real-time clock உள்ளன."],
+  sp:[["chip","BCM2712, 4 × Cortex-A76"],["clk","2.4 GHz"],["ram","2, 4, 8 or 16 GB LPDDR4X"],["v","3.3V GPIO"],["vin","5V 5A USB-C (27W)"],["io","40-pin GPIO"],["rf","Wi‑Fi 5 + Bluetooth 5.0"],["usb","2 × USB 3.0, 2 × USB 2.0"],["out","2 × micro-HDMI (4K60)"],["if","PCIe 2.0 x1, 2 × MIPI"]],
+  uses:[["Home server with an NVMe SSD (fast and reliable)","NVMe SSD உடன் வீட்டு server (வேகமும் நம்பகமும்)"],
+        ["Wall-screen dashboards and a project command centre","சுவர்த் திரை dashboard, ப்ராஜெக்ட் கட்டுப்பாட்டு மையம்"],
+        ["Running Node.js / Python apps and databases locally","Node.js / Python app-கள், database-களை உள்ளூரில் இயக்க"],
+        ["AI camera projects with the AI Kit or HAT+","AI Kit அல்லது HAT+ உடன் AI கேமரா ப்ராஜெக்ட்கள்"],
+        ["A small desktop PC for learning Linux","Linux கற்க சிறிய desktop கணினி"]],
+  tip:["Use the official 27W (5V 5A) supply and the Active Cooler. With a weaker supply, USB ports are limited to 600 mA.","அதிகாரப்பூர்வ 27W (5V 5A) அடாப்டரும் Active Cooler-ம் பயன்படுத்துங்கள். பலவீனமான அடாப்டர் என்றால் USB போர்ட்கள் 600 mA-க்கு வரையறுக்கப்படும்."],
+  holes:[[14,14],[246,14],[14,210],[246,210]], silk:[[150,182,"Raspberry Pi 5",8]],
+  c:[
+   ["gpio40","header",30,4,0,0,"","40-pin GPIO, same layout as Pi 4. 3.3V logic only; now controlled by the RP1 chip.","Pi 4 போன்ற அதே 40-பின் GPIO. 3.3V லாஜிக் மட்டும்; இப்போது RP1 சிப் கட்டுப்படுத்துகிறது.",{n:20,r:2}],
+   ["jst","jst",250,34,24,10,"","4-pin fan connector for the Active Cooler (speed-controlled).","Active Cooler-க்கான 4-பின் மின்விசிறி கனெக்டர் (வேகக் கட்டுப்பாட்டுடன்).",{n:4}],
+   ["wifimod","shield",14,36,46,32,"Wi‑Fi|BT","Wi‑Fi 5 and Bluetooth 5.0 chip.","Wi‑Fi 5, Bluetooth 5.0 சிப்.",{}],
+   ["soc","shield",64,62,64,64,"BCM2712","BCM2712: four Cortex-A76 cores at 2.4 GHz with VideoCore VII GPU.","BCM2712: 2.4 GHz-இல் நான்கு Cortex-A76 core-கள், VideoCore VII GPU.",{}],
+   ["ram","chip",146,66,48,52,"LPDDR4X","LPDDR4X RAM.","LPDDR4X RAM.",{pins:"n"}],
+   ["ctrlic","chip",220,100,32,32,"RP1","RP1: Raspberry Pi's own I/O chip that runs USB, Ethernet, GPIO and camera ports.","RP1: USB, Ethernet, GPIO, கேமரா போர்ட்களை இயக்கும் Raspberry Pi-இன் சொந்த I/O சிப்.",{pins:"q"}],
+   ["pmic","chip",40,146,24,24,"PMIC","Renesas DA9091 power chip; also runs the real-time clock.","Renesas DA9091 பவர் சிப்; real-time clock-ஐயும் இயக்குகிறது.",{pins:"q"}],
+   ["usba","usba",284,6,62,58,"USB 3.0","Two blue USB 3.0 ports (5 Gbps each).","இரண்டு நீல USB 3.0 போர்ட்கள் (ஒவ்வொன்றும் 5 Gbps).",{e:"r",col:"#2a62d6"}],
+   ["usba","usba",284,74,62,58,"USB 2.0","Two black USB 2.0 ports.","இரண்டு கருப்பு USB 2.0 போர்ட்கள்.",{e:"r",col:"#222"}],
+   ["eth","eth",284,144,62,64,"","Gigabit Ethernet, now on the corner (swapped with USB vs Pi 4).","Gigabit Ethernet; Pi 4-ஐ விட USB-உடன் இடம் மாற்றப்பட்டுள்ளது.",{e:"r"}],
+   ["fpc","fpc",2,80,12,64,"","PCIe connector: add an NVMe SSD or AI accelerator with an M.2 HAT.","PCIe கனெக்டர்: M.2 HAT மூலம் NVMe SSD அல்லது AI accelerator சேர்க்கலாம்.",{}],
+   ["usbc","usbc",26,196,36,30,"","USB-C power: 5V 5A (27W) recommended.","USB-C மின்சாரம்: 5V 5A (27W) பரிந்துரைக்கப்படுகிறது.",{e:"b"}],
+   ["hdmi","hdmi",78,202,26,24,"0","micro-HDMI 0.","micro-HDMI 0.",{e:"b"}],
+   ["hdmi","hdmi",114,202,26,24,"1","micro-HDMI 1.","micro-HDMI 1.",{e:"b"}],
+   ["pwrbtn","button",152,198,18,18,"","Power button: tap to shut down safely or start up.","பவர் பட்டன்: பாதுகாப்பாக நிறுத்த அல்லது தொடங்க ஒருமுறை அழுத்தவும்.",{}],
+   ["jst","jst",178,204,14,10,"","RTC battery connector: add a small rechargeable cell to keep time when unplugged.","RTC பேட்டரி கனெக்டர்: பிளக் எடுத்தாலும் நேரத்தைக் காக்க சிறிய ரீசார்ஜ் செல் இணைக்கலாம்.",{n:2}],
+   ["fpc","fpc",204,138,10,56,"","MIPI connector 0: camera or display (22-pin mini FPC).","MIPI கனெக்டர் 0: கேமரா அல்லது டிஸ்ப்ளே (22-பின் mini FPC).",{}],
+   ["fpc","fpc",256,138,10,56,"","MIPI connector 1: a second camera or display.","MIPI கனெக்டர் 1: இரண்டாவது கேமரா அல்லது டிஸ்ப்ளே.",{}],
+   ["ledstat","leds",4,160,8,16,"","Power / activity LEDs.","மின்சார / செயல்பாட்டு LED-கள்.",{n:2,cols:["#e33","#30d158"]}],
+   ["sd","sd",286,86,56,48,"","microSD slot on the back (faster SDR104 mode).","பின்பக்கம் மைக்ரோSD ஸ்லாட் (வேகமான SDR104 mode).",{b:1}]
+  ]},
+
+{ id:"pizero2", n:"Raspberry Pi Zero 2 W", al:["pi zero","zero 2 w","rp3a0","raspberry pi zero"], cat:"sbc", col:"#1e7a3a", W:260, H:120,
+  chip:"RP3A0 (BCM2710A1)", volt:"3.3V GPIO",
+  ab:["A tiny Linux computer with Wi‑Fi, about the size of a stick of gum. Quad-core, 512 MB RAM, perfect for small always-on jobs.",
+      "Wi‑Fi கொண்ட மிகச்சிறிய Linux கணினி. Quad-core, 512 MB RAM; எப்போதும் இயங்கும் சிறிய வேலைகளுக்கு ஏற்றது."],
+  sp:[["chip","RP3A0 (4 × Cortex-A53)"],["clk","1 GHz"],["ram","512 MB (inside the chip)"],["vin","5V 2.5A micro-USB"],["io","40-pin (unpopulated)"],["rf","Wi‑Fi 2.4 GHz + BLE"],["size","65 × 30 mm"]],
+  uses:[["Wi‑Fi camera or time-lapse box","Wi‑Fi கேமரா அல்லது time-lapse பெட்டி"],
+        ["Network ad blocker (Pi-hole)","நெட்வொர்க் விளம்பரத் தடுப்பான் (Pi-hole)"],
+        ["Small display or information kiosk","சிறிய டிஸ்ப்ளே அல்லது தகவல் kiosk"],
+        ["Retro game handheld","ரெட்ரோ கேம் handheld"],
+        ["Sensor hub that uploads to a server","Server-க்கு அனுப்பும் சென்சார் hub"]],
+  tip:["Only one micro-USB is for power (marked PWR); the other is USB data (OTG). Use a mini-HDMI adapter for screens.","ஒரு micro-USB மட்டுமே மின்சாரத்துக்கு (PWR); மற்றது USB data (OTG). திரைக்கு mini-HDMI அடாப்டர் பயன்படுத்துங்கள்."],
+  holes:[[12,12],[248,12],[12,108],[248,108]], silk:[],
+  c:[
+   ["gpio40","pads",30,2,0,0,"","40-pin GPIO pads (solder a header if you need it).","40-பின் GPIO பேட்கள் (தேவைப்பட்டால் ஹெடர் சோல்டர் செய்யுங்கள்).",{n:20,r:2}],
+   ["antenna","antenna",4,38,22,52,"","Wi‑Fi antenna area on the board edge.","போர்டின் ஓரத்தில் Wi‑Fi ஆன்டெனா பகுதி.",{}],
+   ["wifimod","shield",32,44,48,38,"Wi‑Fi|BT","Wireless chip under a shield.","மூடியின் கீழ் வயர்லெஸ் சிப்.",{}],
+   ["soc","shield",92,36,58,58,"RP3A0","RP3A0: processor and 512 MB RAM stacked in one package.","RP3A0: ப்ராசசரும் 512 MB RAM-ம் ஒரே package-இல் அடுக்கப்பட்டுள்ளன.",{}],
+   ["pmic","chip",162,46,22,22,"PMIC","Power management chip.","பவர் மேனேஜ்மென்ட் சிப்.",{pins:"q"}],
+   ["hdmi","hdmi",22,96,36,26,"","mini-HDMI video output.","mini-HDMI வீடியோ வெளியீடு.",{e:"b"}],
+   ["usbmicro","usbmicro",152,100,28,22,"","USB data port (OTG): keyboard, camera, or USB gadget mode.","USB data போர்ட் (OTG): கீபோர்டு, கேமரா அல்லது USB gadget mode.",{e:"b"}],
+   ["usbmicro","usbmicro",196,100,28,22,"","PWR: 5V power input only.","PWR: 5V மின் உள்ளீடு மட்டும்.",{e:"b"}],
+   ["ledbuilt","led",232,98,10,5,"","Green activity LED.","பச்சை செயல்பாட்டு LED.",{col:"#30d158"}],
+   ["fpc","fpc",244,34,14,52,"","Camera connector (needs the small 22-pin Zero cable).","கேமரா கனெக்டர் (சிறிய 22-பின் Zero கேபிள் தேவை).",{}],
+   ["sd","sd",8,32,46,52,"","microSD slot on the back: holds the OS.","பின்பக்கம் மைக்ரோSD ஸ்லாட்: இயங்குதளம் இதில்.",{b:1}]
+  ]},
+
+{ id:"esp32c3", n:"ESP32‑C3 SuperMini", al:["esp32-c3","c3 supermini","esp32c3","risc-v"], cat:"iot", col:"#1d1f22", W:72, H:92,
+  chip:"ESP32-C3 (RISC-V)", volt:"3.3V",
+  ab:["A thumb-sized ESP32 with a RISC-V core, Wi‑Fi, Bluetooth LE and USB-C, with no separate USB chip needed.",
+      "RISC-V core, Wi‑Fi, Bluetooth LE, USB-C கொண்ட கட்டைவிரல் அளவு ESP32; தனி USB சிப் தேவையில்லை."],
+  sp:[["chip","ESP32-C3FH4"],["clk","160 MHz"],["flash","4 MB (in chip)"],["ram","400 KB"],["v","3.3V"],["vin","5V USB-C"],["io","13 GPIO"],["adc","6 × 12-bit"],["rf","Wi‑Fi + BLE 5"],["size","22.5 × 18 mm"]],
+  uses:[["Tiny Wi‑Fi sensors that fit anywhere","எங்கும் பொருந்தும் சிறிய Wi‑Fi சென்சார்கள்"],
+        ["BLE beacons and phone-connected gadgets","BLE beacon, போனுடன் இணையும் கேஜெட்கள்"],
+        ["ESPHome devices for Home Assistant","Home Assistant-க்கான ESPHome சாதனங்கள்"],
+        ["Low-cost replacement for ESP8266 projects","ESP8266 ப்ராஜெக்ட்களுக்கு குறைந்த விலை மாற்று"]],
+  tip:["Enable 'USB CDC On Boot' in the Arduino IDE to see Serial output over USB-C. If upload fails, hold B (BOOT), tap R (RESET), release B.","USB-C வழியாக Serial output பார்க்க Arduino IDE-இல் 'USB CDC On Boot' இயக்குங்கள். Upload தோல்வியடைந்தால் B (BOOT) பிடித்து R (RESET) தட்டி B-ஐ விடுங்கள்."],
+  holes:[], silk:[],
+  c:[
+   ["usbc","usbc",20,-6,32,22,"","USB-C straight to the chip's built-in USB (no CH340 needed).","சிப்பின் உள்ளமைந்த USB-க்கு நேரடி USB-C (CH340 தேவையில்லை).",{e:"t"}],
+   ["boot","button",14,20,12,12,"B","BOOT button (GPIO9).","BOOT பட்டன் (GPIO9).",{}],
+   ["reset","button",46,20,12,12,"R","RESET button.","RESET பட்டன்.",{}],
+   ["ledbuilt","led",31,24,9,4,"","Blue LED on GPIO8 (active-LOW).","GPIO8-இல் நீல LED (active-LOW).",{col:"#3a8bff"}],
+   ["mcu","chip",24,36,24,24,"C3","ESP32-C3: single RISC-V core with Wi‑Fi and BLE, Flash inside.","ESP32-C3: Wi‑Fi, BLE உடன் ஒற்றை RISC-V core; Flash உள்ளே.",{pins:"q"}],
+   ["crystal","crystal",18,66,14,7,"40M","40 MHz crystal.","40 MHz கிரிஸ்டல்.",{smd:1}],
+   ["ldo","reg",38,64,16,12,"","3.3V regulator.","3.3V ரெகுலேட்டர்.",{}],
+   ["antenna","smd",20,80,32,8,"ANT","Tiny ceramic chip antenna; range is shorter than PCB antennas.","சிறிய செராமிக் சிப் ஆன்டெனா; PCB ஆன்டெனாவை விட வரம்பு குறைவு.",{col:"#3a3d42"}],
+   ["hdrdig","pads",2,12,0,0,"","5V, GND, 3V3, GPIO4–GPIO0 (ADC).","5V, GND, 3V3, GPIO4–GPIO0 (ADC).",{n:8,o:"v",p:9.6}],
+   ["hdrdig","pads",60,12,0,0,"","GPIO5–GPIO10, RX (20), TX (21). GPIO8 = SDA, GPIO9 = SCL by default.","GPIO5–GPIO10, RX (20), TX (21). இயல்பாக GPIO8 = SDA, GPIO9 = SCL.",{n:8,o:"v",p:9.6}]
+  ]},
+
+{ id:"esp32s3", n:"ESP32‑S3 DevKitC‑1", al:["esp32-s3","s3","esp32s3","wroom-1"], cat:"iot", col:"#1d1f22", W:280, H:104,
+  chip:"ESP32-S3 (dual core)", volt:"3.3V",
+  ab:["The most capable common ESP32: dual-core with AI vector instructions, native USB, lots of GPIO and optional 8 MB PSRAM for cameras and displays.",
+      "மிகத் திறன் வாய்ந்த பொதுவான ESP32: AI vector instructions கொண்ட dual-core, native USB, அதிக GPIO, கேமரா, டிஸ்ப்ளேக்கு 8 MB PSRAM (விருப்பம்)."],
+  sp:[["chip","ESP32-S3 (2 × Xtensa LX7)"],["clk","240 MHz"],["flash","8–16 MB"],["ram","512 KB + up to 8 MB PSRAM"],["v","3.3V"],["vin","5V USB-C"],["io","36 GPIO"],["adc","20 × 12-bit"],["rf","Wi‑Fi + BLE 5"],["usb","2 × USB-C (native + UART)"]],
+  uses:[["Voice assistants and wake-word detection","குரல் உதவியாளர், wake-word கண்டறிதல்"],
+        ["Touch-screen panels and dashboards","Touch-screen பேனல், dashboard"],
+        ["USB keyboards, MIDI and HID gadgets","USB கீபோர்டு, MIDI, HID கேஜெட்கள்"],
+        ["Camera and small AI vision projects","கேமரா, சிறிய AI பார்வை ப்ராஜெக்ட்கள்"],
+        ["Big IoT projects that need many pins","அதிக பின்கள் தேவைப்படும் பெரிய IoT ப்ராஜெக்ட்கள்"]],
+  tip:["Use the port labelled UART for normal uploads; the USB port is native USB for HID and debugging. Avoid GPIO 35–37 on PSRAM (R8) versions.","சாதாரண upload-க்கு UART என்ற போர்ட்டைப் பயன்படுத்துங்கள்; USB போர்ட் HID, debug-க்கான native USB. PSRAM (R8) பதிப்புகளில் GPIO 35–37 தவிர்க்கவும்."],
+  holes:[], silk:[],
+  c:[
+   ["usbc","usbc",-6,22,28,26,"","USB port: native USB of the ESP32-S3 (HID, JTAG debug).","USB போர்ட்: ESP32-S3-இன் native USB (HID, JTAG debug).",{e:"l"}],
+   ["usbc","usbc",-6,58,28,26,"","UART port: through the CP2102N for uploads and Serial.","UART போர்ட்: upload, Serial-க்காக CP2102N வழியாக.",{e:"l"}],
+   ["boot","button",30,16,14,14,"BOOT","BOOT button (GPIO0).","BOOT பட்டன் (GPIO0).",{}],
+   ["reset","button",30,74,14,14,"RST","RESET button.","RESET பட்டன்.",{}],
+   ["usbserial","chip",54,38,24,24,"CP2102N","CP2102N USB-to-UART bridge.","CP2102N USB-UART பாலம்.",{pins:"q"}],
+   ["ledbuilt","rled",92,24,12,12,"","Addressable RGB LED (WS2812) on GPIO48 (GPIO38 on v1.1).","GPIO48-இல் (v1.1-இல் GPIO38) முகவரியிடக்கூடிய RGB LED (WS2812).",{col:"#ff6be0"}],
+   ["ldo","reg",90,62,24,20,"","3.3V regulator.","3.3V ரெகுலேட்டர்.",{}],
+   ["wifimod","shield",128,18,102,68,"ESP32-S3-|WROOM-1","ESP32-S3-WROOM-1 module with Flash (and PSRAM on N8R8 versions).","Flash (N8R8 பதிப்புகளில் PSRAM-ம்) கொண்ட ESP32-S3-WROOM-1 மாட்யூல்.",{}],
+   ["antenna","antenna",230,18,46,68,"","PCB antenna.","PCB ஆன்டெனா.",{}],
+   ["hdrdig","header",30,2,0,0,"","3V3, 3V3, RST, GPIO4–7, 15–18, 8, 3, 46, 9–14, 5V, GND.","3V3, 3V3, RST, GPIO4–7, 15–18, 8, 3, 46, 9–14, 5V, GND.",{n:22}],
+   ["hdrdig","header",30,92,0,0,"","GND, TX, RX, GPIO1, 2, 42, 41, 40, 39, 38, 37, 36, 35, 0, 45, 48, 47, 21, 20 (USB D+), 19 (USB D−), GND, GND.","GND, TX, RX, GPIO1, 2, 42, 41, 40, 39, 38, 37, 36, 35, 0, 45, 48, 47, 21, 20 (USB D+), 19 (USB D−), GND, GND.",{n:22}]
+  ]},
+
+{ id:"digispark", n:"Digispark ATtiny85", al:["digispark","attiny85","attiny","usb attiny"], cat:"mcu", col:"#2b2c31", W:110, H:76,
+  chip:"ATtiny85", volt:"5V",
+  ab:["A tiny Arduino-compatible board that plugs straight into a USB port. Only 6 I/O pins, but very cheap and fun for small gadgets.",
+      "USB போர்ட்டில் நேரடியாகச் செருகும் சிறிய Arduino-போன்ற போர்டு. 6 I/O பின்கள் மட்டுமே; ஆனால் மிக மலிவு, சிறிய கேஜெட்களுக்கு ஜாலி."],
+  sp:[["chip","ATtiny85"],["clk","16.5 MHz"],["flash","8 KB (6 KB free)"],["ram","512 bytes"],["v","5V"],["vin","USB or 7–12V on VIN"],["io","6 (P0–P5)"],["adc","4"]],
+  uses:[["USB keyboard tricks and shortcut keys","USB கீபோர்டு shortcut-கள்"],
+        ["Small LED effects and night lights","சிறிய LED விளைவுகள், இரவு விளக்கு"],
+        ["Simple timers and blinkers","எளிய டைமர், மினுமினுப்பான்"],
+        ["Learning very small microcontrollers","மிகச்சிறிய மைக்ரோகண்ட்ரோலர்கள் கற்றல்"]],
+  tip:["Upload works differently: click Upload first, then plug the board in within 60 seconds. Needs the Digistump board package and driver.","Upload வேறு மாதிரி: முதலில் Upload அழுத்தி, 60 விநாடிக்குள் போர்டைச் செருகுங்கள். Digistump board package, driver தேவை."],
+  holes:[], silk:[],
+  c:[
+   ["usbfinger","usbfinger",0,14,36,48,"","USB plug printed on the board: insert it directly into a USB-A port.","போர்டிலேயே அச்சிடப்பட்ட USB பிளக்: USB-A போர்ட்டில் நேரடியாகச் செருகுங்கள்.",{}],
+   ["diode","diode",40,8,16,6,"","Zener diodes that protect the USB data lines.","USB data வரிகளைப் பாதுகாக்கும் Zener டயோடுகள்.",{smd:1}],
+   ["mcu","chip",48,26,24,18,"T85","ATtiny85: 8 KB Flash, 8 pins in total.","ATtiny85: 8 KB Flash, மொத்தம் 8 பின்கள்.",{pins:"tb"}],
+   ["ldo","reg",76,6,24,20,"78M05","5V regulator for VIN.","VIN-க்கான 5V ரெகுலேட்டர்.",{}],
+   ["ledpwr","led",52,52,9,5,"","Power LED.","பவர் LED.",{col:"#ff3b30"}],
+   ["ledbuilt","led",64,52,9,5,"","LED on P1.","P1-இல் LED.",{col:"#30d158"}],
+   ["hdrdig","pads",96,8,0,0,"","P0–P5. P3 and P4 are also USB data, so avoid them in USB projects.","P0–P5. P3, P4 USB data-வுக்கும் பயன்படுவதால் USB ப்ராஜெக்ட்களில் தவிர்க்கவும்.",{n:6,o:"v"}],
+   ["hdrpwr","pads",40,64,0,0,"","5V, GND, VIN.","5V, GND, VIN.",{n:3}]
+  ]},
+
+{ id:"relay4", n:"4‑Channel 5V Relay Module", al:["4 channel relay","relay 4","4ch relay","relay board"], cat:"drv", col:"#1f55b5", W:300, H:210,
+  chip:"4 × SRD-05VDC-SL-C", volt:"5V",
+  ab:["Four relays on one board, each with its own optocoupler and LED. Control four separate appliances from one microcontroller.",
+      "ஒரே போர்டில் நான்கு ரிலேக்கள்; ஒவ்வொன்றுக்கும் தனி ஆப்டோகப்ளர், LED. ஒரே மைக்ரோகண்ட்ரோலரிலிருந்து நான்கு தனி சாதனங்களைக் கட்டுப்படுத்தலாம்."],
+  sp:[["vin","5V (about 70 mA per relay ON)"],["if","IN1–IN4, active-LOW"],["load","10A 250V AC per channel"],["out","NO / COM / NC × 4"]],
+  uses:[["Room automation: light, fan, AC and socket","அறை தானியங்கி: விளக்கு, மின்விசிறி, AC, சாக்கெட்"],
+        ["Garden irrigation with four valves","நான்கு வால்வுகளுடன் தோட்ட நீர்ப்பாசனம்"],
+        ["Shop sign lights on a timer","டைமருடன் கடைப் பலகை விளக்குகள்"],
+        ["Wi‑Fi power strip with ESP32","ESP32 உடன் Wi‑Fi power strip"]],
+  tip:["Four relays ON need about 300 mA: use a separate 5V supply on JD-VCC, not the Arduino 5V pin.","நான்கு ரிலேக்களும் ON ஆனால் சுமார் 300 mA தேவை: Arduino 5V பின் அல்ல, JD-VCC-க்கு தனி 5V கொடுங்கள்."],
+  holes:[[8,200],[292,200],[8,40],[292,40]], silk:[],
+  c: relay4.concat([
+   ["ledpwr","led",30,170,10,5,"","Power LED.","பவர் LED.",{col:"#ff3b30"}],
+   ["header","header",160,196,0,0,"","GND, IN1, IN2, IN3, IN4, VCC.","GND, IN1, IN2, IN3, IN4, VCC.",{n:6}],
+   ["jumper","jhdr",240,170,0,0,"","JD-VCC / VCC / GND jumper. Remove it and feed JD-VCC separately for full isolation.","JD-VCC / VCC / GND ஜம்பர். முழு பிரிப்புக்கு இதை எடுத்து JD-VCC-க்கு தனி மின்சாரம் கொடுங்கள்.",{n:3,r:1,cap:2}]
+  ])},
+
+{ id:"uln2003", n:"ULN2003 Stepper Driver", al:["uln2003","28byj-48","stepper","darlington"], cat:"drv", col:"#1f7a46", W:140, H:140,
+  chip:"ULN2003A", volt:"5–12V",
+  ab:["The driver that comes with the small 28BYJ-48 stepper motor. Seven Darlington switches turn the motor coils on in sequence.",
+      "சிறிய 28BYJ-48 stepper மோட்டாருடன் வரும் டிரைவர். ஏழு Darlington ஸ்விட்ச்கள் மோட்டார் காயில்களை வரிசையாக இயக்குகின்றன."],
+  sp:[["chip","ULN2003A"],["vin","5V (or 12V motor version)"],["if","IN1–IN4"],["load","500 mA per channel"],["out","5-pin JST motor socket"]],
+  uses:[["Slow, precise turning: dials, pointers, clocks","மெதுவான, துல்லியமான சுழற்சி: dial, pointer, கடிகாரம்"],
+        ["Automatic fish feeder or pet feeder","தானியங்கி மீன் / செல்லப்பிராணி உணவளிப்பான்"],
+        ["Curtain or blind opener","திரைச்சீலை திறப்பான்"],
+        ["Learning how stepper motors step","Stepper மோட்டார்கள் எப்படி நகர்கின்றன என்று கற்க"]],
+  tip:["The 28BYJ-48 needs 2048 steps per turn and is slow (about 15 RPM). Use the Stepper or AccelStepper library with pin order 1-3-2-4.","28BYJ-48-க்கு ஒரு சுற்றுக்கு 2048 step தேவை; மெதுவானது (சுமார் 15 RPM). Pin வரிசை 1-3-2-4 உடன் Stepper அல்லது AccelStepper library பயன்படுத்துங்கள்."],
+  holes:[[8,8],[132,8],[8,132],[132,132]], silk:[],
+  c:[
+   ["jst","jst",36,6,60,16,"","5-pin white socket for the 28BYJ-48 motor cable.","28BYJ-48 மோட்டார் கேபிளுக்கான 5-பின் வெள்ளை சாக்கெட்.",{n:5}],
+   ["driverIC","chip",26,52,84,26,"ULN2003AN","ULN2003: seven Darlington transistor switches with built-in flyback diodes.","ULN2003: உள்ளமைந்த flyback டயோடுகளுடன் ஏழு Darlington டிரான்சிஸ்டர் ஸ்விட்ச்கள்.",{pins:"tb",dip:1}],
+   ["ledstat","leds",120,40,8,52,"","A, B, C, D LEDs show which coil is energised.","A, B, C, D LED-கள் எந்த காயில் இயங்குகிறது என்று காட்டும்.",{n:4,cols:["#ff3b30"]}],
+   ["header","header",4,100,0,0,"","IN1–IN4 from your microcontroller.","உங்கள் மைக்ரோகண்ட்ரோலரிலிருந்து IN1–IN4.",{n:4}],
+   ["jumper","jumper",92,96,24,10,"ON","ON/OFF jumper for motor power.","மோட்டார் மின்சாரத்துக்கான ON/OFF ஜம்பர்.",{}],
+   ["hdrpwr","header",92,116,0,0,"","− and + : motor power (5V or 12V).","− மற்றும் + : மோட்டார் மின்சாரம் (5V அல்லது 12V).",{n:2}]
+  ]},
+
+{ id:"irf520", n:"IRF520 MOSFET Module", al:["irf520","mosfet module","mosfet","pwm switch"], cat:"drv", col:"#7a2337", W:140, H:84,
+  chip:"IRF520", volt:"Up to 24V DC load",
+  ab:["Switches DC loads such as LED strips, pumps and small motors with a PWM pin, so you can control speed and brightness, not just on/off.",
+      "PWM பின் மூலம் LED ஸ்ட்ரிப், பம்ப், சிறிய மோட்டார் போன்ற DC சுமைகளை இயக்குகிறது; on/off மட்டுமல்ல, வேகம், ஒளியையும் கட்டுப்படுத்தலாம்."],
+  sp:[["chip","IRF520N"],["vin","0–24V load supply"],["if","SIG (PWM)"],["load","~1A without heat sink (5V gate)"]],
+  uses:[["Dimming 12V LED strips","12V LED ஸ்ட்ரிப் ஒளி குறைப்பு"],
+        ["Pump or fan speed control","பம்ப் அல்லது மின்விசிறி வேகக் கட்டுப்பாடு"],
+        ["Solenoid valves and door locks","Solenoid வால்வு, கதவுப் பூட்டு"],
+        ["Heating pads and small heaters (DC)","வெப்பத் தகடு, சிறிய DC ஹீட்டர்"]],
+  tip:["With 3.3V boards (ESP32) the IRF520 stays half-on and gets hot. Use an IRLZ44N or AO3400 module instead.","3.3V போர்டுகளுடன் (ESP32) IRF520 பாதி மட்டும் on ஆகி சூடாகும். அதற்குப் பதில் IRLZ44N அல்லது AO3400 மாட்யூல் பயன்படுத்துங்கள்."],
+  holes:[[8,76],[132,76]], silk:[],
+  c:[
+   ["term","term",2,16,26,50,"","VIN / GND: the load's power supply in.","VIN / GND: சுமைக்கான மின் உள்ளீடு.",{n:2}],
+   ["mosfet","to220",50,4,38,56,"IRF520","IRF520 N-channel MOSFET: the switch itself.","IRF520 N-channel MOSFET: இதுவே ஸ்விட்ச்.",{}],
+   ["smd","smd",94,10,14,6,"","Gate resistors.","Gate ரெசிஸ்டர்கள்.",{}],
+   ["ledstat","led",96,58,10,5,"","Lights when SIG is HIGH.","SIG HIGH ஆனால் எரியும்.",{col:"#ff3b30"}],
+   ["term","term",112,16,26,50,"","V+ / V−: connect the load (LED strip, pump) here.","V+ / V−: சுமையை (LED ஸ்ட்ரிப், பம்ப்) இங்கே இணையுங்கள்.",{n:2}],
+   ["header","header",46,68,0,0,"","SIG, VCC, GND. SIG goes to a PWM pin.","SIG, VCC, GND. SIG-ஐ PWM பின்னுடன் இணையுங்கள்.",{n:3}]
+  ]},
+
+{ id:"mt3608", n:"MT3608 Boost Converter", al:["mt3608","boost converter","step up","dc-dc boost"], cat:"pwr", col:"#1f55b5", W:148, H:68,
+  chip:"MT3608", volt:"Out up to 28V",
+  ab:["A tiny step-up power module. Turns a 3.7V battery into 5V, 9V or 12V for your project.",
+      "சிறிய step-up பவர் மாட்யூல். 3.7V பேட்டரியை உங்கள் ப்ராஜெக்ட்டுக்கு 5V, 9V அல்லது 12V ஆக மாற்றுகிறது."],
+  sp:[["chip","MT3608"],["vin","2–24V"],["out","Up to 28V (adjustable)"],["load","~1A at 5V from a Li-ion cell"],["range","Efficiency up to ~93%"]],
+  uses:[["5V from one 18650 cell for an ESP32 or Arduino","ஒரு 18650 செல்லிலிருந்து ESP32 அல்லது Arduino-க்கு 5V"],
+        ["12V for a small fan or LED strip from batteries","பேட்டரியிலிருந்து சிறிய மின்விசிறி அல்லது LED ஸ்ட்ரிப்புக்கு 12V"],
+        ["Portable gadgets and power banks","கையடக்க கேஜெட், பவர் பேங்க்"],
+        ["Solar projects with a low-voltage cell","குறைந்த வோல்டேஜ் செல்லுடன் சோலார் ப்ராஜெக்ட்கள்"]],
+  tip:["Turn the multi-turn pot anticlockwise many times to lower the output (it often ships set high). No protection against reverse input.","Output-ஐக் குறைக்க multi-turn pot-ஐ எதிர் கடிகாரத் திசையில் பல முறை திருப்புங்கள் (பெரும்பாலும் அதிகமாக அமைத்து வரும்). தலைகீழ் உள்ளீட்டுப் பாதுகாப்பு இல்லை."],
+  holes:[], silk:[[16,64,"IN",6],[132,64,"OUT",6]],
+  c:[
+   ["pads","pads",2,10,0,0,"","VIN+ and VIN− pads.","VIN+, VIN− பேட்கள்.",{n:2,o:"v",p:22}],
+   ["inductor","inductor",30,6,30,30,"220","22 µH inductor: stores energy each switching cycle.","22 µH இண்டக்டர்: ஒவ்வொரு switching சுழற்சியிலும் ஆற்றலைச் சேமிக்கிறது.",{}],
+   ["boostic","sot",34,46,16,10,"","MT3608 boost chip (switches at 1.2 MHz).","MT3608 பூஸ்ட் சிப் (1.2 MHz-இல் switching).",{}],
+   ["smd","smd",64,12,14,7,"","Ceramic input and output capacitors.","செராமிக் உள்ளீடு, வெளியீடு கெபாசிட்டர்கள்.",{col:"#9c7a52"}],
+   ["diode","diode",60,44,26,11,"SS34","SS34 Schottky diode.","SS34 Schottky டயோடு.",{smd:1}],
+   ["pot","pot",90,8,28,28,"","Multi-turn pot: sets output voltage.","Multi-turn pot: output வோல்டேஜை அமைக்கிறது.",{}],
+   ["pads","pads",136,10,0,0,"","VOUT+ and VOUT− pads.","VOUT+, VOUT− பேட்கள்.",{n:2,o:"v",p:22}]
+  ]},
+
+{ id:"ams1117", n:"AMS1117 3.3V Module", al:["ams1117","3.3v regulator","ldo module","3v3"], cat:"pwr", col:"#1f55b5", W:100, H:64,
+  chip:"AMS1117-3.3", volt:"3.3V out",
+  ab:["A simple module that turns 5V into a steady 3.3V for ESP, nRF24 and other 3.3V parts.",
+      "5V-ஐ ESP, nRF24 போன்ற 3.3V பாகங்களுக்கு நிலையான 3.3V ஆக மாற்றும் எளிய மாட்யூல்."],
+  sp:[["chip","AMS1117-3.3"],["vin","4.5–12V (5V best)"],["out","3.3V"],["load","up to ~800 mA (gets hot)"]],
+  uses:[["Clean 3.3V for nRF24L01 and RC522 modules","nRF24L01, RC522 மாட்யூல்களுக்கு சுத்தமான 3.3V"],
+        ["Powering ESP-01 from 5V","5V-இலிருந்து ESP-01-க்கு மின்சாரம்"],
+        ["3.3V rail on breadboard projects","பிரெட்போர்டு ப்ராஜெக்ட்களில் 3.3V வரி"]],
+  tip:["It wastes the extra voltage as heat: 12V in at 300 mA makes it very hot. Feed it 5V for best results.","கூடுதல் வோல்டேஜை வெப்பமாக வீணாக்கும்: 12V உள்ளீட்டில் 300 mA என்றால் மிகவும் சூடாகும். சிறந்த பலனுக்கு 5V கொடுங்கள்."],
+  holes:[], silk:[[30,46,"IN",6],[80,46,"OUT",6]],
+  c:[
+   ["smd","smd",8,16,16,7,"","Input capacitor.","உள்ளீட்டு கெபாசிட்டர்.",{col:"#9c7a52"}],
+   ["ldo","reg",32,6,34,30,"AMS1117|3.3","AMS1117-3.3 regulator.","AMS1117-3.3 ரெகுலேட்டர்.",{}],
+   ["ledpwr","led",74,12,10,5,"","Power LED.","பவர் LED.",{col:"#ff3b30"}],
+   ["smd","smd",74,26,16,7,"","Output capacitor (needed for stability).","வெளியீட்டு கெபாசிட்டர் (நிலைத்தன்மைக்கு அவசியம்).",{col:"#9c7a52"}],
+   ["hdrpwr","header",10,50,0,0,"","IN: VIN and GND.","IN: VIN, GND.",{n:2}],
+   ["hdrpwr","header",70,50,0,0,"","OUT: 3.3V and GND.","OUT: 3.3V, GND.",{n:2}]
+  ]},
+
+{ id:"neo6m", n:"NEO‑6M GPS Module", al:["neo-6m","gps","gy-gps6mv2","ublox"], cat:"com", col:"#1f55b5", W:140, H:104,
+  chip:"u-blox NEO-6M", volt:"3.3–5V",
+  ab:["A GPS receiver that tells your project where it is and the exact time. It comes with a square ceramic patch antenna on a cable.",
+      "உங்கள் ப்ராஜெக்ட் எங்கே இருக்கிறது, சரியான நேரம் என்ன என்று சொல்லும் GPS ரிசீவர். கேபிளுடன் சதுர செராமிக் patch ஆன்டெனா வரும்."],
+  sp:[["chip","u-blox NEO-6M"],["vin","3.3–5V"],["if","UART 9600 baud (NMEA)"],["range","~2.5 m accuracy"],["out","1 Hz updates (up to 5 Hz)"]],
+  uses:[["Vehicle and delivery tracking","வாகன, டெலிவரி கண்காணிப்பு"],
+        ["Speedometer and trip logger","வேகமானி, பயணப் பதிவு"],
+        ["Accurate clock synced from satellites","செயற்கைக்கோள் மூலம் ஒத்திசைந்த துல்லிய கடிகாரம்"],
+        ["Drone and rover navigation","ட்ரோன், rover வழிசெலுத்தல்"]],
+  tip:["Use the TinyGPS++ library. Place the antenna facing the sky; the PPS LED blinks once per second when it has a fix.","TinyGPS++ library பயன்படுத்துங்கள். ஆன்டெனாவை வானத்தை நோக்கி வையுங்கள்; fix கிடைத்ததும் PPS LED வினாடிக்கு ஒருமுறை மினுமினுக்கும்."],
+  holes:[[8,8],[132,8],[8,96],[132,96]], silk:[],
+  c:[
+   ["ldo","reg",8,20,20,16,"","3.3V regulator, so VCC can be 5V.","3.3V ரெகுலேட்டர்; இதனால் VCC 5V ஆகலாம்.",{}],
+   ["ledstat","led",12,48,10,5,"","PPS LED: blinks every second after a position fix.","PPS LED: இடம் கிடைத்ததும் ஒவ்வொரு வினாடியும் மினுமினுக்கும்.",{col:"#30d158"}],
+   ["gpsrx","shield",34,16,64,64,"u-blox|NEO-6M","NEO-6M GPS receiver.","NEO-6M GPS ரிசீவர்.",{}],
+   ["ufl","ufl",106,18,12,12,"","U.FL socket for the patch antenna cable.","Patch ஆன்டெனா கேபிளுக்கான U.FL சாக்கெட்.",{}],
+   ["flash","chip",104,40,18,12,"24C32","EEPROM: stores your settings.","EEPROM: உங்கள் அமைப்புகளைச் சேமிக்கிறது.",{pins:"tb"}],
+   ["coin","coin",102,60,24,24,"ML","Small backup battery: keeps satellite data for a faster next start (hot start).","சிறிய பேக்அப் பேட்டரி: அடுத்த தொடக்கம் வேகமாக இருக்க செயற்கைக்கோள் data-வை வைத்திருக்கிறது (hot start).",{}],
+   ["header","header",40,90,0,0,"","VCC, RX, TX, GND. Module TX goes to your board's RX.","VCC, RX, TX, GND. மாட்யூல் TX-ஐ உங்கள் போர்டின் RX-உடன் இணையுங்கள்.",{n:4}]
+  ]},
+
+{ id:"lora", n:"SX1278 LoRa Ra‑02", al:["lora","sx1278","ra-02","rfm95","433mhz"], cat:"com", col:"#2a6b3c", W:68, H:68,
+  chip:"Semtech SX1278", volt:"3.3V",
+  ab:["Long-range, low-power radio. Send small messages kilometres away without Wi‑Fi or SIM cards.",
+      "நீண்ட தூர, குறைந்த மின்சார ரேடியோ. Wi‑Fi, சிம் இல்லாமல் கிலோமீட்டர் தூரம் சிறிய செய்திகளை அனுப்பலாம்."],
+  sp:[["chip","SX1278"],["vin","3.3V"],["if","SPI + DIO0, RESET"],["rf","433 MHz LoRa"],["range","2–10 km line of sight"]],
+  uses:[["Farm sensors far from Wi‑Fi","Wi‑Fi இல்லாத தொலைதூர பண்ணை சென்சார்கள்"],
+        ["Water tank level from another building","வேறு கட்டிடத்திலிருந்து தண்ணீர் தொட்டி அளவு"],
+        ["Off-grid messaging and alarms","மின்வலை இல்லாத செய்தி, அலாரம்"],
+        ["Asset and vehicle trackers in a yard","முற்றம் / கிடங்கில் பொருள், வாகன டிராக்கர்"]],
+  tip:["Always connect an antenna before transmitting, or the radio can be damaged. In the UAE and India, 433 MHz or 865 MHz bands have rules; check local limits.","அனுப்புவதற்கு முன் எப்போதும் ஆன்டெனாவை இணையுங்கள்; இல்லையெனில் ரேடியோ பழுதாகலாம். UAE, இந்தியாவில் 433 / 865 MHz பட்டைகளுக்கு விதிகள் உள்ளன; உள்ளூர் வரம்புகளைச் சரிபாருங்கள்."],
+  holes:[], silk:[],
+  c:[
+   ["rfic","shield",12,6,44,46,"Ra-02|SX1278","SX1278 LoRa transceiver under the shield.","மூடியின் கீழ் SX1278 LoRa டிரான்ஸ்ஸீவர்.",{}],
+   ["ufl","ufl",44,54,12,12,"","IPEX antenna socket: always attach the antenna.","IPEX ஆன்டெனா சாக்கெட்: எப்போதும் ஆன்டெனாவை இணையுங்கள்.",{}],
+   ["pads","pads",0,4,0,0,"","ANT, GND, 3.3V, RESET, DIO0, DIO1, DIO2, DIO3.","ANT, GND, 3.3V, RESET, DIO0, DIO1, DIO2, DIO3.",{n:8,o:"v",p:7.6}],
+   ["pads","pads",60,4,0,0,"","GND, DIO4, DIO5, SCK, MISO, MOSI, NSS, GND (2.0 mm pitch: use an adapter for breadboards).","GND, DIO4, DIO5, SCK, MISO, MOSI, NSS, GND (2.0 mm இடைவெளி: பிரெட்போர்டுக்கு அடாப்டர் தேவை).",{n:8,o:"v",p:7.6}]
+  ]},
+
+{ id:"enc28j60", n:"ENC28J60 Ethernet Module", al:["enc28j60","ethernet module","lan module","rj45 module"], cat:"com", col:"#1f55b5", W:140, H:96,
+  chip:"Microchip ENC28J60", volt:"3.3V",
+  ab:["Adds a wired network port to an Arduino or ESP. Good where Wi‑Fi is weak, such as warehouses and electrical rooms.",
+      "Arduino அல்லது ESP-க்கு வயர் நெட்வொர்க் போர்ட்டைச் சேர்க்கிறது. கிடங்கு, மின் அறைகள் போன்ற Wi‑Fi பலவீனமான இடங்களுக்கு நல்லது."],
+  sp:[["chip","ENC28J60"],["vin","3.3V (~180 mA)"],["if","SPI"],["out","10 Mbps Ethernet"]],
+  uses:[["Wired sensor nodes in a warehouse","கிடங்கில் வயர் சென்சார் node-கள்"],
+        ["Simple web page served from an Arduino","Arduino-விலிருந்து எளிய web பக்கம்"],
+        ["Network-controlled relays","நெட்வொர்க் கட்டுப்பாட்டு ரிலேக்கள்"]],
+  tip:["It draws more current than the Arduino 3.3V pin gives; use a separate 3.3V regulator. W5500 modules are faster and easier if you can choose.","Arduino 3.3V பின் தருவதை விட அதிக மின்னோட்டம் எடுக்கும்; தனி 3.3V ரெகுலேட்டர் பயன்படுத்துங்கள். தேர்வு இருந்தால் W5500 மாட்யூல் வேகமானதும் எளிதானதும்."],
+  holes:[], silk:[],
+  c:[
+   ["header","header",2,22,0,0,"","2×5 header: CLKOUT, INT, WOL, SO, SI, SCK, CS, RESET, VCC, GND.","2×5 ஹெடர்: CLKOUT, INT, WOL, SO, SI, SCK, CS, RESET, VCC, GND.",{n:5,r:2,o:"v"}],
+   ["ldo","reg",30,6,22,16,"","Regulator on some versions (others need 3.3V in).","சில பதிப்புகளில் ரெகுலேட்டர் (மற்றவற்றுக்கு 3.3V உள்ளீடு தேவை).",{}],
+   ["ctrlic","chip",30,30,30,30,"ENC|28J60","ENC28J60 Ethernet controller with SPI interface.","SPI இணைப்பு கொண்ட ENC28J60 Ethernet கண்ட்ரோலர்.",{pins:"lr"}],
+   ["crystal","crystal",30,70,28,10,"25.000","25 MHz crystal for Ethernet timing.","Ethernet நேரத்துக்கான 25 MHz கிரிஸ்டல்.",{}],
+   ["eth","eth",74,14,70,68,"","RJ45 jack with built-in magnetics (transformer) and link LEDs.","உள்ளமைந்த magnetics (transformer), link LED-கள் கொண்ட RJ45 ஜாக்.",{e:"r"}]
+  ]},
+
+{ id:"max7219", n:"MAX7219 8×8 LED Matrix", al:["max7219","led matrix","dot matrix","8x8"], cat:"dsp", col:"#1f55b5", W:128, H:128,
+  chip:"MAX7219", volt:"5V",
+  ab:["An 8×8 red LED matrix with a driver chip. Chain several modules to make scrolling text signs.",
+      "டிரைவர் சிப்புடன் 8×8 சிவப்பு LED matrix. பல மாட்யூல்களை இணைத்து நகரும் எழுத்துப் பலகை செய்யலாம்."],
+  sp:[["chip","MAX7219"],["vin","5V"],["if","SPI-like: DIN, CS, CLK"],["out","64 LEDs, 16 brightness levels"]],
+  uses:[["Scrolling message signs","நகரும் செய்திப் பலகைகள்"],
+        ["Clocks and counters","கடிகாரங்கள், கவுண்டர்கள்"],
+        ["Emoji and game displays","Emoji, விளையாட்டு டிஸ்ப்ளே"],
+        ["Queue / token number boards","வரிசை / டோக்கன் எண் பலகை"]],
+  tip:["Use the MD_Parola library for scrolling text. Chain modules from DOUT to the next DIN.","நகரும் எழுத்துக்கு MD_Parola library பயன்படுத்துங்கள். DOUT-இலிருந்து அடுத்த DIN-க்கு மாட்யூல்களை இணையுங்கள்."],
+  holes:[], silk:[],
+  c:[
+   ["matrix","matrix",6,4,116,104,"","8×8 LED matrix (1088AS). It lifts off its sockets.","8×8 LED matrix (1088AS). சாக்கெட்டிலிருந்து எடுக்கலாம்.",{}],
+   ["header","header",2,114,0,0,"","Input: VCC, GND, DIN, CS, CLK.","உள்ளீடு: VCC, GND, DIN, CS, CLK.",{n:5}],
+   ["header","header",76,114,0,0,"","Output: chain to the next module.","வெளியீடு: அடுத்த மாட்யூலுக்கு இணைக்க.",{n:5}],
+   ["ledctrl","chip",20,44,88,26,"MAX7219","MAX7219 driver under the matrix: scans all 64 LEDs.","Matrix-இன் கீழ் MAX7219 டிரைவர்: 64 LED-களையும் scan செய்கிறது.",{pins:"tb",dip:1,b:1}],
+   ["smd","smd",20,84,16,7,"10k","RSET resistor: sets the LED current.","RSET ரெசிஸ்டர்: LED மின்னோட்டத்தை அமைக்கிறது.",{b:1}]
+  ]},
+
+{ id:"lcd1602", n:"16×2 LCD with I2C", al:["lcd","16x2","1602","i2c lcd","pcf8574","hd44780"], cat:"dsp", col:"#1f7a46", W:320, H:144,
+  chip:"HD44780 + PCF8574", volt:"5V",
+  ab:["The classic blue character display. The I2C backpack on the back cuts the wiring from 16 pins to just 4.",
+      "பழக்கமான நீல எழுத்து டிஸ்ப்ளே. பின்பக்கம் உள்ள I2C backpack வயரிங்கை 16 பின்களிலிருந்து 4 ஆகக் குறைக்கிறது."],
+  sp:[["chip","HD44780 + PCF8574"],["vin","5V"],["if","I2C (0x27 or 0x3F)"],["out","16 characters × 2 lines"]],
+  uses:[["Showing sensor readings on a project box","ப்ராஜெக்ட் பெட்டியில் சென்சார் அளவீடுகளைக் காட்ட"],
+        ["Menus for timers and controllers","டைமர், கட்டுப்படுத்திகளுக்கான மெனு"],
+        ["Token / queue display","டோக்கன் / வரிசைக் காட்சி"],
+        ["Debugging without a computer","கணினி இல்லாமல் debug செய்ய"]],
+  tip:["Use the LiquidCrystal_I2C library. Flip the board to see the backpack; turn its blue pot until the letters appear.","LiquidCrystal_I2C library பயன்படுத்துங்கள். Backpack-ஐப் பார்க்க போர்டைத் திருப்புங்கள்; எழுத்துகள் தெரியும் வரை நீல pot-ஐத் திருப்புங்கள்."],
+  holes:[[8,8],[312,8],[8,136],[312,136]], silk:[],
+  c:[
+   ["header","pads",34,2,0,0,"","16 LCD pins: VSS, VDD, V0, RS, RW, E, D0–D7, A, K. The backpack is soldered here.","16 LCD பின்கள்: VSS, VDD, V0, RS, RW, E, D0–D7, A, K. Backpack இங்கே சோல்டர் செய்யப்படுகிறது.",{n:16}],
+   ["lcd16","lcd",20,24,280,96,"","16×2 screen with HD44780 controller and blue backlight.","HD44780 கண்ட்ரோலர், நீல backlight கொண்ட 16×2 திரை.",{}],
+   ["ioexp","chip",120,26,46,24,"PCF8574","PCF8574 I/O expander on the backpack.","Backpack-இல் உள்ள PCF8574 I/O விரிவாக்க சிப்.",{pins:"tb",b:1}],
+   ["pot","pot",120,64,28,28,"","Contrast pot: turn until text is clear.","Contrast pot: எழுத்து தெளிவாகும் வரை திருப்புங்கள்.",{b:1}],
+   ["jumper","jumper",170,66,12,22,"LED","Backlight jumper: remove it to turn the backlight off.","Backlight ஜம்பர்: backlight-ஐ அணைக்க இதை எடுங்கள்.",{b:1}],
+   ["header","header",80,30,0,0,"","I2C header: GND, VCC, SDA, SCL.","I2C ஹெடர்: GND, VCC, SDA, SCL.",{n:4,o:"v",b:1}]
+  ]},
+
+{ id:"tm1637", n:"TM1637 4‑Digit Display", al:["tm1637","7 segment","4 digit display","clock display"], cat:"dsp", col:"#1f55b5", W:168, H:76,
+  chip:"TM1637", volt:"3.3–5V",
+  ab:["A 4-digit 7-segment display with a colon, driven by just two wires. Ideal for clocks and counters.",
+      "இரண்டு வயர்களால் மட்டுமே இயங்கும், colon கொண்ட 4-இலக்க 7-segment டிஸ்ப்ளே. கடிகாரம், கவுண்டருக்கு ஏற்றது."],
+  sp:[["chip","TM1637"],["vin","3.3–5V"],["if","CLK, DIO (2-wire)"],["out","4 digits + colon, 8 brightness levels"]],
+  uses:[["Digital clock with an RTC module","RTC மாட்யூலுடன் டிஜிட்டல் கடிகாரம்"],
+        ["Countdown timer","Countdown டைமர்"],
+        ["Temperature or water-level readout","வெப்பநிலை அல்லது தண்ணீர் அளவுக் காட்சி"],
+        ["Production or visitor counter","உற்பத்தி அல்லது வருகையாளர் கவுண்டர்"]],
+  tip:["It is not real I2C, so it works on any two GPIO pins. Use the TM1637Display library.","இது உண்மையான I2C அல்ல; எந்த இரண்டு GPIO பின்களிலும் வேலை செய்யும். TM1637Display library பயன்படுத்துங்கள்."],
+  holes:[[8,8],[160,8],[8,68],[160,68]], silk:[],
+  c:[
+   ["seg7","seg",14,8,124,60,"","4-digit display with the clock colon.","கடிகார colon கொண்ட 4-இலக்க டிஸ்ப்ளே.",{text:"1234"}],
+   ["header","header",150,18,0,0,"","CLK, DIO, VCC, GND.","CLK, DIO, VCC, GND.",{n:4,o:"v"}],
+   ["ledctrl","chip",60,26,40,18,"TM1637","TM1637 driver on the back.","பின்பக்கம் TM1637 டிரைவர்.",{pins:"tb",b:1}]
+  ]},
+
+{ id:"ds3231", n:"DS3231 RTC Module", al:["ds3231","rtc","real time clock","zs-042"], cat:"util", col:"#1f55b5", W:150, H:88,
+  chip:"DS3231", volt:"3.3–5V",
+  ab:["A very accurate clock module with a backup battery, so your project always knows the date and time.",
+      "பேக்அப் பேட்டரி கொண்ட மிகத் துல்லியமான கடிகார மாட்யூல்; உங்கள் ப்ராஜெக்ட்டுக்கு எப்போதும் தேதி, நேரம் தெரியும்."],
+  sp:[["chip","DS3231SN + AT24C32"],["vin","3.3–5V"],["if","I2C (0x68, EEPROM 0x57)"],["range","±2 ppm (~1 min/year)"]],
+  uses:[["Clocks, alarms and timers","கடிகாரம், அலாரம், டைமர்"],
+        ["Time-stamped data logging","நேர முத்திரையுடன் data பதிவு"],
+        ["Scheduled relays: lights, pumps, school bells","அட்டவணைப்படி ரிலே: விளக்கு, பம்ப், பள்ளி மணி"],
+        ["Waking a sleeping board on an alarm","அலாரத்தில் தூங்கும் போர்டை எழுப்ப"]],
+  tip:["This module charges its battery: with a non-rechargeable CR2032, remove the charging diode or resistor (near SCL), or use an LIR2032.","இந்த மாட்யூல் பேட்டரியை சார்ஜ் செய்யும்: ரீசார்ஜ் ஆகாத CR2032 என்றால் charging டயோடு அல்லது ரெசிஸ்டரை (SCL அருகில்) நீக்குங்கள், அல்லது LIR2032 பயன்படுத்துங்கள்."],
+  holes:[[140,8],[140,80]], silk:[],
+  c:[
+   ["header","header",2,14,0,0,"","32K, SQW, SCL, SDA, VCC, GND.","32K, SQW, SCL, SDA, VCC, GND.",{n:6,o:"v"}],
+   ["rtc","chip",30,12,40,24,"DS3231","DS3231 clock chip with built-in crystal.","உள்ளமைந்த கிரிஸ்டல் கொண்ட DS3231 கடிகார சிப்.",{pins:"tb"}],
+   ["flash","chip",30,52,20,12,"24C32","AT24C32 EEPROM: 4 KB of extra storage.","AT24C32 EEPROM: 4 KB கூடுதல் சேமிப்பு.",{pins:"tb"}],
+   ["ledpwr","led",80,16,10,5,"","Power LED.","பவர் LED.",{col:"#ff3b30"}],
+   ["diode","diode",80,50,18,8,"","Charging diode + resistor (see the tip about CR2032).","Charging டயோடு + ரெசிஸ்டர் (CR2032 குறிப்பைப் பாருங்கள்).",{smd:1}],
+   ["header","header",118,20,0,0,"","Pass-through: SCL, SDA, VCC, GND to chain more I2C devices.","தொடர் இணைப்பு: மேலும் I2C சாதனங்களை இணைக்க SCL, SDA, VCC, GND.",{n:4,o:"v"}],
+   ["coin","coin",34,8,72,72,"CR2032","Coin cell holder on the back.","பின்பக்கம் காயின் செல் ஹோல்டர்.",{b:1}]
+  ]},
+
+{ id:"microsd", n:"MicroSD Card Module", al:["sd card module","microsd","sd module","catalex"], cat:"util", col:"#1f55b5", W:104, H:168,
+  chip:"74LVC125A", volt:"5V",
+  ab:["Lets an Arduino read and write files on a microSD card: logs, settings, sounds and images.",
+      "Arduino மூலம் மைக்ரோSD கார்டில் கோப்புகளைப் படிக்கவும் எழுதவும் உதவுகிறது: log, அமைப்புகள், ஒலி, படங்கள்."],
+  sp:[["chip","74LVC125A level shifter"],["vin","5V (regulated to 3.3V)"],["if","SPI"],["range","FAT32 cards up to 32 GB"]],
+  uses:[["Data loggers that save CSV files","CSV கோப்புகளைச் சேமிக்கும் data logger"],
+        ["Playing sound files with a DAC or DFPlayer","DAC அல்லது DFPlayer மூலம் ஒலிக் கோப்புகள்"],
+        ["Storing settings and Wi‑Fi credentials","அமைப்புகள், Wi‑Fi விவரங்களைச் சேமிக்க"],
+        ["Offline backup of sensor readings","சென்சார் அளவீடுகளின் offline backup"]],
+  tip:["Format the card as FAT32. Use short 8.3 file names (LOG001.CSV) with the basic SD library.","கார்டை FAT32 ஆக format செய்யுங்கள். அடிப்படை SD library உடன் குறுகிய 8.3 கோப்புப் பெயர்கள் (LOG001.CSV) பயன்படுத்துங்கள்."],
+  holes:[[10,10],[94,10]], silk:[],
+  c:[
+   ["sd","sd",18,8,68,64,"","Push-push microSD socket.","அழுத்தி-அழுத்தும் மைக்ரோSD சாக்கெட்.",{}],
+   ["lvl","chip",22,92,32,18,"LVC125","74LVC125A converts 5V Arduino signals to 3.3V for the card.","74LVC125A, 5V Arduino சிக்னல்களை கார்டுக்கு 3.3V ஆக மாற்றுகிறது.",{pins:"tb"}],
+   ["ldo","reg",62,90,24,20,"","3.3V regulator for the card.","கார்டுக்கான 3.3V ரெகுலேட்டர்.",{}],
+   ["smd","smd",30,124,40,7,"","Pull-up resistors and filter capacitors.","Pull-up ரெசிஸ்டர்கள், வடிகட்டி கெபாசிட்டர்கள்.",{}],
+   ["header","header",22,152,0,0,"","GND, VCC, MISO, MOSI, SCK, CS.","GND, VCC, MISO, MOSI, SCK, CS.",{n:6}]
+  ]},
+
+{ id:"levelshift", n:"Logic Level Converter (4‑ch)", al:["level shifter","logic level converter","bss138","5v to 3.3v"], cat:"util", col:"#b8252f", W:92, H:64,
+  chip:"4 × BSS138", volt:"3.3V ↔ 5V",
+  ab:["A small two-way translator between 3.3V and 5V signals, so an ESP32 or Pi can safely talk to 5V modules.",
+      "3.3V, 5V சிக்னல்களுக்கு இடையிலான சிறிய இரு-வழி மொழிபெயர்ப்பான்; ESP32 அல்லது Pi 5V மாட்யூல்களுடன் பாதுகாப்பாகப் பேசலாம்."],
+  sp:[["chip","4 × BSS138 MOSFET"],["v","LV 1.8–3.3V, HV up to 5V"],["if","4 bidirectional channels"],["range","Good for I2C, UART; slow for fast SPI"]],
+  uses:[["ESP32 / Pi with 5V sensors and relays","5V சென்சார், ரிலேக்களுடன் ESP32 / Pi"],
+        ["Sharing an I2C bus between 3.3V and 5V devices","3.3V, 5V சாதனங்களுக்கு இடையே I2C bus பகிர்வு"],
+        ["Reading HC-SR04 ECHO safely","HC-SR04 ECHO-வைப் பாதுகாப்பாகப் படிக்க"]],
+  tip:["Connect both supplies: LV to 3.3V, HV to 5V, and both GNDs.","இரண்டு மின்சாரத்தையும் இணையுங்கள்: LV-ஐ 3.3V, HV-ஐ 5V, இரண்டு GND-களும்."],
+  holes:[], silk:[[46,60,"LV ↔ HV",6]],
+  c:[
+   ["pads","pads",2,2,0,0,"","LV side: LV1, LV2, LV (3.3V), GND, LV3, LV4.","LV பக்கம்: LV1, LV2, LV (3.3V), GND, LV3, LV4.",{n:6,o:"v",p:10}],
+   ["transistor","sot",30,12,14,10,"","BSS138 MOSFET for channel 1 (one per channel).","சேனல் 1-க்கான BSS138 MOSFET (ஒவ்வொரு சேனலுக்கும் ஒன்று).",{}],
+   ["transistor","sot",50,12,14,10,"","BSS138 MOSFET for channel 2.","சேனல் 2-க்கான BSS138 MOSFET.",{}],
+   ["smd","smd",28,28,38,6,"10k","10 kΩ pull-up resistors on both sides.","இரு பக்கமும் 10 kΩ pull-up ரெசிஸ்டர்கள்.",{}],
+   ["transistor","sot",30,42,14,10,"","BSS138 MOSFET for channel 3.","சேனல் 3-க்கான BSS138 MOSFET.",{}],
+   ["transistor","sot",50,42,14,10,"","BSS138 MOSFET for channel 4.","சேனல் 4-க்கான BSS138 MOSFET.",{}],
+   ["pads","pads",80,2,0,0,"","HV side: HV1, HV2, HV (5V), GND, HV3, HV4.","HV பக்கம்: HV1, HV2, HV (5V), GND, HV3, HV4.",{n:6,o:"v",p:10}]
+  ]},
+
+{ id:"bme280", n:"BME280 / BMP280 Sensor", al:["bme280","bmp280","pressure sensor","barometer","gy-bme280"], cat:"sen", col:"#5b2a86", W:64, H:60,
+  chip:"Bosch BME280", volt:"3.3V (some 5V)",
+  ab:["A tiny sensor for temperature, air pressure and (BME280 only) humidity. Much more accurate than a DHT11.",
+      "வெப்பநிலை, காற்றழுத்தம், (BME280-இல் மட்டும்) ஈரப்பதத்துக்கான சிறிய சென்சார். DHT11-ஐ விட மிகத் துல்லியமானது."],
+  sp:[["chip","BME280 (BMP280 = no humidity)"],["vin","3.3V (5V on boards with a regulator)"],["if","I2C 0x76/0x77 or SPI"],["range","±1 °C, ±3 % RH, ±1 hPa"]],
+  uses:[["Weather station with pressure trends","அழுத்த மாற்றத்துடன் வானிலை நிலையம்"],
+        ["Altitude measurement for drones","ட்ரோன்களுக்கு உயர அளவீடு"],
+        ["Indoor air comfort monitor","உட்புறக் காற்று வசதி மானிட்டர்"],
+        ["Cold room and warehouse logging","குளிர் அறை, கிடங்குப் பதிவு"]],
+  tip:["Check the chip: BME280 is square-ish, BMP280 is rectangular and has no humidity. Many cheap 'BME280' boards are actually BMP280.","சிப்பைச் சரிபாருங்கள்: BME280 ஏறக்குறைய சதுரம், BMP280 செவ்வகம், ஈரப்பதம் இல்லை. பல மலிவான 'BME280' போர்டுகள் உண்மையில் BMP280."],
+  holes:[[8,8],[56,8]], silk:[],
+  c:[
+   ["ldo","reg",6,16,16,12,"","3.3V regulator (only on some versions).","3.3V ரெகுலேட்டர் (சில பதிப்புகளில் மட்டும்).",{}],
+   ["sensorel","shield",26,18,12,12,"","Metal-lid BME280: the vent hole lets air in. Do not cover it.","உலோக மூடி BME280: காற்று உள்ளே வர சிறிய துளை உள்ளது. மூடாதீர்கள்.",{}],
+   ["smd","smd",44,18,14,6,"","I2C pull-up resistors.","I2C pull-up ரெசிஸ்டர்கள்.",{}],
+   ["header","header",2,46,0,0,"","VCC, GND, SCL, SDA, CSB, SDO. SDO sets the I2C address.","VCC, GND, SCL, SDA, CSB, SDO. SDO I2C முகவரியை அமைக்கும்.",{n:6}]
+  ]},
+
+{ id:"mq2", n:"MQ‑2 Gas / Smoke Sensor", al:["mq-2","mq2","gas sensor","smoke sensor","mq-135"], cat:"sen", col:"#1f55b5", W:128, H:128,
+  chip:"MQ-2 + LM393", volt:"5V",
+  ab:["Detects LPG, smoke, propane, methane and alcohol. The heater makes it warm in use. Flip it to see the comparator side.",
+      "LPG, புகை, propane, methane, ஆல்கஹாலைக் கண்டறிகிறது. ஹீட்டரால் இயங்கும்போது சூடாக இருக்கும். Comparator பக்கம் பார்க்க போர்டைத் திருப்புங்கள்."],
+  sp:[["chip","MQ-2 + LM393"],["vin","5V (~150 mA heater)"],["out","AO (analog) + DO (digital)"],["range","300–10,000 ppm (trend only without calibration)"]],
+  uses:[["Kitchen gas leak alarm with buzzer","பஸ்ஸருடன் சமையலறை வாயுக் கசிவு அலாரம்"],
+        ["Smoke alert to phone (with ESP32)","போனுக்கு புகை எச்சரிக்கை (ESP32 உடன்)"],
+        ["Auto exhaust fan when air is bad","காற்று மோசமானால் தானியங்கி exhaust fan"],
+        ["Learning analog sensors","அனலாக் சென்சார்கள் கற்றல்"]],
+  tip:["Not a certified safety device: use it for learning and extra alerts, not as your only gas detector. Needs 5V for the heater.","சான்றளிக்கப்பட்ட பாதுகாப்புச் சாதனம் அல்ல: கற்றலுக்கும் கூடுதல் எச்சரிக்கைக்கும் பயன்படுத்துங்கள்; ஒரே வாயு கண்டுபிடிப்பானாக அல்ல. ஹீட்டருக்கு 5V தேவை."],
+  holes:[[10,10],[118,10],[10,118],[118,118]], silk:[],
+  c:[
+   ["gassens","usonic",20,8,88,88,"","MQ-2 sensing element inside the mesh cap. It gets hot: do not touch.","வலை மூடிக்குள் MQ-2 உணரும் பகுதி. சூடாகும்: தொடாதீர்கள்.",{}],
+   ["header","header",44,110,0,0,"","VCC, GND, DO, AO.","VCC, GND, DO, AO.",{n:4}],
+   ["comparator","chip",40,20,30,20,"LM393","LM393 comparator for the DO output.","DO output-க்கான LM393 கம்பரேட்டர்.",{pins:"tb",b:1}],
+   ["pot","pot",84,52,26,26,"","Sensitivity pot for DO.","DO-க்கான உணர்திறன் pot.",{b:1}],
+   ["ledstat","leds",20,56,8,20,"","PWR LED and DO LED (lights when gas is above the threshold).","PWR LED, DO LED (வாயு வரம்பைத் தாண்டினால் எரியும்).",{n:2,cols:["#ff3b30","#30d158"],b:1}]
+  ]},
+
+{ id:"irsensor", n:"IR Obstacle Sensor", al:["ir sensor","obstacle sensor","fc-51","infrared","line sensor"], cat:"sen", col:"#1f55b5", W:128, H:60,
+  chip:"LM393", volt:"3.3–5V",
+  ab:["Detects an object a few centimetres in front of it using reflected infrared light. Very common on robot cars.",
+      "எதிரொளிக்கும் infrared ஒளி மூலம் சில சென்டிமீட்டர் முன்னால் உள்ள பொருளைக் கண்டறிகிறது. ரோபோ கார்களில் மிகப் பொதுவானது."],
+  sp:[["chip","LM393 comparator"],["vin","3.3–5V"],["out","Digital: LOW when obstacle"],["range","2–30 cm (adjustable)"]],
+  uses:[["Obstacle-avoiding robot","தடையைத் தவிர்க்கும் ரோபோ"],
+        ["Touch-free hand sanitizer or tap","தொடாமல் இயங்கும் சானிடைசர் அல்லது குழாய்"],
+        ["Object counter on a conveyor","Conveyor-இல் பொருள் எண்ணிக்கை"],
+        ["Line follower (pointed at the floor)","லைன் ஃபாலோயர் (தரையை நோக்கி)"]],
+  tip:["Output is LOW when something is detected. Strong sunlight confuses it, so test indoors first.","ஏதாவது கண்டறியப்பட்டால் output LOW. கடும் சூரிய ஒளி குழப்பும்; முதலில் உள்ளே சோதியுங்கள்."],
+  holes:[[40,52]], silk:[],
+  c:[
+   ["header","header",2,16,0,0,"","VCC, GND, OUT.","VCC, GND, OUT.",{n:3,o:"v"}],
+   ["comparator","chip",24,18,26,18,"LM393","LM393 comparator.","LM393 கம்பரேட்டர்.",{pins:"tb"}],
+   ["pot","pot",58,12,24,24,"","Distance pot: turn to set the detection range.","தூர pot: கண்டறியும் தூரத்தை அமைக்கத் திருப்புங்கள்.",{}],
+   ["ledstat","leds",58,44,26,6,"","PWR LED and OBS LED (lights when an obstacle is found).","PWR LED, OBS LED (தடை கண்டறிந்தால் எரியும்).",{n:2,h:1,cols:["#ff3b30","#30d158"]}],
+   ["irled","rled",100,4,22,22,"","IR LED (clear): sends invisible infrared light.","IR LED (தெளிவானது): கண்ணுக்குத் தெரியாத infrared ஒளியை அனுப்புகிறது.",{col:"#e8e8ee"}],
+   ["irled","rled",100,34,22,22,"","IR receiver (dark): detects the reflected light.","IR ரிசீவர் (கருப்பு): எதிரொளித்த ஒளியைக் கண்டறிகிறது.",{col:"#1b1b1e"}]
+  ]},
+
+{ id:"hx711", n:"HX711 Load Cell Amplifier", al:["hx711","load cell","weight sensor","scale"], cat:"sen", col:"#1f7a46", W:96, H:60,
+  chip:"HX711", volt:"2.7–5V",
+  ab:["Reads a load cell to measure weight. Build kitchen scales, parcel scales or tank weight monitors.",
+      "எடையை அளக்க load cell-ஐப் படிக்கிறது. சமையலறை தராசு, பார்சல் தராசு, தொட்டி எடை மானிட்டர் செய்யலாம்."],
+  sp:[["chip","HX711 (24-bit ADC)"],["vin","2.7–5V"],["if","DT, SCK (2-wire)"],["range","10 or 80 samples per second"]],
+  uses:[["Digital weighing scale","டிஜிட்டல் எடைத் தராசு"],
+        ["Parcel / carton weight check before dispatch","அனுப்பும் முன் பார்சல் / கார்டன் எடை சரிபார்ப்பு"],
+        ["Gas cylinder level by weight","எடை மூலம் எரிவாயு சிலிண்டர் அளவு"],
+        ["Bee-hive or plant weight logging","தேன்கூடு அல்லது செடி எடைப் பதிவு"]],
+  tip:["Wire colours: red E+, black E−, white A−, green A+ (check your load cell). Call tare() at start, then calibrate with a known weight.","வயர் நிறங்கள்: சிவப்பு E+, கருப்பு E−, வெள்ளை A−, பச்சை A+ (உங்கள் load cell-ஐச் சரிபாருங்கள்). தொடக்கத்தில் tare() அழைத்து, தெரிந்த எடையால் calibrate செய்யுங்கள்."],
+  holes:[], silk:[],
+  c:[
+   ["pads","pads",2,6,0,0,"","Load cell side: E+, E−, A−, A+, B−, B+.","Load cell பக்கம்: E+, E−, A−, A+, B−, B+.",{n:6,o:"v",p:8}],
+   ["adcchip","chip",32,18,32,18,"HX711","HX711 24-bit ADC with built-in amplifier.","உள்ளமைந்த பெருக்கி கொண்ட HX711 24-bit ADC.",{pins:"tb"}],
+   ["transistor","sot",38,44,14,10,"","Transistor that powers the load cell (excitation).","Load cell-க்கு மின்சாரம் தரும் டிரான்சிஸ்டர் (excitation).",{}],
+   ["header","pads",84,10,0,0,"","Board side: GND, DT, SCK, VCC.","போர்டு பக்கம்: GND, DT, SCK, VCC.",{n:4,o:"v"}]
+  ]},
+
+{ id:"acs712", n:"ACS712 Current Sensor", al:["acs712","current sensor","ammeter","hall sensor"], cat:"sen", col:"#c62a2f", W:120, H:80,
+  chip:"ACS712", volt:"5V",
+  ab:["Measures AC or DC current flowing through a wire, isolated from your microcontroller.",
+      "ஒரு வயர் வழியே பாயும் AC அல்லது DC மின்னோட்டத்தை, உங்கள் மைக்ரோகண்ட்ரோலரிலிருந்து தனித்து அளக்கிறது."],
+  sp:[["chip","ACS712 (5A, 20A or 30A)"],["vin","5V"],["out","Analog: 2.5V at 0A"],["range","185 / 100 / 66 mV per amp"]],
+  uses:[["Power monitoring of a motor or pump","மோட்டார் அல்லது பம்பின் மின் பயன்பாட்டுக் கண்காணிப்பு"],
+        ["Detecting if an appliance is ON","சாதனம் ON ஆக உள்ளதா என்று கண்டறிய"],
+        ["Battery charge/discharge meters","பேட்டரி சார்ஜ்/டிஸ்சார்ஜ் மீட்டர்"],
+        ["Over-current alarms","அதிக மின்னோட்ட அலாரம்"]],
+  tip:["The screw terminal goes in series with the load. For mains AC, only qualified wiring and an insulated box; consider a clamp-on sensor (SCT-013) instead.","ஸ்க்ரூ டெர்மினல் சுமையுடன் தொடர் இணைப்பில் (series) செல்லும். AC மின்சாரத்துக்கு தகுதியான வயரிங், இன்சுலேட்டட் பெட்டி மட்டும்; அதற்குப் பதில் clamp சென்சார் (SCT-013) பயன்படுத்தலாம்."],
+  holes:[[110,8]], silk:[],
+  c:[
+   ["term","term",2,16,26,48,"","IP+ / IP−: the current to measure passes through here.","IP+ / IP−: அளக்க வேண்டிய மின்னோட்டம் இதன் வழியே செல்கிறது.",{n:2}],
+   ["cursens","chip",48,24,24,22,"ACS712","ACS712 Hall-effect current sensor.","ACS712 ஹால்-விளைவு மின்னோட்ட சென்சார்.",{pins:"tb"}],
+   ["smd","smd",50,56,16,7,"","Filter capacitor that smooths the output.","Output-ஐ சீராக்கும் வடிகட்டி கெபாசிட்டர்.",{col:"#9c7a52"}],
+   ["ledpwr","led",84,60,10,5,"","Power LED.","பவர் LED.",{col:"#ff3b30"}],
+   ["header","header",104,22,0,0,"","VCC, OUT, GND. Read OUT on an analog pin.","VCC, OUT, GND. OUT-ஐ அனலாக் பின்னில் படியுங்கள்.",{n:3,o:"v"}]
+  ]}
+);
 /* ---------- SVG RENDERER (pure functions) ---------- */
 const f = n => Math.round(n * 100) / 100;
 const esc = s => String(s).replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
@@ -1895,6 +2549,62 @@ function drawComp(c) {
       s += drawComp({ t: "chip", x: x + w * 0.32, y: y + h * 0.28, w: w * 0.3, h: h * 0.44, lb, o: { pins: "q" } });
       s += drawComp({ t: "chip", x: x + w * 0.72, y: y + h * 0.36, w: w * 0.16, h: h * 0.28, lb: "", o: { pins: "tb" } });
       break;
+    case "lcd": {
+      s += R(x, y, w, h, "#121316", `rx="2" stroke="#000"`);
+      const sx = x + w * 0.06, sy = y + h * 0.16, sw = w * 0.88, sh = h * 0.68;
+      s += R(sx, sy, sw, sh, o.col || "#2f6ad6", `rx="1"`);
+      const cw = sw / 16, chh = sh / 2;
+      for (let r = 0; r < 2; r++) for (let i = 0; i < 16; i++) s += R(sx + i * cw + cw * 0.08, sy + r * chh + chh * 0.1, cw * 0.84, chh * 0.8, "rgba(255,255,255,.1)");
+      const rows = o.rows || ["HELLO AZHAR", "PCB KALVI 16x2"];
+      rows.forEach((t2, r) => { s += `<text x="${f(sx + cw * 0.5)}" y="${f(sy + r * chh + chh / 2)}" font-size="${f(chh * 0.62)}" fill="#e9f1ff" dominant-baseline="central" class="sl" textLength="${f(cw * t2.length * 0.98)}">${esc(t2)}</text>`; });
+      break;
+    }
+    case "seg": {
+      s += R(x, y, w, h, "#141416", `rx="2" stroke="#000"`);
+      const SEG = { 0: "abcdef", 1: "bc", 2: "abdeg", 3: "abcdg", 4: "bcfg", 5: "acdfg", 6: "acdefg", 7: "abc", 8: "abcdefg", 9: "abcdfg" };
+      const digits = String(o.text || "1234");
+      const dw = w * 0.86 / digits.length, dh = h * 0.72, t = Math.max(1.6, dw * 0.12);
+      digits.split("").forEach((ch, k) => {
+        const ox = x + w * 0.07 + k * dw + dw * 0.12, oy = y + h * 0.14, cw2 = dw * 0.66;
+        const on = SEG[ch] || "";
+        const segs = { a: [ox + t, oy, cw2 - 2 * t, t], b: [ox + cw2 - t, oy + t, t, dh / 2 - 1.5 * t], c: [ox + cw2 - t, oy + dh / 2 + t / 2, t, dh / 2 - 1.5 * t], d: [ox + t, oy + dh - t, cw2 - 2 * t, t], e: [ox, oy + dh / 2 + t / 2, t, dh / 2 - 1.5 * t], f: [ox, oy + t, t, dh / 2 - 1.5 * t], g: [ox + t, oy + dh / 2 - t / 2, cw2 - 2 * t, t] };
+        Object.keys(segs).forEach(sg => { const [a1, b1, c1, d1] = segs[sg]; s += R(a1, b1, c1, d1, on.includes(sg) ? "#ff3b30" : "rgba(255,59,48,.1)", `rx="${f(t / 2)}"`); });
+        if (k === 1) s += C(ox + cw2 + dw * 0.17, oy + dh * 0.32, t * 0.6, "#ff3b30") + C(ox + cw2 + dw * 0.17, oy + dh * 0.68, t * 0.6, "#ff3b30");
+      });
+      break;
+    }
+    case "matrix": {
+      s += R(x, y, w, h, "#151517", `rx="2" stroke="#000"`);
+      const heart = ["01100110", "11111111", "11111111", "11111111", "01111110", "00111100", "00011000", "00000000"];
+      const cs = Math.min(w, h) / 8;
+      for (let r = 0; r < 8; r++) for (let i = 0; i < 8; i++) s += C(x + (w - cs * 8) / 2 + i * cs + cs / 2, y + (h - cs * 8) / 2 + r * cs + cs / 2, cs * 0.36, heart[r][i] === "1" ? "#ff3b30" : "#3a1a1a");
+      break;
+    }
+    case "jst": {
+      const n = o.n || 4, horiz = w >= h;
+      s += R(x, y, w, h, "#efece4", `rx="1" stroke="#b9b39f" stroke-width=".7"`);
+      for (let i = 0; i < n; i++) {
+        const cx = horiz ? x + (i + 0.5) * w / n : x + w / 2, cy = horiz ? y + h / 2 : y + (i + 0.5) * h / n;
+        const sz = Math.min(horiz ? w / n : w, horiz ? h : h / n) * 0.5;
+        s += R(cx - sz / 2, cy - sz / 2, sz, sz, "#3b3a36");
+      }
+      break;
+    }
+    case "coin": {
+      const r = Math.min(w, h) / 2, cx = x + w / 2, cy = y + h / 2;
+      s += C(cx, cy, r, "#1b1c1f", `stroke="#000"`) + C(cx, cy, r * 0.86, SIL, `stroke="#7c838a"`);
+      s += lbl(cx - r * 0.6, cy - r * 0.3, r * 1.2, r * 0.6, lb || "CR2032", "#3a3f46", 9);
+      break;
+    }
+    case "usbfinger":
+      s += R(x, y, w, h, "rgba(0,0,0,.18)", `rx="1"`);
+      [0.12, 0.34, 0.58, 0.8].forEach((k, i) => { s += R(x + (i === 0 || i === 3 ? 2 : 6), y + h * k, w - (i === 0 || i === 3 ? 4 : 8), h * 0.1, GOLD, `rx="1"`); });
+      break;
+    case "rled": {
+      const r = Math.min(w, h) / 2, cx = x + w / 2, cy = y + h / 2;
+      s += C(cx, cy, r, o.col || "#e33", `stroke="rgba(0,0,0,.5)" stroke-width=".8"`) + C(cx - r * 0.3, cy - r * 0.3, r * 0.28, "rgba(255,255,255,.7)");
+      break;
+    }
     default:
       s += R(x, y, w, h, "#333");
   }
@@ -1906,7 +2616,7 @@ function backSolder(c) {
   let s = "";
   if (["header", "pads", "jhdr"].includes(c.t)) {
     hdrPins(c).forEach(([cx, cy, p]) => { s += C(cx, cy, p * 0.36, GOLD) + C(cx, cy, p * 0.24, "url(#gSolder)"); });
-  } else if (["usbb", "jack", "relay", "term", "cap", "usba", "eth", "to220", "usonic", "audio", "heatsink", "dht", "dome"].includes(c.t)) {
+  } else if (["usbb", "jack", "relay", "term", "cap", "usba", "eth", "to220", "usonic", "audio", "heatsink", "dht", "dome", "jst", "coin", "rled", "lcd", "seg", "matrix"].includes(c.t)) {
     const k = 5, pts = [[c.x + k, c.y + k], [c.x + c.w - k, c.y + k], [c.x + k, c.y + c.h - k], [c.x + c.w - k, c.y + c.h - k]];
     pts.forEach(([a, b]) => { s += C(a, b, 3.4, GOLD) + C(a, b, 2.3, "url(#gSolder)"); });
   } else if (c.t === "crystal" && !c.o.smd) {
@@ -1989,7 +2699,7 @@ const ICON = {
   to220: [32, 44, {}, "78M05"], relay: [64, 46, {}, "5V RELAY"], term: [54, 24, { n: 3 }], heatsink: [58, 40, {}], pot: [26, 26, {}],
   inductor: [34, 34, {}, "330"], diode: [30, 12, { smd: 1 }], sot: [16, 10, {}], jumper: [18, 10, {}], ufl: [14, 14, {}], sd: [52, 42, {}],
   cam: [40, 40, {}], fpc: [56, 12, {}], sim: [54, 42, {}], coil: [70, 50, {}], dome: [52, 52, {}], usonic: [48, 48, {}, "T"], dht: [36, 50, {}, "DHT"],
-  display: [72, 46, {}], probe: [44, 62, {}], subpcb: [64, 40, { col: "#2a8a4a" }, "BT"], flashled: [24, 24, {}]
+  display: [72, 46, {}], lcd: [80, 34, {}], seg: [76, 30, {}], matrix: [48, 48, {}], jst: [40, 12, { n: 4 }], coin: [42, 42, {}], usbfinger: [40, 40, {}], rled: [22, 22, { col: "#e8e8ee" }], probe: [44, 62, {}], subpcb: [64, 40, { col: "#2a8a4a" }, "BT"], flashled: [24, 24, {}]
 };
 function partIcon(k) {
   const p = P[k], spec = ICON[p.i] || [30, 30, {}];
