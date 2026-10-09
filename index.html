@@ -1,0 +1,2359 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="description" content="Learn PCB boards part by part in English and Tamil">
+<title>PCB Kalvi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&family=Noto+Sans+Tamil:wght@400;500;600&display=swap">
+<style>
+/* Layout: workbench — sticky toolbar, a dark cutting-mat stage on the left, a reading column on the right */
+:root{
+  --bg:#eef1ee; --surface:#fbfcfb; --surface2:#e3e9e4; --fg:#16201b; --muted:#56645d; --line:#cdd6d0;
+  --accent:#a8571f; --accent-ink:#ffffff; --accent-soft:#f4e3d4; --hl:#ff9a3c;
+  --stage:#d5ddd7; --mat-line:rgba(22,60,40,.08); --mat-line2:rgba(22,60,40,.16); --silk-l:#f2f2f2;
+  --f-display:"Chakra Petch","IBM Plex Sans",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans","Noto Sans Tamil",system-ui,sans-serif;
+  --f-ta:"Noto Sans Tamil","IBM Plex Sans",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1311; --surface:#151c19; --surface2:#1c2521; --fg:#e3eae5; --muted:#93a29a; --line:#28332e;
+  --accent:#e58c4c; --accent-ink:#1a0f07; --accent-soft:#3a2617; --hl:#ffb062;
+  --stage:#0a0f0d; --mat-line:rgba(160,220,190,.05); --mat-line2:rgba(160,220,190,.1); --silk-l:#f2f2f2; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1311; --surface:#151c19; --surface2:#1c2521; --fg:#e3eae5; --muted:#93a29a; --line:#28332e;
+  --accent:#e58c4c; --accent-ink:#1a0f07; --accent-soft:#3a2617; --hl:#ffb062;
+  --stage:#0a0f0d; --mat-line:rgba(160,220,190,.05); --mat-line2:rgba(160,220,190,.1); --silk-l:#f2f2f2; color-scheme:dark}
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--fg)}
+body{font-family:var(--f-body);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+[lang="ta"],.t-ta{font-family:var(--f-ta);line-height:1.75}
+code{font-family:var(--f-mono);font-size:.82em;background:var(--surface2);padding:.08em .4em;border-radius:4px;color:var(--fg)}
+a{color:var(--accent)}
+h1,h2,h3{text-wrap:balance;margin:0}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(1.6rem,3.6vw,2.4rem);line-height:1.1;letter-spacing:-.01em}
+.t-dual{display:block;font-size:.9em;color:var(--muted);margin-top:.15em}
+h1 .t-dual,h2 .t-dual,h3 .t-dual{font-family:var(--f-ta);font-weight:500;letter-spacing:0}
+h1 .t-dual{font-size:.55em}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top-in{max-width:1280px;margin:0 auto;padding-block:10px;padding-inline:16px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px 16px;align-items:center}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--fg)}
+.brand svg{width:34px;height:34px;flex:none}
+.brand b{font-family:var(--f-display);font-size:1.25rem;letter-spacing:.02em;line-height:1}
+.brand small{display:block;font-family:var(--f-ta);font-size:.72rem;color:var(--muted);line-height:1.2}
+.search{position:relative;min-width:0}
+.search input{width:100%;height:42px;border-radius:999px;border:1px solid var(--line);background:var(--surface);padding:0 16px 0 40px;font:inherit;color:var(--fg)}
+.search input::placeholder{color:var(--muted)}
+.search .mag{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--muted);pointer-events:none}
+.dd{position:absolute;left:0;right:0;top:48px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:0 18px 40px rgba(0,0,0,.18);padding:6px;max-height:70vh;overflow:auto}
+.dd-item{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"k m" "k s";gap:0 10px;width:100%;text-align:left;border:0;background:none;padding:8px 10px;border-radius:8px;cursor:pointer}
+.dd-item:hover,.dd-item.act{background:var(--surface2)}
+.dd-kind{grid-area:k;align-self:center;font-family:var(--f-mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);background:var(--accent-soft);padding:2px 7px;border-radius:5px}
+.dd-main{grid-area:m;font-weight:600}
+.dd-sub{grid-area:s;font-size:.85em;color:var(--muted);font-family:var(--f-ta)}
+.dd-empty{padding:10px 12px;color:var(--muted)}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--surface)}
+.lang button{border:0;background:none;padding:6px 11px;border-radius:999px;cursor:pointer;font-size:.85rem;font-weight:600;color:var(--muted);white-space:nowrap}
+.lang button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.nav{grid-column:1/-1;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.nav a{text-decoration:none;color:var(--muted);font-weight:600;padding:6px 12px;border-radius:8px;white-space:nowrap;font-size:.92rem}
+.nav a[aria-current="page"]{color:var(--fg);background:var(--surface2);box-shadow:inset 0 -2px 0 var(--accent)}
+@media (max-width:720px){
+  .top-in{grid-template-columns:minmax(0,1fr) auto}
+  .search{grid-column:1/-1;grid-row:2}
+  .nav{grid-row:3}
+}
+
+main{max-width:1280px;margin:0 auto;padding-block:22px 60px;padding-inline:16px}
+.pagehead{margin-bottom:18px;max-width:70ch}
+.lede{color:var(--muted);margin:.5em 0 0}
+.eyebrow{font-family:var(--f-mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.09em;color:var(--accent);margin:0 0 4px}
+.empty{color:var(--muted);padding:30px 0}
+
+/* library */
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:16px;scrollbar-width:thin}
+.chip{flex:none;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;cursor:pointer;font-weight:500;font-size:.88rem;display:flex;gap:7px;align-items:center}
+.chip[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.chip .cnt{font-family:var(--f-mono);font-size:.75em;opacity:.7}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.card{display:flex;flex-direction:column;text-decoration:none;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:transform .15s,border-color .15s}
+.card:hover{transform:translateY(-2px);border-color:var(--accent)}
+.thumb{background:var(--stage);background-image:linear-gradient(var(--mat-line) 1px,transparent 1px),linear-gradient(90deg,var(--mat-line) 1px,transparent 1px);background-size:16px 16px;height:170px;display:flex;align-items:center;justify-content:center;padding:10px}
+.thumb svg{max-width:100%;max-height:150px;width:auto;height:100%;filter:drop-shadow(0 6px 8px rgba(0,0,0,.3))}
+.card-b{padding:12px 14px 14px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.card-b h3{font-family:var(--f-display);font-size:1.12rem}
+.meta{margin:0;color:var(--muted);font-size:.86rem}
+.card-use{margin:4px 0 0;font-size:.9rem}
+.card-use .t-dual{font-size:.88em}
+.pts{margin:auto 0 0;padding-top:6px;font-family:var(--f-mono);font-size:.72rem;color:var(--muted)}
+
+/* board view */
+.bhead{margin-bottom:16px}
+.backlink{display:inline-block;text-decoration:none;font-weight:600;font-size:.9rem;margin-bottom:10px}
+.bv{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:22px;align-items:start}
+.colA,.colB{display:flex;flex-direction:column;gap:18px;min-width:0}
+.colB{position:sticky;top:120px}
+@media (max-width:900px){
+  .bv{display:flex;flex-direction:column}
+  .colA,.colB{display:contents}
+  .stagebox{order:1}.detail{order:2}.points{order:3}.over{order:4}
+  .colB{position:static}
+}
+.stage{position:relative;width:100%;aspect-ratio:5/4;max-height:68vh;min-height:280px;border-radius:var(--r);overflow:hidden;perspective:1400px;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none;
+  background-color:var(--stage);background-image:linear-gradient(var(--mat-line) 1px,transparent 1px),linear-gradient(90deg,var(--mat-line) 1px,transparent 1px),linear-gradient(var(--mat-line2) 1px,transparent 1px),linear-gradient(90deg,var(--mat-line2) 1px,transparent 1px);background-size:20px 20px,20px 20px,100px 100px,100px 100px}
+.stage.dragging{cursor:grabbing}
+.b3d{position:absolute;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.2,.75,.2,1),width .45s,height .45s,left .45s,top .45s}
+.b3d.noanim{transition:none}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.face.back{transform:rotateY(180deg)}
+.face svg{width:100%;height:100%;display:block;overflow:visible;filter:drop-shadow(0 12px 14px rgba(0,0,0,.35))}
+.sidetag{position:absolute;top:10px;left:10px;font-family:var(--f-mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;background:var(--surface);color:var(--fg);padding:3px 8px;border-radius:5px;opacity:.9;pointer-events:none}
+.angle{position:absolute;top:10px;right:10px;font-family:var(--f-mono);font-size:.72rem;color:var(--muted);pointer-events:none;font-variant-numeric:tabular-nums}
+.scalebar{position:absolute;left:12px;bottom:10px;display:flex;align-items:center;gap:6px;font-family:var(--f-mono);font-size:.68rem;color:var(--muted);pointer-events:none}
+.scalebar span{display:block;height:6px;border:1.5px solid var(--muted);border-top:0}
+.scalebar b{font-weight:500}
+
+/* svg internals */
+.sl{font-family:var(--f-mono);font-weight:600;pointer-events:none}
+.silk{fill:#f4f4f4;opacity:.85;font-family:var(--f-mono);font-weight:600;letter-spacing:.06em;pointer-events:none}
+.tr{fill:none;stroke:rgba(255,255,255,.09);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.via{fill:none;stroke:rgba(255,255,255,.16);stroke-width:1}
+.holein{fill:var(--stage)}
+.hs{cursor:pointer;outline:none}
+.hs .hl{fill:transparent;stroke:transparent;stroke-width:1.6;stroke-dasharray:4 3}
+.hs:hover .hl{stroke:var(--hl);fill:rgba(255,154,60,.12)}
+.hs.on .hl{stroke:var(--hl);stroke-width:2.4;stroke-dasharray:none;fill:rgba(255,154,60,.22);animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{fill:rgba(255,154,60,.06)}}
+.mk circle{fill:var(--accent);stroke:#fff;stroke-width:1.2}
+.mk text{fill:var(--accent-ink);font-family:var(--f-mono);font-weight:700;font-size:7.2px;text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.hs.on .mk circle{fill:var(--hl)}
+.nonum .mk{display:none}
+@media (prefers-reduced-motion:reduce){.b3d{transition:none}.hs.on .hl{animation:none}.card{transition:none}}
+
+.ctrls{margin-top:10px;display:flex;flex-direction:column;gap:8px}
+.crow{display:flex;gap:8px;align-items:center}
+.crow.wrap{flex-wrap:wrap}
+.crow input[type=range]{flex:1;min-width:0;accent-color:var(--accent)}
+.cb{min-width:40px;height:38px;border-radius:8px;border:1px solid var(--line);background:var(--surface);cursor:pointer;font-weight:600;font-size:1rem;display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:0 10px}
+.cb.wide{font-size:.86rem}
+.cb:hover{border-color:var(--accent)}
+.cb[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--fg)}
+.hint{margin:0;color:var(--muted);font-size:.82rem}
+.hint .t-dual{font-size:.95em}
+
+.sec{font-family:var(--f-display);font-weight:600;font-size:1.1rem;margin:0 0 10px}
+.sec .t-dual{font-size:.78em}
+.plist{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:6px}
+.pbtn{width:100%;display:flex;align-items:flex-start;gap:10px;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 10px;cursor:pointer}
+.pbtn:hover{border-color:var(--accent)}
+.pbtn[aria-current="true"]{border-color:var(--hl);background:var(--accent-soft)}
+.pn{flex:none;width:24px;height:24px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-family:var(--f-mono);font-weight:700;font-size:.74rem;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.pt{min-width:0;font-weight:500;font-size:.9rem;line-height:1.35}
+.pt .t-dual{font-size:.86em;font-weight:400}
+.pt code{display:inline-block;margin-top:3px;font-size:.72rem}
+.pt .t-en + code,.pt .t-ta + code{margin-left:0}
+.bk{flex:none;margin-left:auto;font-family:var(--f-mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.05em;border:1px dashed var(--muted);color:var(--muted);border-radius:4px;padding:1px 5px;align-self:center}
+
+.detail{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;box-shadow:0 1px 0 rgba(0,0,0,.02)}
+.d-empty{display:flex;gap:12px;align-items:flex-start;color:var(--muted)}
+.d-empty p{margin:0}
+.d-ico{font-size:1.4rem;line-height:1}
+.d-top{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:start;margin-bottom:10px}
+.d-num{width:34px;height:34px;border-radius:50%;background:var(--hl);color:#1a0f07;font-family:var(--f-mono);font-weight:700;display:flex;align-items:center;justify-content:center}
+.d-title h2{font-family:var(--f-display);font-size:1.3rem;line-height:1.2}
+.d-title p{margin:6px 0 0;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.d-icon svg{width:76px;height:auto;border-radius:6px}
+.drow{border-top:1px solid var(--line);padding:10px 0 4px}
+.drow h3{font-family:var(--f-mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin-bottom:4px;font-weight:600}
+.drow h3 .t-dual{font-family:var(--f-ta);text-transform:none;letter-spacing:0;font-size:1.05em;display:inline;margin-left:6px}
+.drow p{margin:0}
+.drow p .t-dual{color:var(--fg);opacity:.86;margin-top:.35em;font-size:.97em}
+.d-nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:12px;margin-top:8px}
+.d-count{font-family:var(--f-mono);font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.listen{margin-left:auto}
+
+.over{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:4px}
+.over .sec{margin-top:10px}
+.over .sec:first-child{margin-top:0}
+.prose{margin:0 0 6px;max-width:65ch}
+.prose .t-dual{color:var(--fg);opacity:.86;margin-top:.4em}
+.specs{width:100%;border-collapse:collapse;font-size:.9rem;margin-bottom:6px}
+.specs th,.specs td{text-align:left;padding:7px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.specs th{font-weight:500;color:var(--muted);width:42%;padding-right:10px}
+.specs th .t-dual{font-size:.85em}
+.specs td{font-family:var(--f-mono);font-size:.84rem;font-variant-numeric:tabular-nums}
+.uses{list-style:none;margin:0 0 6px;padding:0;display:flex;flex-direction:column;gap:8px}
+.uses li{position:relative;padding-left:20px}
+.uses li::before{content:"";position:absolute;left:2px;top:.55em;width:8px;height:8px;border-radius:2px;background:var(--accent)}
+.uses .t-dual{font-size:.9em}
+.tipbox{margin-top:10px;background:var(--accent-soft);border-radius:8px;padding:12px 14px}
+.tipbox h3{font-family:var(--f-mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin-bottom:4px}
+.tipbox h3 .t-dual{display:inline;margin-left:6px;font-size:1.05em;text-transform:none;letter-spacing:0}
+.tipbox p{margin:0}
+.tipbox .t-dual{color:var(--fg);opacity:.88}
+
+/* parts */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;align-items:start}
+.pcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.pcard[open]{border-color:var(--accent)}
+.pcard summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;padding:12px;align-items:start}
+.pcard summary::-webkit-details-marker{display:none}
+.picon svg{width:96px;height:auto;display:block;border-radius:6px}
+.pc-t h3{font-family:var(--f-display);font-size:1.02rem;margin-bottom:4px}
+.pc-t h3 .t-dual{font-size:.85em}
+.pc-t p{margin:0;font-size:.88rem;color:var(--muted)}
+.pc-t p .t-dual{color:var(--muted)}
+.pc-more{padding:0 12px 12px}
+.links{display:flex;flex-wrap:wrap;gap:6px}
+.links a{font-size:.84rem;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:2px 9px}
+.links a:hover{border-color:var(--accent)}
+
+/* basics */
+.layerfig{margin:0 0 20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px}
+.scrollx{overflow-x:auto}
+.layers{width:100%;min-width:460px;max-width:720px;display:block}
+.layers .lt{fill:var(--fg);font-family:var(--f-body);font-size:10px}
+.layers .ln{stroke:var(--muted);stroke-width:.8}
+.silklayer{fill:var(--silk-l);stroke:var(--line)}
+.layerfig figcaption{margin-top:8px;color:var(--muted);font-size:.86rem}
+.bgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.bcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px}
+.bn{font-family:var(--f-mono);font-size:.72rem;color:var(--accent);letter-spacing:.06em}
+.bcard h3{font-family:var(--f-display);font-size:1.12rem;margin:4px 0 8px}
+.bcard h3 .t-dual{font-size:.82em}
+.bcard p{margin:0}
+.bcard p .t-dual{color:var(--fg);opacity:.86;margin-top:.45em}
+.foot{max-width:1280px;margin:0 auto;padding-block:0 30px;padding-inline:16px;color:var(--muted);font-size:.8rem}
+</style>
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="gSilver" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f2f4f6"/><stop offset=".55" stop-color="#bcc2c8"/><stop offset="1" stop-color="#dfe3e7"/></linearGradient>
+    <linearGradient id="gGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0d27a"/><stop offset=".6" stop-color="#c79a35"/><stop offset="1" stop-color="#e4bf5c"/></linearGradient>
+    <linearGradient id="gPin" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e9ecef"/><stop offset="1" stop-color="#9ea5ac"/></linearGradient>
+    <linearGradient id="gChip" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a2c31"/><stop offset="1" stop-color="#141518"/></linearGradient>
+    <radialGradient id="gSolder"><stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#c6ccd2"/><stop offset="1" stop-color="#8d949b"/></radialGradient>
+    <pattern id="pMesh" width="3" height="3" patternUnits="userSpaceOnUse"><rect width="3" height="3" fill="#2b2d31"/><path d="M0 0L3 3M3 0L0 3" stroke="#55595f" stroke-width=".5"/></pattern>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="#" aria-label="PCB Kalvi home">
+      <svg viewBox="0 0 34 34" aria-hidden="true"><rect x="1" y="1" width="32" height="32" rx="7" fill="#1e7a3a"/><path d="M7 11h8l4 4h8M7 23h6l4-4" stroke="#e4bf5c" stroke-width="2.2" fill="none" stroke-linecap="round"/><circle cx="27" cy="15" r="2.6" fill="#e4bf5c"/><circle cx="7" cy="11" r="2.6" fill="#e4bf5c"/><circle cx="7" cy="23" r="2.6" fill="#e4bf5c"/><rect x="18" y="19" width="9" height="7" rx="1" fill="#16171a"/></svg>
+      <span><b>PCB Kalvi</b><small>பிசிபி கல்வி</small></span>
+    </a>
+    <form class="search" id="searchform" role="search" autocomplete="off">
+      <svg class="mag" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <input id="q" type="search" placeholder="Search a board or part: ESP32, relay, regulator…" aria-label="Search boards and parts" enterkeyhint="search">
+      <div class="dd" id="dd" role="listbox" hidden></div>
+    </form>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-l="en">EN</button><button type="button" data-l="ta" lang="ta">தமிழ்</button><button type="button" data-l="both">EN + த</button>
+    </div>
+    <nav class="nav" aria-label="Sections"><a href="#" data-v="boards"></a><a href="#parts" data-v="parts"></a><a href="#basics" data-v="basics"></a></nav>
+  </div>
+</header>
+
+<main>
+  <section id="v-lib"></section>
+  <section id="v-board" hidden></section>
+  <section id="v-parts" hidden></section>
+  <section id="v-basics" hidden></section>
+</main>
+<p class="foot">Board drawings are simplified diagrams for learning; part positions are approximate. · போர்டு வரைபடங்கள் கற்றலுக்கான எளிய வடிவங்கள்; பாகங்களின் இடங்கள் தோராயமானவை.</p>
+<script>
+/* ---------- PARTS DICTIONARY (English + Tamil) ---------- */
+const P = {};
+function pt(k, i, ne, nt, we, wt, de, dt, te, tt) { P[k] = { k, i, n: [ne, nt], w: [we, wt], d: [de, dt], t: [te, tt] }; }
+
+pt("mcu","chip","Microcontroller (MCU)","மைக்ரோகண்ட்ரோலர் (MCU)",
+"A complete small computer on one chip: processor, Flash memory for your program, RAM and input/output pins.",
+"ஒரே சிப்பில் உள்ள முழுமையான சிறிய கணினி: ப்ராசசர், உங்கள் program-க்கான Flash நினைவகம், RAM, உள்ளீடு/வெளியீடு பின்கள் அனைத்தும் இதில் உள்ளன.",
+"Runs the program you upload, again and again. It reads sensors and buttons, switches LEDs, relays and motors, and talks to other chips.",
+"நீங்கள் upload செய்த program-ஐ தொடர்ந்து இயக்குகிறது. சென்சார்கள், பட்டன்களைப் படிக்கிறது; LED, ரிலே, மோட்டார்களை இயக்குகிறது; மற்ற சிப்புகளுடன் தொடர்பு கொள்கிறது.",
+"Usually the largest black chip. Search the part number printed on it to get the datasheet and pinout. Never put more than its rated voltage on any pin.",
+"பொதுவாக போர்டில் உள்ள பெரிய கருப்பு சிப். அதன் மேல் அச்சிடப்பட்ட part number-ஐ தேடினால் datasheet, pinout கிடைக்கும். எந்த பின்னுக்கும் அதன் rated voltage-க்கு மேல் கொடுக்க வேண்டாம்.");
+
+pt("wifimod","shield","Wi‑Fi module (metal shield)","வைஃபை மாட்யூல் (உலோக மூடி)",
+"A small module with the wireless chip, Flash memory and crystal sealed under a metal shield can.",
+"வயர்லெஸ் சிப், Flash நினைவகம், கிரிஸ்டல் ஆகியவை உலோக மூடியின் கீழ் அடைக்கப்பட்ட சிறிய மாட்யூல்.",
+"Gives the board Wi‑Fi (and Bluetooth on ESP32). On ESP boards this module is also the main processor that runs your code.",
+"போர்டுக்கு Wi‑Fi (ESP32-இல் Bluetooth-ம்) வசதியைத் தருகிறது. ESP போர்டுகளில் இதுவே உங்கள் code-ஐ இயக்கும் முக்கிய ப்ராசசர்.",
+"The name is printed on the can (ESP-12E, ESP32-WROOM-32). Do not remove the can: it blocks radio noise. It gets slightly warm on Wi‑Fi, which is normal.",
+"மாட்யூலின் பெயர் மூடியின் மேல் அச்சிடப்பட்டிருக்கும் (ESP-12E, ESP32-WROOM-32). மூடியை கழற்ற வேண்டாம்; அது ரேடியோ இரைச்சலைத் தடுக்கிறது. Wi‑Fi இயங்கும்போது லேசாக சூடாவது இயல்பு.");
+
+pt("usbserial","chip","USB‑to‑Serial chip","USB‑சீரியல் மாற்றி சிப்",
+"A bridge chip such as CH340, CP2102 or ATmega16U2 that converts USB signals into UART serial (TX/RX).",
+"CH340, CP2102, ATmega16U2 போன்ற பால சிப். USB சிக்னலை UART சீரியல் (TX/RX) ஆக மாற்றுகிறது.",
+"Lets your computer upload programs and read Serial Monitor messages from the board.",
+"உங்கள் கணினி program upload செய்யவும், போர்டின் Serial Monitor செய்திகளைப் படிக்கவும் உதவுகிறது.",
+"If the PC shows no COM port, install the driver for this exact chip (CH340 or CP2102) and use a data USB cable, not a charge-only cable.",
+"PC-யில் COM port தெரியவில்லை என்றால், இந்த சிப்புக்கான driver-ஐ (CH340 அல்லது CP2102) நிறுவுங்கள். சார்ஜ் மட்டும் செய்யும் கேபிள் அல்ல, data USB கேபிள் பயன்படுத்துங்கள்.");
+
+pt("usbb","usbb","USB Type‑B port","USB Type‑B போர்ட்",
+"The square, printer-style USB socket.",
+"பிரிண்டரில் உள்ளது போன்ற சதுர வடிவ USB சாக்கெட்.",
+"Brings 5V power from your computer and carries the upload data.",
+"கணினியிலிருந்து 5V மின்சாரத்தையும், upload data-வையும் கொண்டு வருகிறது.",
+"A computer USB port gives about 500 mA only. Motors and many relays need a separate power supply.",
+"கணினி USB சுமார் 500 mA மட்டுமே தரும். மோட்டார்கள், பல ரிலேக்களுக்கு தனி மின்சாரம் தேவை.");
+
+pt("usbmicro","usbmicro","Micro‑USB port","மைக்ரோ‑USB போர்ட்",
+"A small, flat USB socket, the same type used on older Android phones.",
+"பழைய Android போன்களில் உள்ள அதே வகை சிறிய, தட்டையான USB சாக்கெட்.",
+"Supplies 5V power and the data line for uploading code.",
+"5V மின்சாரமும், code upload செய்வதற்கான data இணைப்பும் தருகிறது.",
+"The solder joints are weak, so do not bend or pull the cable sideways. If the board lights up but will not upload, try a different (data) cable.",
+"இதன் சோல்டர் இணைப்புகள் பலவீனமானவை; கேபிளை வளைக்கவோ பக்கவாட்டில் இழுக்கவோ வேண்டாம். போர்டு எரிகிறது ஆனால் upload ஆகவில்லை என்றால் வேறு data கேபிளை முயற்சிக்கவும்.");
+
+pt("usbmini","usbmicro","Mini‑USB port","மினி‑USB போர்ட்",
+"An older USB socket, slightly thicker than Micro‑USB.",
+"மைக்ரோ‑USB-ஐ விட சற்று தடிமனான பழைய வகை USB சாக்கெட்.",
+"Gives the board 5V power and the upload connection.",
+"போர்டுக்கு 5V மின்சாரமும் upload இணைப்பும் தருகிறது.",
+"Mini‑USB cables are less common now; keep one in your workshop kit.",
+"மினி‑USB கேபிள்கள் இப்போது அரிது; உங்கள் workshop-இல் ஒன்று வைத்துக்கொள்ளுங்கள்.");
+
+pt("usbc","usbc","USB Type‑C port","USB Type‑C போர்ட்",
+"The reversible oval USB socket; the plug fits either way up.",
+"இரு பக்கமும் பொருந்தும் ஓவல் வடிவ USB சாக்கெட்.",
+"Power input, and on many boards also the data line for programming.",
+"மின்சார உள்ளீடு; பல போர்டுகளில் program செய்வதற்கான data இணைப்பும் கூட.",
+"On Raspberry Pi 4 it is for power only. Use a proper 5V 3A supply, or the Pi will show a low-voltage warning.",
+"Raspberry Pi 4-இல் இது மின்சாரத்துக்கு மட்டும். சரியான 5V 3A அடாப்டர் பயன்படுத்துங்கள்; இல்லையெனில் low-voltage எச்சரிக்கை வரும்.");
+
+pt("usba","usba","USB‑A host ports","USB‑A ஹோஸ்ட் போர்ட்கள்",
+"Full-size USB sockets like on a laptop.",
+"லேப்டாப்பில் உள்ளது போன்ற முழு அளவு USB சாக்கெட்கள்.",
+"Connect a keyboard, mouse, pen drive, webcam or USB-serial adapter. Blue sockets are USB 3.0 (faster); black are USB 2.0.",
+"கீபோர்டு, மவுஸ், பென் டிரைவ், வெப்கேம், USB-சீரியல் அடாப்டர் இணைக்கலாம். நீல நிற சாக்கெட்கள் USB 3.0 (வேகமானது); கருப்பு USB 2.0.",
+"All USB ports share about 1.2 A in total. Use a powered USB hub for hard disks.",
+"எல்லா USB போர்ட்களும் சேர்ந்து சுமார் 1.2 A மட்டுமே தரும். ஹார்ட் டிஸ்க்குக்கு powered USB hub பயன்படுத்துங்கள்.");
+
+pt("dcjack","jack","DC barrel jack","DC பவர் ஜாக்",
+"A round socket for a wall adapter plug.",
+"சுவர் அடாப்டர் பிளக்கை செருகும் வட்ட வடிவ சாக்கெட்.",
+"Feeds 7–12V into the on-board regulator so the board can run without a computer.",
+"7–12V மின்சாரத்தை போர்டின் ரெகுலேட்டருக்கு அனுப்புகிறது; இதனால் கணினி இல்லாமலேயே போர்டு இயங்கும்.",
+"Centre pin is positive (+). Above 12V the regulator becomes very hot; 9V is the sweet spot.",
+"நடு பின் பாசிட்டிவ் (+). 12V-க்கு மேல் கொடுத்தால் ரெகுலேட்டர் மிகவும் சூடாகும்; 9V சிறந்தது.");
+
+pt("ldo","reg","Voltage regulator","வோல்டேஜ் ரெகுலேட்டர்",
+"A 3-pin chip (AMS1117, NCP1117, ME6211 and similar) that turns a higher voltage into a fixed, steady 5V or 3.3V.",
+"அதிக வோல்டேஜை நிலையான 5V அல்லது 3.3V ஆக மாற்றும் 3-பின் சிப் (AMS1117, NCP1117, ME6211 போன்றவை).",
+"Protects the chips by giving clean, constant power even when the input voltage changes.",
+"உள்ளீட்டு வோல்டேஜ் மாறினாலும் சுத்தமான, நிலையான மின்சாரம் தந்து சிப்புகளைப் பாதுகாக்கிறது.",
+"Feeling warm is normal. Test with a multimeter: the output pin should read 3.3V or 5V. If it reads 0V or the input voltage, it is damaged.",
+"லேசாக சூடாவது இயல்பு. மல்டிமீட்டரில் சோதிக்கவும்: output பின் 3.3V அல்லது 5V காட்ட வேண்டும். 0V அல்லது input வோல்டேஜ் காட்டினால் அது பழுதானது.");
+
+pt("buckic","reg","Switching (buck) regulator IC","ஸ்விட்சிங் (பக்) ரெகுலேட்டர் IC",
+"A regulator that switches on and off very fast instead of burning the extra voltage as heat.",
+"அதிக வோல்டேஜை வெப்பமாக வீணாக்காமல், மிக வேகமாக on/off செய்து வேலை செய்யும் ரெகுலேட்டர்.",
+"Steps a higher voltage down (for example 12V to 5V) at 80–90% efficiency, so it can supply more current with less heat.",
+"அதிக வோல்டேஜை (உதாரணமாக 12V-ஐ 5V ஆக) 80–90% திறனுடன் குறைக்கிறது; இதனால் குறைந்த வெப்பத்தில் அதிக மின்னோட்டம் தர முடியும்.",
+"Always set the output voltage with a multimeter before connecting your board.",
+"உங்கள் போர்டை இணைக்கும் முன், மல்டிமீட்டர் வைத்து output வோல்டேஜை சரிசெய்யுங்கள்.");
+
+pt("crystal","crystal","Crystal oscillator","கிரிஸ்டல் ஆசிலேட்டர்",
+"A quartz part that vibrates at one exact frequency, such as 16 MHz or 8 MHz.",
+"ஒரே துல்லியமான அதிர்வெண்ணில் (16 MHz, 8 MHz போன்றவை) அதிரும் குவார்ட்ஸ் பாகம்.",
+"Works as the heartbeat clock. Every instruction runs in step with it, so delay(), millis() and serial baud rates stay accurate.",
+"இதயத் துடிப்பு போல கடிகாரமாக செயல்படுகிறது. ஒவ்வொரு instruction-ம் இதனுடன் இணைந்து இயங்குவதால் delay(), millis(), serial baud rate துல்லியமாக இருக்கும்.",
+"The frequency is printed on the metal case. A wrong or broken crystal shows up as garbage text in the Serial Monitor or a board that will not start.",
+"அதிர்வெண் உலோக மூடியின் மேல் அச்சிடப்பட்டிருக்கும். கிரிஸ்டல் தவறானதோ பழுதானதோ என்றால் Serial Monitor-இல் குப்பை எழுத்துகள் வரும், அல்லது போர்டு தொடங்காது.");
+
+pt("reset","button","Reset button","ரீசெட் பட்டன்",
+"A small push button wired to the microcontroller's RESET (or EN) pin.",
+"மைக்ரோகண்ட்ரோலரின் RESET (அல்லது EN) பின்னுடன் இணைக்கப்பட்ட சிறிய அழுத்து பட்டன்.",
+"Restarts your program from the beginning without unplugging power.",
+"மின்சாரத்தைத் துண்டிக்காமலேயே உங்கள் program-ஐ ஆரம்பத்திலிருந்து மீண்டும் தொடங்குகிறது.",
+"Reset does not erase your program. It only restarts it.",
+"Reset உங்கள் program-ஐ அழிக்காது; மீண்டும் தொடங்க மட்டுமே செய்யும்.");
+
+pt("boot","button","BOOT / FLASH button","BOOT / FLASH பட்டன்",
+"A push button connected to GPIO0 on ESP boards, or BOOTSEL on Raspberry Pi Pico.",
+"ESP போர்டுகளில் GPIO0 உடன், Raspberry Pi Pico-வில் BOOTSEL உடன் இணைக்கப்பட்ட அழுத்து பட்டன்.",
+"Holding it while the board resets or powers up puts the chip into download mode, so new firmware can be written.",
+"போர்டு reset அல்லது power on ஆகும்போது இதை அழுத்திப் பிடித்தால், சிப் download mode-க்குச் செல்லும்; புதிய firmware எழுத முடியும்.",
+"Upload says 'Failed to connect'? Hold BOOT, tap EN/RST once, release BOOT, then upload again.",
+"Upload செய்யும்போது 'Failed to connect' வந்தால்: BOOT-ஐ அழுத்திப் பிடித்து, EN/RST-ஐ ஒருமுறை தட்டி, BOOT-ஐ விடுங்கள்; பிறகு மீண்டும் upload செய்யுங்கள்.");
+
+pt("ledpwr","led","Power LED","பவர் LED",
+"A small light that turns on when the board has power.",
+"போர்டுக்கு மின்சாரம் கிடைக்கும்போது எரியும் சிறிய விளக்கு.",
+"A quick check that power is reaching the board.",
+"போர்டுக்கு மின்சாரம் வருகிறதா என்று உடனே சரிபார்க்க உதவுகிறது.",
+"Not glowing? Check the cable and the supply first. If it goes dim when you connect something, that part may be shorting the power.",
+"எரியவில்லையா? முதலில் கேபிள், மின் இணைப்பை சரிபாருங்கள். ஏதாவது இணைத்ததும் மங்கினால், அந்தப் பாகம் மின்சாரத்தை short செய்யலாம்.");
+
+pt("ledbuilt","led","Built‑in LED (user LED)","உள்ளமைந்த LED (யூசர் LED)",
+"An LED wired to one GPIO pin, for example pin 13 on Arduino Uno or GPIO2 on ESP boards.",
+"ஒரு GPIO பின்னுடன் இணைக்கப்பட்ட LED; உதாரணமாக Arduino Uno-வில் பின் 13, ESP போர்டுகளில் GPIO2.",
+"Lets you test your code with the Blink example without any extra wiring.",
+"கூடுதல் வயரிங் இல்லாமலேயே Blink உதாரணம் மூலம் உங்கள் code-ஐ சோதிக்க உதவுகிறது.",
+"Use LED_BUILTIN in code. On ESP8266 it is active-LOW: writing LOW turns it ON.",
+"Code-இல் LED_BUILTIN பயன்படுத்துங்கள். ESP8266-இல் இது active-LOW: LOW எழுதினால் தான் எரியும்.");
+
+pt("ledtxrx","leds","TX / RX LEDs","TX / RX LED-கள்",
+"Two LEDs connected to the serial data lines.",
+"சீரியல் data வரிகளுடன் இணைக்கப்பட்ட இரண்டு LED-கள்.",
+"They blink when data is sent (TX) or received (RX), for example during upload or Serial.print().",
+"Data அனுப்பும்போது (TX), பெறும்போது (RX) மினுமினுக்கும்; உதாரணமாக upload அல்லது Serial.print() நேரத்தில்.",
+"No blinking during upload means the computer is not talking to the board: check the port, driver and cable.",
+"Upload செய்யும்போது மினுமினுக்கவில்லை என்றால் கணினி போர்டுடன் பேசவில்லை: port, driver, கேபிளை சரிபாருங்கள்.");
+
+pt("ledstat","leds","Status LEDs","நிலை (Status) LED-கள்",
+"Small indicator LEDs that show what the module is doing.",
+"மாட்யூல் என்ன செய்கிறது என்பதைக் காட்டும் சிறிய குறிகாட்டி LED-கள்.",
+"Shows states such as charging, done, paired, network found or output ON.",
+"சார்ஜ் ஆகிறது, முடிந்தது, இணைந்தது, நெட்வொர்க் கிடைத்தது, output ON போன்ற நிலைகளைக் காட்டுகிறது.",
+"Learn the blink pattern from the module's notes; it is the fastest way to debug.",
+"மாட்யூலின் மினுமினுப்பு முறையைத் தெரிந்துகொள்ளுங்கள்; பிழை கண்டுபிடிக்க இதுவே எளிய வழி.");
+
+pt("hdrdig","header","Digital I/O pins","டிஜிட்டல் I/O பின்கள்",
+"A row of sockets or pins connected to the microcontroller's digital GPIO pins.",
+"மைக்ரோகண்ட்ரோலரின் டிஜிட்டல் GPIO பின்களுடன் இணைக்கப்பட்ட சாக்கெட் அல்லது பின் வரிசை.",
+"Connect buttons, LEDs, relays, buzzers and sensors here. Pins marked ~ can give PWM output to dim LEDs or control motor speed.",
+"பட்டன், LED, ரிலே, பஸ்ஸர், சென்சார்களை இங்கே இணைக்கலாம். ~ குறி உள்ள பின்கள் PWM output தரும்; LED ஒளியைக் குறைக்க, மோட்டார் வேகத்தைக் கட்டுப்படுத்த உதவும்.",
+"Each pin gives only about 20 mA. Always use a resistor with an LED, and a transistor or driver for motors and relay coils.",
+"ஒவ்வொரு பின்னும் சுமார் 20 mA மட்டுமே தரும். LED-க்கு எப்போதும் resistor பயன்படுத்துங்கள்; மோட்டார், ரிலே காயிலுக்கு transistor அல்லது driver தேவை.");
+
+pt("hdrana","header","Analog input pins","அனலாக் உள்ளீட்டு பின்கள்",
+"Pins connected to the ADC (analog-to-digital converter) inside the chip.",
+"சிப்பின் உள்ளே உள்ள ADC (அனலாக்-டு-டிஜிட்டல் கன்வெர்ட்டர்) உடன் இணைக்கப்பட்ட பின்கள்.",
+"Read changing voltages from potentiometers, LDRs, soil, gas and other analog sensors as a number (0–1023 on Uno).",
+"பொட்டென்ஷியோமீட்டர், LDR, மண், வாயு போன்ற அனலாக் சென்சார்களின் மாறும் வோல்டேஜை எண்ணாக (Uno-வில் 0–1023) படிக்கிறது.",
+"Never exceed the board's ADC voltage: 5V on Uno, 3.3V on ESP32 and NodeMCU A0. These pins also work as normal digital pins.",
+"போர்டின் ADC வோல்டேஜை மீற வேண்டாம்: Uno-வில் 5V, ESP32 மற்றும் NodeMCU A0-வில் 3.3V. இந்த பின்கள் சாதாரண டிஜிட்டல் பின்களாகவும் வேலை செய்யும்.");
+
+pt("hdrpwr","header","Power pins","பவர் பின்கள்",
+"Pins labelled 5V, 3.3V, GND and VIN.",
+"5V, 3.3V, GND, VIN என்று குறிக்கப்பட்ட பின்கள்.",
+"Give power to sensors and modules, or feed power into the board through VIN.",
+"சென்சார்கள், மாட்யூல்களுக்கு மின்சாரம் தருகிறது; அல்லது VIN வழியாக போர்டுக்கு மின்சாரம் கொடுக்கலாம்.",
+"Never connect 5V directly to GND (short circuit). VIN expects 7–12V; the 5V pin expects clean, regulated 5V only.",
+"5V-ஐ நேரடியாக GND-உடன் இணைக்க வேண்டாம் (short circuit). VIN-க்கு 7–12V; 5V பின்னுக்கு சுத்தமான, ரெகுலேட் செய்யப்பட்ட 5V மட்டும்.");
+
+pt("header","header","Pin header","பின் ஹெடர்",
+"Metal pins spaced 2.54 mm (0.1 inch) apart, for jumper wires or a breadboard.",
+"ஜம்பர் வயர் அல்லது பிரெட்போர்டுக்காக 2.54 mm (0.1 இன்ச்) இடைவெளியில் உள்ள உலோக பின்கள்.",
+"Connects the board to other parts: power, ground and signal lines.",
+"போர்டை மற்ற பாகங்களுடன் இணைக்கிறது: மின்சாரம், கிரவுண்ட், சிக்னல் வரிகள்.",
+"Read the pin names printed on the board before wiring. Swapping VCC and GND can kill a module instantly.",
+"வயர் இணைக்கும் முன் போர்டில் அச்சிடப்பட்ட பின் பெயர்களைப் படியுங்கள். VCC, GND மாறினால் மாட்யூல் உடனே பழுதாகலாம்.");
+
+pt("pads","pads","Castellated / solder pads","காஸ்டலேட்டட் / சோல்டர் பேட்கள்",
+"Gold-plated holes or half-holes along the board edge.",
+"போர்டின் ஓரத்தில் உள்ள தங்க முலாம் பூசிய துளைகள் அல்லது அரை-துளைகள்.",
+"Solder pin headers into them for a breadboard, or solder the whole board flat onto another PCB.",
+"பிரெட்போர்டில் பயன்படுத்த பின் ஹெடர்களை இதில் சோல்டர் செய்யலாம்; அல்லது முழு போர்டையும் வேறு PCB மேல் தட்டையாக சோல்டர் செய்யலாம்.",
+"Heat the pad and pin together for 2–3 seconds, then feed solder. A good joint is shiny and cone-shaped.",
+"பேட், பின் இரண்டையும் 2–3 விநாடி சூடாக்கி, பிறகு சோல்டர் கொடுங்கள். நல்ல இணைப்பு பளபளப்பாக, கூம்பு வடிவில் இருக்கும்.");
+
+pt("icsp","header","ICSP header","ICSP ஹெடர்",
+"A 2×3 pin header with MISO, MOSI, SCK, RESET, VCC and GND.",
+"MISO, MOSI, SCK, RESET, VCC, GND கொண்ட 2×3 பின் ஹெடர்.",
+"Programs the chip directly with an external programmer (for example to burn a bootloader) and also gives access to the SPI pins.",
+"வெளி programmer மூலம் சிப்பை நேரடியாக program செய்ய (உதாரணமாக bootloader எழுத) உதவுகிறது; SPI பின்களையும் தருகிறது.",
+"Pin 1 is marked with a small dot or the number 1 on the silkscreen.",
+"பின் 1 சிறிய புள்ளி அல்லது '1' என்று silkscreen-இல் குறிக்கப்பட்டிருக்கும்.");
+
+pt("swd","header","SWD debug pins","SWD டீபக் பின்கள்",
+"Four pins: 3.3V, SWDIO, SWCLK and GND.",
+"நான்கு பின்கள்: 3.3V, SWDIO, SWCLK, GND.",
+"Connect an ST-Link (or a Pico debug probe) to upload code and debug step by step with breakpoints.",
+"ST-Link (அல்லது Pico debug probe) இணைத்து code upload செய்யவும், breakpoint வைத்து படிப்படியாக debug செய்யவும் உதவுகிறது.",
+"Match the pin names exactly; ST-Link clones print them on the case.",
+"பின் பெயர்களைச் சரியாகப் பொருத்துங்கள்; ST-Link-இன் மேல் பின் பெயர்கள் அச்சிடப்பட்டிருக்கும்.");
+
+pt("antenna","antenna","PCB antenna","PCB ஆன்டெனா",
+"A zig-zag copper track printed at the board edge.",
+"போர்டின் ஓரத்தில் அச்சிடப்பட்ட வளைந்து நெளியும் (zig-zag) செம்பு பாதை.",
+"Sends and receives 2.4 GHz radio waves for Wi‑Fi, Bluetooth or RF links.",
+"Wi‑Fi, Bluetooth, RF இணைப்புகளுக்கான 2.4 GHz ரேடியோ அலைகளை அனுப்புகிறது, பெறுகிறது.",
+"For best range keep the antenna end outside metal boxes and away from wires, batteries and your hand.",
+"நல்ல வரம்புக்கு ஆன்டெனா பகுதியை உலோகப் பெட்டிக்கு வெளியே, வயர்கள், பேட்டரி, கையிலிருந்து தள்ளி வையுங்கள்.");
+
+pt("ufl","ufl","U.FL / IPEX antenna connector","U.FL / IPEX ஆன்டெனா கனெக்டர்",
+"A tiny snap-on coaxial connector.",
+"மிகச்சிறிய, அழுத்திப் பொருத்தும் coaxial கனெக்டர்.",
+"Attaches an external antenna for longer range or better signal.",
+"அதிக வரம்பு அல்லது நல்ல சிக்னலுக்காக வெளி ஆன்டெனாவை இணைக்கிறது.",
+"Very fragile: press straight down to fit and lift straight up to remove. Rated for only about 30 connections.",
+"மிகவும் மென்மையானது: நேராக அழுத்திப் பொருத்தி, நேராகத் தூக்கிக் கழற்றுங்கள். சுமார் 30 முறை மட்டுமே இணைக்கத் தாங்கும்.");
+
+pt("capel","cap","Electrolytic capacitor","எலக்ட்ரோலைட்டிக் கெபாசிட்டர்",
+"A can-shaped part that stores electric charge. It has + and − legs; the stripe marks negative.",
+"மின்னூட்டத்தைச் சேமிக்கும் டப்பா வடிவ பாகம். இதற்கு + மற்றும் − கால்கள் உண்டு; கோடு (stripe) நெகட்டிவைக் குறிக்கும்.",
+"Smooths the supply voltage and supplies short bursts of current so the board does not reset when a load switches on.",
+"மின் வோல்டேஜை சீராக்குகிறது; சுமை on ஆகும்போது குறுகிய நேர மின்னோட்டம் தந்து போர்டு reset ஆகாமல் தடுக்கிறது.",
+"Fitted backwards it can burst. A bulging or leaking top means it must be replaced. Capacitance (µF) and max voltage are printed on the side.",
+"தலைகீழாக பொருத்தினால் வெடிக்கலாம். மேல் பகுதி உப்பியிருந்தாலோ கசிந்தாலோ மாற்ற வேண்டும். கொள்ளளவு (µF), அதிகபட்ச வோல்டேஜ் பக்கவாட்டில் அச்சிடப்பட்டிருக்கும்.");
+
+pt("smd","smd","SMD resistors & capacitors","SMD ரெசிஸ்டர்கள் & கெபாசிட்டர்கள்",
+"Tiny surface-mount parts. Resistors are black with a number code; ceramic capacitors are tan or brown with no marking.",
+"மிகச்சிறிய surface-mount பாகங்கள். ரெசிஸ்டர்கள் கருப்பு நிறத்தில் எண் குறியுடன் இருக்கும்; செராமிக் கெபாசிட்டர்கள் பழுப்பு நிறத்தில், குறி இல்லாமல் இருக்கும்.",
+"Resistors limit current and set voltages; small capacitors sit next to chips to filter noise (decoupling).",
+"ரெசிஸ்டர்கள் மின்னோட்டத்தைக் கட்டுப்படுத்தி வோல்டேஜை அமைக்கின்றன; சிறிய கெபாசிட்டர்கள் சிப்புகளுக்கு அருகில் இருந்து இரைச்சலை வடிகட்டுகின்றன (decoupling).",
+"Resistor code 103 = 10 × 10³ = 10 kΩ; 472 = 4.7 kΩ. Capacitors need an LCR meter to measure.",
+"ரெசிஸ்டர் குறி 103 = 10 × 10³ = 10 kΩ; 472 = 4.7 kΩ. கெபாசிட்டரை அளக்க LCR meter தேவை.");
+
+pt("diode","diode","Diode","டயோடு",
+"A one-way valve for current. The band marks the cathode (−) side.",
+"மின்னோட்டத்துக்கான ஒரு-வழி வால்வு. கோடு (band) உள்ள பக்கம் கேத்தோடு (−).",
+"Protects against reversed power, blocks back-flow between USB and external supply, and absorbs spikes from relay coils.",
+"தலைகீழ் மின்சாரத்திலிருந்து பாதுகாக்கிறது; USB மற்றும் வெளி மின்சாரம் இடையே பின்னோக்கி பாய்வதைத் தடுக்கிறது; ரிலே காயில் spike-களை உறிஞ்சுகிறது.",
+"Multimeter diode mode: about 0.2–0.7V in one direction and OL (open) in the other. OL both ways means it is broken.",
+"மல்டிமீட்டர் diode mode-இல் ஒரு திசையில் சுமார் 0.2–0.7V, மறு திசையில் OL காட்டும். இரண்டு திசையிலும் OL என்றால் பழுதானது.");
+
+pt("fuse","smd","Polyfuse (resettable fuse)","பாலிஃப்யூஸ் (தானாக சரியாகும் ஃப்யூஸ்)",
+"A small fuse that heats up and limits current when too much flows.",
+"அதிக மின்னோட்டம் பாயும்போது சூடாகி அதைக் கட்டுப்படுத்தும் சிறிய ஃப்யூஸ்.",
+"Protects your computer's USB port if something on the board shorts.",
+"போர்டில் ஏதாவது short ஆனால் உங்கள் கணினியின் USB போர்ட்டைப் பாதுகாக்கிறது.",
+"It resets itself: unplug, remove the short, wait a minute and plug in again.",
+"இது தானாக சரியாகும்: பிளக்கை எடுத்து, short-ஐ நீக்கி, ஒரு நிமிடம் காத்திருந்து மீண்டும் இணைக்கவும்.");
+
+pt("relay","relay","Relay","ரிலே",
+"An electromagnetic switch: a small coil pulls a metal contact open or closed.",
+"மின்காந்த ஸ்விட்ச்: ஒரு சிறிய காயில் உலோகத் தொடர்பை இழுத்துத் திறக்கிறது அல்லது மூடுகிறது.",
+"Lets a 5V signal from your board switch high-power loads such as lights, fans and pumps (rated up to 10A at 250V AC).",
+"உங்கள் போர்டின் 5V சிக்னல் மூலம் விளக்கு, மின்விசிறி, பம்ப் போன்ற அதிக சக்தி சுமைகளை on/off செய்யலாம் (250V AC-யில் 10A வரை).",
+"Danger: 230V mains can kill. Wire the mains side only with power OFF and fully insulated. A click sound means the coil is working.",
+"ஆபத்து: 230V மின்சாரம் உயிரைப் பறிக்கும். மின் இணைப்பை OFF செய்த பின்பே, முழுமையாக இன்சுலேட் செய்து வயர் இணையுங்கள். 'கிளிக்' சத்தம் கேட்டால் காயில் வேலை செய்கிறது.");
+
+pt("opto","chip","Optocoupler","ஆப்டோகப்ளர்",
+"An LED and a light sensor sealed inside one small chip (for example PC817).",
+"ஒரு LED-ம் ஒளி சென்சாரும் ஒரே சிறிய சிப்பினுள் அடைக்கப்பட்டது (உதாரணம் PC817).",
+"Passes the control signal using light, so the high-power side is electrically isolated from your microcontroller.",
+"கட்டுப்பாட்டு சிக்னலை ஒளி மூலம் அனுப்புகிறது; இதனால் அதிக சக்தி பகுதி உங்கள் மைக்ரோகண்ட்ரோலரிலிருந்து மின்சார ரீதியாக பிரிக்கப்படுகிறது.",
+"For full isolation on relay boards, remove the JD-VCC jumper and power the relays from a separate 5V supply.",
+"ரிலே போர்டுகளில் முழு பிரிப்புக்கு JD-VCC ஜம்பரை எடுத்து, ரிலேக்களுக்கு தனி 5V மின்சாரம் கொடுங்கள்.");
+
+pt("transistor","sot","Transistor","டிரான்சிஸ்டர்",
+"A small 3-pin electronic switch or amplifier (for example S8050, 2N2222, AO3400).",
+"சிறிய 3-பின் மின்னணு ஸ்விட்ச் அல்லது பெருக்கி (உதாரணம் S8050, 2N2222, AO3400).",
+"Uses a tiny GPIO current to switch a bigger load, such as a relay coil, buzzer or LED strip.",
+"சிறிய GPIO மின்னோட்டத்தைக் கொண்டு ரிலே காயில், பஸ்ஸர், LED ஸ்ட்ரிப் போன்ற பெரிய சுமைகளை இயக்குகிறது.",
+"Always pair it with a flyback diode when driving coils or motors.",
+"காயில் அல்லது மோட்டாரை இயக்கும்போது எப்போதும் flyback diode-உடன் பயன்படுத்துங்கள்.");
+
+pt("term","term","Screw terminal","ஸ்க்ரூ டெர்மினல்",
+"A block with screws that clamp wires in place.",
+"வயர்களை இறுக்கிப் பிடிக்கும் ஸ்க்ரூக்கள் கொண்ட பிளாக்.",
+"A secure, solder-free connection for power supplies, motors and high-current loads.",
+"மின் விநியோகம், மோட்டார்கள், அதிக மின்னோட்ட சுமைகளுக்கு சோல்டர் இல்லாத உறுதியான இணைப்பு.",
+"Strip about 6 mm of insulation and tighten firmly. Loose wires spark and heat up.",
+"சுமார் 6 mm இன்சுலேஷனை உரித்து, நன்றாக இறுக்குங்கள். தளர்ந்த வயர்கள் தீப்பொறி உண்டாக்கி சூடாகும்.");
+
+pt("driverIC","to220","Motor driver IC","மோட்டார் டிரைவர் IC",
+"A power chip containing H-bridges or step logic (L298N, A4988, DRV8825).",
+"H-bridge அல்லது step logic கொண்ட பவர் சிப் (L298N, A4988, DRV8825).",
+"Turns weak logic signals into strong currents that drive motors forward, backward and at controlled speed.",
+"பலவீனமான logic சிக்னல்களை வலுவான மின்னோட்டமாக மாற்றி மோட்டாரை முன், பின், கட்டுப்படுத்தப்பட்ட வேகத்தில் இயக்குகிறது.",
+"These chips get hot, so keep the heat sink on. Never connect a motor directly to a microcontroller pin.",
+"இந்த சிப்புகள் சூடாகும்; ஹீட் சிங்கை வைத்திருங்கள். மோட்டாரை நேரடியாக மைக்ரோகண்ட்ரோலர் பின்னுடன் இணைக்க வேண்டாம்.");
+
+pt("heatsink","heatsink","Heat sink","ஹீட் சிங்க்",
+"A finned metal block bolted to a power chip.",
+"பவர் சிப்புடன் பொருத்தப்பட்ட துடுப்புகள் கொண்ட உலோகக் கட்டி.",
+"Spreads and removes heat so the chip does not overheat and shut down.",
+"வெப்பத்தைப் பரப்பி வெளியேற்றுகிறது; இதனால் சிப் அதிக சூடாகி நின்றுவிடாது.",
+"If you cannot touch it for 3 seconds, reduce the load or add a fan.",
+"3 விநாடி தொட முடியாத அளவு சூடாக இருந்தால், சுமையைக் குறைக்கவும் அல்லது மின்விசிறி சேர்க்கவும்.");
+
+pt("pot","pot","Trimmer potentiometer","டிரிம்மர் பொட்டென்ஷியோமீட்டர்",
+"A small variable resistor adjusted with a screwdriver.",
+"ஸ்க்ரூடிரைவரால் சரிசெய்யும் சிறிய மாறும் ரெசிஸ்டர்.",
+"Sets a level: output voltage, sensitivity, delay time or motor current limit, depending on the board.",
+"போர்டைப் பொறுத்து output வோல்டேஜ், உணர்திறன், நேர தாமதம் அல்லது மோட்டார் மின்னோட்ட வரம்பை அமைக்கிறது.",
+"Turn slowly in small steps and measure after each step. Multi-turn (blue box) trimmers need many turns to change.",
+"சிறிது சிறிதாக மெதுவாகத் திருப்பி, ஒவ்வொரு முறையும் அளந்து பாருங்கள். Multi-turn (நீல பெட்டி) டிரிம்மர்களுக்கு பல சுற்றுகள் தேவை.");
+
+pt("inductor","inductor","Inductor (coil)","இண்டக்டர் (காயில்)",
+"A coil of wire around a ferrite core that stores energy in a magnetic field.",
+"ஃபெரைட் கோர் மேல் சுற்றப்பட்ட வயர் காயில்; காந்தப்புலத்தில் ஆற்றலைச் சேமிக்கிறது.",
+"In switching regulators it works with the chip to convert voltage efficiently and smooth the current.",
+"ஸ்விட்சிங் ரெகுலேட்டர்களில் சிப்புடன் சேர்ந்து வோல்டேஜைத் திறம்பட மாற்றி, மின்னோட்டத்தை சீராக்குகிறது.",
+"A faint whine or buzz under load is normal. The code (100, 330) is the value in µH: 330 = 33 µH.",
+"சுமையின் கீழ் லேசான ஒலி இயல்பு. குறி (100, 330) µH மதிப்பு: 330 = 33 µH.");
+
+pt("jumper","jumper","Jumper","ஜம்பர்",
+"A small plastic cap with a metal clip that connects two pins.",
+"இரண்டு பின்களை இணைக்கும் உலோகக் கிளிப் கொண்ட சிறிய பிளாஸ்டிக் மூடி.",
+"Selects a setting without soldering, such as enabling the 5V regulator, boot mode or trigger level.",
+"சோல்டர் இல்லாமல் ஒரு அமைப்பைத் தேர்வு செய்கிறது: 5V ரெகுலேட்டரை இயக்குவது, boot mode, trigger level போன்றவை.",
+"Change jumpers only with power OFF.",
+"மின்சாரம் OFF ஆக இருக்கும்போது மட்டுமே ஜம்பரை மாற்றுங்கள்.");
+
+pt("sensorel","dht","Sensing element","சென்சிங் பகுதி",
+"The part that actually reacts to the physical world: heat, humidity, light, motion or sound.",
+"வெளி உலகத்துக்கு (வெப்பம், ஈரப்பதம், ஒளி, அசைவு, ஒலி) நேரடியாக எதிர்வினை செய்யும் பகுதி.",
+"Changes an electrical property so the module can report a reading.",
+"ஒரு மின் பண்பை மாற்றுகிறது; இதனால் மாட்யூல் அளவீட்டைத் தர முடியும்.",
+"Keep it clean and away from unrelated heat sources, such as the board's own regulator.",
+"சுத்தமாக, தொடர்பில்லாத வெப்ப மூலங்களிலிருந்து (போர்டின் சொந்த ரெகுலேட்டர் போன்றவை) தள்ளி வையுங்கள்.");
+
+pt("comparator","chip","Comparator IC (LM393)","கம்பரேட்டர் IC (LM393)",
+"An 8-pin chip that compares the sensor voltage with a threshold you set.",
+"சென்சார் வோல்டேஜை நீங்கள் அமைக்கும் வரம்புடன் ஒப்பிடும் 8-பின் சிப்.",
+"Gives a clean digital output (DO): HIGH or LOW when the threshold is crossed.",
+"வரம்பைத் தாண்டும்போது சுத்தமான டிஜிட்டல் output (DO) தருகிறது: HIGH அல்லது LOW.",
+"Set the threshold with the blue trimmer and watch the DO LED change.",
+"நீல டிரிம்மரால் வரம்பை அமைத்து, DO LED மாறுவதைப் பாருங்கள்.");
+
+pt("display","display","Display panel","டிஸ்ப்ளே பேனல்",
+"A glass OLED panel with its built-in controller (SSD1306).",
+"உள்ளமைந்த கண்ட்ரோலர் (SSD1306) கொண்ட கண்ணாடி OLED பேனல்.",
+"Shows text, numbers, icons and simple graphics. Each pixel makes its own light, so there is no backlight.",
+"எழுத்துகள், எண்கள், ஐகான்கள், எளிய படங்களைக் காட்டுகிறது. ஒவ்வொரு pixel-ம் தானே ஒளிர்வதால் backlight தேவையில்லை.",
+"The glass breaks easily; do not press it. Avoid showing the same image for days (burn-in).",
+"கண்ணாடி எளிதில் உடையும்; அழுத்த வேண்டாம். ஒரே படத்தை நாள்கணக்கில் காட்ட வேண்டாம் (burn-in).");
+
+pt("fpc","fpc","Flat ribbon connector","தட்டையான ரிப்பன் கனெக்டர்",
+"A thin flexible flat cable (FPC) or the socket that holds it.",
+"மெல்லிய வளையும் தட்டையான கேபிள் (FPC) அல்லது அதைப் பிடிக்கும் சாக்கெட்.",
+"Carries many signals between a camera or display and the main board in a very small space.",
+"கேமரா அல்லது டிஸ்ப்ளேக்கும் முக்கிய போர்டுக்கும் இடையே, மிகச் சிறிய இடத்தில் பல சிக்னல்களைக் கொண்டு செல்கிறது.",
+"To insert: lift the latch gently, slide the cable in fully with contacts facing the right way, then press the latch down.",
+"செருக: லாச்சை மெதுவாகத் தூக்கி, தொடர்புகள் சரியான திசையில் இருக்கும்படி கேபிளை முழுமையாக உள்ளே தள்ளி, லாச்சை அழுத்துங்கள்.");
+
+pt("cam","cam","Camera module","கேமரா மாட்யூல்",
+"An image sensor with a lens (OV2640, 2 megapixels on ESP32-CAM).",
+"லென்ஸ் கொண்ட இமேஜ் சென்சார் (ESP32-CAM-இல் OV2640, 2 மெகாபிக்சல்).",
+"Captures photos and streams video over Wi‑Fi.",
+"புகைப்படங்கள் எடுத்து, Wi‑Fi வழியாக வீடியோ ஸ்ட்ரீம் செய்கிறது.",
+"Remove the protective film from the lens. A weak 5V supply causes 'brownout' resets when the camera starts.",
+"லென்ஸின் பாதுகாப்பு ஃபிலிமை எடுத்துவிடுங்கள். 5V மின்சாரம் பலவீனமாக இருந்தால் கேமரா தொடங்கும்போது 'brownout' reset வரும்.");
+
+pt("sd","sd","microSD card slot","மைக்ரோSD கார்டு ஸ்லாட்",
+"A spring socket for a microSD memory card.",
+"மைக்ரோSD மெமரி கார்டுக்கான ஸ்பிரிங் சாக்கெட்.",
+"Stores the operating system (Raspberry Pi) or saves photos and logs (ESP32-CAM).",
+"இயங்குதளத்தை (Raspberry Pi) சேமிக்கிறது, அல்லது புகைப்படங்கள், log-களை (ESP32-CAM) சேமிக்கிறது.",
+"Use a Class 10 / A1 card. For Raspberry Pi, write the OS with Raspberry Pi Imager.",
+"Class 10 / A1 கார்டு பயன்படுத்துங்கள். Raspberry Pi-க்கு Raspberry Pi Imager மூலம் OS எழுதுங்கள்.");
+
+pt("flash","chip","SPI Flash memory","SPI ஃபிளாஷ் நினைவகம்",
+"A small 8-pin memory chip (for example W25Q16, 25Q80).",
+"சிறிய 8-பின் நினைவக சிப் (உதாரணம் W25Q16, 25Q80).",
+"Stores your program and files. It keeps data even when power is off.",
+"உங்கள் program, கோப்புகளைச் சேமிக்கிறது. மின்சாரம் இல்லாதபோதும் data அழியாது.",
+"The size is in the part number: 25Q80 = 8 Mbit = 1 MB; W25Q16 = 2 MB.",
+"அளவு part number-இல் இருக்கும்: 25Q80 = 8 Mbit = 1 MB; W25Q16 = 2 MB.");
+
+pt("flashled","flashled","Camera flash LED","கேமரா ஃபிளாஷ் LED",
+"A bright white LED next to the camera.",
+"கேமராவுக்கு அருகில் உள்ள பிரகாசமான வெள்ளை LED.",
+"Lights up the scene for photos in the dark (GPIO4 on ESP32-CAM).",
+"இருட்டில் புகைப்படம் எடுக்க வெளிச்சம் தருகிறது (ESP32-CAM-இல் GPIO4).",
+"It also flashes when the SD card is used, because GPIO4 is shared with the SD card.",
+"SD கார்டு பயன்படும்போதும் இது மினுமினுக்கும்; ஏனெனில் GPIO4 SD கார்டுடன் பகிரப்படுகிறது.");
+
+pt("soc","shield","System‑on‑Chip (SoC)","சிஸ்டம்‑ஆன்‑சிப் (SoC)",
+"The main processor of a single-board computer: several CPU cores plus a graphics unit (GPU) in one chip.",
+"சிங்கிள்-போர்டு கணினியின் முக்கிய ப்ராசசர்: பல CPU core-களும், கிராஃபிக்ஸ் யூனிட்டும் (GPU) ஒரே சிப்பில்.",
+"Runs a full operating system such as Raspberry Pi OS (Linux), with desktop, browser, Python and servers.",
+"Raspberry Pi OS (Linux) போன்ற முழு இயங்குதளத்தை இயக்குகிறது: desktop, browser, Python, server எல்லாம்.",
+"Add a heat sink or fan. Above 80°C it slows itself down (thermal throttling).",
+"ஹீட் சிங்க் அல்லது மின்விசிறி சேர்க்கவும். 80°C-க்கு மேல் தானே வேகத்தைக் குறைக்கும் (thermal throttling).");
+
+pt("ram","chip","RAM chip","RAM சிப்",
+"Working memory chip (LPDDR4 on Raspberry Pi 4; PSRAM on ESP32-CAM).",
+"வேலை நினைவக சிப் (Raspberry Pi 4-இல் LPDDR4; ESP32-CAM-இல் PSRAM).",
+"Holds running programs and data while the board is on. It is cleared when power goes off.",
+"போர்டு இயங்கும்போது இயங்கும் program-களையும் data-வையும் வைத்திருக்கிறது. மின்சாரம் போனதும் அழிந்துவிடும்.",
+"More RAM lets you run more programs together. On the Pi you cannot upgrade it; choose the size when buying.",
+"அதிக RAM இருந்தால் பல program-களை ஒரே நேரத்தில் இயக்கலாம். Pi-யில் இதை மாற்ற முடியாது; வாங்கும்போதே அளவைத் தேர்வு செய்யுங்கள்.");
+
+pt("pmic","chip","Power management IC (PMIC)","பவர் மேனேஜ்மென்ட் IC (PMIC)",
+"A chip that creates all the different internal voltages the board needs.",
+"போர்டுக்குத் தேவையான பல்வேறு உள் வோல்டேஜ்களை உருவாக்கும் சிப்.",
+"Turns the 5V input into the 3.3V, 1.8V and core voltages, and switches them on in the right order.",
+"5V உள்ளீட்டை 3.3V, 1.8V, core வோல்டேஜ்களாக மாற்றி, சரியான வரிசையில் இயக்குகிறது.",
+"Low-voltage warnings on a Pi usually mean a weak power supply, not a bad PMIC.",
+"Pi-யில் low-voltage எச்சரிக்கை பொதுவாக பலவீனமான அடாப்டரால் வரும்; PMIC பழுது அல்ல.");
+
+pt("ctrlic","chip","Support / controller chip","துணை / கண்ட்ரோலர் சிப்",
+"A helper chip that handles one job, such as USB, signal driving or motion detection logic.",
+"USB, சிக்னல் இயக்கம், அசைவு கண்டறிதல் logic போன்ற ஒரு வேலையை மட்டும் கவனிக்கும் துணை சிப்.",
+"Takes work off the main processor so the board runs smoothly.",
+"முக்கிய ப்ராசசரின் வேலையைக் குறைத்து போர்டு சீராக இயங்க உதவுகிறது.",
+"Search the printed part number to learn exactly what it does.",
+"அச்சிடப்பட்ட part number-ஐத் தேடி அது சரியாக என்ன செய்கிறது என்று அறியுங்கள்.");
+
+pt("rfic","chip","Radio transceiver chip","ரேடியோ டிரான்ஸ்ஸீவர் சிப்",
+"A chip that both transmits and receives radio signals (nRF24L01+, MFRC522).",
+"ரேடியோ சிக்னல்களை அனுப்பவும் பெறவும் செய்யும் சிப் (nRF24L01+, MFRC522).",
+"Handles the wireless link and gives the data to your microcontroller over SPI.",
+"வயர்லெஸ் இணைப்பைக் கையாண்டு, data-வை SPI வழியாக உங்கள் மைக்ரோகண்ட்ரோலருக்குத் தருகிறது.",
+"These chips need 3.3V power. 5V on VCC destroys them, though their data pins often tolerate 5V.",
+"இந்த சிப்புகளுக்கு 3.3V மின்சாரம் தேவை. VCC-க்கு 5V கொடுத்தால் பழுதாகும்; ஆனால் data பின்கள் பெரும்பாலும் 5V தாங்கும்.");
+
+pt("btmod","subpcb","Bluetooth module board","புளூடூத் மாட்யூல் போர்டு",
+"A small green PCB with the Bluetooth radio chip and Flash memory, soldered onto a carrier board.",
+"புளூடூத் ரேடியோ சிப், Flash நினைவகம் கொண்ட சிறிய பச்சை PCB; ஒரு carrier போர்டின் மேல் சோல்டர் செய்யப்பட்டது.",
+"Creates a wireless serial link: whatever the board sends on TX appears on your phone app, and back.",
+"வயர்லெஸ் சீரியல் இணைப்பை உருவாக்குகிறது: போர்டு TX-இல் அனுப்புவது உங்கள் போன் app-இல் தெரியும்; போனிலிருந்து வருவது போர்டுக்கு வரும்.",
+"Default PIN is usually 1234 or 0000.",
+"இயல்பு PIN பொதுவாக 1234 அல்லது 0000.");
+
+pt("imu","chip","Motion sensor (IMU)","அசைவு சென்சார் (IMU)",
+"A MEMS chip with a 3-axis accelerometer and 3-axis gyroscope.",
+"3-அச்சு accelerometer, 3-அச்சு gyroscope கொண்ட MEMS சிப்.",
+"Measures tilt, acceleration and rotation speed. Used for balancing robots, drones and gesture control.",
+"சாய்வு, முடுக்கம், சுழற்சி வேகத்தை அளக்கிறது. சமநிலை ரோபோ, ட்ரோன், சைகைக் கட்டுப்பாட்டுக்குப் பயன்படும்.",
+"Mount it flat and firmly; vibration adds noise. Calibrate offsets at startup.",
+"தட்டையாக, உறுதியாகப் பொருத்துங்கள்; அதிர்வு இரைச்சலைச் சேர்க்கும். தொடக்கத்தில் offset-களை calibrate செய்யுங்கள்.");
+
+pt("chargeic","chip","Battery charger IC","பேட்டரி சார்ஜர் IC",
+"A chip (TP4056) that charges a single 3.7V lithium cell safely.",
+"ஒற்றை 3.7V லித்தியம் செல்லைப் பாதுகாப்பாக சார்ஜ் செய்யும் சிப் (TP4056).",
+"Charges with constant current, then constant voltage, and stops at 4.2V.",
+"முதலில் நிலையான மின்னோட்டத்தில், பிறகு நிலையான வோல்டேஜில் சார்ஜ் செய்து, 4.2V-இல் நிறுத்துகிறது.",
+"Default charge current is 1 A. For small batteries, change the PROG resistor to lower it.",
+"இயல்பு சார்ஜ் மின்னோட்டம் 1 A. சிறிய பேட்டரிகளுக்கு PROG ரெசிஸ்டரை மாற்றிக் குறைக்கவும்.");
+
+pt("protect","chip","Battery protection chips","பேட்டரி பாதுகாப்பு சிப்புகள்",
+"DW01 controller plus FS8205 dual MOSFET switch.",
+"DW01 கண்ட்ரோலர் மற்றும் FS8205 இரட்டை MOSFET ஸ்விட்ச்.",
+"Cuts the battery off on over-discharge (about 2.5V), over-charge and short circuit.",
+"அதிக டிஸ்சார்ஜ் (சுமார் 2.5V), அதிக சார்ஜ், short circuit ஆகியவற்றின்போது பேட்டரியைத் துண்டிக்கிறது.",
+"Take the load from OUT+ / OUT−, not directly from B+ / B−, so the protection works.",
+"பாதுகாப்பு வேலை செய்ய, சுமையை B+ / B− இலிருந்து அல்ல, OUT+ / OUT− இலிருந்து எடுங்கள்.");
+
+pt("sim","sim","SIM card holder","சிம் கார்டு ஹோல்டர்",
+"A sliding or hinged socket for a micro-SIM card.",
+"மைக்ரோ-சிம் கார்டுக்கான சறுக்கும் அல்லது கீல் சாக்கெட்.",
+"Holds the SIM so the GSM module can join the mobile network for SMS, calls and GPRS data.",
+"SMS, அழைப்பு, GPRS data-க்காக GSM மாட்யூல் மொபைல் நெட்வொர்க்கில் சேர சிம்மை வைத்திருக்கிறது.",
+"Insert the SIM with the cut corner matching the drawing. The network must still support 2G.",
+"வெட்டப்பட்ட மூலை வரைபடத்துடன் பொருந்தும்படி சிம்மைச் செருகுங்கள். நெட்வொர்க் 2G-யை ஆதரிக்க வேண்டும்.");
+
+pt("coil","coil","RFID antenna coil","RFID ஆன்டெனா காயில்",
+"A copper loop printed around the board.",
+"போர்டைச் சுற்றி அச்சிடப்பட்ட செம்பு வளையம்.",
+"Creates a 13.56 MHz magnetic field that powers and reads RFID cards and key tags held near it.",
+"13.56 MHz காந்தப்புலத்தை உருவாக்கி, அருகில் வைக்கப்படும் RFID கார்டுகள், key tag-களுக்கு மின்சாரம் தந்து படிக்கிறது.",
+"Read range is about 2–5 cm. Metal behind the board reduces range.",
+"படிக்கும் தூரம் சுமார் 2–5 cm. போர்டுக்குப் பின்னால் உலோகம் இருந்தால் தூரம் குறையும்.");
+
+pt("dome","dome","Fresnel lens dome","ஃப்ரெஸ்னல் லென்ஸ் டோம்",
+"The white plastic dome made of many small lens facets.",
+"பல சிறிய லென்ஸ் முகங்கள் கொண்ட வெள்ளை பிளாஸ்டிக் டோம்.",
+"Focuses body heat (infrared) from a wide area onto the pyroelectric sensor underneath.",
+"பரந்த பகுதியிலிருந்து வரும் உடல் வெப்பத்தை (infrared) கீழே உள்ள pyroelectric சென்சார் மேல் குவிக்கிறது.",
+"Lift the dome to see the small metal sensor with a window. Detection range is up to about 7 m.",
+"டோமைத் தூக்கினால் ஜன்னல் கொண்ட சிறிய உலோக சென்சார் தெரியும். கண்டறியும் தூரம் சுமார் 7 m வரை.");
+
+pt("usonic","usonic","Ultrasonic transducer","அல்ட்ராசோனிக் டிரான்ஸ்டியூசர்",
+"A small speaker / microphone pair that works at 40 kHz, above human hearing.",
+"மனித காதுக்குக் கேட்காத 40 kHz-இல் வேலை செய்யும் சிறிய ஸ்பீக்கர் / மைக் ஜோடி.",
+"T sends a sound pulse; R listens for the echo. The time taken gives the distance.",
+"T ஒலித் துடிப்பை அனுப்புகிறது; R எதிரொலியைக் கேட்கிறது. எடுத்த நேரத்திலிருந்து தூரம் கணக்கிடப்படுகிறது.",
+"Distance (cm) = echo time (µs) ÷ 58. Soft surfaces like cloth absorb sound and give wrong readings.",
+"தூரம் (cm) = எதிரொலி நேரம் (µs) ÷ 58. துணி போன்ற மென்மையான பரப்புகள் ஒலியை உறிஞ்சி தவறான அளவு தரும்.");
+
+pt("probe","probe","Soil probe","மண் ப்ரோப்",
+"A two-prong PCB with exposed copper strips.",
+"திறந்த செம்பு பட்டைகள் கொண்ட இரண்டு கால் PCB.",
+"Pushed into soil, it measures resistance: wet soil conducts more, dry soil less.",
+"மண்ணில் செருகினால் அதன் எதிர்ப்பை அளக்கிறது: ஈரமான மண் அதிகம் கடத்தும், உலர்ந்த மண் குறைவு.",
+"Power it only while reading (switch VCC with a GPIO) or the copper corrodes in weeks.",
+"படிக்கும்போது மட்டும் மின்சாரம் கொடுங்கள் (GPIO மூலம் VCC-ஐ on/off செய்யுங்கள்); இல்லையெனில் சில வாரங்களில் செம்பு அரிக்கப்படும்.");
+
+pt("audio","audio","3.5 mm audio / video jack","3.5 mm ஆடியோ / வீடியோ ஜாக்",
+"A headphone socket with four contacts.",
+"நான்கு தொடர்புகள் கொண்ட ஹெட்ஃபோன் சாக்கெட்.",
+"Outputs stereo audio and composite video.",
+"ஸ்டீரியோ ஒலி மற்றும் composite வீடியோவை வெளியிடுகிறது.",
+"Audio quality is basic; use a USB sound card or HDMI for better sound.",
+"ஒலித் தரம் சாதாரணம்; சிறந்த ஒலிக்கு USB sound card அல்லது HDMI பயன்படுத்துங்கள்.");
+
+pt("hdmi","hdmi","Micro‑HDMI port","மைக்ரோ‑HDMI போர்ட்",
+"A small HDMI socket for a monitor or TV.",
+"மானிட்டர் அல்லது டிவிக்கான சிறிய HDMI சாக்கெட்.",
+"Sends video and audio. Raspberry Pi 4 can drive two 4K screens.",
+"வீடியோ, ஒலியை அனுப்புகிறது. Raspberry Pi 4 இரண்டு 4K திரைகளை இயக்கும்.",
+"For one screen use HDMI0, the port next to the USB-C power socket.",
+"ஒரு திரைக்கு USB-C மின் சாக்கெட்டுக்கு அருகிலுள்ள HDMI0 பயன்படுத்துங்கள்.");
+
+pt("eth","eth","Ethernet port (RJ45)","ஈதர்நெட் போர்ட் (RJ45)",
+"A network socket for a LAN cable, with link and activity LEDs.",
+"LAN கேபிளுக்கான நெட்வொர்க் சாக்கெட்; link, activity LED-களுடன்.",
+"Gives a wired network connection up to 1 Gbps.",
+"1 Gbps வரை வயர் நெட்வொர்க் இணைப்பு தருகிறது.",
+"Wired is more stable than Wi‑Fi for servers, cameras and dashboards on a wall screen.",
+"Server, கேமரா, சுவர்த் திரை dashboard-களுக்கு Wi‑Fi-ஐ விட வயர் இணைப்பு நிலையானது.");
+
+pt("gpio40","header","40‑pin GPIO header","40‑பின் GPIO ஹெடர்",
+"Two rows of 20 pins: GPIO, 5V, 3.3V, GND, and I2C, SPI, UART and PWM functions.",
+"20 பின்கள் கொண்ட இரண்டு வரிசைகள்: GPIO, 5V, 3.3V, GND, மற்றும் I2C, SPI, UART, PWM செயல்பாடுகள்.",
+"Connects sensors, LEDs, relays, motor drivers and add-on boards called HATs.",
+"சென்சார்கள், LED, ரிலே, மோட்டார் டிரைவர், HAT எனப்படும் கூடுதல் போர்டுகளை இணைக்கிறது.",
+"Pi GPIO pins are 3.3V only and NOT 5V tolerant. 5V on a GPIO pin can destroy the Pi.",
+"Pi GPIO பின்கள் 3.3V மட்டுமே; 5V தாங்காது. GPIO பின்னுக்கு 5V கொடுத்தால் Pi பழுதாகலாம்.");
+/* ---------- CATEGORIES, SPEC LABELS ---------- */
+const CATS = {
+  mcu: ["Microcontroller boards", "மைக்ரோகண்ட்ரோலர் போர்டுகள்"],
+  iot: ["Wi‑Fi & IoT boards", "வைஃபை & IoT போர்டுகள்"],
+  sbc: ["Single‑board computers", "சிங்கிள்‑போர்டு கணினிகள்"],
+  drv: ["Relay & motor drivers", "ரிலே & மோட்டார் டிரைவர்கள்"],
+  pwr: ["Power modules", "பவர் மாட்யூல்கள்"],
+  com: ["Wireless & communication", "வயர்லெஸ் & தொடர்பு"],
+  sen: ["Sensors", "சென்சார்கள்"],
+  dsp: ["Displays", "டிஸ்ப்ளேக்கள்"]
+};
+const SK = {
+  chip: ["Main chip", "முக்கிய சிப்"], clk: ["Clock speed", "கடிகார வேகம்"], flash: ["Flash memory", "Flash நினைவகம்"],
+  ram: ["RAM", "RAM"], v: ["Logic voltage", "லாஜிக் வோல்டேஜ்"], vin: ["Power input", "மின் உள்ளீடு"],
+  io: ["Pins", "பின்கள்"], adc: ["Analog inputs", "அனலாக் உள்ளீடுகள்"], rf: ["Wireless", "வயர்லெஸ்"],
+  if: ["Interface", "இணைப்பு முறை"], load: ["Load rating", "சுமைத் திறன்"], range: ["Range", "வரம்பு"],
+  out: ["Output", "வெளியீடு"], size: ["Board size", "போர்டு அளவு"], usb: ["USB", "USB"]
+};
+
+/* comp tuple: [part, drawType, x, y, w, h, label, noteEN, noteTA, opts]   (opts.b = on back side) */
+const BOARDS = [
+{ id:"uno", n:"Arduino Uno R3", al:["uno","atmega328p","arduino"], cat:"mcu", col:"#00727a", W:274, H:214,
+  chip:"ATmega328P", volt:"5V",
+  ab:["The most popular beginner board. An ATmega328P runs at 16 MHz with 5V logic, and the USB‑B port lets you program it from the Arduino IDE.",
+      "தொடக்கநிலையாளர்களுக்கு மிகவும் பிரபலமான போர்டு. ATmega328P சிப் 16 MHz வேகத்தில் 5V லாஜிக்கில் இயங்குகிறது; USB‑B போர்ட் மூலம் Arduino IDE-இலிருந்து program செய்யலாம்."],
+  sp:[["chip","ATmega328P"],["clk","16 MHz"],["flash","32 KB"],["ram","2 KB SRAM"],["v","5V"],["vin","7–12V (DC jack / VIN)"],["io","14 digital (6 PWM)"],["adc","6 × 10‑bit"],["size","68.6 × 53.4 mm"]],
+  uses:[["LED, buzzer and traffic-light learning projects","LED, பஸ்ஸர், டிராஃபிக் லைட் கற்றல் ப்ராஜெக்ட்கள்"],
+        ["Home automation with relays: lights, fans, water pumps","ரிலே மூலம் வீட்டுத் தானியங்கி: விளக்கு, மின்விசிறி, தண்ணீர் பம்ப்"],
+        ["Robot cars and line followers with a motor driver","மோட்டார் டிரைவருடன் ரோபோ கார், லைன் ஃபாலோயர்"],
+        ["Reading sensors: temperature, distance, soil moisture, gas","சென்சார் அளவீடுகள்: வெப்பநிலை, தூரம், மண் ஈரப்பதம், வாயு"],
+        ["Prototyping before designing your own PCB","சொந்த PCB வடிவமைக்கும் முன் மாதிரி (prototype) உருவாக்க"],
+        ["School and college lab experiments","பள்ளி, கல்லூரி ஆய்வக சோதனைகள்"]],
+  tip:["Pins 0 and 1 are used by USB serial. Keep them free while uploading.","பின் 0, 1 USB சீரியலுக்குப் பயன்படுகின்றன. Upload செய்யும்போது அவற்றில் எதையும் இணைக்க வேண்டாம்."],
+  holes:[[60,200],[94,24],[262,34],[262,172]],
+  silk:[[180,26,"DIGITAL (PWM ~)",7],[144,194,"POWER",6],[224,194,"ANALOG IN",6],[190,112,"UNO R3",9]],
+  c:[
+   ["usbb","usbb",-8,28,64,48,"USB‑B","Connect to the PC with a USB A‑to‑B (printer) cable. Gives 5V power and uploads.","PC-யுடன் USB A‑to‑B (பிரிண்டர்) கேபிள் மூலம் இணைக்கவும். 5V மின்சாரமும் upload-ம் இதன் வழியே.",{e:"l"}],
+   ["dcjack","jack",-6,150,56,36,"","7–12V adapter input. It passes through the on-board 5V regulator.","7–12V அடாப்டர் உள்ளீடு. போர்டின் 5V ரெகுலேட்டர் வழியாகச் செல்கிறது.",{e:"l"}],
+   ["reset","button",62,4,20,20,"","Press to restart your sketch.","உங்கள் sketch-ஐ மீண்டும் தொடங்க அழுத்தவும்.",{col:"#d43a2f"}],
+   ["usbserial","chip",92,36,28,28,"16U2","ATmega16U2 is the USB-to-serial bridge used for uploading.","ATmega16U2 upload செய்வதற்கான USB-சீரியல் பாலமாக செயல்படுகிறது.",{pins:"q"}],
+   ["fuse","smd",62,86,16,8,"","500 mA polyfuse that protects your PC's USB port.","உங்கள் PC USB போர்ட்டைப் பாதுகாக்கும் 500 mA பாலிஃப்யூஸ்.",{col:"#c9a22b"}],
+   ["capel","cap",58,110,22,22,"","47 µF capacitors smooth the input supply.","47 µF கெபாசிட்டர்கள் உள்ளீட்டு மின்சாரத்தை சீராக்குகின்றன.",{}],
+   ["ldo","reg",58,146,24,22,"5V","NCP1117 regulator: turns the DC jack voltage into 5V.","NCP1117 ரெகுலேட்டர்: DC ஜாக் வோல்டேஜை 5V ஆக மாற்றுகிறது.",{}],
+   ["crystal","crystal",90,132,24,12,"16M","16 MHz clock for the main chip.","முக்கிய சிப்புக்கான 16 MHz கடிகாரம்.",{}],
+   ["mcu","chip",118,128,140,36,"ATMEGA328P","ATmega328P in a removable DIP-28 socket. If it is damaged you can replace just this chip.","ATmega328P கழற்றக்கூடிய DIP-28 சாக்கெட்டில் உள்ளது. பழுதானால் இந்த சிப்பை மட்டும் மாற்றலாம்.",{pins:"tb",dip:1}],
+   ["hdrdig","header",86,4,0,0,"","SCL, SDA, AREF, GND and D13–D8. ~ marks PWM pins 9, 10, 11.","SCL, SDA, AREF, GND, D13–D8. ~ குறி உள்ள 9, 10, 11 PWM பின்கள்.",{n:10,f:1}],
+   ["hdrdig","header",190,4,0,0,"","D7–D0. D0 (RX) and D1 (TX) are the serial pins; 3, 5, 6 give PWM.","D7–D0. D0 (RX), D1 (TX) சீரியல் பின்கள்; 3, 5, 6 PWM தரும்.",{n:8,f:1}],
+   ["ledbuilt","led",136,58,10,5,"","The 'L' LED on pin 13.","பின் 13-இல் உள்ள 'L' LED.",{col:"#ffb000"}],
+   ["ledtxrx","leds",136,68,10,16,"","Blink during upload or Serial.print().","Upload அல்லது Serial.print() நேரத்தில் மினுமினுக்கும்.",{n:2}],
+   ["ledpwr","led",210,62,10,5,"","'ON' LED.","'ON' LED.",{col:"#2fd17a"}],
+   ["icsp","header",236,88,0,0,"","ICSP for the ATmega328P; also gives SPI (D11–D13).","ATmega328P-க்கான ICSP; SPI (D11–D13) பின்களும் இதில் உள்ளன.",{n:3,r:2,o:"v"}],
+   ["hdrpwr","header",104,200,0,0,"","IOREF, RESET, 3.3V, 5V, GND, GND, VIN.","IOREF, RESET, 3.3V, 5V, GND, GND, VIN.",{n:8,f:1}],
+   ["hdrana","header",194,200,0,0,"","A0–A5. A4 and A5 are also SDA and SCL (I2C).","A0–A5. A4, A5 I2C-க்கான SDA, SCL ஆகவும் பயன்படும்.",{n:6,f:1}]
+  ]},
+
+{ id:"nano", n:"Arduino Nano", al:["nano","atmega328p","arduino nano"], cat:"mcu", col:"#1f4fa3", W:182, H:72,
+  chip:"ATmega328P", volt:"5V",
+  ab:["The Uno's power in a breadboard-friendly stick. Same ATmega328P chip, so the same code works on both.",
+      "Uno-வின் அதே திறன், பிரெட்போர்டில் பொருந்தும் சிறிய வடிவில். அதே ATmega328P சிப் என்பதால் ஒரே code இரண்டிலும் வேலை செய்யும்."],
+  sp:[["chip","ATmega328P"],["clk","16 MHz"],["flash","32 KB"],["ram","2 KB"],["v","5V"],["vin","7–12V on VIN, or USB"],["io","14 digital (6 PWM)"],["adc","8 (A0–A7)"],["usb","Mini‑USB (CH340)"],["size","43 × 18 mm"]],
+  uses:[["Compact projects that sit on a breadboard","பிரெட்போர்டில் அமரும் சிறிய ப்ராஜெக்ட்கள்"],
+        ["Wearables and small gadgets","அணியக்கூடிய, சிறிய கேஜெட்கள்"],
+        ["Smart switches and timers inside a box","பெட்டிக்குள் வைக்கும் ஸ்மார்ட் ஸ்விட்ச், டைமர்"],
+        ["Drones, RC and robot controllers","ட்ரோன், RC, ரோபோ கட்டுப்படுத்திகள்"],
+        ["Sensor data loggers","சென்சார் data logger-கள்"]],
+  tip:["Clone Nanos use the CH340 chip and often need 'ATmega328P (Old Bootloader)' selected in the IDE.","Clone Nano-க்கள் CH340 சிப் பயன்படுத்துகின்றன; IDE-இல் 'ATmega328P (Old Bootloader)' தேர்வு செய்ய வேண்டியிருக்கும்."],
+  holes:[], silk:[[100,62,"NANO V3",6]],
+  c:[
+   ["usbmini","usbmicro",-6,22,32,28,"","Mini-USB for power and upload.","மின்சாரம், upload-க்கான Mini-USB.",{e:"l"}],
+   ["usbserial","chip",42,26,24,18,"CH340","CH340 USB-serial chip on clone boards (FT232 on originals).","Clone போர்டுகளில் CH340 USB-சீரியல் சிப் (அசலில் FT232).",{pins:"tb"}],
+   ["ldo","reg",30,47,16,11,"","5V regulator for the VIN pin (on the back on some versions).","VIN பின்னுக்கான 5V ரெகுலேட்டர் (சில பதிப்புகளில் பின்பக்கம்).",{}],
+   ["mcu","chip",82,22,30,30,"328P","ATmega328P in a small square TQFP package with 32 pins.","32 பின்கள் கொண்ட சிறிய சதுர TQFP வடிவ ATmega328P.",{pins:"q"}],
+   ["crystal","crystal",120,18,16,8,"16M","16 MHz clock.","16 MHz கடிகாரம்.",{smd:1}],
+   ["reset","button",120,32,16,16,"","Reset button in the middle of the board.","போர்டின் நடுவில் உள்ள reset பட்டன்.",{}],
+   ["ledtxrx","leds",142,16,6,14,"","TX / RX activity.","TX / RX செயல்பாடு.",{n:2}],
+   ["ledpwr","led",142,34,6,4,"","Power LED.","பவர் LED.",{col:"#3bd36b"}],
+   ["ledbuilt","led",142,42,6,4,"","'L' LED on D13.","D13-இல் உள்ள 'L' LED.",{col:"#ffb000"}],
+   ["icsp","pads",156,20,0,0,"","ICSP pads (2×3) for burning the bootloader.","Bootloader எழுதுவதற்கான ICSP பேட்கள் (2×3).",{n:3,r:2,o:"v",p:8}],
+   ["hdrdig","pads",22,0,0,0,"","D12–D2, GND, RST, RX0, TX1 (15 pins).","D12–D2, GND, RST, RX0, TX1 (15 பின்கள்).",{n:15,p:9.6}],
+   ["hdrana","pads",22,62,0,0,"","D13, 3V3, AREF, A0–A7, 5V, RST, GND, VIN. A6/A7 are analog-only.","D13, 3V3, AREF, A0–A7, 5V, RST, GND, VIN. A6/A7 அனலாக் மட்டும்.",{n:15,p:9.6}]
+  ]},
+
+{ id:"mega", n:"Arduino Mega 2560", al:["mega","atmega2560","arduino mega"], cat:"mcu", col:"#00727a", W:400, H:214,
+  chip:"ATmega2560", volt:"5V",
+  ab:["A big brother of the Uno with many more pins and memory: 54 digital pins, 16 analog inputs and 4 hardware serial ports.",
+      "அதிக பின்கள், நினைவகம் கொண்ட Uno-வின் பெரிய அண்ணன்: 54 டிஜிட்டல் பின்கள், 16 அனலாக் உள்ளீடுகள், 4 hardware சீரியல் போர்ட்கள்."],
+  sp:[["chip","ATmega2560"],["clk","16 MHz"],["flash","256 KB"],["ram","8 KB"],["v","5V"],["vin","7–12V"],["io","54 digital (15 PWM)"],["adc","16"],["size","101.5 × 53.3 mm"]],
+  uses:[["3D printers and CNC machines (RAMPS shield)","3D பிரிண்டர், CNC இயந்திரங்கள் (RAMPS shield)"],
+        ["Projects with many relays, LEDs or buttons","பல ரிலே, LED, பட்டன்கள் கொண்ட ப்ராஜெக்ட்கள்"],
+        ["Talking to GPS, GSM and Bluetooth at the same time (4 serial ports)","GPS, GSM, Bluetooth-உடன் ஒரே நேரத்தில் தொடர்பு (4 சீரியல் போர்ட்கள்)"],
+        ["Large robots and automation panels","பெரிய ரோபோக்கள், தானியங்கி பேனல்கள்"],
+        ["LED matrix and big display projects","LED matrix, பெரிய டிஸ்ப்ளே ப்ராஜெக்ட்கள்"]],
+  tip:["Uno shields fit on the Mega, but SPI and I2C pins are in different places (SPI 50–53, I2C 20/21).","Uno shield-கள் Mega-வில் பொருந்தும்; ஆனால் SPI, I2C பின்கள் வேறு இடத்தில் உள்ளன (SPI 50–53, I2C 20/21)."],
+  holes:[[60,200],[94,24],[352,32],[352,172]],
+  silk:[[200,26,"DIGITAL",7],[140,194,"POWER",6],[270,194,"ANALOG IN",6],[205,148,"MEGA 2560",9]],
+  c:[
+   ["usbb","usbb",-8,28,64,48,"USB‑B","Power and upload from the PC.","PC-யிலிருந்து மின்சாரமும் upload-ம்.",{e:"l"}],
+   ["dcjack","jack",-6,150,56,36,"","7–12V adapter input.","7–12V அடாப்டர் உள்ளீடு.",{e:"l"}],
+   ["reset","button",62,4,20,20,"","Restart button.","மீண்டும் தொடங்கும் பட்டன்.",{col:"#d43a2f"}],
+   ["usbserial","chip",92,36,28,28,"16U2","ATmega16U2 USB-serial bridge.","ATmega16U2 USB-சீரியல் பாலம்.",{pins:"q"}],
+   ["fuse","smd",62,86,16,8,"","Protects the USB port.","USB போர்ட்டைப் பாதுகாக்கிறது.",{col:"#c9a22b"}],
+   ["capel","cap",58,110,22,22,"","Input filter capacitors.","உள்ளீட்டு வடிகட்டி கெபாசிட்டர்கள்.",{}],
+   ["ldo","reg",58,146,24,22,"5V","5V regulator from the DC jack.","DC ஜாக்கிலிருந்து 5V ரெகுலேட்டர்.",{}],
+   ["crystal","crystal",140,150,24,12,"16M","16 MHz clock.","16 MHz கடிகாரம்.",{}],
+   ["mcu","chip",176,58,72,72,"ATMEGA|2560","ATmega2560 with 100 pins (TQFP-100), soldered, not removable.","100 பின்கள் கொண்ட ATmega2560 (TQFP-100); சோல்டர் செய்யப்பட்டது, கழற்ற முடியாது.",{pins:"q"}],
+   ["ledbuilt","led",136,58,10,5,"","'L' LED on pin 13.","பின் 13-இல் 'L' LED.",{col:"#ffb000"}],
+   ["ledtxrx","leds",136,68,10,16,"","Serial activity LEDs.","சீரியல் செயல்பாட்டு LED-கள்.",{n:2}],
+   ["ledpwr","led",300,60,10,5,"","Power LED.","பவர் LED.",{col:"#2fd17a"}],
+   ["icsp","header",300,78,0,0,"","ICSP header for the ATmega2560.","ATmega2560-க்கான ICSP ஹெடர்.",{n:3,r:2,o:"v"}],
+   ["hdrdig","header",86,4,0,0,"","SCL, SDA, AREF, GND, D13–D8 (PWM).","SCL, SDA, AREF, GND, D13–D8 (PWM).",{n:10,f:1}],
+   ["hdrdig","header",190,4,0,0,"","D7–D0. All of D2–D13 support PWM on the Mega.","D7–D0. Mega-வில் D2–D13 அனைத்தும் PWM தரும்.",{n:8,f:1}],
+   ["hdrdig","header",274,4,0,0,"","D14–D21: Serial3, Serial2, Serial1 TX/RX and I2C (20 SDA, 21 SCL).","D14–D21: Serial3, Serial2, Serial1 TX/RX மற்றும் I2C (20 SDA, 21 SCL).",{n:8,f:1}],
+   ["hdrdig","header",370,16,0,0,"","D22–D53 double row. 50–53 are SPI (MISO, MOSI, SCK, SS).","D22–D53 இரட்டை வரிசை. 50–53 SPI (MISO, MOSI, SCK, SS).",{n:18,r:2,o:"v",f:1}],
+   ["hdrpwr","header",104,200,0,0,"","IOREF, RESET, 3.3V, 5V, GND, GND, VIN.","IOREF, RESET, 3.3V, 5V, GND, GND, VIN.",{n:8,f:1}],
+   ["hdrana","header",192,200,0,0,"","A0–A15 analog inputs.","A0–A15 அனலாக் உள்ளீடுகள்.",{n:16,f:1}]
+  ]},
+
+{ id:"promini", n:"Arduino Pro Mini", al:["pro mini","promini","atmega328p"], cat:"mcu", col:"#2a56b0", W:132, H:72,
+  chip:"ATmega328P", volt:"3.3V or 5V version",
+  ab:["A tiny, low-power Arduino without USB. You program it through an external FTDI / USB-serial adapter, which makes it ideal for battery projects.",
+      "USB இல்லாத மிகச்சிறிய, குறைந்த மின்சார Arduino. வெளி FTDI / USB-சீரியல் அடாப்டர் மூலம் program செய்யலாம்; பேட்டரி ப்ராஜெக்ட்களுக்கு மிகச் சிறந்தது."],
+  sp:[["chip","ATmega328P"],["clk","16 MHz (5V) / 8 MHz (3.3V)"],["flash","32 KB"],["v","5V or 3.3V"],["vin","RAW: up to 12V"],["io","14 digital (6 PWM)"],["adc","8"],["size","33 × 18 mm"]],
+  uses:[["Battery-powered sensors that sleep for months","மாதக்கணக்கில் தூங்கும் பேட்டரி சென்சார்கள்"],
+        ["Final, permanent build after prototyping on Uno","Uno-வில் சோதித்த பிறகு நிரந்தர இறுதி அமைப்பு"],
+        ["Hidden controllers inside switches and toys","ஸ்விட்ச், பொம்மைகளுக்குள் மறைந்திருக்கும் கட்டுப்படுத்தி"],
+        ["Wireless nodes with nRF24L01","nRF24L01 உடன் வயர்லெஸ் node-கள்"]],
+  tip:["Check whether yours is 3.3V/8 MHz or 5V/16 MHz and choose the same in the IDE, or uploads will fail.","உங்களுடையது 3.3V/8 MHz-ஆ அல்லது 5V/16 MHz-ஆ என்று பார்த்து IDE-இல் அதையே தேர்வு செய்யுங்கள்; இல்லையெனில் upload தோல்வியடையும்."],
+  holes:[], silk:[[70,62,"PRO MINI",6]],
+  c:[
+   ["header","pads",2,6,0,0,"","FTDI programming pads: GND, CTS, VCC, RXI, TXO, DTR. Connect a USB-serial adapter here.","FTDI program பேட்கள்: GND, CTS, VCC, RXI, TXO, DTR. இங்கே USB-சீரியல் அடாப்டரை இணைக்கவும்.",{n:6,o:"v"}],
+   ["crystal","crystal",30,30,18,9,"16M","Resonator: 16 MHz (5V) or 8 MHz (3.3V).","Resonator: 16 MHz (5V) அல்லது 8 MHz (3.3V).",{smd:1}],
+   ["mcu","chip",54,22,28,28,"328P","ATmega328P, TQFP package.","ATmega328P, TQFP வடிவம்.",{pins:"q"}],
+   ["ldo","reg",90,20,20,15,"","Regulator that turns RAW (up to 12V) into VCC.","RAW (12V வரை) மின்சாரத்தை VCC ஆக மாற்றும் ரெகுலேட்டர்.",{}],
+   ["reset","button",92,42,16,16,"","Reset button.","Reset பட்டன்.",{}],
+   ["ledpwr","led",116,22,8,4,"","Power LED. Remove it to save battery in sleep mode.","பவர் LED. Sleep mode-இல் பேட்டரியைச் சேமிக்க இதை நீக்கலாம்.",{col:"#e33"}],
+   ["ledbuilt","led",116,34,8,4,"","LED on pin 13.","பின் 13-இல் LED.",{col:"#3bd36b"}],
+   ["hdrdig","pads",20,0,0,0,"","TX0, RXI, RST, GND, D2–D9.","TX0, RXI, RST, GND, D2–D9.",{n:11}],
+   ["hdrana","pads",20,62,0,0,"","RAW, GND, RST, VCC, A3–A0, D13–D10.","RAW, GND, RST, VCC, A3–A0, D13–D10.",{n:11}]
+  ]},
+
+{ id:"nodemcu", n:"NodeMCU ESP8266 (v3)", al:["nodemcu","esp8266","esp-12e","lolin"], cat:"iot", col:"#25282c", W:232, H:124,
+  chip:"ESP8266EX", volt:"3.3V",
+  ab:["A cheap Wi‑Fi development board built around the ESP‑12E module. Program it like an Arduino and connect it to the internet.",
+      "ESP‑12E மாட்யூலை அடிப்படையாகக் கொண்ட மலிவான Wi‑Fi டெவலப்மென்ட் போர்டு. Arduino போலவே program செய்து இணையத்துடன் இணைக்கலாம்."],
+  sp:[["chip","ESP8266EX (Tensilica L106)"],["clk","80 / 160 MHz"],["flash","4 MB"],["ram","80 KB"],["v","3.3V"],["vin","5V USB or VIN"],["io","11 usable GPIO"],["adc","1 (A0)"],["rf","Wi‑Fi 2.4 GHz b/g/n"],["usb","Micro‑USB (CH340)"]],
+  uses:[["Control lights and plugs from your phone over Wi‑Fi","போனிலிருந்து Wi‑Fi மூலம் விளக்கு, பிளக் கட்டுப்பாடு"],
+        ["Send sensor readings to a web dashboard or Google Sheets","சென்சார் அளவீடுகளை web dashboard அல்லது Google Sheets-க்கு அனுப்ப"],
+        ["Telegram / WhatsApp alerts for door, water tank or power cut","கதவு, தண்ணீர் தொட்டி, மின் தடைக்கு Telegram / WhatsApp எச்சரிக்கை"],
+        ["Small web server pages and IoT switches","சிறிய web server பக்கங்கள், IoT ஸ்விட்ச்கள்"],
+        ["MQTT nodes for Home Assistant","Home Assistant-க்கான MQTT node-கள்"]],
+  tip:["GPIO pins are 3.3V. Use a level shifter or voltage divider for 5V sensors. Avoid D3, D4, D8 for inputs: they decide the boot mode.","GPIO பின்கள் 3.3V. 5V சென்சார்களுக்கு level shifter அல்லது voltage divider பயன்படுத்துங்கள். D3, D4, D8 பின்கள் boot mode-ஐத் தீர்மானிப்பதால் உள்ளீட்டுக்குத் தவிர்க்கவும்."],
+  holes:[[10,10],[222,10],[10,114],[222,114]], silk:[[110,108,"NodeMCU V3",7]],
+  c:[
+   ["usbmicro","usbmicro",-6,44,30,36,"","Micro-USB: 5V power and upload.","Micro-USB: 5V மின்சாரமும் upload-ம்.",{e:"l"}],
+   ["reset","button",28,18,16,16,"RST","RST button: restarts the ESP8266.","RST பட்டன்: ESP8266-ஐ மீண்டும் தொடங்குகிறது.",{}],
+   ["boot","button",28,90,16,16,"FLASH","FLASH button (GPIO0). Usually the upload starts automatically, so you rarely need it.","FLASH பட்டன் (GPIO0). பொதுவாக upload தானாகத் தொடங்கும்; அரிதாகவே தேவைப்படும்.",{}],
+   ["usbserial","chip",54,48,36,26,"CH340G","CH340G USB-serial chip. Install the CH340 driver if no COM port appears.","CH340G USB-சீரியல் சிப். COM port தெரியவில்லை என்றால் CH340 driver நிறுவுங்கள்.",{pins:"tb"}],
+   ["diode","diode",96,50,18,8,"","Schottky diode between USB 5V and VIN.","USB 5V மற்றும் VIN இடையே உள்ள Schottky டயோடு.",{smd:1}],
+   ["ldo","reg",96,80,22,20,"1117","AMS1117-3.3: makes 3.3V for the ESP8266.","AMS1117-3.3: ESP8266-க்கு 3.3V உருவாக்குகிறது.",{}],
+   ["wifimod","shield",124,24,64,74,"ESP-12E|ESP8266","ESP-12E module: ESP8266EX chip + 4 MB Flash + crystal under the can. This is the brain.","ESP-12E மாட்யூல்: மூடியின் கீழ் ESP8266EX சிப் + 4 MB Flash + கிரிஸ்டல். இதுவே மூளை.",{}],
+   ["antenna","antenna",188,24,40,74,"","Wi‑Fi antenna of the ESP-12E. Keep it clear of metal.","ESP-12E-இன் Wi‑Fi ஆன்டெனா. உலோகத்திலிருந்து தள்ளி வையுங்கள்.",{}],
+   ["ledbuilt","led",194,14,9,5,"","Blue LED on GPIO2 (D4), active-LOW.","GPIO2 (D4)-இல் நீல LED, active-LOW.",{col:"#3a8bff"}],
+   ["hdrana","header",40,2,0,0,"","A0, RSV, RSV, SD3, SD2, SD1, CMD, SD0, CLK, GND, 3V3, EN, RST, GND, VIN. A0 reads 0–3.3V.","A0, RSV, RSV, SD3, SD2, SD1, CMD, SD0, CLK, GND, 3V3, EN, RST, GND, VIN. A0 0–3.3V படிக்கும்.",{n:15}],
+   ["hdrdig","header",40,112,0,0,"","D0–D8, RX, TX, GND, 3V3. D1 = SCL, D2 = SDA (I2C).","D0–D8, RX, TX, GND, 3V3. D1 = SCL, D2 = SDA (I2C).",{n:15}]
+  ]},
+
+{ id:"esp01", n:"ESP‑01 (ESP8266)", al:["esp01","esp-01","esp8266","esp-01s"], cat:"iot", col:"#1b1c1e", W:100, H:58,
+  chip:"ESP8266EX", volt:"3.3V",
+  ab:["The smallest ESP8266 board, with only 8 pins. Often used as a Wi‑Fi add-on for an Arduino, or alone for a single relay or sensor.",
+      "8 பின்கள் மட்டுமே கொண்ட மிகச்சிறிய ESP8266 போர்டு. Arduino-வுக்கு Wi‑Fi இணைப்பாக, அல்லது தனியாக ஒரு ரிலே அல்லது சென்சாருக்குப் பயன்படும்."],
+  sp:[["chip","ESP8266EX"],["flash","1 MB"],["v","3.3V only"],["io","GPIO0, GPIO2, TX, RX"],["rf","Wi‑Fi 2.4 GHz"],["size","24.8 × 14.3 mm"]],
+  uses:[["Wi‑Fi relay switch (with ESP-01 relay module)","Wi‑Fi ரிலே ஸ்விட்ச் (ESP-01 ரிலே மாட்யூலுடன்)"],
+        ["Add Wi‑Fi to an Arduino using AT commands","AT commands மூலம் Arduino-வுக்கு Wi‑Fi சேர்க்க"],
+        ["Tiny temperature sensor with DHT11 / DS18B20","DHT11 / DS18B20 உடன் சிறிய வெப்பநிலை சென்சார்"],
+        ["Wi‑Fi doorbell or alert button","Wi‑Fi அழைப்பு மணி அல்லது எச்சரிக்கை பட்டன்"]],
+  tip:["Needs 3.3V with at least 300 mA. Arduino's 3.3V pin is too weak; use an ESP-01 USB adapter for programming.","குறைந்தது 300 mA கொண்ட 3.3V தேவை. Arduino-வின் 3.3V பின் போதாது; program செய்ய ESP-01 USB அடாப்டர் பயன்படுத்துங்கள்."],
+  holes:[], silk:[],
+  c:[
+   ["antenna","antenna",2,4,30,50,"","PCB Wi‑Fi antenna.","PCB Wi‑Fi ஆன்டெனா.",{}],
+   ["mcu","chip",38,16,22,22,"ESP|8266","ESP8266EX chip itself, without a metal can. Wi‑Fi and processor in one.","உலோக மூடி இல்லாத ESP8266EX சிப். Wi‑Fi-ம் ப்ராசசரும் ஒன்றாக.",{pins:"q"}],
+   ["flash","chip",64,8,14,12,"25Q80","1 MB SPI Flash holding your program.","உங்கள் program-ஐ வைத்திருக்கும் 1 MB SPI Flash.",{pins:"tb"}],
+   ["crystal","crystal",64,32,14,8,"26M","26 MHz crystal for the radio and CPU clock.","ரேடியோ, CPU கடிகாரத்துக்கான 26 MHz கிரிஸ்டல்.",{smd:1}],
+   ["ledpwr","led",40,46,8,4,"","Red power LED (removed on ESP-01S).","சிவப்பு பவர் LED (ESP-01S-இல் இல்லை).",{col:"#e33"}],
+   ["ledbuilt","led",52,46,8,4,"","Blue LED on TX (ESP-01) or GPIO2 (ESP-01S).","TX (ESP-01) அல்லது GPIO2 (ESP-01S)-இல் நீல LED.",{col:"#3a8bff"}],
+   ["header","header",80,9,0,0,"","8 pins: GND, GPIO2, GPIO0, RX / TX, CH_PD(EN), RST, VCC (3.3V). GPIO0 to GND at power-up = flash mode.","8 பின்கள்: GND, GPIO2, GPIO0, RX / TX, CH_PD(EN), RST, VCC (3.3V). Power-up நேரத்தில் GPIO0-ஐ GND-உடன் இணைத்தால் flash mode.",{n:4,r:2,o:"v"}]
+  ]},
+
+{ id:"d1mini", n:"Wemos D1 Mini", al:["d1 mini","wemos","esp8266","esp-12f"], cat:"iot", col:"#203f6b", W:136, H:104,
+  chip:"ESP8266EX", volt:"3.3V",
+  ab:["A small, square ESP8266 board with USB. A large family of stackable 'shields' (relay, OLED, DHT, battery) fits on top.",
+      "USB கொண்ட சிறிய சதுர ESP8266 போர்டு. மேலே அடுக்கக்கூடிய பல 'shield'-கள் (ரிலே, OLED, DHT, பேட்டரி) உள்ளன."],
+  sp:[["chip","ESP8266EX (ESP-12F)"],["clk","80 / 160 MHz"],["flash","4 MB"],["v","3.3V"],["vin","5V USB"],["io","11 GPIO"],["adc","1 (A0, 0–3.3V)"],["rf","Wi‑Fi 2.4 GHz"],["size","34.2 × 25.6 mm"]],
+  uses:[["Small smart-home sensors in a wall box","சுவர் பெட்டியில் சிறிய ஸ்மார்ட் ஹோம் சென்சார்கள்"],
+        ["Stacked builds with relay / OLED shields","ரிலே / OLED shield அடுக்கிய அமைப்புகள்"],
+        ["ESPHome and Tasmota devices","ESPHome, Tasmota சாதனங்கள்"],
+        ["Wi‑Fi clocks and weather displays","Wi‑Fi கடிகாரம், வானிலை டிஸ்ப்ளே"]],
+  tip:["Pin names D1, D2… are not GPIO numbers: D1 = GPIO5, D2 = GPIO4. Use the D-names in Arduino code.","D1, D2… பெயர்கள் GPIO எண்கள் அல்ல: D1 = GPIO5, D2 = GPIO4. Arduino code-இல் D-பெயர்களைப் பயன்படுத்துங்கள்."],
+  holes:[], silk:[],
+  c:[
+   ["antenna","antenna",30,2,72,20,"","Wi‑Fi antenna at the top edge.","மேல் ஓரத்தில் Wi‑Fi ஆன்டெனா.",{}],
+   ["wifimod","shield",30,22,72,44,"ESP-12F","ESP-12F module with ESP8266 and 4 MB Flash.","ESP8266, 4 MB Flash கொண்ட ESP-12F மாட்யூல்.",{}],
+   ["ledbuilt","led",92,58,7,4,"","Blue LED on GPIO2 (D4).","GPIO2 (D4)-இல் நீல LED.",{col:"#3a8bff"}],
+   ["usbserial","chip",26,70,24,14,"CH340","CH340 USB-serial chip.","CH340 USB-சீரியல் சிப்.",{pins:"tb"}],
+   ["ldo","reg",84,70,20,14,"","3.3V regulator (ME6211).","3.3V ரெகுலேட்டர் (ME6211).",{}],
+   ["usbmicro","usbmicro",52,82,32,26,"","Micro-USB at the bottom edge.","கீழ் ஓரத்தில் Micro-USB.",{e:"b"}],
+   ["reset","button",98,86,16,14,"","Reset button on the side.","பக்கவாட்டில் reset பட்டன்.",{}],
+   ["hdrdig","pads",2,14,0,0,"","RST, A0, D0, D5, D6, D7, D8, 3V3.","RST, A0, D0, D5, D6, D7, D8, 3V3.",{n:8,o:"v"}],
+   ["hdrdig","pads",124,14,0,0,"","TX, RX, D1 (SCL), D2 (SDA), D3, D4, GND, 5V.","TX, RX, D1 (SCL), D2 (SDA), D3, D4, GND, 5V.",{n:8,o:"v"}]
+  ]},
+
+{ id:"esp32", n:"ESP32 DevKit V1", al:["esp32","esp-wroom-32","devkit","doit"], cat:"iot", col:"#1d1f22", W:220, H:112,
+  chip:"ESP32 (dual core)", volt:"3.3V",
+  ab:["A powerful dual-core board with Wi‑Fi and Bluetooth. Faster than ESP8266, with more pins, touch inputs and two 12-bit ADCs.",
+      "Wi‑Fi, Bluetooth கொண்ட சக்திவாய்ந்த dual-core போர்டு. ESP8266-ஐ விட வேகமானது; அதிக பின்கள், touch உள்ளீடுகள், இரண்டு 12-bit ADC-கள் உள்ளன."],
+  sp:[["chip","ESP32-D0WD (2 × Xtensa LX6)"],["clk","240 MHz"],["flash","4 MB"],["ram","520 KB SRAM"],["v","3.3V"],["vin","5V USB / VIN"],["io","25 usable GPIO"],["adc","15 × 12-bit"],["rf","Wi‑Fi + Bluetooth 4.2 / BLE"],["usb","Micro‑USB (CP2102)"]],
+  uses:[["Smart home hubs and IoT dashboards","ஸ்மார்ட் ஹோம் hub, IoT dashboard"],
+        ["Bluetooth gadgets: BLE beacons, phone remotes, keyboards","Bluetooth கேஜெட்கள்: BLE beacon, போன் ரிமோட், கீபோர்டு"],
+        ["Data logging to the cloud with deep-sleep battery life","Deep-sleep மூலம் பேட்டரி சேமித்து cloud-க்கு data பதிவு"],
+        ["Touch-button panels (capacitive touch pins)","Touch-பட்டன் பேனல்கள் (capacitive touch பின்கள்)"],
+        ["Robots and drones controlled from a phone","போனிலிருந்து கட்டுப்படுத்தும் ரோபோ, ட்ரோன்"],
+        ["Vehicle tracking with GPS + GSM","GPS + GSM மூலம் வாகனக் கண்காணிப்பு"]],
+  tip:["GPIO 34–39 are input-only. ADC2 pins cannot be used while Wi‑Fi is on; use ADC1 (GPIO 32–39) for sensors.","GPIO 34–39 உள்ளீடு மட்டும். Wi‑Fi இயங்கும்போது ADC2 பின்கள் வேலை செய்யாது; சென்சார்களுக்கு ADC1 (GPIO 32–39) பயன்படுத்துங்கள்."],
+  holes:[], silk:[[100,108,"ESP32 DEVKIT V1",6]],
+  c:[
+   ["usbmicro","usbmicro",-6,40,30,32,"","Micro-USB for power and upload.","மின்சாரம், upload-க்கான Micro-USB.",{e:"l"}],
+   ["reset","button",26,18,16,16,"EN","EN button: resets the ESP32.","EN பட்டன்: ESP32-ஐ reset செய்கிறது.",{}],
+   ["boot","button",26,78,16,16,"BOOT","BOOT button (GPIO0). Hold it if upload shows 'Connecting…' for long.","BOOT பட்டன் (GPIO0). Upload-இல் 'Connecting…' நீண்ட நேரம் தெரிந்தால் இதை அழுத்திப் பிடிக்கவும்.",{}],
+   ["usbserial","chip",50,40,26,26,"CP2102","CP2102 USB-serial chip (CH340 on some clones).","CP2102 USB-சீரியல் சிப் (சில clone-களில் CH340).",{pins:"q"}],
+   ["ledpwr","led",82,24,9,5,"","Red power LED.","சிவப்பு பவர் LED.",{col:"#e33"}],
+   ["ledbuilt","led",94,24,9,5,"","Blue LED on GPIO2.","GPIO2-இல் நீல LED.",{col:"#3a8bff"}],
+   ["diode","diode",82,42,18,8,"","Protection diode for USB power.","USB மின்சாரத்துக்கான பாதுகாப்பு டயோடு.",{smd:1}],
+   ["ldo","reg",80,64,24,20,"1117","AMS1117-3.3 regulator: 5V to 3.3V, about 800 mA.","AMS1117-3.3 ரெகுலேட்டர்: 5V-ஐ 3.3V ஆக, சுமார் 800 mA.",{}],
+   ["wifimod","shield",112,20,70,72,"ESP32-|WROOM-32","ESP32-WROOM-32 module: dual-core CPU, Wi‑Fi, Bluetooth and 4 MB Flash.","ESP32-WROOM-32 மாட்யூல்: dual-core CPU, Wi‑Fi, Bluetooth, 4 MB Flash.",{}],
+   ["antenna","antenna",182,20,36,72,"","Wi‑Fi / Bluetooth antenna.","Wi‑Fi / Bluetooth ஆன்டெனா.",{}],
+   ["hdrdig","header",32,2,0,0,"","EN, VP(36), VN(39), D34, D35, D32, D33, D25, D26, D27, D14, D12, D13, GND, VIN.","EN, VP(36), VN(39), D34, D35, D32, D33, D25, D26, D27, D14, D12, D13, GND, VIN.",{n:15}],
+   ["hdrdig","header",32,100,0,0,"","3V3, GND, D15, D2, D4, RX2, TX2, D5, D18, D19, D21 (SDA), RX0, TX0, D22 (SCL), D23.","3V3, GND, D15, D2, D4, RX2, TX2, D5, D18, D19, D21 (SDA), RX0, TX0, D22 (SCL), D23.",{n:15}]
+  ]},
+
+{ id:"esp32cam", n:"ESP32‑CAM", al:["esp32 cam","esp32-cam","ai thinker","ov2640","camera"], cat:"iot", col:"#1b1c1e", W:108, H:162,
+  chip:"ESP32-S", volt:"3.3V (power with 5V)",
+  ab:["An ESP32 with a 2 MP camera and microSD slot on a small board. Flip it to see the SD card slot on the back.",
+      "சிறிய போர்டில் 2 MP கேமரா, மைக்ரோSD ஸ்லாட் கொண்ட ESP32. பின்பக்கம் SD கார்டு ஸ்லாட்டைப் பார்க்க போர்டைத் திருப்புங்கள்."],
+  sp:[["chip","ESP32-S module"],["clk","240 MHz"],["flash","4 MB"],["ram","520 KB + 4 MB PSRAM"],["vin","5V on 5V pin (2A supply)"],["rf","Wi‑Fi + Bluetooth"],["io","~10 free GPIO"],["size","27 × 40.5 mm"]],
+  uses:[["Wi‑Fi security camera with live stream","நேரடி ஸ்ட்ரீம் கொண்ட Wi‑Fi பாதுகாப்பு கேமரா"],
+        ["Face detection door lock","முகம் கண்டறியும் கதவுப் பூட்டு"],
+        ["Time-lapse photos saved to SD card","SD கார்டில் சேமிக்கும் time-lapse புகைப்படங்கள்"],
+        ["Warehouse or vehicle snapshot logging","கிடங்கு அல்லது வாகனப் புகைப்படப் பதிவு"],
+        ["QR / barcode reading projects","QR / பார்கோடு படிக்கும் ப்ராஜெக்ட்கள்"]],
+  tip:["There is no USB on the board. Use the ESP32-CAM-MB adapter, or an FTDI adapter with GPIO0 tied to GND while uploading.","போர்டில் USB இல்லை. ESP32-CAM-MB அடாப்டர் பயன்படுத்துங்கள்; அல்லது FTDI அடாப்டருடன் upload செய்யும்போது GPIO0-ஐ GND-உடன் இணையுங்கள்."],
+  holes:[], silk:[],
+  c:[
+   ["cam","cam",30,4,48,48,"","OV2640 camera, 2 MP, on a flex cable.","Flex கேபிளில் OV2640 கேமரா, 2 MP.",{}],
+   ["flashled","flashled",84,8,16,16,"","Bright flash LED on GPIO4.","GPIO4-இல் பிரகாசமான flash LED.",{}],
+   ["fpc","fpc",22,56,64,10,"","Camera ribbon connector (24-pin).","கேமரா ரிப்பன் கனெக்டர் (24-பின்).",{}],
+   ["wifimod","shield",20,72,68,56,"ESP32-S","ESP32-S module: the processor, Wi‑Fi and Bluetooth.","ESP32-S மாட்யூல்: ப்ராசசர், Wi‑Fi, Bluetooth.",{}],
+   ["antenna","antenna",20,128,68,28,"","PCB antenna. Range is short; use the U.FL socket for more.","PCB ஆன்டெனா. வரம்பு குறைவு; அதிகத்துக்கு U.FL பயன்படுத்துங்கள்.",{}],
+   ["ufl","ufl",74,138,10,10,"","U.FL socket for an external antenna (a tiny resistor selects which antenna is used).","வெளி ஆன்டெனாவுக்கான U.FL சாக்கெட் (எந்த ஆன்டெனா என்பதை ஒரு சிறிய resistor தீர்மானிக்கும்).",{}],
+   ["header","pads",2,74,0,0,"","5V, GND, IO12, IO13, IO15, IO14, IO2, IO4.","5V, GND, IO12, IO13, IO15, IO14, IO2, IO4.",{n:8,o:"v"}],
+   ["header","pads",96,74,0,0,"","3V3, IO16, IO0, GND, VCC, U0R (RX), U0T (TX), GND. IO0 to GND = upload mode.","3V3, IO16, IO0, GND, VCC, U0R (RX), U0T (TX), GND. IO0-ஐ GND-உடன் இணைத்தால் upload mode.",{n:8,o:"v"}],
+   ["sd","sd",14,14,80,64,"","microSD slot on the back. Save photos and video; uses GPIO 2, 4, 12–15.","பின்பக்கம் மைக்ரோSD ஸ்லாட். புகைப்படம், வீடியோ சேமிக்கலாம்; GPIO 2, 4, 12–15 பயன்படுத்தும்.",{b:1}],
+   ["ram","chip",56,92,28,20,"PSRAM","4 MB PSRAM for camera frames.","கேமரா frame-களுக்கான 4 MB PSRAM.",{pins:"tb",b:1}],
+   ["ldo","reg",20,92,24,20,"1117","AMS1117-3.3: makes 3.3V from the 5V pin.","AMS1117-3.3: 5V பின்னிலிருந்து 3.3V உருவாக்குகிறது.",{b:1}],
+   ["reset","button",78,126,16,16,"RST","Reset button (on the back).","Reset பட்டன் (பின்பக்கம்).",{b:1}]
+  ]},
+
+{ id:"pico", n:"Raspberry Pi Pico", al:["pico","rp2040","raspberry pi pico","pico w"], cat:"mcu", col:"#1f7f3f", W:204, H:84,
+  chip:"RP2040", volt:"3.3V",
+  ab:["A low-cost board with the RP2040 dual-core chip. Program it in MicroPython by dragging files, or in C/C++ and Arduino.",
+      "RP2040 dual-core சிப் கொண்ட குறைந்த விலை போர்டு. கோப்புகளை இழுத்துப் போட்டு MicroPython-இல், அல்லது C/C++, Arduino-வில் program செய்யலாம்."],
+  sp:[["chip","RP2040 (2 × Cortex-M0+)"],["clk","133 MHz"],["flash","2 MB"],["ram","264 KB"],["v","3.3V"],["vin","1.8–5.5V on VSYS"],["io","26 GPIO (16 PWM channels)"],["adc","3 × 12-bit"],["rf","None (Pico W adds Wi‑Fi)"],["size","51 × 21 mm"]],
+  uses:[["Learning MicroPython with LEDs and sensors","LED, சென்சார்களுடன் MicroPython கற்றல்"],
+        ["USB keyboards, macro pads and game controllers","USB கீபோர்டு, macro pad, கேம் கண்ட்ரோலர்"],
+        ["Precise timing with PIO: WS2812 LEDs, custom protocols","PIO மூலம் துல்லிய நேரம்: WS2812 LED, தனிப்பயன் நெறிமுறைகள்"],
+        ["Data loggers and battery projects","Data logger, பேட்டரி ப்ராஜெக்ட்கள்"],
+        ["Robotics with many PWM servos","பல PWM servo-களுடன் ரோபோட்டிக்ஸ்"]],
+  tip:["Hold BOOTSEL while plugging in USB: the Pico appears as a USB drive. Drop the .uf2 file on it to install firmware.","USB இணைக்கும்போது BOOTSEL-ஐ அழுத்திப் பிடியுங்கள்: Pico ஒரு USB டிரைவாகத் தெரியும். Firmware நிறுவ .uf2 கோப்பை அதில் போடுங்கள்."],
+  holes:[[182,26],[182,58]], silk:[[110,72,"Pico",7]],
+  c:[
+   ["usbmicro","usbmicro",-6,26,28,32,"","Micro-USB: power, upload and USB device (keyboard, serial).","Micro-USB: மின்சாரம், upload, USB சாதனம் (கீபோர்டு, சீரியல்).",{e:"l"}],
+   ["ledbuilt","led",34,16,9,5,"","Green LED on GPIO25 (on Pico W it is controlled through the Wi‑Fi chip).","GPIO25-இல் பச்சை LED (Pico W-இல் Wi‑Fi சிப் வழியாக).",{col:"#30d158"}],
+   ["boot","button",30,34,18,18,"","BOOTSEL button: hold at power-up for USB drive mode.","BOOTSEL பட்டன்: power-up நேரத்தில் பிடித்தால் USB டிரைவ் mode.",{col:"#efefef"}],
+   ["flash","chip",56,30,26,18,"W25Q16","2 MB QSPI Flash where your program and files live.","உங்கள் program, கோப்புகள் இருக்கும் 2 MB QSPI Flash.",{pins:"tb"}],
+   ["mcu","chip",92,24,34,34,"RP2040","RP2040: dual Cortex-M0+ at 133 MHz with 264 KB RAM and 8 PIO state machines.","RP2040: 133 MHz dual Cortex-M0+, 264 KB RAM, 8 PIO state machine-கள்.",{pins:"q"}],
+   ["crystal","crystal",134,30,18,9,"12M","12 MHz crystal.","12 MHz கிரிஸ்டல்.",{smd:1}],
+   ["buckic","chip",156,24,14,12,"RT6150","RT6150 buck-boost: gives steady 3.3V from 1.8–5.5V, good for batteries.","RT6150 buck-boost: 1.8–5.5V-இலிருந்து நிலையான 3.3V; பேட்டரிக்கு ஏற்றது.",{pins:"lr"}],
+   ["inductor","inductor",156,42,16,16,"","Inductor for the buck-boost regulator.","Buck-boost ரெகுலேட்டருக்கான இண்டக்டர்.",{}],
+   ["swd","pads",192,30,0,0,"","SWD debug pads: SWCLK, GND, SWDIO.","SWD டீபக் பேட்கள்: SWCLK, GND, SWDIO.",{n:3,o:"v",p:8}],
+   ["pads","pads",6,0,0,0,"","GP0–GP15 with GND pads between (castellated, can be soldered flat).","GP0–GP15, இடையே GND பேட்கள் (castellated; தட்டையாக சோல்டர் செய்யலாம்).",{n:20,p:9.6}],
+   ["pads","pads",6,74.4,0,0,"","VBUS, VSYS, GND, 3V3_EN, 3V3, ADC_VREF, GP28–GP26 (ADC), RUN, GP22–GP16.","VBUS, VSYS, GND, 3V3_EN, 3V3, ADC_VREF, GP28–GP26 (ADC), RUN, GP22–GP16.",{n:20,p:9.6}]
+  ]},
+
+{ id:"rpi4", n:"Raspberry Pi 4 Model B", al:["raspberry pi","pi 4","rpi","bcm2711","raspberry pi 4"], cat:"sbc", col:"#1e7a3a", W:340, H:224,
+  chip:"BCM2711", volt:"3.3V GPIO",
+  ab:["A full Linux computer the size of a credit card. Runs a desktop, browser, Python, databases and web servers, with 40 GPIO pins for electronics.",
+      "கிரெடிட் கார்டு அளவுள்ள முழு Linux கணினி. Desktop, browser, Python, database, web server இயக்கலாம்; எலக்ட்ரானிக்ஸுக்கு 40 GPIO பின்கள் உள்ளன."],
+  sp:[["chip","Broadcom BCM2711, 4 × Cortex-A72"],["clk","1.5–1.8 GHz"],["ram","1, 2, 4 or 8 GB LPDDR4"],["v","3.3V GPIO"],["vin","5V 3A USB-C"],["io","40-pin GPIO"],["rf","Wi‑Fi 5 + Bluetooth 5.0"],["usb","2 × USB 3.0, 2 × USB 2.0"],["out","2 × micro-HDMI (4K)"],["size","85 × 56 mm"]],
+  uses:[["Wall-screen dashboards and kiosks","சுவர்த் திரை dashboard, kiosk"],
+        ["Home server: files, Home Assistant, Pi-hole","வீட்டு server: கோப்புகள், Home Assistant, Pi-hole"],
+        ["Learning Linux, Python and networking","Linux, Python, நெட்வொர்க்கிங் கற்றல்"],
+        ["Camera projects: CCTV, object detection","கேமரா ப்ராஜெக்ட்கள்: CCTV, பொருள் கண்டறிதல்"],
+        ["Retro gaming and media centre","ரெட்ரோ கேமிங், மீடியா சென்டர்"],
+        ["Controlling Arduino / ESP boards from one hub","ஒரே hub-இலிருந்து Arduino / ESP போர்டுகளைக் கட்டுப்படுத்த"]],
+  tip:["Always shut down with 'sudo shutdown now' before pulling power, or the SD card can get corrupted.","மின்சாரத்தை எடுக்கும் முன் 'sudo shutdown now' மூலம் நிறுத்துங்கள்; இல்லையெனில் SD கார்டு பழுதாகலாம்."],
+  holes:[[14,14],[246,14],[14,210],[246,210]], silk:[[150,180,"Raspberry Pi 4 Model B",8]],
+  c:[
+   ["gpio40","header",30,4,0,0,"","40-pin GPIO: pin 1 = 3.3V at the corner, pins 2 and 4 = 5V. 3.3V logic only.","40-பின் GPIO: மூலையில் பின் 1 = 3.3V, பின் 2, 4 = 5V. 3.3V லாஜிக் மட்டும்.",{n:20,r:2}],
+   ["header","header",250,34,0,0,"","PoE header: powers the Pi from the network cable with a PoE HAT.","PoE ஹெடர்: PoE HAT மூலம் நெட்வொர்க் கேபிளிலிருந்து Pi-க்கு மின்சாரம்.",{n:2,r:2}],
+   ["wifimod","shield",14,36,46,32,"Wi‑Fi|BT","Wireless chip (Wi‑Fi 5 + Bluetooth 5.0) under a shield.","மூடியின் கீழ் வயர்லெஸ் சிப் (Wi‑Fi 5 + Bluetooth 5.0).",{}],
+   ["soc","shield",70,64,64,64,"BCM2711","BCM2711 SoC with metal heat spreader: 4 CPU cores + VideoCore VI GPU.","உலோக heat spreader கொண்ட BCM2711 SoC: 4 CPU core + VideoCore VI GPU.",{}],
+   ["ram","chip",148,70,46,52,"LPDDR4","LPDDR4 RAM (1–8 GB depending on model).","LPDDR4 RAM (மாடலைப் பொறுத்து 1–8 GB).",{pins:"n"}],
+   ["ctrlic","chip",232,104,28,28,"VL805","VL805 USB 3.0 controller chip.","VL805 USB 3.0 கண்ட்ரோலர் சிப்.",{pins:"q"}],
+   ["pmic","chip",40,146,24,24,"PMIC","MxL7704 power management chip.","MxL7704 பவர் மேனேஜ்மென்ட் சிப்.",{pins:"q"}],
+   ["eth","eth",284,6,62,64,"","Gigabit Ethernet with link / activity LEDs.","Link / activity LED-களுடன் Gigabit Ethernet.",{e:"r"}],
+   ["usba","usba",284,80,62,58,"USB 2.0","Two black USB 2.0 ports.","இரண்டு கருப்பு USB 2.0 போர்ட்கள்.",{e:"r",col:"#222"}],
+   ["usba","usba",284,150,62,58,"USB 3.0","Two blue USB 3.0 ports. Use these for SSDs.","இரண்டு நீல USB 3.0 போர்ட்கள். SSD-க்கு இவற்றைப் பயன்படுத்துங்கள்.",{e:"r",col:"#2a62d6"}],
+   ["usbc","usbc",30,196,36,30,"","USB-C power input: 5V 3A.","USB-C மின் உள்ளீடு: 5V 3A.",{e:"b"}],
+   ["hdmi","hdmi",84,202,26,24,"0","micro-HDMI 0 (primary screen).","micro-HDMI 0 (முதன்மைத் திரை).",{e:"b"}],
+   ["hdmi","hdmi",120,202,26,24,"1","micro-HDMI 1 (second screen).","micro-HDMI 1 (இரண்டாவது திரை).",{e:"b"}],
+   ["audio","audio",166,190,28,38,"","3.5 mm audio and composite video.","3.5 mm ஒலி, composite வீடியோ.",{e:"b"}],
+   ["fpc","fpc",2,78,12,64,"","DSI display connector for the official touchscreen.","அதிகாரப்பூர்வ touchscreen-க்கான DSI டிஸ்ப்ளே கனெக்டர்.",{}],
+   ["fpc","fpc",212,138,12,64,"","CSI camera connector for the Pi Camera.","Pi Camera-க்கான CSI கேமரா கனெக்டர்.",{}],
+   ["ledstat","leds",4,160,8,16,"","Red = power, green = SD card activity. Green blink codes show boot errors.","சிவப்பு = மின்சாரம், பச்சை = SD கார்டு செயல்பாடு. பச்சை மினுமினுப்பு boot பிழைகளைக் காட்டும்.",{n:2,cols:["#e33","#30d158"]}],
+   ["sd","sd",286,86,56,48,"","microSD slot on the back: holds the operating system.","பின்பக்கம் மைக்ரோSD ஸ்லாட்: இயங்குதளம் இதில் இருக்கும்.",{b:1}]
+  ]},
+
+{ id:"bluepill", n:"STM32 Blue Pill", al:["blue pill","stm32","stm32f103","bluepill"], cat:"mcu", col:"#1d4fbf", W:212, H:92,
+  chip:"STM32F103C8T6", volt:"3.3V",
+  ab:["A cheap 32-bit ARM board, much faster than an Uno. Popular for learning professional STM32 development.",
+      "மலிவான 32-bit ARM போர்டு; Uno-வை விட மிக வேகமானது. தொழில்முறை STM32 development கற்க பிரபலமானது."],
+  sp:[["chip","STM32F103C8T6 (Cortex-M3)"],["clk","72 MHz"],["flash","64 KB"],["ram","20 KB"],["v","3.3V (many pins 5V tolerant)"],["io","32 GPIO"],["adc","10 × 12-bit"],["if","USB, 3 UART, 2 SPI, 2 I2C, CAN"]],
+  uses:[["Learning ARM and STM32CubeIDE","ARM, STM32CubeIDE கற்றல்"],
+        ["Fast motor and motion control","வேகமான மோட்டார், இயக்கக் கட்டுப்பாடு"],
+        ["CAN bus projects with vehicles","வாகனங்களுடன் CAN bus ப்ராஜெக்ட்கள்"],
+        ["USB HID devices and data acquisition","USB HID சாதனங்கள், data சேகரிப்பு"]],
+  tip:["Many Blue Pills ship without a USB bootloader. Program them first with an ST-Link on the SWD pins.","பல Blue Pill-கள் USB bootloader இல்லாமல் வருகின்றன. முதலில் SWD பின்களில் ST-Link மூலம் program செய்யுங்கள்."],
+  holes:[], silk:[],
+  c:[
+   ["usbmicro","usbmicro",-6,30,28,32,"","Micro-USB: power and native USB (needs a bootloader to upload).","Micro-USB: மின்சாரம், native USB (upload-க்கு bootloader தேவை).",{e:"l"}],
+   ["ledpwr","led",30,18,9,5,"","Red power LED.","சிவப்பு பவர் LED.",{col:"#e33"}],
+   ["ledbuilt","led",42,18,9,5,"","Green LED on PC13, active-LOW.","PC13-இல் பச்சை LED, active-LOW.",{col:"#30d158"}],
+   ["crystal","crystal",52,30,24,10,"8MHz","8 MHz main crystal (multiplied to 72 MHz).","8 MHz முக்கிய கிரிஸ்டல் (72 MHz ஆகப் பெருக்கப்படுகிறது).",{}],
+   ["crystal","crystal",56,50,14,7,"32k","32.768 kHz crystal for the real-time clock (RTC).","Real-time clock (RTC)-க்கான 32.768 kHz கிரிஸ்டல்.",{smd:1}],
+   ["ldo","reg",28,62,20,14,"","3.3V regulator.","3.3V ரெகுலேட்டர்.",{}],
+   ["mcu","chip",90,28,36,36,"STM32|F103","STM32F103C8T6 in LQFP-48.","LQFP-48 வடிவில் STM32F103C8T6.",{pins:"q"}],
+   ["jumper","jhdr",136,22,0,0,"","BOOT0 / BOOT1 jumpers. BOOT0 = 1 enters the serial bootloader; keep 0 for normal run.","BOOT0 / BOOT1 ஜம்பர்கள். BOOT0 = 1 என்றால் serial bootloader; சாதாரண இயக்கத்துக்கு 0.",{n:3,r:2}],
+   ["reset","button",140,52,16,16,"","Reset button.","Reset பட்டன்.",{}],
+   ["swd","header",182,26,0,0,"","SWD: 3.3V, SWDIO, SWCLK, GND for ST-Link.","SWD: ST-Link-க்கான 3.3V, SWDIO, SWCLK, GND.",{n:4,o:"v"}],
+   ["pads","pads",6,0,0,0,"","B12–B15, A8–A15, B3–B9, 5V, GND, 3V3.","B12–B15, A8–A15, B3–B9, 5V, GND, 3V3.",{n:20}],
+   ["pads","pads",6,82,0,0,"","GND, 3V3, VBAT, C13–C15, A0–A7 (ADC), B0, B1, B10, B11, R.","GND, 3V3, VBAT, C13–C15, A0–A7 (ADC), B0, B1, B10, B11, R.",{n:20}]
+  ]},
+
+{ id:"relay1", n:"1‑Channel 5V Relay Module", al:["relay","relay module","srd-05vdc","5v relay"], cat:"drv", col:"#1f55b5", W:200, H:104,
+  chip:"SRD-05VDC-SL-C relay", volt:"5V",
+  ab:["Lets your Arduino, ESP or Pi switch AC or DC loads safely. The optocoupler keeps the high-voltage side separate from your board.",
+      "உங்கள் Arduino, ESP, Pi மூலம் AC அல்லது DC சுமைகளைப் பாதுகாப்பாக on/off செய்யலாம். ஆப்டோகப்ளர் அதிக வோல்டேஜ் பகுதியை உங்கள் போர்டிலிருந்து பிரித்து வைக்கிறது."],
+  sp:[["vin","5V (coil ~70 mA)"],["if","IN: LOW or HIGH trigger"],["load","10A 250V AC / 10A 30V DC"],["out","NO, COM, NC contacts"]],
+  uses:[["Switching lights, fans and water pumps","விளக்கு, மின்விசிறி, தண்ணீர் பம்ப் on/off"],
+        ["Water tank auto-filling with a level sensor","அளவு சென்சாருடன் தண்ணீர் தொட்டி தானியங்கி நிரப்புதல்"],
+        ["Timed devices: geysers, aquarium, garden lights","நேர அடிப்படை சாதனங்கள்: கீசர், மீன் தொட்டி, தோட்ட விளக்கு"],
+        ["Door locks and solenoid valves (12V DC)","கதவுப் பூட்டு, solenoid வால்வு (12V DC)"],
+        ["Remote reset of routers or machines","ரவுட்டர் அல்லது இயந்திரங்களை தொலைவிலிருந்து reset செய்ய"]],
+  tip:["COM + NO = OFF until triggered (most common). COM + NC = ON until triggered. Many modules are active-LOW: IN = LOW turns the relay ON.","COM + NO = trigger ஆகும் வரை OFF (பொதுவானது). COM + NC = trigger ஆகும் வரை ON. பல மாட்யூல்கள் active-LOW: IN = LOW என்றால் ரிலே ON."],
+  holes:[[190,94],[10,8],[10,96]], silk:[[78,96,"10A 250VAC",6]],
+  c:[
+   ["term","term",2,18,30,68,"","Load terminals: NO (normally open), COM (common), NC (normally closed). Mains side: handle with power OFF.","சுமை டெர்மினல்கள்: NO (சாதாரணமாகத் திறந்தது), COM (பொது), NC (சாதாரணமாக மூடியது). மின் பகுதி: OFF செய்த பின்பே தொடவும்.",{n:3}],
+   ["relay","relay",38,12,84,74,"SRD-05VDC|-SL-C|10A 250VAC","Songle 5V relay: coil 5V, contacts rated 10A.","Songle 5V ரிலே: காயில் 5V, தொடர்புகள் 10A.",{}],
+   ["opto","chip",132,18,20,16,"817","PC817 optocoupler isolates your board from the relay circuit.","PC817 ஆப்டோகப்ளர் உங்கள் போர்டை ரிலே சுற்றிலிருந்து பிரிக்கிறது.",{pins:"lr"}],
+   ["transistor","sot",134,46,14,10,"","Transistor that drives the relay coil current.","ரிலே காயில் மின்னோட்டத்தை இயக்கும் டிரான்சிஸ்டர்.",{}],
+   ["diode","diode",132,62,18,8,"","Flyback diode across the coil: absorbs the spike when the relay turns off.","காயிலுக்கு குறுக்கே flyback டயோடு: ரிலே off ஆகும்போது வரும் spike-ஐ உறிஞ்சுகிறது.",{smd:1}],
+   ["ledstat","leds",160,18,8,18,"","Red = power, green = relay ON.","சிவப்பு = மின்சாரம், பச்சை = ரிலே ON.",{n:2,cols:["#e33","#30d158"]}],
+   ["jumper","jumper",158,70,24,12,"JD","JD-VCC jumper: remove it and give a separate 5V for full isolation.","JD-VCC ஜம்பர்: முழு பிரிப்புக்கு இதை எடுத்து தனி 5V கொடுங்கள்.",{}],
+   ["header","header",188,20,0,0,"","Input pins: DC+ (5V), DC− (GND), IN (signal from your board).","உள்ளீட்டு பின்கள்: DC+ (5V), DC− (GND), IN (உங்கள் போர்டின் சிக்னல்).",{n:3,o:"v"}]
+  ]},
+
+{ id:"l298n", n:"L298N Motor Driver", al:["l298n","motor driver","h-bridge","dc motor driver"], cat:"drv", col:"#c62a2f", W:172, H:172,
+  chip:"L298N dual H-bridge", volt:"5V logic",
+  ab:["Drives two DC motors (or one stepper) forward and backward with speed control. A classic for robot cars.",
+      "இரண்டு DC மோட்டார்களை (அல்லது ஒரு stepper) வேகக் கட்டுப்பாட்டுடன் முன்னும் பின்னும் இயக்குகிறது. ரோபோ கார்களுக்கு பிரபலமானது."],
+  sp:[["chip","L298N"],["vin","5–35V motor supply"],["load","2A per channel"],["if","IN1–IN4, ENA, ENB (PWM)"],["out","2 DC motors or 1 stepper"]],
+  uses:[["Two-wheel robot cars and line followers","இரு சக்கர ரோபோ கார், லைன் ஃபாலோயர்"],
+        ["Bluetooth or Wi‑Fi controlled cars","Bluetooth அல்லது Wi‑Fi கட்டுப்பாட்டு கார்கள்"],
+        ["Small conveyor belts and sliders","சிறிய conveyor belt, slider"],
+        ["Bipolar stepper motor control","Bipolar stepper மோட்டார் கட்டுப்பாடு"],
+        ["Pumps and fans with speed control","வேகக் கட்டுப்பாட்டுடன் பம்ப், மின்விசிறி"]],
+  tip:["It loses about 2V inside the chip, so a 12V supply gives about 10V to motors. Connect its GND to your Arduino GND.","சிப்பினுள் சுமார் 2V இழக்கிறது; 12V கொடுத்தால் மோட்டாருக்கு சுமார் 10V கிடைக்கும். இதன் GND-ஐ உங்கள் Arduino GND-உடன் இணையுங்கள்."],
+  holes:[[10,10],[162,10],[10,162],[162,162]], silk:[],
+  c:[
+   ["heatsink","heatsink",46,4,80,62,"","Large heat sink: the L298N gets hot at high current.","பெரிய ஹீட் சிங்க்: அதிக மின்னோட்டத்தில் L298N சூடாகும்.",{}],
+   ["driverIC","to220",54,62,64,34,"L298N","L298N dual H-bridge chip (Multiwatt-15) bolted to the heat sink.","ஹீட் சிங்குடன் பொருத்தப்பட்ட L298N இரட்டை H-bridge சிப் (Multiwatt-15).",{multi:1}],
+   ["term","term",2,52,26,50,"","OUT1 / OUT2: Motor A.","OUT1 / OUT2: மோட்டார் A.",{n:2}],
+   ["term","term",144,52,26,50,"","OUT3 / OUT4: Motor B.","OUT3 / OUT4: மோட்டார் B.",{n:2}],
+   ["diode","diode",124,78,18,7,"","Eight protection diodes absorb motor back-EMF.","எட்டு பாதுகாப்பு டயோடுகள் மோட்டாரின் back-EMF-ஐ உறிஞ்சுகின்றன.",{smd:1}],
+   ["ldo","reg",8,110,28,22,"78M05","78M05 regulator: makes 5V for the logic from the motor supply (up to 12V).","78M05 ரெகுலேட்டர்: மோட்டார் மின்சாரத்திலிருந்து (12V வரை) லாஜிக்குக்கு 5V உருவாக்குகிறது.",{}],
+   ["header","header",54,112,0,0,"","ENA, IN1, IN2, IN3, IN4, ENB. Remove ENA/ENB jumpers and use PWM pins for speed control.","ENA, IN1, IN2, IN3, IN4, ENB. வேகக் கட்டுப்பாட்டுக்கு ENA/ENB ஜம்பர்களை எடுத்து PWM பின்களைப் பயன்படுத்துங்கள்.",{n:6}],
+   ["capel","cap",130,104,28,28,"","220 µF smoothing capacitor on the motor supply.","மோட்டார் மின்சாரத்தில் 220 µF சீராக்கும் கெபாசிட்டர்.",{}],
+   ["jumper","jumper",22,140,14,20,"5V","5V-EN jumper. Keep it for supplies up to 12V; remove it above 12V and give 5V separately.","5V-EN ஜம்பர். 12V வரை வைத்திருங்கள்; 12V-க்கு மேல் எடுத்து, 5V தனியாகக் கொடுங்கள்.",{}],
+   ["term","term",46,136,78,32,"","Power: +12V (motor supply), GND, +5V (output, or input when the jumper is removed).","மின்சாரம்: +12V (மோட்டார் மின்சாரம்), GND, +5V (output; ஜம்பர் எடுத்தால் input).",{n:3}],
+   ["ledpwr","led",134,146,10,5,"","Red power LED.","சிவப்பு பவர் LED.",{col:"#ff3b30"}]
+  ]},
+
+{ id:"a4988", n:"A4988 Stepper Driver", al:["a4988","stepper driver","drv8825","pololu"], cat:"drv", col:"#24723b", W:84, H:60,
+  chip:"A4988", volt:"3.3–5V logic",
+  ab:["A small driver for bipolar stepper motors (like NEMA 17). Just two pins, STEP and DIR, move the motor precisely.",
+      "Bipolar stepper மோட்டார்களுக்கான (NEMA 17 போன்ற) சிறிய டிரைவர். STEP, DIR என்ற இரண்டு பின்கள் மூலம் மோட்டாரை துல்லியமாக நகர்த்தலாம்."],
+  sp:[["chip","Allegro A4988"],["vin","8–35V motor supply"],["load","~1A per coil (2A with cooling)"],["if","STEP, DIR, EN, MS1–MS3"],["out","Full to 1/16 microstep"]],
+  uses:[["3D printers (one driver per axis)","3D பிரிண்டர்கள் (ஒவ்வொரு அச்சுக்கும் ஒரு டிரைவர்)"],
+        ["CNC routers and laser engravers","CNC router, லேசர் engraver"],
+        ["Camera sliders and turntables","கேமரா slider, சுழலும் மேடை"],
+        ["Automatic curtain and valve control","தானியங்கி திரைச்சீலை, வால்வு கட்டுப்பாடு"]],
+  tip:["Set the current limit with the pot before running: Vref ≈ motor current × 8 × 0.1 (for 0.1 Ω sense resistors). Never unplug the motor while powered.","இயக்கும் முன் pot மூலம் மின்னோட்ட வரம்பை அமையுங்கள்: Vref ≈ மோட்டார் மின்னோட்டம் × 8 × 0.1 (0.1 Ω sense resistor-க்கு). மின்சாரம் இருக்கும்போது மோட்டாரைக் கழற்ற வேண்டாம்."],
+  holes:[], silk:[],
+  c:[
+   ["pot","pot",6,18,20,20,"","Current-limit trimmer. Measure Vref between its metal top and GND.","மின்னோட்ட வரம்பு டிரிம்மர். அதன் உலோக மேல் பகுதிக்கும் GND-க்கும் இடையே Vref அளக்கவும்.",{}],
+   ["driverIC","chip",32,18,22,22,"A4988","A4988 microstepping driver chip. Add the small heat sink on top.","A4988 microstepping டிரைவர் சிப். மேலே சிறிய ஹீட் சிங்க் ஒட்டுங்கள்.",{pins:"q"}],
+   ["smd","smd",60,18,16,6,"R100","Current-sense resistors (0.1 Ω or 0.068 Ω).","மின்னோட்ட உணர்வு ரெசிஸ்டர்கள் (0.1 Ω அல்லது 0.068 Ω).",{}],
+   ["smd","smd",60,30,16,6,"R100","Second sense resistor (one per coil).","இரண்டாவது sense resistor (ஒவ்வொரு காயிலுக்கும் ஒன்று).",{}],
+   ["header","pads",2,0,0,0,"","EN, MS1, MS2, MS3, RST, SLP, STEP, DIR. Tie RST to SLP.","EN, MS1, MS2, MS3, RST, SLP, STEP, DIR. RST-ஐ SLP-உடன் இணையுங்கள்.",{n:8}],
+   ["header","pads",2,50,0,0,"","VMOT, GND, 2B, 2A, 1A, 1B, VDD, GND. Put a 100 µF capacitor across VMOT and GND.","VMOT, GND, 2B, 2A, 1A, 1B, VDD, GND. VMOT, GND இடையே 100 µF கெபாசிட்டர் வையுங்கள்.",{n:8}]
+  ]},
+
+{ id:"lm2596", n:"LM2596 Buck Converter", al:["lm2596","buck converter","step down","dc-dc"], cat:"pwr", col:"#1f55b5", W:172, H:88,
+  chip:"LM2596S-ADJ", volt:"Adjustable 1.25–35V out",
+  ab:["An adjustable step-down power module. Turns 12V or 24V into 5V or 3.3V efficiently for your boards.",
+      "சரிசெய்யக்கூடிய step-down பவர் மாட்யூல். 12V அல்லது 24V-ஐ உங்கள் போர்டுகளுக்கு 5V அல்லது 3.3V ஆக திறம்பட மாற்றுகிறது."],
+  sp:[["chip","LM2596S-ADJ"],["vin","4–40V"],["out","1.25–35V (Vin − 1.5V)"],["load","2A continuous (3A peak)"],["range","Efficiency up to ~92%"]],
+  uses:[["Powering Arduino / ESP from a 12V adapter or car battery","12V அடாப்டர் அல்லது கார் பேட்டரியிலிருந்து Arduino / ESP-க்கு மின்சாரம்"],
+        ["5V for Raspberry Pi in vehicles","வாகனங்களில் Raspberry Pi-க்கு 5V"],
+        ["Solar panel to battery projects","சோலார் பேனல்-பேட்டரி ப்ராஜெக்ட்கள்"],
+        ["Bench power supply for testing","சோதனைக்கான bench மின் விநியோகம்"]],
+  tip:["Turn the brass screw clockwise to lower, or anticlockwise to raise the output (direction varies). Set it with a multimeter before connecting any board.","பித்தளை ஸ்க்ரூவைத் திருப்பி output-ஐக் குறைக்கலாம் அல்லது அதிகரிக்கலாம் (திசை மாறலாம்). எந்த போர்டையும் இணைக்கும் முன் மல்டிமீட்டரில் அமையுங்கள்."],
+  holes:[[10,10],[162,78]], silk:[[22,84,"IN",6],[154,70,"OUT",6]],
+  c:[
+   ["capel","cap",8,22,38,38,"","Input capacitor (220 µF / 50V).","உள்ளீட்டு கெபாசிட்டர் (220 µF / 50V).",{col:"#202a44"}],
+   ["buckic","reg",52,24,40,32,"LM2596S","LM2596 switching regulator at 150 kHz.","150 kHz-இல் இயங்கும் LM2596 ஸ்விட்சிங் ரெகுலேட்டர்.",{}],
+   ["inductor","inductor",96,4,42,42,"330","33 µH power inductor.","33 µH பவர் இண்டக்டர்.",{}],
+   ["capel","cap",136,40,32,32,"","Output capacitor (220 µF / 35V).","வெளியீட்டு கெபாசிட்டர் (220 µF / 35V).",{col:"#202a44"}],
+   ["pot","pot",56,60,24,24,"","Multi-turn trimmer: sets the output voltage.","Multi-turn டிரிம்மர்: output வோல்டேஜை அமைக்கிறது.",{}],
+   ["diode","diode",92,62,28,12,"SS34","SS34 Schottky diode: part of the buck circuit.","SS34 Schottky டயோடு: buck சுற்றின் ஒரு பகுதி.",{smd:1}],
+   ["pads","pads",2,64,0,0,"","IN+ and IN− pads. Reversed input can destroy the chip.","IN+, IN− பேட்கள். தலைகீழ் உள்ளீடு சிப்பை அழிக்கும்.",{n:2}],
+   ["pads","pads",148,76,0,0,"","OUT+ and OUT− pads.","OUT+, OUT− பேட்கள்.",{n:2}]
+  ]},
+
+{ id:"tp4056", n:"TP4056 Li‑ion Charger", al:["tp4056","charger","18650","lithium charger"], cat:"pwr", col:"#1f55b5", W:104, H:68,
+  chip:"TP4056", volt:"4.2V charge",
+  ab:["Charges a single 3.7V lithium cell (18650 or Li‑Po) from USB, with built-in battery protection on most versions.",
+      "USB மூலம் ஒற்றை 3.7V லித்தியம் செல்லை (18650 அல்லது Li‑Po) சார்ஜ் செய்கிறது; பெரும்பாலான பதிப்புகளில் பேட்டரி பாதுகாப்பு உள்ளது."],
+  sp:[["chip","TP4056 + DW01 + FS8205"],["vin","5V (USB)"],["out","4.2V ±1% charge voltage"],["load","1A charge (set by PROG resistor)"],["range","Cut-off ~2.5V, short protection"]],
+  uses:[["Rechargeable ESP32 / Arduino gadgets","ரீசார்ஜ் செய்யக்கூடிய ESP32 / Arduino கேஜெட்கள்"],
+        ["Power banks and torch lights","பவர் பேங்க், டார்ச் லைட்"],
+        ["Solar garden lights with 18650 cells","18650 செல்களுடன் சோலார் தோட்ட விளக்குகள்"],
+        ["Portable sensors and trackers","கையடக்க சென்சார்கள், டிராக்கர்கள்"]],
+  tip:["Only for one cell (1S). Never use it on a damaged or swollen battery. Charge on a non-flammable surface.","ஒரு செல்லுக்கு (1S) மட்டும். சேதமான அல்லது உப்பிய பேட்டரியில் பயன்படுத்த வேண்டாம். தீப்பிடிக்காத இடத்தில் சார்ஜ் செய்யுங்கள்."],
+  holes:[], silk:[],
+  c:[
+   ["usbmicro","usbmicro",-6,22,26,24,"","USB 5V input.","USB 5V உள்ளீடு.",{e:"l"}],
+   ["chargeic","chip",28,22,24,18,"TP4056","TP4056 linear charger chip.","TP4056 லீனியர் சார்ஜர் சிப்.",{pins:"tb"}],
+   ["ledstat","leds",28,50,18,6,"","Red = charging, blue / green = full.","சிவப்பு = சார்ஜ் ஆகிறது, நீலம் / பச்சை = முழுமை.",{n:2,h:1,cols:["#ff3b30","#3a8bff"]}],
+   ["smd","smd",52,50,14,7,"122","PROG resistor (1.2 kΩ = 1 A). Use 5 kΩ for 250 mA.","PROG ரெசிஸ்டர் (1.2 kΩ = 1 A). 250 mA-க்கு 5 kΩ.",{}],
+   ["protect","chip",58,10,14,10,"DW01","DW01 battery protection controller.","DW01 பேட்டரி பாதுகாப்பு கண்ட்ரோலர்.",{pins:"tb"}],
+   ["protect","chip",58,30,16,12,"8205A","FS8205A dual MOSFET that disconnects the battery when needed.","தேவைப்படும்போது பேட்டரியைத் துண்டிக்கும் FS8205A இரட்டை MOSFET.",{pins:"tb"}],
+   ["pads","pads",80,4,0,0,"","OUT+ / OUT−: connect your load here.","OUT+ / OUT−: உங்கள் சுமையை இங்கே இணையுங்கள்.",{n:2,o:"v",p:30}],
+   ["pads","pads",94,4,0,0,"","B+ / B−: connect the battery cell here.","B+ / B−: பேட்டரி செல்லை இங்கே இணையுங்கள்.",{n:2,o:"v",p:30}]
+  ]},
+
+{ id:"hc05", n:"HC‑05 Bluetooth Module", al:["hc-05","hc05","hc-06","bluetooth"], cat:"com", col:"#1f55b5", W:152, H:64,
+  chip:"CSR BC417", volt:"3.3V logic (5V power)",
+  ab:["Classic Bluetooth serial module. Pair it with a phone app and send text commands to your Arduino wirelessly.",
+      "Classic Bluetooth சீரியல் மாட்யூல். போன் app-உடன் இணைத்து, உங்கள் Arduino-வுக்கு வயர் இல்லாமல் கட்டளைகளை அனுப்பலாம்."],
+  sp:[["chip","CSR BC417"],["vin","3.6–6V"],["v","3.3V RX/TX"],["rf","Bluetooth 2.0 SPP"],["range","~10 m"],["if","UART 9600 baud (default)"]],
+  uses:[["Phone-controlled robot cars","போன் கட்டுப்பாட்டு ரோபோ கார்"],
+        ["Bluetooth home switches","Bluetooth வீட்டு ஸ்விட்ச்கள்"],
+        ["Wireless serial monitor for debugging","Debug செய்ய வயர்லெஸ் serial monitor"],
+        ["Sending sensor data to an Android app","Android app-க்கு சென்சார் data அனுப்ப"]],
+  tip:["Arduino TX gives 5V, so use a 1 kΩ / 2 kΩ divider into HC-05 RXD. Does not work with iPhone (Classic Bluetooth only).","Arduino TX 5V தருவதால், HC-05 RXD-க்கு 1 kΩ / 2 kΩ divider பயன்படுத்துங்கள். iPhone-உடன் வேலை செய்யாது (Classic Bluetooth மட்டும்)."],
+  holes:[], silk:[],
+  c:[
+   ["header","header",2,2,0,0,"","STATE, RXD, TXD, GND, VCC, EN. Hold EN / KEY high at power-up for AT command mode.","STATE, RXD, TXD, GND, VCC, EN. AT command mode-க்கு power-up நேரத்தில் EN / KEY-ஐ HIGH ஆக வையுங்கள்.",{n:6,o:"v"}],
+   ["boot","button",16,4,14,14,"KEY","KEY button: hold while powering on to enter AT mode (38400 baud).","KEY பட்டன்: AT mode-க்கு (38400 baud) power on செய்யும்போது அழுத்திப் பிடியுங்கள்.",{}],
+   ["ledstat","led",18,26,9,5,"","Fast blink = waiting to pair; slow double blink = connected.","வேகமான மினுமினுப்பு = இணைக்கக் காத்திருக்கிறது; மெதுவான இரட்டை மினுமினுப்பு = இணைந்தது.",{col:"#ff3b30"}],
+   ["ldo","reg",14,42,18,14,"","3.3V regulator so you can power it from 5V.","5V-இலிருந்து இயக்க 3.3V ரெகுலேட்டர்.",{}],
+   ["btmod","subpcb",36,6,90,52,"BC417","Green HC-05 module with BC417 chip and Flash.","BC417 சிப், Flash கொண்ட பச்சை HC-05 மாட்யூல்.",{col:"#2a8a4a"}],
+   ["antenna","antenna",126,6,24,52,"","Bluetooth antenna at the module end.","மாட்யூலின் முனையில் Bluetooth ஆன்டெனா.",{}]
+  ]},
+
+{ id:"nrf24", n:"nRF24L01+ Radio", al:["nrf24","nrf24l01","2.4ghz radio","rf module"], cat:"com", col:"#1c5e3e", W:116, H:60,
+  chip:"nRF24L01+", volt:"3.3V",
+  ab:["A low-cost 2.4 GHz radio for sending small packets between two or more Arduinos, without Wi‑Fi.",
+      "Wi‑Fi இல்லாமல் இரண்டு அல்லது அதிக Arduino-க்களுக்கு இடையே சிறிய data அனுப்ப குறைந்த விலை 2.4 GHz ரேடியோ."],
+  sp:[["chip","Nordic nRF24L01+"],["vin","1.9–3.6V"],["if","SPI + CE, CSN, IRQ"],["rf","2.4 GHz, 250 kbps–2 Mbps"],["range","~100 m (1 km with PA+LNA)"]],
+  uses:[["Wireless remote controls for robots and RC cars","ரோபோ, RC கார்களுக்கு வயர்லெஸ் ரிமோட்"],
+        ["Sensor networks around a house or farm","வீடு அல்லது பண்ணையைச் சுற்றி சென்சார் நெட்வொர்க்"],
+        ["Wireless doorbell and alarms","வயர்லெஸ் அழைப்பு மணி, அலாரம்"],
+        ["Low-power battery nodes","குறைந்த மின்சார பேட்டரி node-கள்"]],
+  tip:["Put a 10 µF capacitor directly across VCC and GND. Most 'no data' problems are power problems.","VCC, GND இடையே நேரடியாக 10 µF கெபாசிட்டர் வையுங்கள். 'Data வரவில்லை' பிரச்சினைகள் பெரும்பாலும் மின்சாரப் பிரச்சினைகளே."],
+  holes:[], silk:[],
+  c:[
+   ["header","header",2,10,0,0,"","8 pins: GND, VCC (3.3V!), CE, CSN, SCK, MOSI, MISO, IRQ.","8 பின்கள்: GND, VCC (3.3V!), CE, CSN, SCK, MOSI, MISO, IRQ.",{n:4,r:2,o:"v"}],
+   ["rfic","chip",30,18,22,22,"nRF24|L01+","Nordic nRF24L01+ transceiver.","Nordic nRF24L01+ டிரான்ஸ்ஸீவர்.",{pins:"q"}],
+   ["crystal","crystal",56,20,14,9,"16M","16 MHz crystal for the radio.","ரேடியோவுக்கான 16 MHz கிரிஸ்டல்.",{smd:1}],
+   ["smd","smd",32,46,14,6,"","Matching network parts that tune the antenna.","ஆன்டெனாவை tune செய்யும் matching network பாகங்கள்.",{col:"#9c7a52"}],
+   ["antenna","antenna",74,4,40,52,"","2.4 GHz meander antenna.","2.4 GHz வளைந்த ஆன்டெனா.",{}]
+  ]},
+
+{ id:"rc522", n:"RC522 RFID Reader", al:["rc522","rfid","mfrc522","nfc","13.56mhz"], cat:"com", col:"#1f55b5", W:160, H:240,
+  chip:"MFRC522", volt:"3.3V",
+  ab:["Reads and writes 13.56 MHz RFID cards and key tags (MIFARE). Used for attendance, door access and payment-style projects.",
+      "13.56 MHz RFID கார்டுகள், key tag-களை (MIFARE) படிக்கவும் எழுதவும் செய்கிறது. வருகைப் பதிவு, கதவு அணுகல், கட்டண மாதிரி ப்ராஜெக்ட்களுக்குப் பயன்படும்."],
+  sp:[["chip","NXP MFRC522"],["vin","3.3V"],["if","SPI (also I2C / UART)"],["rf","13.56 MHz"],["range","2–5 cm"]],
+  uses:[["RFID door lock","RFID கதவுப் பூட்டு"],
+        ["Staff attendance system","ஊழியர் வருகைப் பதிவு அமைப்பு"],
+        ["Warehouse item and pallet check-in","கிடங்கு பொருள், pallet பதிவு"],
+        ["Library or tool borrowing tracker","நூலகம் அல்லது கருவி கடன் கண்காணிப்பு"],
+        ["Card-based game and quiz projects","கார்டு அடிப்படை விளையாட்டு, வினாடி வினா"]],
+  tip:["Power with 3.3V, not 5V. Read each card's UID first with the DumpInfo example.","5V அல்ல, 3.3V கொடுங்கள். முதலில் DumpInfo உதாரணம் மூலம் ஒவ்வொரு கார்டின் UID-ஐப் படியுங்கள்."],
+  holes:[[16,200],[144,200],[16,16],[144,16]], silk:[],
+  c:[
+   ["coil","coil",20,20,120,136,"","Antenna coil: hold the card or tag over this area.","ஆன்டெனா காயில்: கார்டு அல்லது tag-ஐ இந்தப் பகுதியின் மேல் பிடியுங்கள்.",{}],
+   ["ledpwr","led",22,176,10,5,"","Red power LED.","சிவப்பு பவர் LED.",{col:"#ff3b30"}],
+   ["rfic","chip",58,168,30,30,"MFRC|522","MFRC522 reader chip.","MFRC522 ரீடர் சிப்.",{pins:"q"}],
+   ["crystal","crystal",98,176,30,10,"27.12","27.12 MHz crystal (2 × 13.56 MHz).","27.12 MHz கிரிஸ்டல் (2 × 13.56 MHz).",{}],
+   ["header","header",40,226,0,0,"","SDA (SS), SCK, MOSI, MISO, IRQ, GND, RST, 3.3V.","SDA (SS), SCK, MOSI, MISO, IRQ, GND, RST, 3.3V.",{n:8}]
+  ]},
+
+{ id:"sim800l", n:"SIM800L GSM Module", al:["sim800l","gsm","gprs","sms module"], cat:"com", col:"#1d2e8a", W:100, H:92,
+  chip:"SIMCom SIM800L", volt:"3.4–4.4V",
+  ab:["A tiny 2G GSM module: send and receive SMS, make calls and use GPRS data from your microcontroller.",
+      "சிறிய 2G GSM மாட்யூல்: உங்கள் மைக்ரோகண்ட்ரோலரிலிருந்து SMS அனுப்ப, பெற, அழைப்பு செய்ய, GPRS data பயன்படுத்தலாம்."],
+  sp:[["chip","SIM800L"],["vin","3.4–4.4V (2A peaks)"],["if","UART AT commands"],["rf","GSM 850/900/1800/1900 MHz"]],
+  uses:[["SMS alerts from sensors: water level, power cut, intrusion","சென்சார்களிலிருந்து SMS எச்சரிக்கை: தண்ணீர் அளவு, மின் தடை, அத்துமீறல்"],
+        ["Vehicle GPS tracker sending location by SMS","SMS மூலம் இடம் அனுப்பும் வாகன GPS டிராக்கர்"],
+        ["Call-to-switch motor starters in farms","பண்ணைகளில் அழைப்பு மூலம் மோட்டார் ஸ்டார்ட்டர்"],
+        ["Remote data upload where there is no Wi‑Fi","Wi‑Fi இல்லாத இடங்களில் data அனுப்ப"]],
+  tip:["It needs up to 2A in bursts at about 4V. A Li‑ion cell or a buck set to 4V works; 5V directly can damage it. Check that 2G is still active in your country.","சுமார் 4V-இல் 2A வரை திடீர் மின்னோட்டம் தேவை. Li‑ion செல் அல்லது 4V-க்கு அமைத்த buck பயன்படுத்துங்கள்; நேரடி 5V பழுதாக்கலாம். உங்கள் நாட்டில் 2G இன்னும் இயங்குகிறதா என்று சரிபாருங்கள்."],
+  holes:[], silk:[],
+  c:[
+   ["ufl","ufl",84,2,12,12,"","Antenna socket (U.FL). A helical spring antenna is often soldered here instead.","ஆன்டெனா சாக்கெட் (U.FL). பெரும்பாலும் இதற்குப் பதிலாக spring ஆன்டெனா சோல்டர் செய்யப்படும்.",{}],
+   ["wifimod","shield",18,16,62,60,"SIM800L","SIM800L GSM engine under the shield.","மூடியின் கீழ் SIM800L GSM இயந்திரம்.",{}],
+   ["header","header",2,16,0,0,"","NET, VCC, RST, RXD, TXD, GND.","NET, VCC, RST, RXD, TXD, GND.",{n:6,o:"v"}],
+   ["header","header",86,16,0,0,"","RING, DTR, MIC+, MIC−, SPK+, SPK−: audio for calls.","RING, DTR, MIC+, MIC−, SPK+, SPK−: அழைப்புக்கான ஒலி.",{n:6,o:"v"}],
+   ["ledstat","led",84,80,10,5,"","Netlight: every 1 s = searching, every 3 s = registered on network.","Netlight: 1 வினாடிக்கு ஒருமுறை = தேடுகிறது, 3 வினாடிக்கு ஒருமுறை = நெட்வொர்க்கில் பதிவானது.",{col:"#ff3b30"}],
+   ["sim","sim",10,10,80,72,"","Micro-SIM holder on the back.","பின்பக்கம் மைக்ரோ-சிம் ஹோல்டர்.",{b:1}]
+  ]},
+
+{ id:"oled", n:"0.96\" OLED Display (SSD1306)", al:["oled","ssd1306","0.96 oled","i2c display"], cat:"dsp", col:"#1b2a63", W:108, H:108,
+  chip:"SSD1306", volt:"3.3–5V",
+  ab:["A sharp 128 × 64 pixel display that needs only two data wires (I2C). Perfect for showing readings, clocks and menus.",
+      "இரண்டு data வயர்கள் (I2C) மட்டுமே தேவைப்படும் தெளிவான 128 × 64 pixel டிஸ்ப்ளே. அளவீடுகள், கடிகாரம், மெனுக்களைக் காட்ட ஏற்றது."],
+  sp:[["chip","SSD1306"],["vin","3.3–5V"],["if","I2C (address 0x3C)"],["out","128 × 64 px, monochrome"],["size","27 × 27 mm"]],
+  uses:[["Show temperature, humidity and sensor values","வெப்பநிலை, ஈரப்பதம், சென்சார் மதிப்புகளைக் காட்ட"],
+        ["Wi‑Fi clock and weather display","Wi‑Fi கடிகாரம், வானிலை டிஸ்ப்ளே"],
+        ["Menus for small devices with buttons","பட்டன் கொண்ட சிறிய சாதனங்களுக்கு மெனு"],
+        ["Mini games like Snake","Snake போன்ற சிறிய விளையாட்டுகள்"]],
+  tip:["Use the Adafruit SSD1306 or U8g2 library. If nothing shows, run an I2C scanner to find the address (0x3C or 0x3D).","Adafruit SSD1306 அல்லது U8g2 library பயன்படுத்துங்கள். எதுவும் தெரியவில்லை என்றால் I2C scanner மூலம் முகவரியைக் (0x3C அல்லது 0x3D) கண்டறியுங்கள்."],
+  holes:[[8,8],[100,8],[8,100],[100,100]], silk:[],
+  c:[
+   ["header","header",34,2,0,0,"","GND, VCC, SCL, SDA.","GND, VCC, SCL, SDA.",{n:4}],
+   ["display","display",4,18,100,64,"","128 × 64 OLED glass panel with SSD1306 controller.","SSD1306 கண்ட்ரோலர் கொண்ட 128 × 64 OLED கண்ணாடிப் பேனல்.",{}],
+   ["fpc","fpc",30,82,48,12,"","Glass ribbon folded to the back. Do not bend it.","பின்பக்கம் மடிக்கப்பட்ட கண்ணாடி ரிப்பன். வளைக்க வேண்டாம்.",{amber:1}],
+   ["smd","smd",80,90,14,6,"","Capacitors for the internal charge pump.","உள் charge pump-க்கான கெபாசிட்டர்கள்.",{col:"#9c7a52"}]
+  ]},
+
+{ id:"mpu6050", n:"MPU6050 (GY‑521)", al:["mpu6050","gy-521","gyroscope","accelerometer","imu"], cat:"sen", col:"#1f55b5", W:84, H:64,
+  chip:"MPU-6050", volt:"3.3–5V",
+  ab:["A motion sensor board with a 3-axis accelerometer and 3-axis gyroscope. Tells you tilt, shake and rotation.",
+      "3-அச்சு accelerometer, 3-அச்சு gyroscope கொண்ட அசைவு சென்சார் போர்டு. சாய்வு, குலுக்கல், சுழற்சியைச் சொல்கிறது."],
+  sp:[["chip","InvenSense MPU-6050"],["vin","3.3–5V"],["if","I2C (0x68 / 0x69)"],["range","±2…16 g, ±250…2000 °/s"]],
+  uses:[["Self-balancing robots","சுயமாக சமநிலை செய்யும் ரோபோ"],
+        ["Drone and gimbal stabilisation","ட்ரோன், gimbal நிலைப்படுத்தல்"],
+        ["Fall and crash detection","விழுதல், மோதல் கண்டறிதல்"],
+        ["Gesture-controlled cars and mice","சைகைக் கட்டுப்பாட்டு கார், மவுஸ்"],
+        ["Vibration monitoring on machines","இயந்திரங்களில் அதிர்வுக் கண்காணிப்பு"]],
+  tip:["AD0 pin LOW = address 0x68, HIGH = 0x69, so two sensors can share one I2C bus.","AD0 பின் LOW = முகவரி 0x68, HIGH = 0x69; இதனால் இரண்டு சென்சார்கள் ஒரே I2C bus-ஐப் பகிரலாம்."],
+  holes:[[8,10],[76,10]], silk:[],
+  c:[
+   ["smd","smd",10,22,14,6,"","I2C pull-up resistors (4.7 kΩ).","I2C pull-up ரெசிஸ்டர்கள் (4.7 kΩ).",{}],
+   ["imu","chip",32,18,20,20,"MPU|6050","MPU-6050 MEMS chip with a built-in motion processor (DMP).","உள்ளமைந்த motion processor (DMP) கொண்ட MPU-6050 MEMS சிப்.",{pins:"q"}],
+   ["ldo","reg",58,14,18,14,"","3.3V regulator, so the board accepts 5V.","3.3V ரெகுலேட்டர்; இதனால் போர்டு 5V ஏற்கும்.",{}],
+   ["ledpwr","led",62,34,9,5,"","Power LED.","பவர் LED.",{col:"#30d158"}],
+   ["header","header",2,52,0,0,"","VCC, GND, SCL, SDA, XDA, XCL, AD0, INT.","VCC, GND, SCL, SDA, XDA, XCL, AD0, INT.",{n:8}]
+  ]},
+
+{ id:"hcsr04", n:"HC‑SR04 Ultrasonic Sensor", al:["hc-sr04","ultrasonic","distance sensor","sonar"], cat:"sen", col:"#1f55b5", W:180, H:80,
+  chip:"EM78P153 + MAX232", volt:"5V",
+  ab:["Measures distance with sound, like a bat. Sends a 40 kHz pulse and times the echo.",
+      "வௌவால் போல ஒலியால் தூரத்தை அளக்கிறது. 40 kHz துடிப்பை அனுப்பி எதிரொலியின் நேரத்தைக் கணக்கிடுகிறது."],
+  sp:[["vin","5V, 15 mA"],["if","TRIG (10 µs pulse), ECHO"],["range","2–400 cm, ±3 mm"],["out","Echo pulse width"]],
+  uses:[["Obstacle-avoiding robots","தடையைத் தவிர்க்கும் ரோபோ"],
+        ["Water tank level meter","தண்ணீர் தொட்டி அளவு மீட்டர்"],
+        ["Parking distance helper","வாகன நிறுத்த தூர உதவி"],
+        ["Touch-free dustbin and sanitizer","தொடாமல் திறக்கும் குப்பைத் தொட்டி, சானிடைசர்"],
+        ["People counting at doors","கதவுகளில் ஆட்கள் எண்ணிக்கை"]],
+  tip:["The ECHO pin outputs 5V. For ESP32 or Pi, use a divider (1 kΩ / 2 kΩ) or the 3.3V HC-SR04P version. Flip the board to see the driver chips.","ECHO பின் 5V தருகிறது. ESP32 அல்லது Pi-க்கு divider (1 kΩ / 2 kΩ) அல்லது 3.3V HC-SR04P பதிப்பு பயன்படுத்துங்கள். Driver சிப்புகளைப் பார்க்க போர்டைத் திருப்புங்கள்."],
+  holes:[[90,40]], silk:[[90,52,"HC-SR04",7]],
+  c:[
+   ["usonic","usonic",6,8,62,62,"T","T = transmitter: sends the 40 kHz sound burst.","T = அனுப்புவது: 40 kHz ஒலித் துடிப்பை அனுப்புகிறது.",{}],
+   ["crystal","crystal",74,8,32,12,"4.000","4 MHz crystal for the on-board controller.","போர்டின் கண்ட்ரோலருக்கான 4 MHz கிரிஸ்டல்.",{}],
+   ["usonic","usonic",112,8,62,62,"R","R = receiver: listens for the echo.","R = பெறுவது: எதிரொலியைக் கேட்கிறது.",{}],
+   ["header","header",70,68,0,0,"","VCC, TRIG, ECHO, GND.","VCC, TRIG, ECHO, GND.",{n:4}],
+   ["mcu","chip",108,22,30,16,"EM78","Small controller that creates the burst and measures the echo (back side).","துடிப்பை உருவாக்கி எதிரொலியை அளக்கும் சிறிய கண்ட்ரோலர் (பின்பக்கம்).",{pins:"tb",b:1}],
+   ["ctrlic","chip",28,22,38,18,"MAX232","MAX232 drives the transmitter at higher voltage; an LM324 amplifies the weak echo (back side).","MAX232 அதிக வோல்டேஜில் transmitter-ஐ இயக்குகிறது; LM324 பலவீனமான எதிரொலியைப் பெருக்குகிறது (பின்பக்கம்).",{pins:"tb",b:1}],
+   ["ctrlic","chip",28,48,38,16,"LM324","LM324 op-amp: amplifies the echo signal.","LM324 op-amp: எதிரொலி சிக்னலைப் பெருக்குகிறது.",{pins:"tb",b:1}]
+  ]},
+
+{ id:"dht11", n:"DHT11 Temp & Humidity Module", al:["dht11","dht22","humidity","temperature sensor"], cat:"sen", col:"#1f55b5", W:72, H:116,
+  chip:"DHT11", volt:"3.3–5V",
+  ab:["A simple digital sensor for temperature and humidity using one data wire. The DHT22 (white) is the more accurate version.",
+      "ஒரே data வயர் மூலம் வெப்பநிலை, ஈரப்பதத்தை அளக்கும் எளிய டிஜிட்டல் சென்சார். DHT22 (வெள்ளை) அதிகத் துல்லியமான பதிப்பு."],
+  sp:[["chip","DHT11"],["vin","3.3–5V"],["if","Single-wire digital"],["range","0–50 °C ±2 °C, 20–90 % RH ±5 %"],["out","1 reading per second"]],
+  uses:[["Room and warehouse climate logging","அறை, கிடங்கு காலநிலைப் பதிவு"],
+        ["Automatic fan or AC control","தானியங்கி மின்விசிறி அல்லது AC கட்டுப்பாடு"],
+        ["Greenhouse and mushroom farm monitoring","பசுமைக் குடில், காளான் பண்ணைக் கண்காணிப்பு"],
+        ["Weather station on a web page","Web பக்கத்தில் வானிலை நிலையம்"]],
+  tip:["Read it at most once every 1–2 seconds. Keep it away from the board's regulator, which is warm.","1–2 விநாடிக்கு ஒருமுறைக்கு மேல் படிக்க வேண்டாம். சூடாக இருக்கும் போர்டின் ரெகுலேட்டரிலிருந்து தள்ளி வையுங்கள்."],
+  holes:[[60,82]], silk:[],
+  c:[
+   ["sensorel","dht",12,4,48,62,"DHT11","Blue DHT11 case with a humidity sensor and thermistor inside.","உள்ளே ஈரப்பத சென்சார், thermistor கொண்ட நீல DHT11 பெட்டி.",{}],
+   ["smd","smd",14,76,16,7,"103","10 kΩ pull-up resistor on the data line.","Data வரியில் 10 kΩ pull-up ரெசிஸ்டர்.",{}],
+   ["ledpwr","led",36,77,9,5,"","Power LED.","பவர் LED.",{col:"#ff3b30"}],
+   ["header","header",21,100,0,0,"","S (data), + (VCC), − (GND). Order can differ; read the labels.","S (data), + (VCC), − (GND). வரிசை மாறலாம்; குறிகளைப் படியுங்கள்.",{n:3}]
+  ]},
+
+{ id:"pir", n:"HC‑SR501 PIR Motion Sensor", al:["pir","hc-sr501","motion sensor","biss0001"], cat:"sen", col:"#1f6e3a", W:128, H:128,
+  chip:"BISS0001", volt:"5–20V in, 3.3V out",
+  ab:["Detects people moving by sensing body heat. The settings are on the back: flip the board to see the pots and jumper.",
+      "உடல் வெப்பத்தை உணர்ந்து நகரும் ஆட்களைக் கண்டறிகிறது. அமைப்புகள் பின்பக்கம் உள்ளன: pot-கள், ஜம்பரைப் பார்க்க போர்டைத் திருப்புங்கள்."],
+  sp:[["chip","BISS0001"],["vin","5–20V"],["out","3.3V HIGH when motion"],["range","3–7 m, ~110° cone"],["load","Delay 3 s – 5 min"]],
+  uses:[["Automatic stair and corridor lights","தானியங்கி படிக்கட்டு, நடைபாதை விளக்குகள்"],
+        ["Intruder alarm with buzzer or SMS","பஸ்ஸர் அல்லது SMS உடன் அத்துமீறல் அலாரம்"],
+        ["Save power: turn off screens when nobody is there","யாரும் இல்லாதபோது திரைகளை அணைத்து மின்சாரம் சேமிக்க"],
+        ["Wake an ESP32-CAM to take a photo","புகைப்படம் எடுக்க ESP32-CAM-ஐ எழுப்ப"]],
+  tip:["Wait about 60 seconds after power-up before trusting it; the sensor needs to settle.","Power-up செய்த பின் சுமார் 60 விநாடி காத்திருங்கள்; சென்சார் நிலைபெற நேரம் தேவை."],
+  holes:[[8,8],[120,8],[8,120],[120,120]], silk:[],
+  c:[
+   ["dome","dome",10,10,108,108,"","Fresnel dome over the pyroelectric sensor.","Pyroelectric சென்சார் மேல் உள்ள ஃப்ரெஸ்னல் டோம்.",{}],
+   ["ctrlic","chip",42,20,44,22,"BISS0001","BISS0001 PIR signal processor (back side).","BISS0001 PIR சிக்னல் ப்ராசசர் (பின்பக்கம்).",{pins:"tb",b:1}],
+   ["ldo","reg",12,22,22,16,"7133","HT7133 3.3V regulator (back side).","HT7133 3.3V ரெகுலேட்டர் (பின்பக்கம்).",{b:1}],
+   ["pot","pot",12,62,24,24,"Sx","Sensitivity pot (distance 3–7 m).","உணர்திறன் pot (தூரம் 3–7 m).",{b:1}],
+   ["pot","pot",92,62,24,24,"Tx","Time-delay pot: how long OUT stays HIGH (3 s to 5 min).","நேர தாமத pot: OUT எவ்வளவு நேரம் HIGH ஆக இருக்கும் (3 வி முதல் 5 நிமி).",{b:1}],
+   ["jumper","jhdr",49,74,0,0,"","Trigger jumper: H = repeat (stays HIGH while moving), L = single pulse.","Trigger ஜம்பர்: H = மீண்டும் (அசைவு இருக்கும் வரை HIGH), L = ஒற்றைத் துடிப்பு.",{n:3,r:1,cap:2,b:1}],
+   ["header","header",49,104,0,0,"","VCC, OUT, GND.","VCC, OUT, GND.",{n:3,b:1}]
+  ]},
+
+{ id:"soil", n:"Soil Moisture Sensor", al:["soil","soil moisture","fc-28","yl-69","moisture"], cat:"sen", col:"#1f55b5", W:120, H:220, bh:62,
+  chip:"LM393", volt:"3.3–5V",
+  ab:["A two-part sensor: the fork probe goes into the soil, and the small comparator board gives an analog and a digital output.",
+      "இரண்டு பகுதி சென்சார்: முள் போன்ற probe மண்ணில் செல்கிறது; சிறிய comparator போர்டு அனலாக், டிஜிட்டல் output தருகிறது."],
+  sp:[["chip","LM393 comparator"],["vin","3.3–5V"],["out","AO (analog) + DO (digital)"],["range","Dry ≈ high value, wet ≈ low value"]],
+  uses:[["Automatic plant watering with a pump and relay","பம்ப், ரிலே உடன் தானியங்கி செடி நீர்ப்பாசனம்"],
+        ["Garden and farm moisture alerts","தோட்டம், பண்ணை ஈரப்பத எச்சரிக்கை"],
+        ["Rain or water-leak detection","மழை அல்லது தண்ணீர்க் கசிவு கண்டறிதல்"],
+        ["School science experiments","பள்ளி அறிவியல் சோதனைகள்"]],
+  tip:["For long life, use a capacitive soil sensor (no exposed copper) or power this one only while reading.","நீண்ட ஆயுளுக்கு capacitive மண் சென்சார் (திறந்த செம்பு இல்லாதது) பயன்படுத்துங்கள்; அல்லது படிக்கும்போது மட்டும் இதற்கு மின்சாரம் கொடுங்கள்."],
+  holes:[[10,52]], silk:[],
+  c:[
+   ["pot","pot",8,10,24,24,"","Threshold trimmer for the DO output.","DO output-க்கான வரம்பு டிரிம்மர்.",{}],
+   ["comparator","chip",40,12,28,20,"LM393","LM393 comparator.","LM393 கம்பரேட்டர்.",{pins:"tb"}],
+   ["ledstat","leds",76,10,8,20,"","PWR LED and DO LED (lights when soil is wetter than the set level).","PWR LED, DO LED (அமைத்த அளவை விட மண் ஈரமாக இருந்தால் எரியும்).",{n:2,cols:["#ff3b30","#30d158"]}],
+   ["header","header",104,4,0,0,"","VCC, GND, DO (digital), AO (analog). Read AO with an analog pin.","VCC, GND, DO (டிஜிட்டல்), AO (அனலாக்). AO-ஐ அனலாக் பின்னால் படியுங்கள்.",{n:4,o:"v"}],
+   ["header","header",40,46,0,0,"","Two pins that connect to the probe with jumper wires.","ஜம்பர் வயர்கள் மூலம் probe-உடன் இணையும் இரண்டு பின்கள்.",{n:2}],
+   ["probe","probe",24,74,72,144,"","Fork probe: push it into the soil up to the line.","முள் probe: கோடு வரை மண்ணில் செருகுங்கள்.",{}]
+  ]}
+];
+
+/* ---------- PCB BASICS ---------- */
+const BASICS = [
+ ["What is a PCB?","PCB என்றால் என்ன?",
+  "A Printed Circuit Board is a fiberglass (FR-4) sheet with thin copper paths that connect components, instead of loose wires. Almost every electronic device has one.",
+  "Printed Circuit Board என்பது தனித்தனி வயர்களுக்குப் பதிலாக, கூறுகளை (components) இணைக்கும் மெல்லிய செம்பு பாதைகள் கொண்ட ஃபைபர்கிளாஸ் (FR-4) தகடு. ஏறக்குறைய எல்லா மின்னணு சாதனங்களிலும் இது உள்ளது."],
+ ["The layers","அடுக்குகள் (Layers)",
+  "From the outside in: silkscreen (white text), solder mask (the green, blue or black colour), copper (the wiring) and the FR-4 core. Most hobby boards have 2 copper layers; phones and the Raspberry Pi use 6 or more.",
+  "வெளியிலிருந்து உள்ளே: silkscreen (வெள்ளை எழுத்து), solder mask (பச்சை, நீலம், கருப்பு நிறம்), செம்பு (வயரிங்), FR-4 உள்ளகம். பெரும்பாலான hobby போர்டுகளில் 2 செம்பு அடுக்குகள்; போன்கள், Raspberry Pi-யில் 6 அல்லது அதற்கு மேல்."],
+ ["Traces and vias","Trace-களும் Via-க்களும்",
+  "Traces are the copper roads between parts. A via is a small plated hole that carries a trace from one layer to another. Thicker traces carry more current.",
+  "Trace-கள் பாகங்களுக்கு இடையே உள்ள செம்புச் சாலைகள். Via என்பது ஒரு அடுக்கிலிருந்து மற்றொரு அடுக்குக்கு trace-ஐக் கொண்டு செல்லும் சிறிய முலாம் பூசிய துளை. தடிமனான trace-கள் அதிக மின்னோட்டத்தைச் சுமக்கும்."],
+ ["Through-hole vs SMD","Through-hole மற்றும் SMD",
+  "Through-hole parts have legs that go through holes (easy to hand-solder). SMD (surface-mount) parts sit on pads on the surface; they are smaller and are placed by machines.",
+  "Through-hole பாகங்களின் கால்கள் துளைகள் வழியாகச் செல்லும் (கையால் சோல்டர் செய்ய எளிது). SMD (surface-mount) பாகங்கள் மேற்பரப்பில் உள்ள பேட்களில் அமரும்; அவை சிறியவை, இயந்திரங்களால் பொருத்தப்படுபவை."],
+ ["Pin headers and 2.54 mm pitch","பின் ஹெடர்களும் 2.54 mm இடைவெளியும்",
+  "Most hobby pins are 2.54 mm (0.1 inch) apart, the same spacing as a breadboard. Male headers have pins; female headers have sockets.",
+  "பெரும்பாலான hobby பின்கள் 2.54 mm (0.1 இன்ச்) இடைவெளியில் இருக்கும்; பிரெட்போர்டின் அதே இடைவெளி. Male ஹெடரில் பின்கள், female ஹெடரில் சாக்கெட்கள்."],
+ ["5V vs 3.3V logic","5V மற்றும் 3.3V லாஜிக்",
+  "Arduino Uno and Mega use 5V. ESP8266, ESP32, Pico and Raspberry Pi use 3.3V and can be damaged by 5V on their pins. Use a level shifter or a resistor divider between them.",
+  "Arduino Uno, Mega 5V பயன்படுத்துகின்றன. ESP8266, ESP32, Pico, Raspberry Pi 3.3V பயன்படுத்துகின்றன; அவற்றின் பின்களில் 5V பட்டால் பழுதாகலாம். இடையே level shifter அல்லது resistor divider பயன்படுத்துங்கள்."],
+ ["GPIO, digital, analog and PWM","GPIO, டிஜிட்டல், அனலாக், PWM",
+  "GPIO = general purpose input/output. Digital is only ON or OFF. Analog inputs read a range of voltages. PWM switches a pin on and off very fast to act like a variable voltage (LED dimming, motor speed).",
+  "GPIO = பொது பயன்பாட்டு உள்ளீடு/வெளியீடு. டிஜிட்டல் என்றால் ON அல்லது OFF மட்டும். அனலாக் உள்ளீடுகள் வோல்டேஜ் வரம்பைப் படிக்கும். PWM ஒரு பின்னை மிக வேகமாக on/off செய்து மாறும் வோல்டேஜ் போல செயல்படும் (LED ஒளி குறைப்பு, மோட்டார் வேகம்)."],
+ ["UART, I2C and SPI","UART, I2C, SPI",
+  "Three common ways chips talk. UART uses TX and RX (cross them: TX to RX). I2C uses two wires, SDA and SCL, shared by many devices with addresses. SPI uses MOSI, MISO, SCK and one CS pin per device; it is the fastest.",
+  "சிப்புகள் பேசும் மூன்று பொதுவான வழிகள். UART: TX, RX (குறுக்காக இணைக்கவும்: TX-ஐ RX-க்கு). I2C: SDA, SCL என்ற இரண்டு வயர்கள்; முகவரிகள் மூலம் பல சாதனங்கள் பகிரும். SPI: MOSI, MISO, SCK, ஒவ்வொரு சாதனத்துக்கும் ஒரு CS பின்; இதுவே வேகமானது."],
+ ["Power and common ground","மின்சாரமும் பொது கிரவுண்டும்",
+  "Every connected board and module must share GND, otherwise signals have no reference. Add up the current of all parts and make sure your supply can give it with room to spare.",
+  "இணைக்கப்பட்ட எல்லா போர்டுகளும் மாட்யூல்களும் GND-ஐப் பகிர வேண்டும்; இல்லையெனில் சிக்னல்களுக்கு அடிப்படை இருக்காது. எல்லாப் பாகங்களின் மின்னோட்டத்தையும் கூட்டி, உங்கள் மின் விநியோகம் கூடுதல் இருப்புடன் அதைத் தர முடியுமா என்று பாருங்கள்."],
+ ["Reading the silkscreen","Silkscreen-ஐப் படிப்பது",
+  "The white printing names every part: R = resistor, C = capacitor, D = diode, Q = transistor, U = IC, Y or X = crystal, L = inductor, J or P = connector, SW = switch. Pin 1 is marked by a dot, notch or square pad.",
+  "வெள்ளை அச்சு ஒவ்வொரு பாகத்தின் பெயரையும் சொல்கிறது: R = ரெசிஸ்டர், C = கெபாசிட்டர், D = டயோடு, Q = டிரான்சிஸ்டர், U = IC, Y அல்லது X = கிரிஸ்டல், L = இண்டக்டர், J அல்லது P = கனெக்டர், SW = ஸ்விட்ச். பின் 1 புள்ளி, வெட்டு அல்லது சதுர பேட் மூலம் குறிக்கப்படும்."],
+ ["Multimeter basics","மல்டிமீட்டர் அடிப்படைகள்",
+  "Use continuity mode (beep) with power OFF to find shorts and broken wires. Use DC volts with power ON to check 5V and 3.3V rails. Measure current by putting the meter in series, never across the supply.",
+  "மின்சாரம் OFF ஆக இருக்கும்போது continuity mode (பீப்) மூலம் short, உடைந்த வயர்களைக் கண்டறியுங்கள். மின்சாரம் ON ஆக இருக்கும்போது DC volts மூலம் 5V, 3.3V-ஐ சரிபாருங்கள். மின்னோட்டத்தை அளக்க மீட்டரை தொடர் இணைப்பில் (series) வையுங்கள்; மின் விநியோகத்துக்குக் குறுக்கே ஒருபோதும் வைக்க வேண்டாம்."],
+ ["Soldering and safety","சோல்டரிங்கும் பாதுகாப்பும்",
+  "Use a 60W iron at about 330 °C with flux. Heat pad and pin together, then add solder. Touch a metal object before handling boards (static). Never work on 230V wiring while it is plugged in.",
+  "சுமார் 330 °C-இல் 60W iron, flux பயன்படுத்துங்கள். பேட், பின் இரண்டையும் சேர்த்து சூடாக்கி, பிறகு சோல்டர் சேருங்கள். போர்டுகளைத் தொடும் முன் ஒரு உலோகப் பொருளைத் தொடுங்கள் (static). 230V வயரிங் இணைப்பில் இருக்கும்போது ஒருபோதும் வேலை செய்ய வேண்டாம்."]
+];
+/* ---------- SVG RENDERER (pure functions) ---------- */
+const f = n => Math.round(n * 100) / 100;
+const esc = s => String(s).replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
+const PIN = "url(#gPin)", SIL = "url(#gSilver)", GOLD = "url(#gGold)";
+const R = (x, y, w, h, fill, extra = "") => `<rect x="${f(x)}" y="${f(y)}" width="${f(Math.max(w, 0))}" height="${f(Math.max(h, 0))}" fill="${fill}" ${extra}/>`;
+const C = (cx, cy, r, fill, extra = "") => `<circle cx="${f(cx)}" cy="${f(cy)}" r="${f(Math.max(r, 0))}" fill="${fill}" ${extra}/>`;
+
+function lbl(x, y, w, h, t, col, max) {
+  if (!t) return "";
+  const lines = String(t).split("|");
+  const longest = Math.max(...lines.map(l => l.length));
+  const fs = Math.max(3, Math.min(max || 9, h / (lines.length * 1.6), (w * 0.9) / (longest * 0.62)));
+  const y0 = y + h / 2 - ((lines.length - 1) * fs * 1.15) / 2;
+  return lines.map((l, i) => `<text x="${f(x + w / 2)}" y="${f(y0 + i * fs * 1.15)}" font-size="${f(fs)}" fill="${col}" text-anchor="middle" dominant-baseline="central" class="sl">${esc(l)}</text>`).join("");
+}
+
+function hdrPins(c) {
+  const o = c.o, p = o.p || 10, n = o.n || 1, r = o.r || 1, v = o.o === "v", out = [];
+  for (let j = 0; j < r; j++) for (let i = 0; i < n; i++)
+    out.push([c.x + (v ? j * p : i * p) + p / 2, c.y + (v ? i * p : j * p) + p / 2, p]);
+  return out;
+}
+
+/* port mouth on the outward edge */
+function mouth(x, y, w, h, e, fill, depth, span) {
+  depth = depth || 0.28; span = span || 0.62;
+  if (e === "l") return R(x, y + h * (1 - span) / 2, w * depth, h * span, fill);
+  if (e === "r") return R(x + w * (1 - depth), y + h * (1 - span) / 2, w * depth, h * span, fill);
+  if (e === "t") return R(x + w * (1 - span) / 2, y, w * span, h * depth, fill);
+  return R(x + w * (1 - span) / 2, y + h * (1 - depth), w * span, h * depth, fill);
+}
+
+function drawComp(c) {
+  const { t, x, y, w, h, lb, o } = c;
+  let s = "";
+  const e = o.e || "l";
+  switch (t) {
+    case "chip": {
+      const pm = o.pins || "q", dip = o.dip;
+      const pp = dip ? 10 : Math.max(2.4, Math.min(4.2, Math.min(w, h) / 7));
+      const pl = dip ? 4.5 : Math.max(1.8, Math.min(3.2, Math.min(w, h) * 0.11));
+      const pw = dip ? 3.4 : pp * 0.5;
+      if (pm === "q" || pm === "tb") {
+        const n = Math.max(1, Math.floor((w - pp * 0.8) / pp)), off = x + (w - (n - 1) * pp) / 2;
+        for (let i = 0; i < n; i++) { const cx = off + i * pp; s += R(cx - pw / 2, y - pl, pw, pl, PIN) + R(cx - pw / 2, y + h, pw, pl, PIN); }
+      }
+      if (pm === "q" || pm === "lr") {
+        const n = Math.max(1, Math.floor((h - pp * 0.8) / pp)), off = y + (h - (n - 1) * pp) / 2;
+        for (let i = 0; i < n; i++) { const cy = off + i * pp; s += R(x - pl, cy - pw / 2, pl, pw, PIN) + R(x + w, cy - pw / 2, pl, pw, PIN); }
+      }
+      s += R(x, y, w, h, o.col || "url(#gChip)", `rx="1.4" stroke="#000" stroke-width=".6"`);
+      if (dip) s += `<path d="M${f(x)} ${f(y + h / 2 - 4)} a4 4 0 0 1 0 8" fill="#2b2d31"/>`;
+      else s += C(x + Math.min(3.5, w * 0.16), y + Math.min(3.5, h * 0.16), Math.min(1.4, w * 0.06), "#3b3e44");
+      s += lbl(x, y, w, h, lb, "#c3c7cd", dip ? 9 : 7.5);
+      break;
+    }
+    case "shield":
+      s += R(x, y, w, h, SIL, `rx="1.8" stroke="#80868d" stroke-width=".8"`);
+      s += R(x + 2.5, y + 2.5, w - 5, h - 5, "none", `rx="1" stroke="#a1a7ad" stroke-width=".5"`);
+      s += lbl(x, y, w, h, lb, "#3a3f46", 9);
+      break;
+    case "antenna": {
+      s += R(x, y, w, h, "rgba(0,0,0,.12)", `rx="1"`);
+      const horiz = w >= h, L = horiz ? w : h, n = Math.max(3, Math.floor(L / 6.5)), st = L / n;
+      let d = "";
+      if (horiz) {
+        let px = x + st / 2; d = `M${f(px)} ${f(y + h - 3)}`;
+        for (let i = 0; i < n; i++) { const ty = i % 2 === 0 ? y + 3 : y + h - 3; d += ` L${f(px)} ${f(ty)}`; if (i < n - 1) { px += st; d += ` L${f(px)} ${f(ty)}`; } }
+      } else {
+        let py = y + st / 2; d = `M${f(x + 3)} ${f(py)}`;
+        for (let i = 0; i < n; i++) { const tx = i % 2 === 0 ? x + w - 3 : x + 3; d += ` L${f(tx)} ${f(py)}`; if (i < n - 1) { py += st; d += ` L${f(tx)} ${f(py)}`; } }
+      }
+      s += `<path d="${d}" fill="none" stroke="${GOLD}" stroke-width="2.2" stroke-linejoin="miter"/>`;
+      break;
+    }
+    case "usbb":
+      s += R(x, y, w, h, SIL, `rx="1.5" stroke="#7c838a" stroke-width=".8"`);
+      s += mouth(x, y, w, h, e, "#2b2e33", 0.18, 0.55);
+      s += R(x + w * 0.32, y + h * 0.3, w * 0.5, h * 0.4, "none", `stroke="#9aa1a8" stroke-width=".7"`);
+      break;
+    case "usbmicro":
+    case "usbc":
+      s += R(x, y, w, h, SIL, `rx="${t === "usbc" ? Math.min(w, h) * 0.18 : 1.5}" stroke="#7c838a" stroke-width=".8"`);
+      s += mouth(x, y, w, h, e, "#26292e", 0.16, 0.6);
+      s += R(x + w * 0.25, y + h * 0.25, w * 0.5, h * 0.5, "none", `stroke="#a3a9b0" stroke-width=".6"`);
+      break;
+    case "usba":
+      s += R(x, y, w, h, SIL, `rx="1.5" stroke="#7c838a" stroke-width=".8"`);
+      s += mouth(x, y, w, h, e, "#2a2d31", 0.12, 0.84);
+      s += mouth(x, y, w, h, e, o.col || "#222", 0.06, 0.5);
+      s += R(x + w * 0.2, y + h * 0.48, w * 0.6, 1, "#8d949b");
+      break;
+    case "eth":
+      s += R(x, y, w, h, SIL, `rx="1.5" stroke="#7c838a" stroke-width=".8"`);
+      s += mouth(x, y, w, h, e, "#24272b", 0.14, 0.62);
+      if (e === "r") { s += R(x + w - 6, y + 3, 5, 6, "#38d16a") + R(x + w - 6, y + h - 9, 5, 6, "#ffb000"); }
+      else { s += R(x + 1, y + 3, 5, 6, "#38d16a") + R(x + 1, y + h - 9, 5, 6, "#ffb000"); }
+      break;
+    case "hdmi":
+      s += R(x, y, w, h, SIL, `rx="1.2" stroke="#7c838a" stroke-width=".8"`);
+      s += mouth(x, y, w, h, e, "#24272b", 0.22, 0.66);
+      s += lbl(x, y + h * 0.15, w, h * 0.45, lb ? "HDMI" + lb : "HDMI", "#4a5058", 5);
+      break;
+    case "jack":
+      s += R(x, y, w, h, "#18191b", `rx="2" stroke="#000" stroke-width=".8"`);
+      s += C(e === "l" ? x + w * 0.22 : x + w * 0.78, y + h / 2, h * 0.3, "#050505", `stroke="#3a3a3a" stroke-width="1"`);
+      s += C(e === "l" ? x + w * 0.22 : x + w * 0.78, y + h / 2, h * 0.08, "#9aa0a6");
+      break;
+    case "audio":
+      s += R(x, y, w, h, "#18191b", `rx="2" stroke="#000" stroke-width=".8"`);
+      s += C(x + w / 2, e === "b" ? y + h * 0.78 : y + h * 0.22, w * 0.28, "#050505", `stroke="#3a3a3a"`);
+      break;
+    case "header": case "jhdr": {
+      const pins = hdrPins(c);
+      s += R(x, y, w, h, o.f ? "#151515" : "#1d1d1f", `rx="1"`);
+      pins.forEach(([cx, cy, p]) => {
+        if (o.f) s += R(cx - p * 0.22, cy - p * 0.22, p * 0.44, p * 0.44, "#000", `stroke="#4a4436" stroke-width=".6"`);
+        else s += R(cx - p * 0.19, cy - p * 0.19, p * 0.38, p * 0.38, GOLD, `stroke="#7d5f1d" stroke-width=".4"`);
+      });
+      if (t === "jhdr") {
+        const p = o.p || 10, r = o.r || 1, caps = o.cap || 2;
+        for (let j = 0; j < r; j++) s += R(x + 0.8, y + j * p + 0.8, caps * p - 1.6, p - 1.6, "#1b1b1d", `rx="1.2" stroke="#55585e" stroke-width=".6"`);
+      }
+      break;
+    }
+    case "pads":
+      hdrPins(c).forEach(([cx, cy, p]) => { s += C(cx, cy, p * 0.37, GOLD, `stroke="#8a6a22" stroke-width=".4"`) + C(cx, cy, p * 0.16, "rgba(0,0,0,.55)"); });
+      break;
+    case "crystal":
+      if (o.smd) { s += R(x, y, w, h, SIL, `rx="1" stroke="#80868d" stroke-width=".6"`); s += lbl(x, y, w, h, lb, "#3a3f46", 5); }
+      else { s += R(x, y, w, h, SIL, `rx="${h / 2}" stroke="#7c838a" stroke-width=".8"`); s += lbl(x, y, w, h, lb, "#3a3f46", 6); }
+      break;
+    case "button": {
+      s += R(x, y, w, h, "#2b2d31", `rx="1.2" stroke="#111" stroke-width=".6"`);
+      const k = Math.min(w, h) * 0.12;
+      [[x, y], [x + w - k, y], [x, y + h - k], [x + w - k, y + h - k]].forEach(([a, b]) => { s += R(a, b, k, k, "#9aa0a6"); });
+      s += C(x + w / 2, y + h / 2, Math.min(w, h) * 0.3, o.col || "#121212", `stroke="#555" stroke-width=".8"`);
+      if (lb && Math.min(w, h) >= 16) s += lbl(x, y + h * 0.8, w, h * 0.22, lb, "#e9ecef", 3.6);
+      break;
+    }
+    case "led":
+      s += R(x, y, w, h, "#d9dde1", `rx=".6"`);
+      s += R(x + w * 0.18, y, w * 0.64, h, o.col || "#ff3b30", `rx=".6"`);
+      s += R(x + w * 0.3, y + h * 0.22, w * 0.25, h * 0.4, "rgba(255,255,255,.7)", `rx=".4"`);
+      break;
+    case "leds": {
+      const n = o.n || 2, cols = o.cols || ["#ff3b30", "#30d158", "#ffb000"];
+      for (let i = 0; i < n; i++) {
+        const lw = o.h ? w / n - 2 : w, lh = o.h ? h : h / n - 2;
+        const lx = o.h ? x + i * (w / n) : x, ly = o.h ? y : y + i * (h / n);
+        s += R(lx, ly, lw, lh, "#d9dde1", `rx=".5"`) + R(lx + lw * 0.18, ly, lw * 0.64, lh, cols[i % cols.length], `rx=".5"`) + R(lx + lw * 0.3, ly + lh * 0.2, lw * 0.22, lh * 0.4, "rgba(255,255,255,.65)");
+      }
+      break;
+    }
+    case "smd":
+      s += R(x, y, w, h, o.col || "#1b1c1f", `rx=".5"`);
+      s += R(x, y, w * 0.2, h, SIL) + R(x + w * 0.8, y, w * 0.2, h, SIL);
+      if (lb) s += lbl(x + w * 0.2, y, w * 0.6, h, lb, "#e6e6e6", 5);
+      break;
+    case "sot":
+      s += R(x + w * 0.15, y - 2, w * 0.18, 2.4, PIN) + R(x + w * 0.67, y - 2, w * 0.18, 2.4, PIN) + R(x + w * 0.41, y + h - 0.4, w * 0.18, 2.4, PIN);
+      s += R(x, y, w, h, "#18191c", `rx=".8"`);
+      if (lb) s += lbl(x, y, w, h, lb, "#c3c7cd", 4);
+      break;
+    case "cap": {
+      const r = Math.min(w, h) / 2, cx = x + w / 2, cy = y + h / 2;
+      s += C(cx, cy, r, o.col || "#1d2433", `stroke="#000" stroke-width=".6"`);
+      s += `<circle cx="${f(cx)}" cy="${f(cy)}" r="${f(r * 0.92)}" fill="none" stroke="#c7cbd0" stroke-width="${f(r * 0.16)}" stroke-dasharray="${f(r * 1.4)} ${f(r * 6)}" opacity=".9"/>`;
+      s += C(cx, cy, r * 0.76, SIL, `stroke="#7b8188" stroke-width=".6"`);
+      s += `<path d="M${f(cx - r * 0.45)} ${f(cy)} H${f(cx + r * 0.45)} M${f(cx)} ${f(cy - r * 0.45)} V${f(cy + r * 0.45)}" stroke="#8d949b" stroke-width="1.1"/>`;
+      break;
+    }
+    case "reg": {
+      s += R(x + w * 0.2, y, w * 0.6, h * 0.3, SIL, `stroke="#7c838a" stroke-width=".5"`);
+      [0.15, 0.42, 0.69].forEach(k => { s += R(x + w * k, y + h * 0.82, w * 0.16, h * 0.18, PIN); });
+      s += R(x, y + h * 0.24, w, h * 0.6, "#17181b", `rx=".8" stroke="#000" stroke-width=".5"`);
+      if (lb) s += lbl(x, y + h * 0.24, w, h * 0.6, lb, "#c3c7cd", 6);
+      break;
+    }
+    case "to220": {
+      if (o.multi) {
+        s += R(x, y + h * 0.45, w, h * 0.45, "#141517", `rx="1" stroke="#000"`);
+        const n = 15; for (let i = 0; i < n; i++) s += R(x + 3 + i * (w - 6) / n, y + h * 0.9, (w - 6) / n * 0.5, h * 0.12, PIN);
+        s += R(x - 2, y, w + 4, h * 0.48, SIL, `stroke="#7c838a" stroke-width=".6"`);
+        s += lbl(x, y + h * 0.45, w, h * 0.45, lb, "#c3c7cd", 8);
+      } else {
+        s += R(x + w * 0.05, y, w * 0.9, h * 0.38, SIL, `stroke="#7c838a"`) + C(x + w / 2, y + h * 0.18, Math.min(w, h) * 0.1, "#2a2d31");
+        s += R(x, y + h * 0.34, w, h * 0.42, "#141517", `stroke="#000"`);
+        [0.2, 0.45, 0.7].forEach(k => { s += R(x + w * k, y + h * 0.76, w * 0.1, h * 0.24, PIN); });
+        s += lbl(x, y + h * 0.34, w, h * 0.42, lb, "#c3c7cd", 7);
+      }
+      break;
+    }
+    case "relay":
+      s += R(x, y, w, h, o.col || "#2563c8", `rx="2" stroke="#123a7a" stroke-width="1"`);
+      s += R(x + 3, y + 3, w - 6, h - 6, "none", `rx="1.5" stroke="rgba(255,255,255,.28)" stroke-width=".6"`);
+      s += lbl(x, y, w, h, lb, "#eef3ff", 8);
+      break;
+    case "term": {
+      const n = o.n || 2, horiz = w >= h;
+      s += R(x, y, w, h, o.col || "#2a6fd6", `rx="1.6" stroke="#174a94" stroke-width=".8"`);
+      for (let i = 0; i < n; i++) {
+        const cx = horiz ? x + (i + 0.5) * w / n : x + w / 2, cy = horiz ? y + h / 2 : y + (i + 0.5) * h / n;
+        const r = Math.min(horiz ? w / n : w, horiz ? h : h / n) * 0.32;
+        s += C(cx, cy, r, SIL, `stroke="#6c737a" stroke-width=".6"`);
+        s += `<path d="M${f(cx - r * 0.7)} ${f(cy - r * 0.7)} L${f(cx + r * 0.7)} ${f(cy + r * 0.7)}" stroke="#555b62" stroke-width="${f(r * 0.28)}"/>`;
+      }
+      break;
+    }
+    case "heatsink":
+      s += R(x, y, w, h, "#1b1c1f", `rx="1" stroke="#000"`);
+      for (let fx = x + 4; fx < x + w - 2; fx += 6) s += R(fx, y + 2, 2.4, h - 4, "#33363b");
+      s += C(x + w / 2, y + h * 0.18, 3, "#0d0d0e", `stroke="#4a4d52"`);
+      break;
+    case "pot": {
+      s += R(x, y, w, h, "#2f66cf", `rx="1.5" stroke="#1b448f" stroke-width=".7"`);
+      const r = Math.min(w, h) * 0.34, cx = x + w / 2, cy = y + h / 2;
+      s += C(cx, cy, r, o.brass ? GOLD : "#f2f2f2", `stroke="#9aa0a6" stroke-width=".6"`);
+      s += `<path d="M${f(cx - r * 0.75)} ${f(cy)} H${f(cx + r * 0.75)} M${f(cx)} ${f(cy - r * 0.75)} V${f(cy + r * 0.75)}" stroke="#7a7f86" stroke-width="${f(r * 0.22)}"/>`;
+      if (lb) s += lbl(x, y + h * 0.78, w, h * 0.22, lb, "#ffffff", 4);
+      break;
+    }
+    case "inductor": {
+      s += R(x, y, w, h, "#2b2c30", `rx="3" stroke="#111"`);
+      const r = Math.min(w, h) * 0.36;
+      s += C(x + w / 2, y + h / 2, r, "#1a1b1e", `stroke="#b8733a" stroke-width="${f(Math.max(1.2, r * 0.16))}"`);
+      if (lb) s += lbl(x, y, w, h, lb, "#c3c7cd", 7);
+      break;
+    }
+    case "diode":
+      s += R(x, y, w, h, "#18191c", `rx="${o.smd ? 0.6 : h / 2}"`);
+      if (o.smd) s += R(x, y, w * 0.14, h, SIL) + R(x + w * 0.86, y, w * 0.14, h, SIL);
+      s += R(x + w * 0.18, y, w * 0.1, h, "#cfd3d8");
+      if (lb && w > 20) s += lbl(x + w * 0.3, y, w * 0.55, h, lb, "#c3c7cd", 5);
+      break;
+    case "jumper":
+      s += R(x, y, w, h, o.col || "#1b1b1d", `rx="1.4" stroke="#55585e" stroke-width=".6"`);
+      if (lb) s += lbl(x, y, w, h, lb, "#e6e6e6", 5);
+      break;
+    case "ufl": {
+      const r = Math.min(w, h) / 2, cx = x + w / 2, cy = y + h / 2;
+      s += R(x, y, w, h, SIL, `rx=".8"`) + C(cx, cy, r * 0.8, GOLD) + C(cx, cy, r * 0.45, "#2a2d31") + C(cx, cy, r * 0.15, GOLD);
+      break;
+    }
+    case "sd":
+      s += `<path d="M${f(x)} ${f(y)} H${f(x + w - 8)} L${f(x + w)} ${f(y + 8)} V${f(y + h)} H${f(x)} Z" fill="${SIL}" stroke="#7c838a" stroke-width=".8"/>`;
+      s += R(x + 4, y + h * 0.15, w * 0.7, 1, "#9aa1a8") + R(x + 4, y + h * 0.85, w * 0.7, 1, "#9aa1a8");
+      s += lbl(x, y, w, h, "microSD", "#4a5058", 7);
+      break;
+    case "sim":
+      s += `<path d="M${f(x)} ${f(y)} H${f(x + w - 12)} L${f(x + w)} ${f(y + 12)} V${f(y + h)} H${f(x)} Z" fill="${SIL}" stroke="#7c838a" stroke-width=".8"/>`;
+      for (let i = 1; i < 6; i++) s += R(x + 6, y + i * h / 6, w * 0.55, 0.8, "#9aa1a8");
+      s += lbl(x + w * 0.5, y + h * 0.6, w * 0.45, h * 0.3, "SIM", "#4a5058", 8);
+      break;
+    case "cam": {
+      const cx = x + w / 2, cy = y + h / 2, r = Math.min(w, h) / 2;
+      s += R(x, y, w, h, "#121316", `rx="3" stroke="#000"`);
+      s += C(cx, cy, r * 0.82, "#08090b", `stroke="#3a3d43" stroke-width="1.2"`) + C(cx, cy, r * 0.56, "#141a33") + C(cx, cy, r * 0.32, "#22306a") + C(cx - r * 0.2, cy - r * 0.2, r * 0.1, "rgba(255,255,255,.65)");
+      break;
+    }
+    case "flashled":
+      s += R(x, y, w, h, "#f2efe4", `rx="1.4" stroke="#b9b5a6"`) + C(x + w / 2, y + h / 2, Math.min(w, h) * 0.33, "#fffbe6", `stroke="#e6c95a" stroke-width="1"`);
+      break;
+    case "fpc":
+      s += R(x, y, w, h, o.amber ? "#c48a2c" : "#e7dcc3", `rx=".8" stroke="${o.amber ? "#8a5a12" : "#b6a886"}" stroke-width=".6"`);
+      s += (w > h ? R(x, y + h * 0.6, w, h * 0.4, o.amber ? "rgba(0,0,0,.25)" : "#1a1a1a") : R(x + w * 0.6, y, w * 0.4, h, "#1a1a1a"));
+      if (lb) s += lbl(x, y, w, h, lb, "#3a3a3a", 5);
+      break;
+    case "display": {
+      s += R(x, y, w, h, "#0b0d11", `rx="1.5" stroke="#3a3f47" stroke-width="1"`);
+      s += R(x + w * 0.06, y + h * 0.12, w * 0.88, h * 0.72, "#05070a");
+      const rows = [[0.12, 0.42, "#ffd24a"], [0.3, 0.7, "#7fd6ff"], [0.46, 0.55, "#7fd6ff"], [0.62, 0.63, "#7fd6ff"]];
+      rows.forEach(([ry, rw, col], k) => { for (let i = 0; i < 14; i++) if ((i * 7 + k * 3) % 5 !== 0 && i / 14 < rw) s += R(x + w * 0.1 + i * w * 0.058, y + h * 0.18 + ry * h * 0.85, w * 0.04, h * (k === 0 ? 0.07 : 0.09), col, `opacity=".85"`); });
+      s += `<path d="M${f(x + w * 0.62)} ${f(y + h * 0.14)} L${f(x + w * 0.9)} ${f(y + h * 0.14)} L${f(x + w * 0.72)} ${f(y + h * 0.5)} Z" fill="rgba(255,255,255,.05)"/>`;
+      break;
+    }
+    case "coil":
+      for (let k = 0; k < 5; k++) s += R(x + k * 5, y + k * 5, w - k * 10, h - k * 10, "none", `rx="${8 - k}" stroke="${GOLD}" stroke-width="2"`);
+      break;
+    case "dome": {
+      const cx = x + w / 2, cy = y + h / 2, r = Math.min(w, h) / 2;
+      s += C(cx, cy, r, "#f1f1ec", `stroke="#c9c9c2" stroke-width="1"`);
+      for (let k = 1; k <= 4; k++) s += C(cx, cy, r * k / 4.6, "none", `stroke="#d6d6cf" stroke-width=".8"`);
+      for (let a = 0; a < 12; a++) { const an = a * Math.PI / 6; s += `<path d="M${f(cx + Math.cos(an) * r * 0.22)} ${f(cy + Math.sin(an) * r * 0.22)} L${f(cx + Math.cos(an) * r * 0.96)} ${f(cy + Math.sin(an) * r * 0.96)}" stroke="#dcdcd5" stroke-width=".8"/>`; }
+      s += C(cx - r * 0.35, cy - r * 0.38, r * 0.18, "rgba(255,255,255,.7)");
+      break;
+    }
+    case "usonic": {
+      const cx = x + w / 2, cy = y + h / 2, r = Math.min(w, h) / 2;
+      s += C(cx, cy, r, SIL, `stroke="#7c838a" stroke-width="1"`) + C(cx, cy, r * 0.8, "url(#pMesh)", `stroke="#5c6168" stroke-width=".8"`);
+      if (lb) s += lbl(cx - 6, cy - 6, 12, 12, lb, "#f2f2f2", 9);
+      break;
+    }
+    case "dht":
+      s += R(x, y, w, h, "#3a7bd6", `rx="3" stroke="#1f4c96" stroke-width="1"`);
+      for (let j = 0; j < 5; j++) for (let i = 0; i < 3; i++) s += R(x + w * 0.14 + i * w * 0.26, y + h * 0.08 + j * h * 0.15, w * 0.18, h * 0.09, "#1f4c96", `rx="1"`);
+      s += lbl(x, y + h * 0.82, w, h * 0.16, lb, "#ffffff", 6);
+      break;
+    case "probe": {
+      const pw = w * 0.32, tipY = y + h;
+      s += R(x, y, w, h * 0.16, o.col || "#1f55b5", `rx="2"`);
+      [x, x + w - pw].forEach(px => {
+        s += `<path d="M${f(px)} ${f(y + h * 0.1)} H${f(px + pw)} V${f(tipY - 10)} L${f(px + pw / 2)} ${f(tipY)} L${f(px)} ${f(tipY - 10)} Z" fill="${o.col || "#1f55b5"}"/>`;
+        s += R(px + pw * 0.3, y + h * 0.16, pw * 0.4, h * 0.72, GOLD, `rx="1"`);
+      });
+      s += R(x + w * 0.3, y + h * 0.04, w * 0.4, 6, GOLD);
+      s += `<line x1="${f(x)}" x2="${f(x + w)}" y1="${f(y + h * 0.3)}" y2="${f(y + h * 0.3)}" stroke="#fff" stroke-dasharray="3 2" stroke-width=".8" opacity=".7"/>`;
+      break;
+    }
+    case "subpcb":
+      s += R(x, y, w, h, o.col || "#2a8a4a", `rx="1.5" stroke="#1a5a30" stroke-width=".8"`);
+      for (let i = 0; i < Math.floor(w / 7); i++) s += R(x + 3 + i * 7, y + 1, 3, 3, GOLD) + R(x + 3 + i * 7, y + h - 4, 3, 3, GOLD);
+      s += drawComp({ t: "chip", x: x + w * 0.32, y: y + h * 0.28, w: w * 0.3, h: h * 0.44, lb, o: { pins: "q" } });
+      s += drawComp({ t: "chip", x: x + w * 0.72, y: y + h * 0.36, w: w * 0.16, h: h * 0.28, lb: "", o: { pins: "tb" } });
+      break;
+    default:
+      s += R(x, y, w, h, "#333");
+  }
+  return s;
+}
+
+/* through-hole solder joints seen from the back */
+function backSolder(c) {
+  let s = "";
+  if (["header", "pads", "jhdr"].includes(c.t)) {
+    hdrPins(c).forEach(([cx, cy, p]) => { s += C(cx, cy, p * 0.36, GOLD) + C(cx, cy, p * 0.24, "url(#gSolder)"); });
+  } else if (["usbb", "jack", "relay", "term", "cap", "usba", "eth", "to220", "usonic", "audio", "heatsink", "dht", "dome"].includes(c.t)) {
+    const k = 5, pts = [[c.x + k, c.y + k], [c.x + c.w - k, c.y + k], [c.x + k, c.y + c.h - k], [c.x + c.w - k, c.y + c.h - k]];
+    pts.forEach(([a, b]) => { s += C(a, b, 3.4, GOLD) + C(a, b, 2.3, "url(#gSolder)"); });
+  } else if (c.t === "crystal" && !c.o.smd) {
+    s += C(c.x + c.w * 0.3, c.y + c.h / 2, 2.6, GOLD) + C(c.x + c.w * 0.7, c.y + c.h / 2, 2.6, GOLD);
+  } else if (c.t === "chip" && c.o.dip) {
+    hdrPins({ x: c.x + 5, y: c.y - 5, o: { n: Math.floor(c.w / 10), p: 10 } }).forEach(([a, b]) => { s += C(a, b, 2.6, GOLD) + C(a, b + c.h + 10, 2.6, GOLD); });
+  }
+  return s;
+}
+
+function hash(str) { let h = 2166136261; for (const ch of str) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; }
+function rng(seed) { let s = seed || 1; return () => { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296; }; }
+
+function traces(b) {
+  const r = rng(hash(b.id)), W = b.W, H = b.bh || b.H;
+  let s = "";
+  const n = Math.round(Math.min(26, 6 + (W * H) / 3200));
+  for (let i = 0; i < n; i++) {
+    let x = 8 + r() * (W - 16), y = 8 + r() * (H - 16);
+    let d = `M${f(x)} ${f(y)}`;
+    for (let k = 0; k < 3; k++) {
+      const len = 8 + r() * 42, dir = Math.floor(r() * 6);
+      if (dir === 0) x += len; else if (dir === 1) x -= len; else if (dir === 2) y += len; else if (dir === 3) y -= len;
+      else if (dir === 4) { x += len * 0.7; y += len * 0.7; } else { x += len * 0.7; y -= len * 0.7; }
+      x = Math.max(6, Math.min(W - 6, x)); y = Math.max(6, Math.min(H - 6, y));
+      d += ` L${f(x)} ${f(y)}`;
+    }
+    s += `<path d="${d}" class="tr"/>` + C(x, y, 1.8, "none", `class="via"`);
+  }
+  return s;
+}
+
+function normBoard(b) {
+  if (b.cs) return b;
+  b.cs = b.c.map((a, i) => {
+    const o = a[9] || {};
+    let w = a[4], h = a[5];
+    if (["header", "pads", "jhdr"].includes(a[1]) && !w) {
+      const p = o.p || 10, n = o.n || 1, r = o.r || 1;
+      if (o.o === "v") { w = r * p; h = n * p; } else { w = n * p; h = r * p; }
+    }
+    return { i, p: a[0], t: a[1], x: a[2], y: a[3], w, h, lb: a[6] || "", ne: a[7] || "", nt: a[8] || "", o, back: !!o.b };
+  });
+  return b;
+}
+
+const PAD = 16;
+function boardSVG(b, side, inter) {
+  normBoard(b);
+  const W = b.W, H = b.H, bh = b.bh || H, back = side === "back";
+  let s = `<svg viewBox="${-PAD} ${-PAD} ${W + PAD * 2} ${H + PAD * 2}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${esc(b.n)} ${back ? "back" : "front"}">`;
+  s += R(0, 0, W, bh, b.col, `rx="6" stroke="rgba(0,0,0,.35)" stroke-width="1.4"`);
+  if (back) s += R(0, 0, W, bh, "rgba(0,0,0,.2)", `rx="6"`);
+  s += `<g ${back ? `transform="translate(${W} 0) scale(-1 1)"` : ""}>` + traces(b) + `</g>`;
+  (b.holes || []).forEach(([hx, hy]) => {
+    const X = back ? W - hx : hx;
+    s += C(X, hy, 6.4, GOLD) + C(X, hy, 3.8, "#000", `class="holein"`);
+  });
+  if (!back) (b.silk || []).forEach(([sx, sy, txt, sz]) => { s += `<text x="${sx}" y="${sy}" font-size="${sz || 7}" class="silk" text-anchor="middle">${esc(txt)}</text>`; });
+  if (back) {
+    s += `<g transform="translate(${W} 0) scale(-1 1)">` + b.cs.filter(c => !c.back).map(backSolder).join("") + `</g>`;
+    s += `<text x="${W / 2}" y="${bh - 8}" font-size="7" class="silk" text-anchor="middle">BACK SIDE</text>`;
+  }
+  b.cs.forEach(c => {
+    if (c.back !== back) return;
+    const art = drawComp(c);
+    if (!inter) { s += art; return; }
+    const m = 3;
+    s += `<g class="hs" data-i="${c.i}" tabindex="-1">${art}<rect class="hl" x="${f(c.x - m)}" y="${f(c.y - m)}" width="${f(c.w + m * 2)}" height="${f(c.h + m * 2)}" rx="3"/><g class="mk"><circle cx="${f(c.x - 1)}" cy="${f(c.y - 1)}" r="6.4"/><text x="${f(c.x - 1)}" y="${f(c.y - 0.6)}">${c.i + 1}</text></g></g>`;
+  });
+  return s + `</svg>`;
+}
+
+/* icon for the Parts library */
+const ICON = {
+  chip: [34, 34, { pins: "q" }, "IC"], shield: [58, 44, {}, "MODULE"], antenna: [64, 26, {}], usbb: [44, 36, {}], usbmicro: [34, 24, {}],
+  usbc: [34, 24, {}], usba: [54, 36, { col: "#2a62d6" }], eth: [54, 46, {}], hdmi: [36, 22, {}], jack: [50, 32, {}], audio: [30, 34, { e: "b" }],
+  header: [60, 10, { n: 6 }], pads: [60, 10, { n: 6 }], jhdr: [30, 20, { n: 3, r: 2 }], crystal: [38, 14, {}, "16.000"], button: [26, 26, {}],
+  led: [16, 9, { col: "#ff3b30" }], leds: [12, 26, { n: 2 }], smd: [26, 10, {}, "103"], cap: [32, 32, {}], reg: [32, 28, {}, "1117"],
+  to220: [32, 44, {}, "78M05"], relay: [64, 46, {}, "5V RELAY"], term: [54, 24, { n: 3 }], heatsink: [58, 40, {}], pot: [26, 26, {}],
+  inductor: [34, 34, {}, "330"], diode: [30, 12, { smd: 1 }], sot: [16, 10, {}], jumper: [18, 10, {}], ufl: [14, 14, {}], sd: [52, 42, {}],
+  cam: [40, 40, {}], fpc: [56, 12, {}], sim: [54, 42, {}], coil: [70, 50, {}], dome: [52, 52, {}], usonic: [48, 48, {}, "T"], dht: [36, 50, {}, "DHT"],
+  display: [72, 46, {}], probe: [44, 62, {}], subpcb: [64, 40, { col: "#2a8a4a" }, "BT"], flashled: [24, 24, {}]
+};
+function partIcon(k) {
+  const p = P[k], spec = ICON[p.i] || [30, 30, {}];
+  let [w, h, o, lb] = spec;
+  o = Object.assign({}, o);
+  if (["header", "pads", "jhdr"].includes(p.i)) { const n = o.n || 1, r = o.r || 1; w = n * 10; h = r * 10; }
+  if (k === "gpio40") { o = { n: 6, r: 2 }; w = 60; h = 20; }
+  const x = (100 - w) / 2, y = (70 - h) / 2;
+  const c = { t: p.i, x, y, w, h, lb: lb || "", o };
+  return `<svg viewBox="0 0 100 70" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="2" y="2" width="96" height="66" rx="6" fill="#1d6a42"/>${drawComp(c)}</svg>`;
+}
+
+if (typeof module !== "undefined") module.exports = { boardSVG, partIcon, normBoard };
+/* ---------- APP / UI ---------- */
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const store = {
+  get(k, d) { try { const v = localStorage.getItem("pcbk-" + k); return v == null ? d : v; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem("pcbk-" + k, v); } catch (e) { } }
+};
+let LANG = store.get("lang", "both");
+const S = { view: "lib", board: null, sel: null, rz: 0, tx: 0, ty: 0, flip: false, zoom: 1, nums: true, tilt: false, cat: "all", q: "" };
+
+const UI = {
+  boards: ["Boards", "போர்டுகள்"], parts: ["Parts", "பாகங்கள்"], basics: ["PCB Basics", "PCB அடிப்படைகள்"],
+  all: ["All", "அனைத்தும்"], back: ["All boards", "அனைத்து போர்டுகள்"],
+  about: ["About this board", "இந்த போர்டு பற்றி"], specs: ["Key specs", "முக்கிய விவரங்கள்"],
+  uses: ["What you can build with it", "இதை வைத்து என்ன செய்யலாம்"], tip: ["Beginner tip", "தொடக்கநிலை குறிப்பு"],
+  points: ["Points on this board", "இந்த போர்டில் உள்ள பகுதிகள்"],
+  what: ["What it is", "இது என்ன"], does: ["What it does", "இது என்ன செய்கிறது"], here: ["On this board", "இந்த போர்டில்"], test: ["Identify & test", "கண்டறிதல் & சோதனை"],
+  tap: ["Tap any numbered point on the board, or pick one from the list below.", "போர்டில் உள்ள எண் குறிகளில் ஏதாவது ஒன்றைத் தொடவும், அல்லது கீழே உள்ள பட்டியலில் இருந்து தேர்வு செய்யவும்."],
+  backSide: ["Back side", "பின்பக்கம்"], front: ["Front", "முன்பக்கம்"],
+  drag: ["Drag the board to spin it in 3D. Flip to see the back.", "போர்டை இழுத்து 3D-இல் சுழற்றலாம். பின்பக்கம் பார்க்க திருப்புங்கள்."],
+  noRes: ["No match. Try ESP32, Arduino, relay, sensor or regulator.", "பொருத்தம் இல்லை. ESP32, Arduino, relay, sensor, regulator என்று முயற்சிக்கவும்."],
+  foundOn: ["Found on", "இவற்றில் உள்ளது"], more: ["More", "மேலும்"],
+  libTitle: ["Board library", "போர்டு நூலகம்"],
+  libSub: ["Pick a board to explore every part on it, with explanations in English and Tamil.", "ஒரு போர்டைத் தேர்வு செய்து அதில் உள்ள ஒவ்வொரு பகுதியையும் ஆங்கிலம், தமிழ் விளக்கத்துடன் அறியுங்கள்."],
+  partsTitle: ["Parts library", "பாகங்கள் நூலகம்"],
+  partsSub: ["Every component that appears on the boards, explained once in detail.", "போர்டுகளில் வரும் ஒவ்வொரு கூறும் விரிவாக விளக்கப்பட்டுள்ளது."],
+  basicsTitle: ["PCB basics", "PCB அடிப்படைகள்"],
+  basicsSub: ["The ideas you need before reading any board.", "எந்த போர்டையும் படிக்கும் முன் தெரிய வேண்டியவை."],
+  layers: ["Layers of a PCB, cut from the side", "PCB-இன் அடுக்குகள், பக்கவாட்டு வெட்டுத் தோற்றம்"]
+};
+const TA_FONT_NOTE = ["Tamil voice depends on your phone or computer having a Tamil (ta-IN) voice installed.", "தமிழ் குரல், உங்கள் போன் அல்லது கணினியில் தமிழ் (ta-IN) voice நிறுவப்பட்டிருப்பதைப் பொறுத்தது."];
+
+/* text helpers */
+const en = o => Array.isArray(o) ? o[0] : o.en;
+const ta = o => Array.isArray(o) ? o[1] : o.ta;
+function tx(o, cls) {
+  const a = esc(en(o)), b = esc(ta(o));
+  if (LANG === "en") return `<span class="t-en ${cls || ""}" lang="en">${a}</span>`;
+  if (LANG === "ta") return `<span class="t-ta ${cls || ""}" lang="ta">${b}</span>`;
+  return `<span class="t-en ${cls || ""}" lang="en">${a}</span><span class="t-ta t-dual ${cls || ""}" lang="ta">${b}</span>`;
+}
+const one = o => LANG === "ta" ? esc(ta(o)) : esc(en(o));
+const findB = id => BOARDS.find(b => b.id === id);
+const partName = (c) => P[c.p] ? P[c.p].n : ["Part", "பாகம்"];
+
+/* ---------- header ---------- */
+function renderChrome() {
+  document.documentElement.lang = LANG === "ta" ? "ta" : "en";
+  $$(".lang button").forEach(b => b.setAttribute("aria-pressed", b.dataset.l === LANG ? "true" : "false"));
+  $$(".nav a").forEach(a => {
+    const v = a.dataset.v; a.innerHTML = one(UI[v]);
+    a.setAttribute("aria-current", (S.view === v || (v === "boards" && (S.view === "lib" || S.view === "board"))) ? "page" : "false");
+  });
+}
+
+/* ---------- search ---------- */
+const norm = s => String(s).toLowerCase().replace(/[\s\-_.‑]/g, "");
+function searchAll(q) {
+  const n = norm(q); if (!n) return [];
+  const out = [];
+  BOARDS.forEach(b => {
+    let sc = 0; const name = norm(b.n);
+    if (name.startsWith(n)) sc = 10; else if (name.includes(n)) sc = 8;
+    else if (b.al.some(a => norm(a).includes(n))) sc = 7;
+    else if (norm(b.chip).includes(n)) sc = 6;
+    else if (norm(CATS[b.cat][0] + CATS[b.cat][1]).includes(n)) sc = 4;
+    else if (b.uses.some(u => norm(u[0] + u[1]).includes(n)) || norm(b.ab[0] + b.ab[1]).includes(n)) sc = 2;
+    if (sc) out.push({ type: "b", id: b.id, sc, label: b.n, sub: b.chip });
+  });
+  Object.values(P).forEach(p => {
+    let sc = 0;
+    if (norm(p.n[0]).includes(n) || norm(p.n[1]).includes(n) || norm(p.k).includes(n)) sc = 5;
+    else if (norm(p.w[0]).includes(n)) sc = 1;
+    if (sc) out.push({ type: "p", id: p.k, sc, label: en(p.n), sub: ta(p.n) });
+  });
+  return out.sort((a, b) => b.sc - a.sc);
+}
+let ddIndex = -1;
+function renderDropdown() {
+  const dd = $("#dd"), q = S.q.trim();
+  if (!q || document.activeElement !== $("#q")) { dd.hidden = true; return; }
+  const res = searchAll(q).slice(0, 9);
+  if (!res.length) { dd.innerHTML = `<div class="dd-empty">${tx(UI.noRes)}</div>`; dd.hidden = false; return; }
+  dd.innerHTML = res.map((r, i) => `<button type="button" class="dd-item${i === ddIndex ? " act" : ""}" data-type="${r.type}" data-id="${r.id}" role="option">
+      <span class="dd-kind">${r.type === "b" ? one(UI.boards).replace(/s$/, "") : one(UI.parts).replace(/s$/, "")}</span>
+      <span class="dd-main">${esc(r.label)}</span><span class="dd-sub">${esc(r.sub)}</span></button>`).join("");
+  dd.hidden = false;
+}
+function openResult(type, id) {
+  S.q = ""; $("#q").value = ""; $("#q").blur(); $("#dd").hidden = true;
+  if (type === "b") go("b-" + id);
+  else { S.openPart = id; go("parts"); }
+}
+
+/* ---------- routing ---------- */
+function go(hash) { if (location.hash.slice(1) === hash) route(); else location.hash = hash; }
+function route() {
+  const h = location.hash.slice(1);
+  if (h.startsWith("b-") && findB(h.slice(2))) {
+    const id = h.slice(2);
+    if (S.board !== id) Object.assign(S, { board: id, sel: null, rz: 0, tx: 0, ty: 0, flip: false, zoom: 1 });
+    S.view = "board"; store.set("last", id);
+  } else if (h === "parts") S.view = "parts";
+  else if (h === "basics") S.view = "basics";
+  else S.view = "lib";
+  render();
+  window.scrollTo(0, 0);
+}
+function render() {
+  renderChrome();
+  ["lib", "board", "parts", "basics"].forEach(v => { $("#v-" + v).hidden = S.view !== v; });
+  if (S.view === "lib") renderLib();
+  if (S.view === "board") renderBoard();
+  if (S.view === "parts") renderParts();
+  if (S.view === "basics") renderBasics();
+}
+
+/* ---------- library ---------- */
+function renderLib() {
+  const q = S.q.trim();
+  const hits = q ? new Set(searchAll(q).filter(r => r.type === "b").map(r => r.id)) : null;
+  const list = BOARDS.filter(b => (S.cat === "all" || b.cat === S.cat) && (!hits || hits.has(b.id)));
+  const cats = ["all", ...Object.keys(CATS)];
+  $("#v-lib").innerHTML = `
+    <div class="pagehead"><h1>${tx(UI.libTitle)}</h1><p class="lede">${tx(UI.libSub)}</p></div>
+    <div class="chips" role="tablist">${cats.map(c => {
+      const cnt = c === "all" ? BOARDS.length : BOARDS.filter(b => b.cat === c).length;
+      return `<button type="button" class="chip" data-cat="${c}" aria-pressed="${S.cat === c}">${one(c === "all" ? UI.all : CATS[c])}<span class="cnt">${cnt}</span></button>`;
+    }).join("")}</div>
+    ${list.length ? `<div class="grid">${list.map(b => `
+      <a class="card" href="#b-${b.id}">
+        <div class="thumb">${boardSVG(b, "front", false)}</div>
+        <div class="card-b">
+          <p class="eyebrow">${one(CATS[b.cat])}</p>
+          <h3>${esc(b.n)}</h3>
+          <p class="meta"><code>${esc(b.chip)}</code> · ${esc(b.volt)}</p>
+          <p class="card-use">${tx(b.uses[0])}</p>
+          <p class="pts">${b.c.length} ${LANG === "ta" ? "பகுதிகள்" : "points"}</p>
+        </div>
+      </a>`).join("")}</div>` : `<p class="empty">${tx(UI.noRes)}</p>`}`;
+}
+
+/* ---------- board view ---------- */
+function renderBoard() {
+  const b = normBoard(findB(S.board));
+  const pts = b.cs;
+  $("#v-board").innerHTML = `
+    <div class="bhead">
+      <a class="backlink" href="#">← ${one(UI.back)}</a>
+      <p class="eyebrow">${one(CATS[b.cat])}</p>
+      <h1>${esc(b.n)}</h1>
+      <p class="meta"><code>${esc(b.chip)}</code> · ${esc(b.volt)} · ${pts.length} ${LANG === "ta" ? "பகுதிகள்" : "points"}</p>
+    </div>
+    <div class="bv">
+      <div class="colA">
+        <div class="stagebox">
+          <div class="stage" id="stage" aria-label="${esc(b.n)} interactive board">
+            <div class="b3d" id="b3d">
+              <div class="face front">${boardSVG(b, "front", true)}</div>
+              <div class="face back">${boardSVG(b, "back", true)}</div>
+            </div>
+            <div class="sidetag" id="sidetag"></div>
+            <div class="scalebar" id="scalebar"><span></span><b>10 mm</b></div>
+            <div class="angle" id="angle"></div>
+          </div>
+          <div class="ctrls">
+            <div class="crow">
+              <button type="button" class="cb" data-act="rl" title="Rotate left 90°" aria-label="Rotate left">⟲</button>
+              <input type="range" id="rot" min="0" max="359" step="1" value="${S.rz}" aria-label="Rotate">
+              <button type="button" class="cb" data-act="rr" title="Rotate right 90°" aria-label="Rotate right">⟳</button>
+            </div>
+            <div class="crow wrap">
+              <button type="button" class="cb wide" data-act="flip" aria-pressed="${S.flip}">⇋ ${LANG === "ta" ? "திருப்பு" : "Flip"}</button>
+              <button type="button" class="cb wide" data-act="tilt" aria-pressed="${S.tilt}">◩ 3D</button>
+              <button type="button" class="cb" data-act="zo" aria-label="Zoom out">−</button>
+              <button type="button" class="cb" data-act="zi" aria-label="Zoom in">+</button>
+              <button type="button" class="cb wide" data-act="nums" aria-pressed="${S.nums}"># ${LANG === "ta" ? "எண்கள்" : "Numbers"}</button>
+              <button type="button" class="cb wide" data-act="reset">↺ ${LANG === "ta" ? "மீட்டமை" : "Reset"}</button>
+            </div>
+            <p class="hint">${tx(UI.drag)}</p>
+          </div>
+        </div>
+        <section class="points">
+          <h2 class="sec">${tx(UI.points)}</h2>
+          <ol class="plist">${pts.map(c => `<li><button type="button" class="pbtn" data-i="${c.i}">
+             <span class="pn">${c.i + 1}</span>
+             <span class="pt">${tx(partName(c))}${c.lb ? `<code>${esc(c.lb.replace(/\|/g, " "))}</code>` : ""}</span>
+             ${c.back ? `<span class="bk">${one(UI.backSide)}</span>` : ""}</button></li>`).join("")}</ol>
+        </section>
+      </div>
+      <div class="colB">
+        <section class="detail" id="detail" aria-live="polite"></section>
+        <section class="over">
+          <h2 class="sec">${tx(UI.about)}</h2>
+          <p class="prose">${tx(b.ab)}</p>
+          <h2 class="sec">${tx(UI.specs)}</h2>
+          <table class="specs"><tbody>${b.sp.map(([k, v]) => `<tr><th>${tx(SK[k] || [k, k])}</th><td>${esc(v)}</td></tr>`).join("")}</tbody></table>
+          <h2 class="sec">${tx(UI.uses)}</h2>
+          <ul class="uses">${b.uses.map(u => `<li>${tx(u)}</li>`).join("")}</ul>
+          <div class="tipbox"><h3>${tx(UI.tip)}</h3><p>${tx(b.tip)}</p></div>
+        </section>
+      </div>
+    </div>`;
+  $("#b3d").classList.toggle("nonum", !S.nums);
+  bindStage();
+  renderDetail();
+  applyT(true);
+}
+
+function visibleBack() { const a = (((S.ty + (S.flip ? 180 : 0)) % 360) + 360) % 360; return a > 90 && a < 270; }
+
+let fitScale = 1;
+function applyT(instant) {
+  const b = findB(S.board), st = $("#stage"), el = $("#b3d"); if (!st || !el) return;
+  const VW = b.W + PAD * 2, VH = b.H + PAD * 2, a = S.rz * Math.PI / 180;
+  const fw = Math.abs(VW * Math.cos(a)) + Math.abs(VH * Math.sin(a)), fh = Math.abs(VW * Math.sin(a)) + Math.abs(VH * Math.cos(a));
+  const sw = st.clientWidth, sh = st.clientHeight;
+  fitScale = Math.min(sw * 0.92 / fw, sh * 0.86 / fh);
+  const w = VW * fitScale, h = VH * fitScale;
+  if (instant) el.classList.add("noanim");
+  el.style.width = w + "px"; el.style.height = h + "px";
+  el.style.left = (sw - w) / 2 + "px"; el.style.top = (sh - h) / 2 + "px";
+  const tiltX = S.tilt ? 38 : 0;
+  el.style.transform = `rotateX(${S.tx + tiltX}deg) rotateY(${S.ty + (S.flip ? 180 : 0)}deg) rotateZ(${S.rz}deg) scale(${S.zoom})`;
+  if (instant) { void el.offsetWidth; el.classList.remove("noanim"); }
+  $("#sidetag").innerHTML = one(visibleBack() ? UI.backSide : UI.front);
+  const bar = $("#scalebar span"); if (bar) bar.style.width = (40 * fitScale * S.zoom) + "px";
+  $("#angle").textContent = `${Math.round(S.rz)}°`;
+  const r = $("#rot"); if (r) r.value = Math.round(S.rz);
+  $$(".cb[data-act=flip]").forEach(x => x.setAttribute("aria-pressed", S.flip));
+  $$(".cb[data-act=tilt]").forEach(x => x.setAttribute("aria-pressed", S.tilt));
+}
+
+let drag = null, suppress = false;
+function bindStage() {
+  const st = $("#stage");
+  st.addEventListener("pointerdown", e => {
+    if (e.button !== undefined && e.button !== 0) return;
+    drag = { x: e.clientX, y: e.clientY, tx: S.tx, ty: S.ty, id: e.pointerId, moved: false };
+  });
+  st.addEventListener("pointermove", e => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    if (!drag.moved && Math.hypot(dx, dy) > 6) {
+      drag.moved = true; $("#b3d").classList.add("noanim"); st.classList.add("dragging");
+      try { st.setPointerCapture(e.pointerId); } catch (_) { }
+    }
+    if (drag.moved) {
+      S.ty = drag.ty + dx * 0.5;
+      if (e.pointerType === "mouse") S.tx = Math.max(-70, Math.min(70, drag.tx - dy * 0.4));
+      applyT(false);
+    }
+  });
+  const end = e => {
+    if (!drag) return;
+    if (drag.moved) { suppress = true; setTimeout(() => { suppress = false; }, 50); $("#b3d").classList.remove("noanim"); st.classList.remove("dragging"); }
+    drag = null;
+  };
+  st.addEventListener("pointerup", end);
+  st.addEventListener("pointercancel", end);
+  st.addEventListener("click", e => {
+    if (suppress) return;
+    const g = e.target.closest(".hs"); if (g) select(+g.dataset.i, false);
+  });
+}
+
+function select(i, fromList) {
+  const b = findB(S.board); if (!b) return;
+  const c = b.cs[i];
+  S.sel = i;
+  if (c.back !== visibleBack()) S.flip = !S.flip;
+  applyT(false);
+  $$(".hs").forEach(g => g.classList.toggle("on", +g.dataset.i === i));
+  $$(".pbtn").forEach(x => x.setAttribute("aria-current", +x.dataset.i === i ? "true" : "false"));
+  renderDetail();
+  const d = $("#detail");
+  if (d) {
+    const r = d.getBoundingClientRect();
+    const target = fromList ? $("#stage") : d;
+    const tr = target.getBoundingClientRect();
+    if (tr.top < 0 || tr.bottom > window.innerHeight) target.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: fromList ? "start" : "nearest" });
+  }
+}
+
+function renderDetail() {
+  const d = $("#detail"), b = findB(S.board); if (!d) return;
+  if (S.sel == null) {
+    d.innerHTML = `<div class="d-empty"><span class="d-ico">☝</span><p>${tx(UI.tap)}</p></div>`;
+    return;
+  }
+  const c = b.cs[S.sel], p = P[c.p], n = b.cs.length;
+  const row = (k, val) => val ? `<div class="drow"><h3>${tx(UI[k])}</h3><p>${tx(val)}</p></div>` : "";
+  d.innerHTML = `
+    <div class="d-top">
+      <span class="d-num">${S.sel + 1}</span>
+      <div class="d-title"><h2>${tx(p.n)}</h2>
+        <p>${c.lb ? `<code>${esc(c.lb.replace(/\|/g, " "))}</code>` : ""}${c.back ? `<span class="bk">${one(UI.backSide)}</span>` : ""}</p></div>
+      <div class="d-icon">${partIcon(c.p)}</div>
+    </div>
+    ${c.ne ? row("here", [c.ne, c.nt]) : ""}
+    ${row("what", p.w)}${row("does", p.d)}${row("test", p.t)}
+    <div class="d-nav">
+      <button type="button" class="cb wide" data-nav="-1">← ${LANG === "ta" ? "முந்தைய" : "Previous"}</button>
+      <span class="d-count">${S.sel + 1} / ${n}</span>
+      <button type="button" class="cb wide" data-nav="1">${LANG === "ta" ? "அடுத்தது" : "Next"} →</button>
+      ${"speechSynthesis" in window ? `<button type="button" class="cb wide listen" data-act="speak" title="${esc(en(TA_FONT_NOTE))}">🔊 ${LANG === "ta" ? "கேளுங்கள்" : "Listen"}</button>` : ""}
+    </div>`;
+}
+
+/* ---------- speech ---------- */
+function speak() {
+  try {
+    const synth = window.speechSynthesis; if (!synth) return;
+    if (synth.speaking) { synth.cancel(); return; }
+    const b = findB(S.board), c = b.cs[S.sel], p = P[c.p];
+    const parts = [];
+    const add = (o) => { if (LANG !== "ta") parts.push([en(o), "en-IN"]); if (LANG !== "en") parts.push([ta(o), "ta-IN"]); };
+    [p.n, c.ne ? [c.ne, c.nt] : null, p.w, p.d, p.t].forEach(o => { if (o) add(o); });
+    const voices = synth.getVoices();
+    parts.forEach(([text, lang]) => {
+      const u = new SpeechSynthesisUtterance(text); u.lang = lang; u.rate = 0.95;
+      const v = voices.find(v => v.lang && v.lang.toLowerCase().replace("_", "-").startsWith(lang.slice(0, 2).toLowerCase()));
+      if (v) u.voice = v;
+      synth.speak(u);
+    });
+  } catch (e) { }
+}
+
+/* ---------- parts view ---------- */
+function renderParts() {
+  const q = norm(S.q.trim());
+  const usedOn = {};
+  BOARDS.forEach(b => b.c.forEach(a => { (usedOn[a[0]] = usedOn[a[0]] || new Set()).add(b.id); }));
+  const list = Object.values(P).filter(p => !q || norm(p.n[0] + p.n[1] + p.k + p.w[0]).includes(q)).sort((a, b) => en(a.n).localeCompare(en(b.n)));
+  $("#v-parts").innerHTML = `
+    <div class="pagehead"><h1>${tx(UI.partsTitle)}</h1><p class="lede">${tx(UI.partsSub)}</p></div>
+    ${list.length ? `<div class="pgrid">${list.map(p => {
+      const on = [...(usedOn[p.k] || [])];
+      return `<details class="pcard" id="p-${p.k}"${S.openPart === p.k ? " open" : ""}>
+        <summary><div class="picon">${partIcon(p.k)}</div><div class="pc-t"><h3>${tx(p.n)}</h3><p>${tx(p.w)}</p></div></summary>
+        <div class="pc-more">
+          <div class="drow"><h3>${tx(UI.does)}</h3><p>${tx(p.d)}</p></div>
+          <div class="drow"><h3>${tx(UI.test)}</h3><p>${tx(p.t)}</p></div>
+          ${on.length ? `<div class="drow"><h3>${tx(UI.foundOn)}</h3><p class="links">${on.map(id => `<a href="#b-${id}">${esc(findB(id).n)}</a>`).join("")}</p></div>` : ""}
+        </div></details>`;
+    }).join("")}</div>` : `<p class="empty">${tx(UI.noRes)}</p>`}`;
+  if (S.openPart) {
+    const el = $("#p-" + S.openPart);
+    if (el) setTimeout(() => el.scrollIntoView({ block: "center" }), 30);
+    S.openPart = null;
+  }
+}
+
+/* ---------- basics view ---------- */
+function layerSVG() {
+  const L = [["Silkscreen", "சில்க்ஸ்கிரீன்", "var(--silk-l)", 6], ["Solder mask", "சோல்டர் மாஸ்க்", "#1f7a46", 10], ["Copper", "செம்பு", "#c27a3c", 8], ["FR-4 core", "FR-4 உள்ளகம்", "#d8c58f", 34], ["Copper", "செம்பு", "#c27a3c", 8], ["Solder mask", "சோல்டர் மாஸ்க்", "#1f7a46", 10]];
+  let y = 10, s = "";
+  L.forEach(([a, b, col, h]) => {
+    s += `<rect x="10" y="${y}" width="260" height="${h}" fill="${col}" ${col.startsWith("var") ? 'class="silklayer"' : ""}/>`;
+    s += `<line x1="272" x2="292" y1="${y + h / 2}" y2="${y + h / 2}" class="ln"/><text x="298" y="${y + h / 2}" class="lt" dominant-baseline="central">${LANG === "ta" ? b : a}${LANG === "both" ? " · " + b : ""}</text>`;
+    y += h + 2;
+  });
+  s += `<rect x="120" y="16" width="16" height="74" fill="#c27a3c" opacity=".9"/><text x="128" y="104" class="lt" text-anchor="middle">via</text>`;
+  s += `<rect x="40" y="2" width="40" height="12" rx="1" fill="#17181b"/><text x="60" y="-2" class="lt" text-anchor="middle">SMD</text>`;
+  return `<svg viewBox="0 -14 480 124" class="layers" role="img" aria-label="PCB layer stack"><g>${s}</g></svg>`;
+}
+function renderBasics() {
+  $("#v-basics").innerHTML = `
+    <div class="pagehead"><h1>${tx(UI.basicsTitle)}</h1><p class="lede">${tx(UI.basicsSub)}</p></div>
+    <figure class="layerfig"><div class="scrollx">${layerSVG()}</div><figcaption>${tx(UI.layers)}</figcaption></figure>
+    <div class="bgrid">${BASICS.map((t, i) => `<article class="bcard"><span class="bn">${String(i + 1).padStart(2, "0")}</span><h3>${tx([t[0], t[1]])}</h3><p>${tx([t[2], t[3]])}</p></article>`).join("")}</div>`;
+}
+
+/* ---------- events ---------- */
+document.addEventListener("click", e => {
+  const lb = e.target.closest(".lang button");
+  if (lb) { LANG = lb.dataset.l; store.set("lang", LANG); render(); return; }
+  const chip = e.target.closest(".chip[data-cat]");
+  if (chip) { S.cat = chip.dataset.cat; renderLib(); return; }
+  const dd = e.target.closest(".dd-item");
+  if (dd) { openResult(dd.dataset.type, dd.dataset.id); return; }
+  const pb = e.target.closest(".pbtn");
+  if (pb) { select(+pb.dataset.i, true); return; }
+  const nav = e.target.closest("[data-nav]");
+  if (nav) { const b = findB(S.board), n = b.c.length; select(((S.sel ?? -1) + +nav.dataset.nav + n) % n, false); return; }
+  const cb = e.target.closest(".cb[data-act]");
+  if (cb) {
+    const a = cb.dataset.act;
+    if (a === "rl") S.rz = (Math.round(S.rz / 90) * 90 - 90 + 360) % 360;
+    if (a === "rr") S.rz = (Math.round(S.rz / 90) * 90 + 90) % 360;
+    if (a === "flip") S.flip = !S.flip;
+    if (a === "tilt") S.tilt = !S.tilt;
+    if (a === "zi") S.zoom = Math.min(2.4, +(S.zoom + 0.2).toFixed(2));
+    if (a === "zo") S.zoom = Math.max(0.6, +(S.zoom - 0.2).toFixed(2));
+    if (a === "nums") { S.nums = !S.nums; cb.setAttribute("aria-pressed", S.nums); $("#b3d").classList.toggle("nonum", !S.nums); return; }
+    if (a === "reset") Object.assign(S, { rz: 0, tx: 0, ty: 0, flip: false, zoom: 1, tilt: false });
+    if (a === "speak") { speak(); return; }
+    applyT(false);
+  }
+});
+document.addEventListener("input", e => {
+  if (e.target.id === "rot") { S.rz = +e.target.value; applyT(false); }
+  if (e.target.id === "q") {
+    S.q = e.target.value; ddIndex = -1; renderDropdown();
+    if (S.view === "lib") renderLib();
+    if (S.view === "parts") renderParts();
+  }
+});
+document.addEventListener("keydown", e => {
+  if (e.target.id === "q") {
+    const items = $$(".dd-item");
+    if (e.key === "ArrowDown") { ddIndex = Math.min(items.length - 1, ddIndex + 1); renderDropdown(); e.preventDefault(); }
+    else if (e.key === "ArrowUp") { ddIndex = Math.max(0, ddIndex - 1); renderDropdown(); e.preventDefault(); }
+    else if (e.key === "Enter") {
+      const res = searchAll(S.q.trim()); const r = res[Math.max(0, ddIndex)];
+      if (r) openResult(r.type, r.id); e.preventDefault();
+    } else if (e.key === "Escape") { $("#dd").hidden = true; e.target.blur(); }
+    return;
+  }
+  if (S.view === "board" && !e.target.closest("input,textarea")) {
+    if (e.key === "ArrowRight" && e.altKey === false && e.target.tagName !== "INPUT") { if (S.sel != null || e.shiftKey) { const n = findB(S.board).c.length; select(((S.sel ?? -1) + 1) % n, false); } }
+    if (e.key === "ArrowLeft" && e.target.tagName !== "INPUT") { if (S.sel != null) { const n = findB(S.board).c.length; select((S.sel - 1 + n) % n, false); } }
+  }
+});
+$("#q").addEventListener("focus", renderDropdown);
+$("#dd").addEventListener("mousedown", e => e.preventDefault());
+$("#q").addEventListener("blur", () => setTimeout(() => { $("#dd").hidden = true; }, 180));
+$("#searchform").addEventListener("submit", e => e.preventDefault());
+window.addEventListener("hashchange", route);
+let rzT; window.addEventListener("resize", () => { clearTimeout(rzT); rzT = setTimeout(() => { if (S.view === "board") applyT(true); }, 80); });
+
+route();
+</script>
+</body></html>
