@@ -9,7 +9,7 @@ Interactive PCB learning app. Every board is drawn as a digital diagram you can 
 - Search box for boards and parts
 - Parts library (84 components) and PCB basics
 - Language switch: English, Tamil, or both, plus read-aloud
-- My Workshop: your own boards with photos, stock count, location, price and project (PIN-protected editing)
+- My Workshop: step-by-step wiring guides (pins, jumper wire type, diagram, code) and your own boards with photos, stock count, location, price and project (PIN-protected editing)
 
 ## Run
 ```

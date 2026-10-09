@@ -303,6 +303,71 @@ main{max-width:1280px;margin:0 auto;padding-block:22px 60px;padding-inline:16px}
 @keyframes shine{to{background-position:-250% 0}}
 @keyframes twinkle{0%,100%{opacity:.35;transform:scale(.7) rotate(0deg)}50%{opacity:1;transform:scale(1.15) rotate(25deg)}}
 @media (prefers-reduced-motion:reduce){.powered b,.spark{animation:none}.spark{opacity:1}}
+
+/* wiring guides */
+.subtabs{display:flex;gap:6px;margin:-4px 0 18px;border-bottom:1px solid var(--line)}
+.subtabs a{text-decoration:none;color:var(--muted);font-weight:600;padding:8px 14px;border-bottom:3px solid transparent;margin-bottom:-1px}
+.subtabs a[aria-selected="true"]{color:var(--fg);border-bottom-color:var(--accent)}
+.ws-lede{margin:0 0 16px;max-width:70ch}
+.wkinds{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-bottom:18px}
+.wk-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:6px}
+.wk-row>div{display:flex;flex-direction:column;gap:3px;background:var(--bg);border-radius:8px;padding:10px}
+.wk-row svg{width:120px;height:30px}
+.wk-row span{font-size:.84rem;color:var(--muted)}
+.wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.wcard{display:flex;flex-direction:column;text-decoration:none;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.wcard:hover{border-color:var(--accent)}
+.wthumb{background:var(--stage);background-image:linear-gradient(var(--mat-line) 1px,transparent 1px),linear-gradient(90deg,var(--mat-line) 1px,transparent 1px);background-size:16px 16px;padding:8px}
+.wcard h3{font-family:var(--f-display);font-size:1.05rem}
+.wcard h3 .t-dual{font-size:.85em}
+.wdiag{display:block;width:100%;height:auto}
+.wdiag .wbname{fill:var(--fg);font-family:var(--f-display);font-weight:600;font-size:13px}
+.wdiag .wcase{fill:none;stroke:rgba(0,0,0,.55);stroke-width:7;stroke-linecap:round}
+.wdiag .wcore{fill:none;stroke-width:4.4;stroke-linecap:round}
+.wdiag .wire.done{opacity:.55}
+.wdiag .wire.now .wcase{stroke-width:9}
+.wdiag .wire.now .wcore{stroke-width:5.4}
+.wdiag .wflow{fill:none;stroke:#fff;stroke-width:2;stroke-dasharray:3 10;stroke-linecap:round;opacity:.85;animation:flow .8s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-13}}
+.wdiag .wtag text{fill:var(--fg);font-family:var(--f-mono);font-weight:700;font-size:12px}
+.wdiag .wext rect{fill:var(--surface);stroke:var(--muted);stroke-dasharray:4 3}
+.wdiag .wext text{fill:var(--fg);font-size:11px;font-weight:600;font-family:var(--f-body)}
+.gtitle{font-family:var(--f-display);font-size:1.5rem;margin:6px 0 6px}
+.gtitle .t-dual{font-size:.7em}
+.gv{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:18px;align-items:start;margin-top:12px}
+@media (max-width:900px){.gv{grid-template-columns:minmax(0,1fr)}}
+.gdiag{background:var(--stage);background-image:linear-gradient(var(--mat-line) 1px,transparent 1px),linear-gradient(90deg,var(--mat-line) 1px,transparent 1px),linear-gradient(var(--mat-line2) 1px,transparent 1px),linear-gradient(90deg,var(--mat-line2) 1px,transparent 1px);background-size:20px 20px,20px 20px,100px 100px,100px 100px;border-radius:var(--r);padding:12px}
+.gdiag .scrollx .wdiag{min-width:560px}
+.wprog{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.wdot{width:32px;height:32px;border-radius:50%;border:2px solid var(--wc,var(--muted));background:var(--surface);color:var(--fg);font-family:var(--f-mono);font-weight:700;font-size:.8rem;cursor:pointer}
+.wdot.done{background:var(--wc);color:#fff;opacity:.75}
+.wdot.on{background:var(--wc,var(--fg));color:#fff;box-shadow:0 0 0 3px var(--surface),0 0 0 5px var(--wc,var(--fg))}
+.wnav{margin-top:10px}
+.wnav .cb{flex:1}
+.cb[disabled]{opacity:.45;cursor:default}
+.wstep{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:10px}
+.wstep-top{display:flex;align-items:center;gap:10px}
+.wstep-top p{margin:0;font-family:var(--f-mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.wnum{width:38px;height:38px;border-radius:50%;background:var(--wc);color:#fff;font-family:var(--f-mono);font-weight:700;display:flex;align-items:center;justify-content:center;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+.wmain{margin:0;font-size:1.05rem;font-weight:500}
+.wmain .t-dual{font-weight:400}
+.wdl{margin:0;display:flex;flex-direction:column;gap:8px}
+.wdl div{display:grid;grid-template-columns:90px minmax(0,1fr);gap:8px;border-top:1px solid var(--line);padding-top:8px}
+.wdl dt{font-family:var(--f-mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);padding-top:2px}
+.wdl dd{margin:0;font-size:.92rem}
+.wsw{display:inline-block;width:22px;height:8px;border-radius:4px;background:var(--wc);margin-right:6px;vertical-align:middle;box-shadow:0 0 0 1px rgba(0,0,0,.4)}
+.wnote{margin:0;background:var(--accent-soft);border-radius:8px;padding:10px 12px;font-size:.92rem}
+.wnote .t-dual{color:var(--fg);opacity:.86}
+.wwarn{margin:0;font-size:.9rem;background:var(--surface2);border-radius:8px;padding:10px 12px}
+.wwarn .t-dual{color:var(--fg);opacity:.85}
+.wstep.intro .cb{align-self:flex-start}
+.wcode{margin-top:20px}
+.codebox{position:relative;background:#101513;border-radius:var(--r);overflow:hidden}
+.codebox pre{margin:0;padding:16px;overflow-x:auto;color:#d9f2e4;font-family:var(--f-mono);font-size:.84rem;line-height:1.55}
+.codebox code{background:none;padding:0;color:inherit;font-size:inherit}
+.codebox .copy{position:absolute;top:8px;right:8px;height:32px;font-size:.8rem;background:#1f2a25;color:#d9f2e4;border-color:#33433b}
+.glinks a{text-decoration:none;font-weight:500}
+@media (prefers-reduced-motion:reduce){.wdiag .wflow{animation:none}}
 </style>
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
 
@@ -2817,7 +2882,7 @@ function route() {
     S.view = "board"; store.set("last", id);
   } else if (h === "parts") S.view = "parts";
   else if (h === "basics") S.view = "basics";
-  else if (h === "workshop") S.view = "workshop";
+  else if (h === "workshop" || h === "myboards" || h.startsWith("wire-")) S.view = "workshop";
   else S.view = "lib";
   render();
   window.scrollTo(0, 0);
@@ -2829,7 +2894,7 @@ function render() {
   if (S.view === "board") renderBoard();
   if (S.view === "parts") renderParts();
   if (S.view === "basics") renderBasics();
-  if (S.view === "workshop") renderWorkshop();
+  if (S.view === "workshop") renderWorkshopPage();
 }
 
 /* ---------- library ---------- */
@@ -2916,6 +2981,7 @@ function renderBoard() {
           <h2 class="sec">${tx(UI.uses)}</h2>
           <ul class="uses">${b.uses.map(u => `<li>${tx(u)}</li>`).join("")}</ul>
           <div class="tipbox"><h3>${tx(UI.tip)}</h3><p>${tx(b.tip)}</p></div>
+          ${guidesForBoard(b.id).length ? `<h2 class="sec">${tx(UI.guidesWith)}</h2><ul class="uses glinks">${guidesForBoard(b.id).map(g => `<li><a href="#wire-${g.id}">${tx(g.t)}</a></li>`).join("")}</ul>` : ""}
         </section>
       </div>
     </div>`;
@@ -3202,14 +3268,14 @@ function renderMyBoardPanel(b) {
     ${pics.length ? `<div class="mw-main"><img src="${photoURL(pics[0].p)}" alt="${esc(en(UI.yourBoard))}" loading="lazy" data-box="${esc(pics[0].p)}"><span class="mw-tag">${one(UI.yourBoard)}</span></div>
       ${pics.length > 1 ? `<div class="mw-strip">${pics.slice(1, 7).map(x => `<img src="${photoURL(x.p)}" alt="" loading="lazy" data-box="${esc(x.p)}">`).join("")}</div>` : ""}` : ""}
     <ul class="mw-list">${mine.map(i => `<li><b>${esc(i.name || b.n)}</b> · ${i.qty} × <span class="st" style="--st:${ST[i.status][1]}">${one(UI[ST[i.status][0]])}</span>${i.location ? ` · ${esc(i.location)}` : ""}${i.project ? ` · ${esc(i.project)}` : ""}</li>`).join("")}</ul>
-    <a class="mw-link" href="#workshop">${one(UI.openWs)} →</a>`;
+    <a class="mw-link" href="#myboards">${one(UI.openWs)} →</a>`;
 }
 
 /* workshop page */
 function renderWorkshop() {
-  const v = $("#v-workshop");
+  const v = $("#ws-body"); if (!v) return;
   const unlocked = !!WS.pin;
-  const head = `<div class="pagehead ws-head"><div><h1>${tx(UI.wsTitle)}</h1><p class="lede">${tx(UI.wsSub)}</p></div>
+  const head = `<div class="pagehead ws-head"><div><p class="lede">${tx(UI.wsSub)}</p></div>
     ${WS.online ? `<div class="ws-actions">${unlocked
       ? `<button type="button" class="cb wide accent" data-ws="add">＋ ${one(UI.add)}</button><button type="button" class="cb wide" data-ws="lock">🔒 ${one(UI.lock)}</button>`
       : `<button type="button" class="cb wide" data-ws="askpin">🔑 ${one(UI.unlock)}</button>`}</div>` : ""}</div>`;
@@ -3386,6 +3452,440 @@ document.addEventListener("submit", async e => {
   if (e.target.id === "wsform") { e.preventDefault(); if (!WS.busy) saveForm(); }
 });
 document.addEventListener("keydown", e => { if (e.key === "Escape" && $("#lbox") && !$("#lbox").hidden) $("#lbox").hidden = true; });
+
+
+/* ---------- WIRING GUIDES (step-by-step jumper wire lessons) ---------- */
+const WCOL = {
+  red: ["Red", "சிவப்பு", "#e5322d"], black: ["Black", "கருப்பு", "#2a2a2e"], yellow: ["Yellow", "மஞ்சள்", "#f2c418"],
+  green: ["Green", "பச்சை", "#2fae5a"], blue: ["Blue", "நீல", "#2f73e0"], orange: ["Orange", "ஆரஞ்சு", "#f08a24"],
+  purple: ["Purple", "ஊதா", "#9a4fd6"], white: ["White", "வெள்ளை", "#e9e9ee"], brown: ["Brown", "பழுப்பு", "#8a5a2b"]
+};
+const WTYPE = {
+  FF: ["Female–Female (F–F)", "ஃபீமேல்–ஃபீமேல் (F–F)"], LEAD: ["Device wire into screw terminal", "சாதன வயர் ஸ்க்ரூ டெர்மினலில்"], MM: ["Male–Male (M–M)", "மேல்–மேல் (M–M)"], MF: ["Male–Female (M–F)", "மேல்–ஃபீமேல் (M–F)"]
+};
+Object.assign(UI, {
+  wiring: ["Wiring guides", "இணைப்பு வழிகாட்டிகள்"], myboards: ["My boards", "என் போர்டுகள்"],
+  wiringSub: ["Step-by-step lessons that join 2–3 boards with jumper wires. Each step shows the exact pins and which wire to use.", "2–3 போர்டுகளை ஜம்பர் வயர்களால் இணைக்கும் படிப்படியான பாடங்கள். ஒவ்வொரு படியும் சரியான பின்களையும் எந்த வயர் என்பதையும் காட்டும்."],
+  need: ["You will need", "உங்களுக்குத் தேவை"], wires: ["jumper wires", "ஜம்பர் வயர்கள்"],
+  step: ["Step", "படி"], of: ["of", "/"], overview: ["Overview", "மேலோட்டம்"], allWires: ["Show all wires", "எல்லா வயர்களையும் காட்டு"],
+  start: ["Start step 1", "படி 1 தொடங்கு"], from: ["From", "இங்கிருந்து"], to: ["To", "இதற்கு"], wireType: ["Wire type", "வயர் வகை"],
+  code: ["Upload this code", "இந்த code-ஐ upload செய்யுங்கள்"], copy: ["Copy code", "Code நகலெடு"], copied: ["Copied", "நகலெடுக்கப்பட்டது"],
+  done: ["All wires connected. Check every wire against the diagram once more, then plug in USB.", "எல்லா வயர்களும் இணைக்கப்பட்டன. வரைபடத்துடன் ஒவ்வொரு வயரையும் மீண்டும் சரிபார்த்து, பிறகு USB இணையுங்கள்."],
+  before: ["Before you start: unplug USB and all power. Never wire while the board is powered.", "தொடங்கும் முன்: USB, எல்லா மின்சாரத்தையும் துண்டியுங்கள். போர்டுக்கு மின்சாரம் இருக்கும்போது ஒருபோதும் வயர் இணைக்க வேண்டாம்."],
+  wireKinds: ["Which jumper wire?", "எந்த ஜம்பர் வயர்?"],
+  wireRule: ["Look at the pin on the board. Pins that stick out (male) need a female end. Holes / sockets (female, like Arduino Uno) need a male end. Screw terminals take a male end or bare wire.", "போர்டில் உள்ள பின்னைப் பாருங்கள். வெளியே நீட்டியிருக்கும் பின்களுக்கு (male) female முனை தேவை. துளை / சாக்கெட்களுக்கு (female, Arduino Uno போல) male முனை தேவை. ஸ்க்ரூ டெர்மினலுக்கு male முனை அல்லது வெறும் வயர்."],
+  padsNote: ["This board has bare holes: solder a pin header first, then use a female end.", "இந்த போர்டில் வெறும் துளைகள் உள்ளன: முதலில் பின் ஹெடர் சோல்டர் செய்து, பிறகு female முனை பயன்படுத்துங்கள்."],
+  guidesWith: ["Wiring guides with this board", "இந்த போர்டுடன் இணைப்பு வழிகாட்டிகள்"],
+  level: ["Beginner", "தொடக்கநிலை"], backToGuides: ["All wiring guides", "அனைத்து இணைப்பு வழிகாட்டிகள்"]
+});
+
+const GUIDES = [
+{ id: "uno-dht11", t: ["Arduino Uno + DHT11: read temperature", "Arduino Uno + DHT11: வெப்பநிலையைப் படிக்க"],
+  d: ["Your first sensor. Three wires, then the Serial Monitor shows temperature and humidity every 2 seconds.", "உங்கள் முதல் சென்சார். மூன்று வயர்கள்; பிறகு Serial Monitor ஒவ்வொரு 2 விநாடியும் வெப்பநிலை, ஈரப்பதத்தைக் காட்டும்."],
+  W: 720, H: 430, boards: [{ id: "uno", x: 20, y: 50, w: 340 }, { id: "dht11", x: 540, y: 70, w: 140 }],
+  wires: [
+    { a: [0, 15, 4, "5V"], b: [1, 3, 1, "+"], col: "red", n: ["Power for the sensor.", "சென்சாருக்கு மின்சாரம்."] },
+    { a: [0, 15, 5, "GND"], b: [1, 3, 2, "−"], col: "black", n: ["Ground: always connect GND first.", "Ground: எப்போதும் GND-ஐ முதலில் இணையுங்கள்."] },
+    { a: [0, 10, 5, "D2"], b: [1, 3, 0, "S"], col: "yellow", n: ["Data line. D2 is set in the code as DHT(2, DHT11).", "Data வரி. Code-இல் DHT(2, DHT11) என அமைக்கப்பட்டுள்ளது."] }
+  ],
+  lib: "DHT sensor library (Adafruit)",
+  code: `#include <DHT.h>
+DHT dht(2, DHT11);          // data pin D2
+
+void setup() {
+  Serial.begin(9600);
+  dht.begin();
+}
+
+void loop() {
+  float t = dht.readTemperature();
+  float h = dht.readHumidity();
+  Serial.print("Temp: "); Serial.print(t);
+  Serial.print(" C   Humidity: "); Serial.print(h); Serial.println(" %");
+  delay(2000);
+}` },
+
+{ id: "esp32-relay", t: ["ESP32 + Relay: switch a light", "ESP32 + ரிலே: விளக்கை on/off செய்ய"],
+  d: ["Control a relay from an ESP32. Test it with the click sound first; connect a lamp only after it works.", "ESP32 மூலம் ரிலேயைக் கட்டுப்படுத்துங்கள். முதலில் 'கிளிக்' சத்தத்தால் சோதியுங்கள்; வேலை செய்த பிறகே விளக்கை இணையுங்கள்."],
+  W: 800, H: 380, boards: [{ id: "esp32", x: 20, y: 90, w: 400 }, { id: "relay1", x: 480, y: 100, w: 300 }],
+  wires: [
+    { a: [0, 10, 14, "VIN (5V)"], b: [1, 7, 0, "DC+"], col: "red", n: ["VIN gives the USB 5V the relay coil needs. Do not use 3V3 here.", "ரிலே காயிலுக்குத் தேவையான USB 5V-ஐ VIN தருகிறது. இங்கே 3V3 பயன்படுத்த வேண்டாம்."] },
+    { a: [0, 10, 13, "GND"], b: [1, 7, 1, "DC−"], col: "black", n: ["Common ground.", "பொது கிரவுண்ட்."] },
+    { a: [0, 11, 14, "D23"], b: [1, 7, 2, "IN"], col: "green", n: ["Signal. Most relay modules turn ON when IN is LOW.", "சிக்னல். பெரும்பாலான ரிலே மாட்யூல்கள் IN LOW ஆனால் ON ஆகும்."] }
+  ],
+  extra: [["Lamp wiring on NO / COM only by a qualified person, with power OFF", "NO / COM-இல் விளக்கு வயரிங்: மின்சாரம் OFF செய்து, தகுதியான நபர் மட்டும்"]],
+  code: `const int RELAY = 23;       // most modules: LOW = ON
+
+void setup() {
+  pinMode(RELAY, OUTPUT);
+  digitalWrite(RELAY, HIGH);  // start OFF
+}
+
+void loop() {
+  digitalWrite(RELAY, LOW);   // ON  (click)
+  delay(2000);
+  digitalWrite(RELAY, HIGH);  // OFF (click)
+  delay(2000);
+}` },
+
+{ id: "uno-hcsr04", t: ["Arduino Uno + HC-SR04: measure distance", "Arduino Uno + HC-SR04: தூரத்தை அளக்க"],
+  d: ["Four wires turn the Uno into a distance meter, the base of parking sensors and water-tank level meters.", "நான்கு வயர்கள் Uno-வை தூர மீட்டராக மாற்றுகின்றன; பார்க்கிங் சென்சார், தண்ணீர் தொட்டி அளவு மீட்டரின் அடிப்படை."],
+  W: 760, H: 450, boards: [{ id: "uno", x: 20, y: 70, w: 340 }, { id: "hcsr04", x: 430, y: 40, w: 310 }],
+  wires: [
+    { a: [0, 15, 4, "5V"], b: [1, 3, 0, "VCC"], col: "red", n: ["The HC-SR04 needs 5V.", "HC-SR04-க்கு 5V தேவை."] },
+    { a: [0, 15, 6, "GND"], b: [1, 3, 3, "GND"], col: "black", n: ["Ground.", "கிரவுண்ட்."] },
+    { a: [0, 9, 8, "D9"], b: [1, 3, 1, "TRIG"], col: "orange", n: ["TRIG: the Uno sends a 10 µs pulse here to start a measurement.", "TRIG: அளவீட்டைத் தொடங்க Uno இங்கே 10 µs துடிப்பை அனுப்புகிறது."] },
+    { a: [0, 9, 7, "D10"], b: [1, 3, 2, "ECHO"], col: "blue", n: ["ECHO: stays HIGH for as long as the sound took to come back.", "ECHO: ஒலி திரும்ப வர எடுத்த நேரம் வரை HIGH ஆக இருக்கும்."] }
+  ],
+  code: `const int TRIG = 9, ECHO = 10;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(TRIG, OUTPUT);
+  pinMode(ECHO, INPUT);
+}
+
+void loop() {
+  digitalWrite(TRIG, LOW);  delayMicroseconds(2);
+  digitalWrite(TRIG, HIGH); delayMicroseconds(10);
+  digitalWrite(TRIG, LOW);
+  long us = pulseIn(ECHO, HIGH, 30000);
+  Serial.print(us / 58); Serial.println(" cm");
+  delay(200);
+}` },
+
+{ id: "esp32-oled", t: ["ESP32 + OLED: show text on a screen", "ESP32 + OLED: திரையில் எழுத்து காட்ட"],
+  d: ["Learn I2C: two data wires (SDA, SCL) plus power. The same two wires can later be shared by more I2C modules.", "I2C கற்கலாம்: இரண்டு data வயர்கள் (SDA, SCL) மற்றும் மின்சாரம். இதே இரண்டு வயர்களைப் பின்னர் மேலும் I2C மாட்யூல்கள் பகிரலாம்."],
+  W: 760, H: 380, boards: [{ id: "esp32", x: 20, y: 130, w: 400 }, { id: "oled", x: 540, y: 40, w: 190 }],
+  wires: [
+    { a: [0, 11, 0, "3V3"], b: [1, 0, 1, "VCC"], col: "red", n: ["3.3V power for the display.", "டிஸ்ப்ளேக்கு 3.3V மின்சாரம்."] },
+    { a: [0, 11, 1, "GND"], b: [1, 0, 0, "GND"], col: "black", n: ["Ground. On this OLED, GND is the first pin; some versions swap VCC and GND, so read the labels.", "கிரவுண்ட். இந்த OLED-இல் GND முதல் பின்; சில பதிப்புகளில் VCC, GND இடம் மாறும்; குறிகளைப் படியுங்கள்."] },
+    { a: [0, 11, 13, "D22 (SCL)"], b: [1, 0, 2, "SCL"], col: "yellow", n: ["SCL: the I2C clock line.", "SCL: I2C கடிகார வரி."] },
+    { a: [0, 11, 10, "D21 (SDA)"], b: [1, 0, 3, "SDA"], col: "blue", n: ["SDA: the I2C data line.", "SDA: I2C data வரி."] }
+  ],
+  lib: "Adafruit SSD1306 + Adafruit GFX",
+  code: `#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+
+Adafruit_SSD1306 oled(128, 64, &Wire, -1);
+
+void setup() {
+  Wire.begin(21, 22);                       // SDA, SCL
+  oled.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+  oled.clearDisplay();
+  oled.setTextSize(2);
+  oled.setTextColor(SSD1306_WHITE);
+  oled.setCursor(0, 0);
+  oled.println("Vanakkam!");
+  oled.println("PCB Kalvi");
+  oled.display();
+}
+
+void loop() {}` },
+
+{ id: "uno-l298n", t: ["Arduino Uno + L298N: drive two motors", "Arduino Uno + L298N: இரண்டு மோட்டார்களை இயக்க"],
+  d: ["The heart of a robot car. The Uno sends direction signals; the L298N gives the motors battery power.", "ரோபோ காரின் இதயம். Uno திசைச் சிக்னல்களை அனுப்புகிறது; L298N மோட்டார்களுக்கு பேட்டரி மின்சாரம் தருகிறது."],
+  W: 780, H: 490, boards: [{ id: "uno", x: 20, y: 110, w: 340 }, { id: "l298n", x: 470, y: 120, w: 260 }],
+  ext: [{ x: 430, y: 40, t: ["Motor A", "மோட்டார் A"] }, { x: 760, y: 70, t: ["Motor B", "மோட்டார் B"] }, { x: 560, y: 470, t: ["Battery +", "பேட்டரி +"] }, { x: 680, y: 470, t: ["Battery −", "பேட்டரி −"] }],
+  wires: [
+    { a: [0, 15, 5, "GND"], b: [1, 9, 1, "GND"], col: "black", n: ["Common ground between Uno and driver. Without it the motors will not respond.", "Uno, டிரைவர் இடையே பொது கிரவுண்ட். இது இல்லாமல் மோட்டார்கள் இயங்காது."] },
+    { a: [0, 9, 9, "D8"], b: [1, 6, 1, "IN1"], col: "orange", n: ["Motor A direction 1.", "மோட்டார் A திசை 1."] },
+    { a: [0, 10, 0, "D7"], b: [1, 6, 2, "IN2"], col: "yellow", n: ["Motor A direction 2.", "மோட்டார் A திசை 2."] },
+    { a: [0, 10, 1, "D6"], b: [1, 6, 3, "IN3"], col: "green", n: ["Motor B direction 1.", "மோட்டார் B திசை 1."] },
+    { a: [0, 10, 2, "D5"], b: [1, 6, 4, "IN4"], col: "blue", n: ["Motor B direction 2. Keep the ENA and ENB jumpers on for full speed.", "மோட்டார் B திசை 2. முழு வேகத்துக்கு ENA, ENB ஜம்பர்களை வைத்திருங்கள்."] },
+    { a: [1, 2, 0, "OUT1"], b: { ext: 0, name: "Motor A" }, col: "red", n: ["Motor A wire 1 into the screw terminal. Swap the two motor wires if it turns the wrong way.", "மோட்டார் A வயர் 1 ஸ்க்ரூ டெர்மினலில். தவறான திசையில் சுழன்றால் இரண்டு மோட்டார் வயர்களையும் மாற்றுங்கள்."] },
+    { a: [1, 2, 1, "OUT2"], b: { ext: 0, name: "Motor A" }, col: "black", n: ["Motor A wire 2.", "மோட்டார் A வயர் 2."] },
+    { a: [1, 3, 0, "OUT3"], b: { ext: 1, name: "Motor B" }, col: "red", n: ["Motor B wire 1.", "மோட்டார் B வயர் 1."] },
+    { a: [1, 3, 1, "OUT4"], b: { ext: 1, name: "Motor B" }, col: "black", n: ["Motor B wire 2.", "மோட்டார் B வயர் 2."] },
+    { a: [1, 9, 0, "12V"], b: { ext: 2, name: "Battery +" }, col: "red", n: ["Battery + (7–12V) into the 12V terminal. Connect the battery LAST.", "பேட்டரி + (7–12V) 12V டெர்மினலில். பேட்டரியைக் கடைசியாக இணையுங்கள்."] },
+    { a: [1, 9, 1, "GND"], b: { ext: 3, name: "Battery −" }, col: "black", n: ["Battery − into the same GND terminal as the Uno ground wire.", "பேட்டரி −-ஐ Uno கிரவுண்ட் வயர் உள்ள அதே GND டெர்மினலில் இணையுங்கள்."] }
+  ],
+  extra: [["2 DC gear motors (TT motors)", "2 DC gear மோட்டார்கள் (TT மோட்டார்)"], ["Battery pack 7–12V (e.g. 2 × 18650)", "7–12V பேட்டரி பேக் (உதாரணம் 2 × 18650)"], ["Small screwdriver for the terminals", "டெர்மினல்களுக்கு சிறிய ஸ்க்ரூடிரைவர்"]],
+  code: `const int IN1 = 8, IN2 = 7, IN3 = 6, IN4 = 5;
+
+void drive(int a, int b, int c, int d) {
+  digitalWrite(IN1, a); digitalWrite(IN2, b);
+  digitalWrite(IN3, c); digitalWrite(IN4, d);
+}
+
+void setup() {
+  pinMode(IN1, OUTPUT); pinMode(IN2, OUTPUT);
+  pinMode(IN3, OUTPUT); pinMode(IN4, OUTPUT);
+}
+
+void loop() {
+  drive(HIGH, LOW, HIGH, LOW);  delay(2000);   // forward
+  drive(LOW, LOW, LOW, LOW);    delay(1000);   // stop
+  drive(LOW, HIGH, LOW, HIGH);  delay(2000);   // backward
+  drive(LOW, LOW, LOW, LOW);    delay(1000);   // stop
+}` },
+
+{ id: "esp32-rtc-oled", t: ["ESP32 + DS3231 + OLED: a real clock (3 boards)", "ESP32 + DS3231 + OLED: உண்மையான கடிகாரம் (3 போர்டுகள்)"],
+  d: ["Three boards on one I2C bus. The DS3231 has pass-through pins, so the OLED connects to the clock module, not back to the ESP32.", "ஒரே I2C bus-இல் மூன்று போர்டுகள். DS3231-இல் தொடர் இணைப்பு பின்கள் உள்ளதால், OLED கடிகார மாட்யூலுடன் இணைகிறது; ESP32-க்கு திரும்ப அல்ல."],
+  W: 780, H: 450, boards: [{ id: "esp32", x: 20, y: 170, w: 380 }, { id: "ds3231", x: 450, y: 20, w: 250 }, { id: "oled", x: 540, y: 250, w: 170 }],
+  wires: [
+    { a: [0, 11, 0, "3V3"], b: [1, 0, 4, "VCC"], col: "red", n: ["3.3V to the clock module.", "கடிகார மாட்யூலுக்கு 3.3V."] },
+    { a: [0, 11, 1, "GND"], b: [1, 0, 5, "GND"], col: "black", n: ["Ground.", "கிரவுண்ட்."] },
+    { a: [0, 11, 13, "D22 (SCL)"], b: [1, 0, 2, "SCL"], col: "yellow", n: ["I2C clock.", "I2C கடிகாரம்."] },
+    { a: [0, 11, 10, "D21 (SDA)"], b: [1, 0, 3, "SDA"], col: "blue", n: ["I2C data.", "I2C data."] },
+    { a: [1, 5, 2, "VCC"], b: [2, 0, 1, "VCC"], col: "red", n: ["From the DS3231 pass-through pins to the OLED.", "DS3231 தொடர் இணைப்பு பின்களிலிருந்து OLED-க்கு."] },
+    { a: [1, 5, 3, "GND"], b: [2, 0, 0, "GND"], col: "black", n: ["Ground continues to the OLED.", "கிரவுண்ட் OLED-க்குத் தொடர்கிறது."] },
+    { a: [1, 5, 0, "SCL"], b: [2, 0, 2, "SCL"], col: "yellow", n: ["The same SCL line, now reaching the OLED.", "அதே SCL வரி, இப்போது OLED-ஐ அடைகிறது."] },
+    { a: [1, 5, 1, "SDA"], b: [2, 0, 3, "SDA"], col: "blue", n: ["The same SDA line. Both modules share it using different addresses (0x68 and 0x3C).", "அதே SDA வரி. இரண்டு மாட்யூல்களும் வேறு முகவரிகளில் (0x68, 0x3C) பகிர்கின்றன."] }
+  ],
+  extra: [["CR2032 or LIR2032 coin cell for the DS3231", "DS3231-க்கு CR2032 அல்லது LIR2032 காயின் செல்"]],
+  lib: "RTClib + Adafruit SSD1306 + Adafruit GFX",
+  code: `#include <Wire.h>
+#include <RTClib.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+
+RTC_DS3231 rtc;
+Adafruit_SSD1306 oled(128, 64, &Wire, -1);
+
+void setup() {
+  Wire.begin(21, 22);
+  rtc.begin();
+  if (rtc.lostPower()) rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+  oled.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+}
+
+void loop() {
+  DateTime now = rtc.now();
+  char buf[9];
+  sprintf(buf, "%02d:%02d:%02d", now.hour(), now.minute(), now.second());
+  oled.clearDisplay();
+  oled.setTextSize(2);
+  oled.setTextColor(SSD1306_WHITE);
+  oled.setCursor(16, 24);
+  oled.print(buf);
+  oled.display();
+  delay(500);
+}` },
+
+{ id: "uno-soil-relay", t: ["Uno + Soil sensor + Relay: automatic plant watering (3 boards)", "Uno + மண் சென்சார் + ரிலே: தானியங்கி செடி நீர்ப்பாசனம் (3 போர்டுகள்)"],
+  d: ["When the soil is dry, the relay runs a small pump for 3 seconds. The soil sensor is powered from D7 only while reading, so the probe lasts longer.", "மண் உலர்ந்தால் ரிலே சிறிய பம்பை 3 விநாடி இயக்கும். படிக்கும்போது மட்டும் D7 மூலம் மண் சென்சாருக்கு மின்சாரம்; இதனால் probe நீண்ட நாள் நீடிக்கும்."],
+  W: 840, H: 470, boards: [{ id: "uno", x: 20, y: 130, w: 330 }, { id: "soil", x: 410, y: 140, w: 140 }, { id: "relay1", x: 580, y: 20, w: 240 }],
+  wires: [
+    { a: [0, 10, 0, "D7"], b: [1, 3, 0, "VCC"], col: "red", n: ["Soil sensor power from pin D7: ON only while reading.", "D7 பின் மூலம் மண் சென்சாருக்கு மின்சாரம்: படிக்கும்போது மட்டும் ON."] },
+    { a: [0, 15, 5, "GND"], b: [1, 3, 1, "GND"], col: "black", n: ["Sensor ground.", "சென்சார் கிரவுண்ட்."] },
+    { a: [0, 16, 0, "A0"], b: [1, 3, 3, "AO"], col: "green", n: ["Analog moisture value: higher = drier.", "அனலாக் ஈரப்பத மதிப்பு: அதிகம் = உலர்ந்தது."] },
+    { a: [1, 4, 0, "+"], b: [1, 5, 0, "probe"], col: "white", sameBoard: true, n: ["Probe cable: connect the two pins on the small board to the fork probe (usually comes with a 2-wire F–F cable).", "Probe கேபிள்: சிறிய போர்டின் இரண்டு பின்களை முள் probe-உடன் இணையுங்கள் (பொதுவாக 2-வயர் F–F கேபிள் வரும்)."] },
+    { a: [0, 15, 4, "5V"], b: [2, 7, 0, "DC+"], col: "red", n: ["Relay power.", "ரிலே மின்சாரம்."] },
+    { a: [0, 15, 6, "GND"], b: [2, 7, 1, "DC−"], col: "black", n: ["Relay ground: use the Uno's second GND pin.", "ரிலே கிரவுண்ட்: Uno-வின் இரண்டாவது GND பின்னைப் பயன்படுத்துங்கள்."] },
+    { a: [0, 9, 9, "D8"], b: [2, 7, 2, "IN"], col: "blue", n: ["Relay signal. LOW turns the pump ON.", "ரிலே சிக்னல். LOW என்றால் பம்ப் ON."] }
+  ],
+  extra: [["Small 5V or 12V DC water pump with its own supply on the relay's COM / NO", "ரிலேயின் COM / NO-இல் தனி மின்சாரத்துடன் சிறிய 5V அல்லது 12V DC தண்ணீர் பம்ப்"]],
+  code: `const int SOIL_PWR = 7, RELAY = 8, SOIL = A0;
+const int DRY = 600;          // adjust after testing your soil
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(SOIL_PWR, OUTPUT);
+  pinMode(RELAY, OUTPUT);
+  digitalWrite(RELAY, HIGH);  // pump OFF
+}
+
+void loop() {
+  digitalWrite(SOIL_PWR, HIGH);
+  delay(100);
+  int v = analogRead(SOIL);
+  digitalWrite(SOIL_PWR, LOW);
+  Serial.println(v);
+  if (v > DRY) {                       // dry soil
+    digitalWrite(RELAY, LOW);  delay(3000);   // pump 3 s
+    digitalWrite(RELAY, HIGH);
+  }
+  delay(60000);                        // check once a minute
+}` }
+];
+
+/* ---------- geometry ---------- */
+const WG = { id: null, step: 0, copied: false };
+function placed(g, bi) {
+  const pl = g.boards[bi], b = normBoard(findB(pl.id));
+  const VW = b.W + PAD * 2, VH = b.H + PAD * 2, k = pl.w / VW;
+  return { b, pl, k, h: VH * k, cx: pl.x + pl.w / 2, cy: pl.y + VH * k / 2 };
+}
+function compPin(c, pi) {
+  if (["header", "pads", "jhdr"].includes(c.t)) { const p = hdrPins(c)[pi] || hdrPins(c)[0]; return [p[0], p[1]]; }
+  if (c.t === "term") { const n = c.o.n || 2, horiz = c.w >= c.h; return horiz ? [c.x + (pi + 0.5) * c.w / n, c.y + c.h / 2] : [c.x + c.w / 2, c.y + (pi + 0.5) * c.h / n]; }
+  return [c.x + c.w / 2, c.y + c.h * 0.2];
+}
+function endInfo(g, e) {
+  if (!Array.isArray(e)) { const x = g.ext[e.ext]; return { x: x.x, y: x.y, ext: true, kind: "bare", name: e.name, extT: x.t, dir: [0, 0] }; }
+  const [bi, ci, pi, name] = e, P2 = placed(g, bi), c = P2.b.cs[ci];
+  const [px, py] = compPin(c, pi);
+  const x = P2.pl.x + (px + PAD) * P2.k, y = P2.pl.y + (py + PAD) * P2.k;
+  let dx = x - P2.cx, dy = y - P2.cy;
+  const dir = Math.abs(dx) / P2.pl.w > Math.abs(dy) / P2.h ? [Math.sign(dx) || 1, 0] : [0, Math.sign(dy) || 1];
+  const kind = c.t === "header" ? (c.o.f ? "male" : "female") : c.t === "term" ? "male" : c.t === "pads" ? "pads" : "female";
+  return { x, y, kind, name, board: P2.b, comp: c, dir, bi };
+}
+function wireType(ea, eb) {
+  const m = k => k === "male" || k === "bare";
+  const am = m(ea.kind), bm = m(eb.kind);
+  if (eb.ext) return "LEAD";
+  if (am && bm) return "MM"; if (!am && !bm) return "FF"; return "MF";
+}
+function plug(e, col, kind) {
+  if (e.ext) return C(e.x, e.y, 5, col, `stroke="#111" stroke-width="1.2"`);
+  const s = 9;
+  if (kind === "female") return R(e.x - s / 2, e.y - s / 2, s, s, "#151517", `rx="1.5" stroke="${col}" stroke-width="2"`);
+  return R(e.x - 2, e.y - 2, 4, 4, "#d4a640") + R(e.x - s / 2 + e.dir[0] * 6, e.y - s / 2 + e.dir[1] * 6, s, s, "#151517", `rx="1.5" stroke="${col}" stroke-width="2"`);
+}
+function tag(e, text, col) {
+  const w = Math.max(30, text.length * 7.4 + 14), h = 20;
+  const ox = e.ext ? 0 : e.dir[0] * (w / 2 + 16), oy = e.ext ? -22 : e.dir[1] * 26;
+  const x = e.x + ox - w / 2, y = e.y + oy - h / 2;
+  return `<g class="wtag"><rect x="${f(x)}" y="${f(y)}" width="${f(w)}" height="${h}" rx="5" fill="var(--surface)" stroke="${col}" stroke-width="2"/><text x="${f(x + w / 2)}" y="${f(y + h / 2 + 0.5)}" text-anchor="middle" dominant-baseline="central">${esc(text)}</text></g>`;
+}
+
+function diagramSVG(g, step, mini) {
+  let s = `<svg viewBox="0 0 ${g.W} ${g.H}" class="wdiag${mini ? " mini" : ""}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${esc(en(g.t))}">`;
+  g.boards.forEach((pl, bi) => {
+    const P2 = placed(g, bi);
+    const inner = boardSVG(P2.b, "front", false).replace("<svg ", `<svg x="${pl.x}" y="${pl.y}" width="${f(pl.w)}" height="${f(P2.h)}" `);
+    s += inner;
+    if (!mini) s += `<text x="${f(pl.x + pl.w / 2)}" y="${f(pl.y - 4)}" class="wbname" text-anchor="middle">${esc(P2.b.n)}</text>`;
+  });
+  (g.ext || []).forEach(x => {
+    s += `<g class="wext"><rect x="${x.x - 46}" y="${x.y - 12}" width="92" height="24" rx="12"/><text x="${x.x}" y="${x.y + 0.5}" text-anchor="middle" dominant-baseline="central">${esc(one(x.t))}</text></g>`;
+  });
+  const order = g.wires.map((w, i) => i);
+  if (step > 0) { order.splice(step - 1, 1); order.push(step - 1); }
+  order.forEach(i => {
+    const w = g.wires[i], ea = endInfo(g, w.a), eb = endInfo(g, w.b), col = WCOL[w.col][2];
+    const state = step === 0 ? "all" : i < step - 1 ? "done" : i === step - 1 ? "now" : "todo";
+    if (state === "todo") return;
+    const d = Math.max(40, Math.hypot(eb.x - ea.x, eb.y - ea.y) * 0.32);
+    const ca = [ea.x + ea.dir[0] * d, ea.y + ea.dir[1] * d], cb = [eb.x + eb.dir[0] * d, eb.y + eb.dir[1] * d];
+    const path = `M${f(ea.x)} ${f(ea.y)} C${f(ca[0])} ${f(ca[1])} ${f(cb[0])} ${f(cb[1])} ${f(eb.x)} ${f(eb.y)}`;
+    s += `<g class="wire ${state}">`;
+    s += `<path d="${path}" class="wcase"/><path d="${path}" class="wcore" stroke="${col}"/>`;
+    if (state === "now") s += `<path d="${path}" class="wflow"/>`;
+    const wt = wireType(ea, eb);
+    s += plug(ea, col, ea.kind === "male" ? "male" : "female");
+    s += eb.ext ? plug(eb, col) : plug(eb, col, eb.kind === "male" ? "male" : "female");
+    if (state === "now" && !mini) s += tag(ea, ea.name, col) + (eb.ext ? "" : tag(eb, eb.name, col));
+    s += `</g>`;
+  });
+  return s + `</svg>`;
+}
+
+/* ---------- pages ---------- */
+function renderWorkshopPage() {
+  const h = location.hash.slice(1);
+  const tab = h === "myboards" ? "mine" : "wire";
+  const v = $("#v-workshop");
+  v.innerHTML = `<div class="pagehead"><h1>${tx(UI.wsTitle)}</h1></div>
+    <div class="subtabs" role="tablist"><a href="#workshop" role="tab" aria-selected="${tab === "wire"}">${one(UI.wiring)}</a><a href="#myboards" role="tab" aria-selected="${tab === "mine"}">${one(UI.myboards)}</a></div>
+    <div id="ws-body"></div>`;
+  if (tab === "mine") { renderWorkshop(); return; }
+  const g = h.startsWith("wire-") ? GUIDES.find(x => x.id === h.slice(5)) : null;
+  if (g) { if (WG.id !== g.id) { WG.id = g.id; WG.step = 0; } renderGuide(g); }
+  else renderGuideList();
+}
+
+function needs(g) {
+  const cnt = {};
+  g.wires.forEach(w => { const t = wireType(endInfo(g, w.a), endInfo(g, w.b)); if (t !== "LEAD") cnt[t] = (cnt[t] || 0) + 1; });
+  return cnt;
+}
+function renderGuideList() {
+  $("#ws-body").innerHTML = `<p class="lede ws-lede">${tx(UI.wiringSub)}</p>
+    <div class="wkinds">${wireKindsHTML()}</div>
+    <div class="wgrid">${GUIDES.map(g => {
+      const c = needs(g);
+      return `<a class="wcard" href="#wire-${g.id}"><div class="wthumb">${diagramSVG(g, 0, true)}</div>
+        <div class="card-b"><p class="eyebrow">${g.boards.length} ${LANG === "ta" ? "போர்டுகள்" : "boards"} · ${g.wires.length} ${LANG === "ta" ? "வயர்கள்" : "wires"}</p>
+        <h3>${tx(g.t)}</h3><p class="meta">${Object.keys(c).map(k => `${c[k]} × ${k[0]}–${k[1]}`).join(" · ")}</p></div></a>`;
+    }).join("")}</div>`;
+}
+function wireKindsHTML() {
+  const pin = (a, b) => `<svg viewBox="0 0 120 30" aria-hidden="true"><rect x="22" y="11" width="76" height="8" rx="4" fill="#2f73e0"/>${a === "M" ? '<rect x="2" y="13" width="10" height="4" fill="#d4a640"/><rect x="10" y="8" width="14" height="14" rx="2" fill="#151517"/>' : '<rect x="6" y="7" width="18" height="16" rx="2" fill="#151517"/><rect x="9" y="12" width="6" height="6" fill="#000"/>'}${b === "M" ? '<rect x="108" y="13" width="10" height="4" fill="#d4a640"/><rect x="96" y="8" width="14" height="14" rx="2" fill="#151517"/>' : '<rect x="96" y="7" width="18" height="16" rx="2" fill="#151517"/><rect x="105" y="12" width="6" height="6" fill="#000"/>'}</svg>`;
+  return `<h2 class="sec">${tx(UI.wireKinds)}</h2><p class="prose">${tx(UI.wireRule)}</p>
+    <div class="wk-row"><div>${pin("F", "F")}<b>${one(WTYPE.FF)}</b><span>${LANG === "ta" ? "ESP32, சென்சார் மாட்யூல்கள் (பின்கள் வெளியே)" : "ESP32, sensor modules (pins stick out)"}</span></div>
+    <div>${pin("M", "F")}<b>${one(WTYPE.MF)}</b><span>${LANG === "ta" ? "Arduino Uno சாக்கெட் ↔ மாட்யூல் பின்" : "Arduino Uno socket ↔ module pin"}</span></div>
+    <div>${pin("M", "M")}<b>${one(WTYPE.MM)}</b><span>${LANG === "ta" ? "பிரெட்போர்டு, Uno ↔ ஸ்க்ரூ டெர்மினல்" : "Breadboard, Uno ↔ screw terminal"}</span></div></div>`;
+}
+
+function stepText(g, i) {
+  const w = g.wires[i], ea = endInfo(g, w.a), eb = endInfo(g, w.b), wt = wireType(ea, eb), cn = WCOL[w.col];
+  const bn = e => e.ext ? (LANG === "ta" ? e.extT[1] : e.extT[0]) : e.board.n;
+  const bnT = e => e.ext ? e.extT[1] : e.board.n;
+  const where = e => e.ext ? "" : ` · ${one(P[e.comp.p].n)}`;
+  const enT = eb.ext ? `Take the ${bn(eb)} wire (${cn[0].toLowerCase()}) and screw it into ${ea.name} on the ${bn(ea)}.`
+    : `Take ${/^[aeiou]/i.test(cn[0]) ? "an" : "a"} ${cn[0].toLowerCase()} ${WTYPE[wt][0]} jumper wire. Connect ${bn(ea)} pin ${ea.name} to ${bn(eb)} pin ${eb.name}.`;
+  const taT = eb.ext ? `${bnT(eb)} வயரை (${cn[1]}) எடுத்து ${bnT(ea)} இன் ${ea.name} டெர்மினலில் ஸ்க்ரூ செய்து இறுக்குங்கள்.`
+    : `${cn[1]} ${WTYPE[wt][1]} ஜம்பர் வயரை எடுங்கள். ${bnT(ea)} இன் ${ea.name} பின்னை ${bnT(eb)} இன் ${eb.name} பின்னுடன் இணையுங்கள்.`;
+  return { ea, eb, wt, cn, enT, taT, where, bn };
+}
+
+function renderGuide(g) {
+  const n = g.wires.length, st = WG.step;
+  const c = needs(g);
+  const padsBoards = g.boards.map(pl => findB(pl.id)).filter((b, i) => g.wires.some(w => [w.a, w.b].some(e => Array.isArray(e) && e[0] === i && endInfo(g, e).kind === "pads")));
+  let card = "";
+  if (st === 0) {
+    card = `<div class="wstep intro"><h2 class="sec">${tx(UI.need)}</h2>
+      <ul class="uses">${g.boards.map(pl => { const b = findB(pl.id); return `<li><a href="#b-${b.id}">${esc(b.n)}</a></li>`; }).join("")}
+      ${Object.keys(c).map(k => `<li>${c[k]} × ${one(WTYPE[k])} ${one(UI.wires)}</li>`).join("")}
+      ${(g.extra || []).map(x => `<li>${tx(x)}</li>`).join("")}</ul>
+      ${padsBoards.length ? `<p class="wwarn">${tx(UI.padsNote)}</p>` : ""}
+      <p class="wwarn">⚠ ${tx(UI.before)}</p>
+      <button type="button" class="cb wide accent" data-wstep="1">${one(UI.start)} →</button></div>`;
+  } else if (st <= n) {
+    const t = stepText(g, st - 1), w = g.wires[st - 1];
+    card = `<div class="wstep"><div class="wstep-top"><span class="wnum" style="--wc:${t.cn[2]}">${st}</span><p>${one(UI.step)} ${st} ${one(UI.of)} ${n}</p></div>
+      <p class="wmain">${LANG === "ta" ? esc(t.taT) : esc(t.enT)}${LANG === "both" ? `<span class="t-ta t-dual" lang="ta">${esc(t.taT)}</span>` : ""}</p>
+      <dl class="wdl">
+        <div><dt>${one(UI.from)}</dt><dd><b>${esc(t.ea.name)}</b> · ${esc(t.bn(t.ea))}${esc(t.where(t.ea))}</dd></div>
+        <div><dt>${one(UI.to)}</dt><dd><b>${esc(t.eb.name)}</b> · ${esc(t.bn(t.eb))}${esc(t.where(t.eb))}</dd></div>
+        <div><dt>${one(UI.wireType)}</dt><dd><span class="wsw" style="--wc:${t.cn[2]}"></span>${one(t.cn)} · ${one(WTYPE[t.wt])}</dd></div>
+      </dl>
+      ${w.n ? `<p class="wnote">${tx(w.n)}</p>` : ""}</div>`;
+  } else {
+    card = `<div class="wstep"><p class="wmain">✅ ${tx(UI.done)}</p></div>`;
+  }
+  const codeBlock = `<section class="wcode"><h2 class="sec">${tx(UI.code)}</h2>${g.lib ? `<p class="meta">Library: <code>${esc(g.lib)}</code></p>` : ""}
+    <div class="codebox"><button type="button" class="cb copy" data-wcopy="1">${one(WG.copied ? UI.copied : UI.copy)}</button><pre><code id="wcode">${esc(g.code)}</code></pre></div></section>`;
+  $("#ws-body").innerHTML = `<a class="backlink" href="#workshop">← ${one(UI.backToGuides)}</a>
+    <h2 class="gtitle">${tx(g.t)}</h2><p class="prose">${tx(g.d)}</p>
+    <div class="gv"><div class="gdiag"><div class="scrollx">${diagramSVG(g, st, false)}</div>
+      <div class="wprog">${[0].concat(g.wires.map((_, i) => i + 1)).map(i => `<button type="button" class="wdot${i === st ? " on" : ""}${i && i < st ? " done" : ""}" data-wstep="${i}" style="--wc:${i ? WCOL[g.wires[i - 1].col][2] : "var(--muted)"}" aria-label="${i ? one(UI.step) + " " + i : one(UI.overview)}">${i || "◎"}</button>`).join("")}
+        <button type="button" class="wdot${st === n + 1 ? " on" : ""}" data-wstep="${n + 1}" aria-label="${one(UI.allWires)}">✓</button></div>
+      <div class="crow wnav"><button type="button" class="cb wide" data-wstep="${Math.max(0, st - 1)}"${st === 0 ? " disabled" : ""}>← ${one(UI.prev || ["Previous", "முந்தைய"])}</button>
+        <button type="button" class="cb wide accent" data-wstep="${Math.min(n + 1, st + 1)}"${st > n ? " disabled" : ""}>${one(UI.next || ["Next", "அடுத்தது"])} →</button></div>
+    </div><div class="gside">${card}</div></div>${codeBlock}`;
+}
+Object.assign(UI, { prev: ["Previous", "முந்தைய"], next: ["Next", "அடுத்தது"] });
+
+/* links on board pages */
+function guidesForBoard(id) { return GUIDES.filter(g => g.boards.some(pl => pl.id === id)); }
+
+document.addEventListener("click", async e => {
+  const s = e.target.closest("[data-wstep]");
+  if (s && !s.disabled) {
+    const g = GUIDES.find(x => x.id === WG.id); if (!g) return;
+    WG.step = +s.dataset.wstep; renderGuide(g);
+    const d = $(".gdiag"); if (d && d.getBoundingClientRect().top < 0) d.scrollIntoView({ block: "start" });
+    return;
+  }
+  if (e.target.closest("[data-wcopy]")) {
+    const code = $("#wcode").textContent;
+    try { await navigator.clipboard.writeText(code); WG.copied = true; }
+    catch (err) { const r = document.createRange(); r.selectNodeContents($("#wcode")); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); }
+    const g = GUIDES.find(x => x.id === WG.id); renderGuide(g); setTimeout(() => { WG.copied = false; }, 1500);
+  }
+});
+document.addEventListener("keydown", e => {
+  if (S.view !== "workshop" || !WG.id || !location.hash.startsWith("#wire-") || e.target.closest("input,textarea")) return;
+  const g = GUIDES.find(x => x.id === WG.id), n = g.wires.length;
+  if (e.key === "ArrowRight") { WG.step = Math.min(n + 1, WG.step + 1); renderGuide(g); }
+  if (e.key === "ArrowLeft") { WG.step = Math.max(0, WG.step - 1); renderGuide(g); }
+});
 
 route();
 wsLoad();
