@@ -95,6 +95,57 @@ app.use((req, res, next) => {
 });
 
 app.get(["/", "/index.html"], (req, res) => res.sendFile(path.join(__dirname, "index.html")));
+app.use("/static", express.static(path.join(__dirname, "static"), { maxAge: "1d", index: false, dotfiles: "deny" }));
+
+/* ---------- My KiCad projects: KiCad files saved per project, viewed with KiCanvas ---------- */
+const KDIR = path.join(DATA, "kicad");
+const KDB = path.join(DATA, "kicad.json");
+fs.mkdirSync(KDIR, { recursive: true });
+const KEXT = /\.(kicad_pcb|kicad_sch|kicad_pro|kicad_wks)$/i;
+const MAX_KFILES = 12;
+function readK() { try { const d = JSON.parse(fs.readFileSync(KDB, "utf8")); return Array.isArray(d.projects) ? d : { projects: [] }; } catch (e) { return { projects: [] }; } }
+function writeK(db) { const t = KDB + ".tmp"; fs.writeFileSync(t, JSON.stringify(db, null, 2)); fs.renameSync(t, KDB); }
+const safeName = n => path.basename(String(n || "")).replace(/[^A-Za-z0-9._ ()+-]/g, "_").slice(0, 120);
+const kUpload = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => { const d = path.join(KDIR, req.kid); fs.mkdirSync(d, { recursive: true }); cb(null, d); },
+    filename: (req, file, cb) => cb(null, safeName(file.originalname))
+  }),
+  limits: { fileSize: 20 * 1024 * 1024, files: MAX_KFILES },
+  fileFilter: (req, file, cb) => cb(null, KEXT.test(file.originalname || ""))
+});
+const newKid = (req, res, next) => { req.kid = crypto.randomBytes(8).toString("hex"); next(); };
+function rmProject(id) { if (/^[a-f0-9]{16}$/.test(id)) fs.rm(path.join(KDIR, id), { recursive: true, force: true }, () => {}); }
+
+app.get("/api/kicad", (req, res) => {
+  res.setHeader("Cache-Control", "no-store");
+  res.json({ projects: readK().projects });
+});
+app.post("/api/kicad", requirePin, newKid, kUpload.array("files", MAX_KFILES), (req, res) => {
+  const files = (req.files || []).map(f => f.filename);
+  if (!files.some(n => /\.(kicad_pcb|kicad_sch)$/i.test(n))) { rmProject(req.kid); return res.status(400).json({ error: "Add at least one .kicad_pcb or .kicad_sch file." }); }
+  const db = readK();
+  const p = { id: req.kid, title: str(req.body.title, 80) || files[0].replace(KEXT, ""), note: str(req.body.note, 400), files, added: new Date().toISOString() };
+  db.projects.unshift(p);
+  writeK(db);
+  res.json({ project: p });
+});
+app.delete("/api/kicad/:id", requirePin, (req, res) => {
+  const db = readK(), i = db.projects.findIndex(x => x.id === req.params.id);
+  if (i < 0) return res.status(404).json({ error: "Project not found." });
+  rmProject(db.projects[i].id);
+  db.projects.splice(i, 1);
+  writeK(db);
+  res.json({ ok: true });
+});
+app.get("/kicad-files/:id/:name", (req, res) => {
+  const p = readK().projects.find(x => x.id === req.params.id);
+  const name = safeName(req.params.name);
+  if (!p || !p.files.includes(name)) return res.status(404).send("Not found");
+  res.setHeader("Content-Type", "text/plain; charset=utf-8");
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.sendFile(path.join(KDIR, p.id, name));
+});
 app.use("/uploads", express.static(UPLOADS, { maxAge: "30d", index: false, dotfiles: "deny" }));
 
 app.get("/api/workshop", (req, res) => {
@@ -143,7 +194,8 @@ app.delete("/api/workshop/:id", requirePin, (req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  if (err && err.code === "LIMIT_FILE_SIZE") return res.status(413).json({ error: "Photo is larger than 8 MB." });
+  if (err && err.code === "LIMIT_FILE_SIZE") { if (req.kid) rmProject(req.kid); return res.status(413).json({ error: req.kid ? "A KiCad file is larger than 20 MB." : "Photo is larger than 8 MB." }); }
+  if (err && err.code === "LIMIT_FILE_COUNT" && req.kid) { rmProject(req.kid); return res.status(413).json({ error: `Maximum ${MAX_KFILES} files per project.` }); }
   if (err && err.code === "LIMIT_FILE_COUNT") return res.status(413).json({ error: `Maximum ${MAX_PHOTOS} photos per board.` });
   console.error(err);
   res.status(500).json({ error: "Server error." });

@@ -394,6 +394,65 @@ main{max-width:1280px;margin:0 auto;padding-block:22px 60px;padding-inline:16px}
 .desig b{font-family:var(--f-mono);color:var(--accent);white-space:nowrap}
 .desig .t-dual{display:inline;margin:0 0 0 4px;font-size:.92em}
 .fine{font-size:.78rem;color:var(--muted);margin:8px 0 0}
+
+/* KiCad section */
+.kc-proj{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:18px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-bottom:16px}
+.kc-proj p{margin:0 0 8px}
+.kc-proj-art svg{width:100%;height:auto;display:block;filter:drop-shadow(0 8px 10px rgba(0,0,0,.25))}
+.kc-tr{fill:none;stroke:rgba(255,255,255,.16);stroke-width:2;stroke-linejoin:round}
+.kc-acts{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 0}
+a.cb{text-decoration:none;color:var(--fg);padding:0 14px}
+a.cb.accent{color:var(--accent-ink)}
+.kc-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.kc-item{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;text-decoration:none;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;height:100%}
+.kc-item:hover{border-color:var(--accent)}
+.kc-n{width:34px;height:34px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-family:var(--f-mono);font-weight:700;display:flex;align-items:center;justify-content:center}
+.kc-tt b{display:block;font-weight:600;line-height:1.3}
+.kc-tt b .t-dual{font-weight:500;font-size:.88em}
+.kc-tt small{display:block;color:var(--muted);font-size:.84rem;margin-top:3px}
+.kc-go{color:var(--accent);font-weight:700}
+.kc-lesson{max-width:760px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.kc-h{font-family:var(--f-display);font-size:1.5rem;margin-bottom:12px}
+.kc-lesson .sec{margin-top:16px}
+.kc-steps{margin:0;padding-left:1.4em;display:flex;flex-direction:column;gap:10px}
+.kc-steps li::marker{font-family:var(--f-mono);font-weight:700;color:var(--accent)}
+.kc-steps .t-dual{font-size:.94em}
+.kc-keys{margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
+.kc-keys div{display:flex;gap:10px;align-items:baseline;background:var(--surface2);border-radius:8px;padding:8px 10px}
+.kc-keys dt{flex:none}.kc-keys dd{margin:0;font-size:.9rem}
+.kc-keys .t-dual{font-size:.92em}
+kbd{font-family:var(--f-mono);font-size:.8rem;font-weight:600;background:var(--surface);border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 7px;white-space:nowrap}
+.kc-warn{margin-top:16px;border-left:3px solid #d0453a;background:color-mix(in srgb,#d0453a 8%,var(--surface));border-radius:0 8px 8px 0;padding:10px 14px}
+.kc-warn h3{font-family:var(--f-mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:#c03d33;margin:0 0 6px}
+.kc-warn h3 .t-dual{display:inline;margin-left:6px;text-transform:none;letter-spacing:0;font-size:1.05em}
+.kc-warn ul{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
+.kc-nav{margin-top:18px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.kc-vtabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.kc-panel{margin-bottom:12px;max-width:820px}
+.kc-panel>p{margin:0 0 10px}
+.kc-file{position:relative;overflow:hidden;cursor:pointer;padding:0 16px}
+.kc-file input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.kc-stage{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.kc-stage:has(#kc-box:empty){display:none}
+#kc-box kicanvas-embed{display:block;width:100%;height:min(72vh,680px);min-height:380px}
+.kc-now{margin:0;padding:8px 14px;font-size:.86rem;color:var(--muted);border-bottom:1px solid var(--line)}
+.kc-now b{color:var(--fg)}
+.kc-wait{padding:20px;margin:0;color:var(--muted)}
+.kc-how{margin-top:12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 16px}
+.kc-how summary{cursor:pointer;font-weight:600}
+.kc-how ul{margin-top:10px}
+.kc-form{display:flex;flex-direction:column;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;margin:12px 0;max-width:520px}
+.kc-form .sec{margin:0}
+.kc-form label{display:flex;flex-direction:column;gap:4px;font-size:.86rem;color:var(--muted)}
+.kc-form input{height:38px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--fg);padding:0 10px;font:inherit}
+.kc-form input[type=file]{height:auto;padding:8px}
+.kc-projects{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:8px}
+.kc-pcard{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:10px 14px}
+.kc-pcard.on{border-color:var(--accent)}
+.kc-pcard p{margin:2px 0;font-size:.88rem}
+.kc-pcard small{display:block;color:var(--muted);font-family:var(--f-mono);font-size:.74rem}
+.kc-pbtns{display:flex;gap:6px;flex-wrap:wrap}
+@media (max-width:640px){.kc-proj{grid-template-columns:1fr}.kc-proj-art{max-width:260px}.kc-list{grid-template-columns:1fr}.kc-lesson{padding:14px}}
 .pinsilk text{fill:#f3f3f0;font-family:var(--f-mono);font-weight:600;pointer-events:none;opacity:.92}
 .pinbig{display:none;pointer-events:none}
 .pinbig rect{fill:#111316;stroke:var(--hl);stroke-width:.7}
@@ -440,7 +499,7 @@ main{max-width:1280px;margin:0 auto;padding-block:22px 60px;padding-inline:16px}
     <div class="lang" role="group" aria-label="Language">
       <button type="button" data-l="en">EN</button><button type="button" data-l="ta" lang="ta">தமிழ்</button><button type="button" data-l="both">EN + த</button>
     </div>
-    <nav class="nav" aria-label="Sections"><a href="#" data-v="boards"></a><a href="#parts" data-v="parts"></a><a href="#basics" data-v="basics"></a><a href="#workshop" data-v="workshop"></a></nav>
+    <nav class="nav" aria-label="Sections"><a href="#" data-v="boards"></a><a href="#parts" data-v="parts"></a><a href="#basics" data-v="basics"></a><a href="#workshop" data-v="workshop"></a><a href="#kicad" data-v="kicad"></a></nav>
   </div>
 </header>
 
@@ -450,6 +509,7 @@ main{max-width:1280px;margin:0 auto;padding-block:22px 60px;padding-inline:16px}
   <section id="v-parts" hidden></section>
   <section id="v-basics" hidden></section>
   <section id="v-workshop" hidden></section>
+  <section id="v-kicad" hidden></section>
 </main>
 <footer class="foot">
   <p class="powered"><span class="spark s1" aria-hidden="true">✦</span><span class="pw-txt">Powered by <b>Azhar</b></span><span class="spark s2" aria-hidden="true">✦</span><span class="spark s3" aria-hidden="true">✧</span></p>
@@ -3229,6 +3289,12 @@ function renderChrome() {
     const v = a.dataset.v; a.innerHTML = one(UI[v]);
     a.setAttribute("aria-current", (S.view === v || (v === "boards" && (S.view === "lib" || S.view === "board"))) ? "page" : "false");
   });
+  /* on phones the tab row scrolls sideways: keep the current tab visible */
+  const nav = $(".nav"), cur = $('.nav a[aria-current="page"]');
+  if (nav && cur && nav.scrollWidth > nav.clientWidth) {
+    const l = cur.offsetLeft - nav.offsetLeft, r = l + cur.offsetWidth;
+    if (l < nav.scrollLeft || r > nav.scrollLeft + nav.clientWidth) nav.scrollLeft = Math.max(0, r - nav.clientWidth + 16);
+  }
 }
 
 /* ---------- search ---------- */
@@ -3281,18 +3347,20 @@ function route() {
   } else if (h === "parts") S.view = "parts";
   else if (h === "basics") S.view = "basics";
   else if (h === "workshop" || h === "myboards" || h.startsWith("wire-")) S.view = "workshop";
+  else if (h === "kicad" || h.startsWith("kicad-")) S.view = "kicad";
   else S.view = "lib";
   render();
   window.scrollTo(0, 0);
 }
 function render() {
   renderChrome();
-  ["lib", "board", "parts", "basics", "workshop"].forEach(v => { $("#v-" + v).hidden = S.view !== v; });
+  ["lib", "board", "parts", "basics", "workshop", "kicad"].forEach(v => { $("#v-" + v).hidden = S.view !== v; });
   if (S.view === "lib") renderLib();
   if (S.view === "board") renderBoard();
   if (S.view === "parts") renderParts();
   if (S.view === "basics") renderBasics();
   if (S.view === "workshop") renderWorkshopPage();
+  if (S.view === "kicad") renderKicad();
 }
 
 /* ---------- library ---------- */
@@ -3686,7 +3754,7 @@ let rzT; window.addEventListener("resize", () => { clearTimeout(rzT); rzT = setT
 /* ---------- MY WORKSHOP (board stock with your own photos) ---------- */
 const WS = { items: [], loaded: false, online: false, pinSet: false, pin: store.get("pin", ""), filter: "all", edit: null, err: "", busy: false, confirmDel: null, box: null };
 const WUI = {
-  workshop: ["My Workshop", "என் பணிமனை"],
+  workshop: ["My Workshop", "என் பணிமனை"], kicad: ["KiCad", "KiCad"],
   wsTitle: ["My Workshop", "என் பணிமனை"],
   wsSub: ["The boards you own: photos, stock count, where they are kept and which project uses them.", "உங்களிடம் உள்ள போர்டுகள்: புகைப்படங்கள், இருப்பு எண்ணிக்கை, எங்கே வைத்துள்ளீர்கள், எந்த ப்ராஜெக்ட்டில் பயன்படுகிறது."],
   add: ["Add a board", "போர்டு சேர்"], unlock: ["Unlock to edit", "திருத்த திறக்கவும்"], lock: ["Lock", "பூட்டு"],
@@ -4355,7 +4423,351 @@ document.addEventListener("keydown", e => {
   if (e.key === "ArrowLeft") { WG.step = Math.max(0, WG.step - 1); renderGuide(g); }
 });
 
-route();
 wsLoad();
+
+/* ---------- KICAD: Learn KiCad course + KiCanvas viewer ---------- */
+const KUI = {
+  title: ["KiCad", "KiCad"],
+  sub: ["KiCad is the free, professional software used to design real PCBs. Learn it step by step here, then open real KiCad files right in your browser.", "KiCad என்பது உண்மையான PCB-களை வடிவமைக்கப் பயன்படும் இலவச, தொழில்முறை மென்பொருள். இங்கே படிப்படியாகக் கற்றுக்கொள்ளுங்கள்; பிறகு உண்மையான KiCad கோப்புகளை உங்கள் browser-இலேயே திறந்து பாருங்கள்."],
+  learn: ["Learn KiCad", "KiCad கற்க"], viewer: ["KiCad viewer", "KiCad பார்வையாளர்"],
+  steps: ["Steps", "படிகள்"], keys: ["Keys to remember", "நினைவில் வைக்க வேண்டிய விசைகள்"], mistakes: ["Common mistakes", "பொதுவான தவறுகள்"],
+  goal: ["You will learn", "நீங்கள் கற்பது"], prev: ["Previous lesson", "முந்தைய பாடம்"], next: ["Next lesson", "அடுத்த பாடம்"],
+  tryIt: ["Open the practice board in the viewer", "பயிற்சி போர்டை பார்வையாளரில் திறக்க"],
+  project: ["Practice project: LED Kalvi", "பயிற்சி ப்ராஜெக்ட்: LED Kalvi"],
+  projectSub: ["A 30 × 20 mm board: a 2-pin header brings 5V in, a 330 Ω resistor limits the current, and a red LED lights up. It is the smallest real PCB that still uses every KiCad step.", "30 × 20 mm போர்டு: 2-பின் ஹெடர் 5V-ஐக் கொண்டு வருகிறது, 330 Ω ரெசிஸ்டர் மின்னோட்டத்தைக் கட்டுப்படுத்துகிறது, சிவப்பு LED எரிகிறது. KiCad-இன் ஒவ்வொரு படியையும் பயன்படுத்தும் மிகச் சிறிய உண்மையான PCB இது."],
+  download: ["Download the KiCad project (.zip)", "KiCad ப்ராஜெக்ட்டைப் பதிவிறக்க (.zip)"],
+  sample: ["Practice board", "பயிற்சி போர்டு"], local: ["Open from your device", "உங்கள் சாதனத்திலிருந்து திறக்க"], mine: ["My KiCad projects", "என் KiCad ப்ராஜெக்ட்கள்"],
+  localSub: ["Pick a .kicad_pcb and/or .kicad_sch file (you can select several). It opens only on this device; nothing is uploaded.", ".kicad_pcb மற்றும்/அல்லது .kicad_sch கோப்பைத் தேர்வு செய்யவும் (பல கோப்புகளைத் தேர்வு செய்யலாம்). இது இந்த சாதனத்தில் மட்டும் திறக்கும்; எதுவும் upload ஆகாது."],
+  choose: ["Choose KiCad files", "KiCad கோப்புகளைத் தேர்வு செய்க"],
+  howto: ["How to use the viewer", "பார்வையாளரை எப்படிப் பயன்படுத்துவது"],
+  howtoList: [
+    ["Tap the drawing once to start. Pinch or scroll to zoom, drag to move.", "தொடங்க வரைபடத்தை ஒருமுறை தொடவும். Zoom செய்ய pinch அல்லது scroll செய்யவும், நகர்த்த இழுக்கவும்."],
+    ["Use the buttons at the top right to switch between the schematic and the PCB, flip the board, and show or hide layers.", "Schematic, PCB இடையே மாற, போர்டைத் திருப்ப, layer-களைக் காட்ட/மறைக்க மேல் வலது பொத்தான்களைப் பயன்படுத்தவும்."],
+    ["Click a part, track or pad to see its reference, value, footprint and net.", "ஒரு பாகம், track அல்லது pad-ஐ click செய்தால் அதன் reference, value, footprint, net தெரியும்."],
+    ["Turn layers off one by one (F.Cu, F.SilkS, F.Mask…) to see how a board is built in layers.", "Layer-களை ஒவ்வொன்றாக அணைத்து (F.Cu, F.SilkS, F.Mask…) ஒரு போர்டு எப்படி அடுக்குகளாக உருவாகிறது என்று பாருங்கள்."]
+  ],
+  mineSub: ["Your own KiCad designs, saved on this site. Anyone can view; only you can add or delete (Workshop PIN).", "இந்த தளத்தில் சேமிக்கப்பட்ட உங்கள் சொந்த KiCad வடிவமைப்புகள். யார் வேண்டுமானாலும் பார்க்கலாம்; நீங்கள் மட்டுமே சேர்க்க/நீக்க முடியும் (Workshop PIN)."],
+  add: ["Save a KiCad project", "KiCad ப்ராஜெக்ட்டைச் சேமிக்க"], name: ["Project name", "ப்ராஜெக்ட் பெயர்"], note: ["Note (optional)", "குறிப்பு (விருப்பம்)"],
+  files: ["Files: .kicad_pro, .kicad_sch, .kicad_pcb (select all of the project's files together)", "கோப்புகள்: .kicad_pro, .kicad_sch, .kicad_pcb (ப்ராஜெக்ட்டின் எல்லா கோப்புகளையும் ஒன்றாகத் தேர்வு செய்யவும்)"],
+  save: ["Save", "சேமி"], open: ["Open", "திற"], del: ["Delete", "நீக்கு"], sure: ["Delete for good?", "நிரந்தரமாக நீக்கவா?"], yes: ["Yes, delete", "ஆம், நீக்கு"], no: ["Cancel", "ரத்து"],
+  none: ["No projects saved yet.", "இன்னும் ப்ராஜெக்ட் எதுவும் சேமிக்கப்படவில்லை."], offline: ["Saved projects need the PCB Kalvi server.", "சேமித்த ப்ராஜெக்ட்களுக்கு PCB Kalvi server தேவை."],
+  loading: ["Loading the viewer…", "பார்வையாளர் ஏற்றப்படுகிறது…"], failed: ["The viewer could not load. Check your connection and refresh.", "பார்வையாளர் ஏற்றப்படவில்லை. இணைப்பைச் சரிபார்த்து refresh செய்யவும்."],
+  viewing: ["Now viewing", "இப்போது பார்ப்பது"],
+  credit: ["Viewer: KiCanvas (MIT licence), hosted on this site.", "பார்வையாளர்: KiCanvas (MIT உரிமம்), இந்த தளத்திலேயே இயங்குகிறது."],
+  ver: ["Written for KiCad 10 (released March 2026). Menus are almost the same in KiCad 8 and 9.", "KiCad 10-க்காக (மார்ச் 2026-இல் வெளியானது) எழுதப்பட்டது. KiCad 8, 9-இலும் menu-கள் ஏறக்குறைய அதே."]
+};
+
+/* each lesson: t title, g goal, s steps, k keys [key, en, ta], m mistakes */
+const KL = [
+ { t: ["Install KiCad and meet the tools", "KiCad நிறுவி, கருவிகளை அறிமுகம் செய்க"],
+   g: ["What KiCad is, how a project is organised, and which window does what.", "KiCad என்றால் என்ன, ஒரு ப்ராஜெக்ட் எப்படி அமைக்கப்படுகிறது, எந்த window என்ன செய்கிறது."],
+   s: [["Download KiCad from kicad.org (Windows, Mac or Linux). It is free and has no limits on board size or layers.", "kicad.org-இலிருந்து KiCad-ஐப் பதிவிறக்குங்கள் (Windows, Mac, Linux). இது இலவசம்; போர்டு அளவு, layer எண்ணிக்கைக்கு வரம்பு இல்லை."],
+       ["Install with the default options. Keep the libraries (symbols, footprints, 3D models) ticked; you need them.", "Default அமைப்புகளுடன் நிறுவுங்கள். Libraries (symbols, footprints, 3D models) தேர்வில் இருக்கட்டும்; அவை தேவை."],
+       ["Open KiCad. The main window is the Project Manager. Every design is a project folder.", "KiCad-ஐத் திறங்கள். முதன்மை window Project Manager. ஒவ்வொரு வடிவமைப்பும் ஒரு project folder."],
+       ["A project has three main files: .kicad_pro (settings), .kicad_sch (schematic: the circuit drawing) and .kicad_pcb (the board layout).", "ஒரு project-இல் மூன்று முக்கிய கோப்புகள்: .kicad_pro (அமைப்புகள்), .kicad_sch (schematic: சர்க்யூட் வரைபடம்), .kicad_pcb (போர்டு layout)."],
+       ["The two editors you use most: Schematic Editor (draw the circuit) and PCB Editor (place parts and draw copper).", "நீங்கள் அதிகம் பயன்படுத்துவது இரண்டு editor-கள்: Schematic Editor (சர்க்யூட் வரைய), PCB Editor (பாகங்களை வைத்து copper வரைய)."]],
+   k: [["Ctrl+S", "Save", "சேமி"], ["Esc", "Cancel the current tool", "தற்போதைய கருவியை ரத்து செய்"], ["Ctrl+F1", "Show all keyboard shortcuts", "எல்லா shortcut-களையும் காட்டு"]],
+   m: [["Saving the project in a folder with Tamil or special characters in the path. Use simple English folder names.", "Tamil அல்லது சிறப்பு எழுத்துகள் உள்ள folder path-இல் சேமிப்பது. எளிய ஆங்கில folder பெயர்களைப் பயன்படுத்துங்கள்."]] },
+ { t: ["Start the LED Kalvi project", "LED Kalvi ப்ராஜெக்ட்டைத் தொடங்குக"],
+   g: ["Create a project and set up the schematic page.", "ஒரு project உருவாக்கி, schematic பக்கத்தை அமைப்பது."],
+   s: [["File → New Project. Name it led-kalvi. KiCad creates the folder and all three files.", "File → New Project. பெயர் led-kalvi. KiCad folder-ஐயும் மூன்று கோப்புகளையும் உருவாக்கும்."],
+       ["Double-click led-kalvi.kicad_sch to open the Schematic Editor.", "Schematic Editor-ஐத் திறக்க led-kalvi.kicad_sch-ஐ double-click செய்யுங்கள்."],
+       ["File → Page Settings: fill in Title, Date and Revision (v1). This prints in the title block at the bottom right.", "File → Page Settings: Title, Date, Revision (v1) நிரப்புங்கள். இது வலது கீழ் title block-இல் அச்சாகும்."],
+       ["Plan the circuit first on paper: 5V in → resistor → LED → GND. Current = (5V − 2V) ÷ 330 Ω ≈ 9 mA, safe for a normal LED.", "முதலில் காகிதத்தில் திட்டமிடுங்கள்: 5V உள்ளே → ரெசிஸ்டர் → LED → GND. மின்னோட்டம் = (5V − 2V) ÷ 330 Ω ≈ 9 mA, சாதாரண LED-க்குப் பாதுகாப்பானது."]],
+   k: [["Ctrl+N", "New project (from the Project Manager)", "புதிய project (Project Manager-இலிருந்து)"]],
+   m: [["Starting a .kicad_pcb on its own without a schematic. Without the schematic, KiCad cannot check that your copper connects the right pins.", "Schematic இல்லாமல் தனியாக .kicad_pcb தொடங்குவது. Schematic இல்லாமல், copper சரியான பின்களை இணைக்கிறதா என்று KiCad சரிபார்க்க முடியாது."]] },
+ { t: ["Draw the schematic", "Schematic வரைக"],
+   g: ["Place symbols, power symbols and wires.", "Symbol-கள், power symbol-கள், wire-களை வைப்பது."],
+   s: [["Press A to add a symbol. Search R and place a resistor. Search LED and place an LED. Search Conn_01x02_Pin and place the 2-pin header.", "Symbol சேர்க்க A அழுத்துங்கள். R என்று தேடி ரெசிஸ்டரை வையுங்கள். LED என்று தேடி LED-ஐ வையுங்கள். Conn_01x02_Pin என்று தேடி 2-பின் ஹெடரை வையுங்கள்."],
+       ["Press P to add power symbols: one +5V and one GND. Power symbols with the same name are connected everywhere, even without a wire.", "Power symbol சேர்க்க P அழுத்துங்கள்: ஒரு +5V, ஒரு GND. ஒரே பெயருள்ள power symbol-கள், wire இல்லாவிட்டாலும் எல்லா இடத்திலும் இணைந்திருக்கும்."],
+       ["Press R to rotate a symbol while placing it, M to move it later.", "வைக்கும்போது symbol-ஐச் சுழற்ற R, பிறகு நகர்த்த M."],
+       ["Press W and draw wires: header pin 1 → +5V → resistor → LED anode (A, the triangle's flat side). LED cathode (K, the bar) → GND → header pin 2.", "W அழுத்தி wire வரையுங்கள்: ஹெடர் பின் 1 → +5V → ரெசிஸ்டர் → LED anode (A, முக்கோணத்தின் தட்டையான பக்கம்). LED cathode (K, கோடு) → GND → ஹெடர் பின் 2."],
+       ["Hover over a pin end: a small circle means it is not connected yet. Wires must end exactly on the pin.", "பின் முனையின் மேல் நகருங்கள்: சிறிய வட்டம் என்றால் இன்னும் இணைக்கப்படவில்லை. Wire சரியாகப் பின் மேலேயே முடிய வேண்டும்."]],
+   k: [["A", "Add symbol", "Symbol சேர்"], ["P", "Add power symbol", "Power symbol சேர்"], ["W", "Draw wire", "Wire வரை"], ["R / M / G", "Rotate / move / drag with wires", "சுழற்று / நகர்த்து / wire-உடன் இழு"], ["Del", "Delete", "நீக்கு"]],
+   m: [["Wires that cross a pin without ending on it: they look connected but are not.", "பின்னில் முடியாமல் அதன் மேல் கடந்து செல்லும் wire: இணைந்தது போலத் தெரியும், ஆனால் இணையாது."],
+       ["The LED drawn the wrong way round. Current flows from A (anode) to K (cathode).", "LED தலைகீழாக வரைவது. மின்னோட்டம் A (anode)-இலிருந்து K (cathode)-க்குச் செல்லும்."]] },
+ { t: ["Values, references and ERC", "மதிப்புகள், reference-கள், ERC"],
+   g: ["Give every part a name and value, then let KiCad check the circuit.", "ஒவ்வொரு பாகத்துக்கும் பெயர், மதிப்பு கொடுத்து, பிறகு KiCad-ஐ சர்க்யூட்டைச் சரிபார்க்க விடுவது."],
+   s: [["Hover over the resistor and press V: set the value to 330. Set the LED to RED and the header to 5V IN.", "ரெசிஸ்டர் மேல் நகர்ந்து V அழுத்துங்கள்: மதிப்பை 330 ஆக அமைக்கவும். LED-ஐ RED, ஹெடரை 5V IN ஆக அமைக்கவும்."],
+       ["Tools → Annotate Schematic → Annotate. The ? marks become R1, D1, J1. These are the letters printed on real boards.", "Tools → Annotate Schematic → Annotate. ? குறிகள் R1, D1, J1 ஆக மாறும். உண்மையான போர்டுகளில் அச்சிடப்படும் எழுத்துகள் இவைதான்."],
+       ["Inspect → Electrical Rules Checker → Run ERC. Fix every error. 'Input power pin not driven' on +5V means KiCad does not know power comes from the header: add a PWR_FLAG symbol on the +5V and GND nets.", "Inspect → Electrical Rules Checker → Run ERC. எல்லா பிழைகளையும் சரிசெய்யுங்கள். +5V-இல் 'Input power pin not driven' என்றால், ஹெடரிலிருந்து மின்சாரம் வருகிறது என்று KiCad-க்குத் தெரியவில்லை: +5V, GND net-களில் PWR_FLAG symbol சேர்க்கவும்."]],
+   k: [["V", "Edit value", "மதிப்பைத் திருத்து"], ["E", "Edit all properties", "எல்லா பண்புகளையும் திருத்து"], ["U", "Edit reference", "Reference-ஐத் திருத்து"]],
+   m: [["Ignoring ERC warnings. Almost every 'my board does not work' story starts with an ERC warning that was skipped.", "ERC எச்சரிக்கைகளைப் புறக்கணிப்பது. 'என் போர்டு வேலை செய்யவில்லை' என்ற கதைகள் பெரும்பாலும் தவிர்க்கப்பட்ட ERC எச்சரிக்கையில் தொடங்குகின்றன."]] },
+ { t: ["Choose footprints", "Footprint-களைத் தேர்வு செய்க"],
+   g: ["Link each symbol to the real copper pads it will be soldered to.", "ஒவ்வொரு symbol-ஐயும் அது சோல்டர் செய்யப்படும் உண்மையான copper pad-களுடன் இணைப்பது."],
+   s: [["A symbol is the drawing; a footprint is the pad pattern on the board. The same 330 Ω resistor can be 0805, 0603 or through-hole.", "Symbol என்பது வரைபடம்; footprint என்பது போர்டில் உள்ள pad வடிவம். அதே 330 Ω ரெசிஸ்டர் 0805, 0603 அல்லது through-hole ஆக இருக்கலாம்."],
+       ["Tools → Assign Footprints. For R1 choose Resistor_SMD:R_0805_2012Metric, for D1 LED_SMD:LED_0805_2012Metric, for J1 Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical.", "Tools → Assign Footprints. R1-க்கு Resistor_SMD:R_0805_2012Metric, D1-க்கு LED_SMD:LED_0805_2012Metric, J1-க்கு Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical தேர்வு செய்யுங்கள்."],
+       ["Use the footprint preview button to check the size. 0805 (2.0 × 1.25 mm) is the easiest SMD size to hand-solder.", "அளவைச் சரிபார்க்க footprint preview பொத்தானைப் பயன்படுத்துங்கள். கையால் சோல்டர் செய்ய 0805 (2.0 × 1.25 mm) மிக எளிதான SMD அளவு."],
+       ["Apply, save, and close the dialog.", "Apply செய்து, சேமித்து, dialog-ஐ மூடுங்கள்."]],
+   k: [["Ctrl+S", "Save the schematic", "Schematic-ஐச் சேமி"]],
+   m: [["Picking a footprint that does not match the part you will buy. Always check the part's datasheet size before ordering.", "நீங்கள் வாங்கப்போகும் பாகத்துடன் பொருந்தாத footprint-ஐத் தேர்வு செய்வது. ஆர்டர் செய்யும் முன் datasheet அளவை எப்போதும் சரிபாருங்கள்."]] },
+ { t: ["From schematic to PCB", "Schematic-இலிருந்து PCB-க்கு"],
+   g: ["Send the parts to the PCB Editor and draw the board outline.", "பாகங்களை PCB Editor-க்கு அனுப்பி, போர்டு வெளிவரம்பை வரைவது."],
+   s: [["Open the PCB Editor and press F8 (Update PCB from Schematic). The footprints arrive in a pile with thin lines between pads: the ratsnest, showing what must be connected.", "PCB Editor-ஐத் திறந்து F8 (Update PCB from Schematic) அழுத்துங்கள். Footprint-கள் ஒரு குவியலாக வரும்; pad-களுக்கு இடையே மெல்லிய கோடுகள் இருக்கும்: இது ratsnest, எவை இணைக்கப்பட வேண்டும் என்று காட்டுகிறது."],
+       ["Select the Edge.Cuts layer on the right. Draw a 30 × 20 mm rectangle with the rectangle tool. This is the shape the factory will cut.", "வலது பக்கத்தில் Edge.Cuts layer-ஐத் தேர்வு செய்யுங்கள். Rectangle கருவியால் 30 × 20 mm செவ்வகம் வரையுங்கள். தொழிற்சாலை வெட்டும் வடிவம் இதுவே."],
+       ["Board Setup → Design Rules: keep the defaults for now (0.2 mm clearance, 0.2 mm minimum track). Most cheap PCB factories can make 0.15 mm.", "Board Setup → Design Rules: இப்போதைக்கு default-களை வைத்திருங்கள் (0.2 mm clearance, 0.2 mm குறைந்தபட்ச track). பெரும்பாலான மலிவான PCB தொழிற்சாலைகள் 0.15 mm வரை செய்யும்."]],
+   k: [["F8", "Update PCB from Schematic", "Schematic-இலிருந்து PCB-ஐப் புதுப்பி"], ["PgUp / PgDn", "Switch the active layer to F.Cu / B.Cu", "செயலில் உள்ள layer-ஐ F.Cu / B.Cu ஆக மாற்று"]],
+   m: [["Editing values on the PCB instead of the schematic. Always change the schematic, then press F8 again.", "Schematic-க்குப் பதிலாக PCB-இல் மதிப்புகளை மாற்றுவது. எப்போதும் schematic-ஐ மாற்றி, பிறகு மீண்டும் F8 அழுத்துங்கள்."]] },
+ { t: ["Place the parts", "பாகங்களை வைக்க"],
+   g: ["Good placement makes routing easy.", "நல்ல இட அமைப்பு routing-ஐ எளிதாக்கும்."],
+   s: [["Press M to move each footprint inside the outline. Put J1 at the left edge so the wire can plug in.", "ஒவ்வொரு footprint-ஐயும் வெளிவரம்புக்குள் நகர்த்த M அழுத்துங்கள். Wire செருக வசதியாக J1-ஐ இடது விளிம்பில் வையுங்கள்."],
+       ["Place R1 and D1 in a short line so the ratsnest lines are short and do not cross. Press R to rotate.", "Ratsnest கோடுகள் குறுகியதாகவும் ஒன்றையொன்று கடக்காமலும் இருக்க R1, D1-ஐ ஒரு குறுகிய வரிசையில் வையுங்கள். சுழற்ற R."],
+       ["Add two mounting holes (footprint MountingHole_3.2mm_M3) in the corners for screws.", "Screw-க்காக மூலைகளில் இரண்டு mounting hole (footprint MountingHole_3.2mm_M3) சேர்க்கவும்."],
+       ["Press Alt+3 for the 3D viewer to see how the finished board will look.", "முடிந்த போர்டு எப்படி இருக்கும் என்று பார்க்க 3D viewer-க்கு Alt+3 அழுத்துங்கள்."]],
+   k: [["M", "Move", "நகர்த்து"], ["R", "Rotate", "சுழற்று"], ["F", "Flip a part to the back side", "பாகத்தை பின்பக்கத்துக்குத் திருப்பு"], ["Alt+3", "3D viewer", "3D பார்வை"]],
+   m: [["Parts too close to the board edge or the screw holes. Keep about 1 mm from the edge.", "போர்டு விளிம்புக்கு அல்லது screw துளைகளுக்கு மிக அருகில் பாகங்கள். விளிம்பிலிருந்து சுமார் 1 mm இடைவெளி வையுங்கள்."]] },
+ { t: ["Route the tracks", "Track-களை வரைக (routing)"],
+   g: ["Draw the copper tracks that replace the wires.", "Wire-களுக்குப் பதிலாக copper track-களை வரைவது."],
+   s: [["Press X to start a track on a pad, click to make bends, double-click on the target pad to finish. Follow the ratsnest lines.", "ஒரு pad-இல் track தொடங்க X அழுத்துங்கள், வளைவுக்கு click செய்யுங்கள், இலக்கு pad-இல் double-click செய்து முடியுங்கள். Ratsnest கோடுகளைப் பின்பற்றுங்கள்."],
+       ["Make power tracks (+5V, GND) wider: 0.5 mm. Signal tracks can be 0.25–0.3 mm. Change the width from the track-width box at the top.", "Power track-களை (+5V, GND) அகலமாக்குங்கள்: 0.5 mm. Signal track-கள் 0.25–0.3 mm போதும். மேலே உள்ள track-width பெட்டியில் அகலத்தை மாற்றுங்கள்."],
+       ["Use 45° corners, never 90°. Press / while routing to change the corner style.", "45° மூலைகளைப் பயன்படுத்துங்கள், 90° வேண்டாம். Routing செய்யும்போது மூலை வடிவத்தை மாற்ற / அழுத்துங்கள்."],
+       ["To jump to the other side, press V while routing to drop a via, then continue on B.Cu.", "மறுபக்கத்துக்குச் செல்ல, routing செய்யும்போது V அழுத்தி via வையுங்கள், பிறகு B.Cu-இல் தொடருங்கள்."],
+       ["Optional: draw a GND zone on B.Cu (Ctrl+Shift+Z) covering the board, then press B to fill it.", "விருப்பம்: B.Cu-இல் போர்டு முழுவதும் GND zone வரைந்து (Ctrl+Shift+Z), நிரப்ப B அழுத்துங்கள்."]],
+   k: [["X", "Route a track", "Track வரை"], ["V", "Add a via while routing", "Routing-இன் போது via சேர்"], ["/", "Change corner style", "மூலை வடிவத்தை மாற்று"], ["B", "Fill all zones", "எல்லா zone-களையும் நிரப்பு"], ["Del", "Delete the selected track", "தேர்வு செய்த track-ஐ நீக்கு"]],
+   m: [["Thin power tracks that get hot. Wider is safer for anything carrying more than about 300 mA.", "சூடாகும் மெல்லிய power track-கள். சுமார் 300 mA-க்கு மேல் செல்லும் எதற்கும் அகலமானது பாதுகாப்பானது."],
+       ["A track that touches a pad of another net: a short circuit. DRC will catch it.", "வேறு net-இன் pad-ஐத் தொடும் track: short circuit. DRC இதைக் கண்டுபிடிக்கும்."]] },
+ { t: ["Silkscreen and DRC", "Silkscreen, DRC"],
+   g: ["Label the board and let KiCad check every rule.", "போர்டில் லேபிள் இட்டு, KiCad-ஐ எல்லா விதிகளையும் சரிபார்க்க விடுவது."],
+   s: [["Select F.SilkS and press Ctrl+Shift+T to add text: the board name, +5V and GND next to the header, and the version.", "F.SilkS-ஐத் தேர்வு செய்து உரை சேர்க்க Ctrl+Shift+T அழுத்துங்கள்: போர்டு பெயர், ஹெடர் அருகில் +5V, GND, version."],
+       ["Make sure R1, D1 and J1 labels do not sit on top of pads; the factory cannot print on pads.", "R1, D1, J1 லேபிள்கள் pad-களின் மேல் இல்லை என்பதை உறுதி செய்யுங்கள்; pad-களின் மேல் தொழிற்சாலை அச்சிட முடியாது."],
+       ["Inspect → Design Rules Checker → Run DRC. You want zero errors and zero unconnected items.", "Inspect → Design Rules Checker → Run DRC. பிழைகள் பூஜ்ஜியம், இணைக்கப்படாதவை பூஜ்ஜியம் என்று வர வேண்டும்."]],
+   k: [["Ctrl+Shift+T", "Add text", "உரை சேர்"], ["Ctrl+F", "Find a part by its reference (R1, D1…)", "Reference மூலம் பாகத்தைத் தேடு (R1, D1…)"]],
+   m: [["Ordering a board while DRC still shows 'unconnected items'. That means a missing track.", "DRC இன்னும் 'unconnected items' காட்டும்போது போர்டை ஆர்டர் செய்வது. அதாவது ஒரு track விடுபட்டுள்ளது."]] },
+ { t: ["Export Gerbers and order the board", "Gerber ஏற்றுமதி செய்து போர்டை ஆர்டர் செய்க"],
+   g: ["Create the files a PCB factory needs.", "PCB தொழிற்சாலைக்குத் தேவையான கோப்புகளை உருவாக்குவது."],
+   s: [["File → Fabrication Outputs → Gerbers. Tick F.Cu, B.Cu, F.Paste, B.Paste, F.SilkS, B.SilkS, F.Mask, B.Mask and Edge.Cuts. Choose an empty output folder and Plot.", "File → Fabrication Outputs → Gerbers. F.Cu, B.Cu, F.Paste, B.Paste, F.SilkS, B.SilkS, F.Mask, B.Mask, Edge.Cuts-ஐத் தேர்வு செய்யுங்கள். வெற்று output folder தேர்ந்து Plot செய்யுங்கள்."],
+       ["In the same window click Generate Drill Files → Generate. This makes the hole file.", "அதே window-இல் Generate Drill Files → Generate. இது துளைக் கோப்பை உருவாக்கும்."],
+       ["Zip the output folder. Open it in KiCad's Gerber Viewer to check every layer once more.", "Output folder-ஐ zip செய்யுங்கள். ஒவ்வொரு layer-ஐயும் மீண்டும் சரிபார்க்க KiCad-இன் Gerber Viewer-இல் திறங்கள்."],
+       ["Upload the zip to a PCB maker (JLCPCB, PCBWay, Aisler and others). Choose 1.6 mm, 2 layers, HASL finish. 5 boards of this size usually cost only a few dollars plus shipping.", "Zip-ஐ ஒரு PCB தயாரிப்பாளரிடம் upload செய்யுங்கள் (JLCPCB, PCBWay, Aisler போன்றவை). 1.6 mm, 2 layers, HASL finish தேர்வு செய்யுங்கள். இந்த அளவில் 5 போர்டுகள் பொதுவாக சில டாலர்கள் மற்றும் shipping செலவு மட்டுமே."]],
+   k: [["Ctrl+P", "Print the board at 1:1 and lay your real parts on the paper to check the footprints", "போர்டை 1:1 அளவில் அச்சிட்டு, உண்மையான பாகங்களை காகிதத்தில் வைத்து footprint-களைச் சரிபாருங்கள்"]],
+   m: [["Forgetting the drill file: the factory then has no holes to drill.", "Drill கோப்பை மறப்பது: பிறகு தொழிற்சாலைக்குத் துளையிட வேண்டிய இடங்கள் தெரியாது."],
+       ["Leaving Edge.Cuts out of the Gerbers: the factory does not know the board shape.", "Gerber-இல் Edge.Cuts-ஐ விடுவது: போர்டின் வடிவம் தொழிற்சாலைக்குத் தெரியாது."]] }
+];
+
+const KV = { tab: "sample", loaded: false, loading: null, projects: [], online: false, fetched: false, err: "", busy: false, confirmDel: null, open: null, localFiles: null, askPin: false };
+
+function loadKiCanvas() {
+  if (KV.loaded) return Promise.resolve();
+  if (KV.loading) return KV.loading;
+  KV.loading = new Promise((ok, bad) => {
+    const s = document.createElement("script");
+    s.type = "module"; s.src = "/static/vendor/kicanvas.js";
+    s.onload = () => { KV.loaded = true; ok(); };
+    s.onerror = () => { KV.loading = null; bad(new Error("load")); };
+    document.head.appendChild(s);
+  });
+  return KV.loading;
+}
+
+/* sources: [{src} | {name, text}] */
+function mountViewer(sources, label) {
+  const box = $("#kc-box"); if (!box) return;
+  KV.last = { sources, label };
+  box.innerHTML = `<p class="kc-wait">${one(KUI.loading)}</p>`;
+  loadKiCanvas().then(() => {
+    if (!$("#kc-box")) return;
+    const emb = document.createElement("kicanvas-embed");
+    emb.setAttribute("controls", "full");
+    sources.forEach(sv => {
+      const el = document.createElement("kicanvas-source");
+      if (sv.src) el.setAttribute("src", sv.src);
+      else { el.setAttribute("name", sv.name); el.textContent = sv.text; }
+      emb.appendChild(el);
+    });
+    box.innerHTML = label ? `<p class="kc-now">${one(KUI.viewing)}: <b>${esc(label)}</b></p>` : "";
+    box.appendChild(emb);
+  }).catch(() => { const b = $("#kc-box"); if (b) b.innerHTML = `<p class="ws-err">${one(KUI.failed)}</p>`; });
+}
+
+function renderKicad() {
+  const h = location.hash.slice(1);
+  const v = $("#v-kicad");
+  const viewTab = h === "kicad-view";
+  const m = h.match(/^kicad-(\d+)$/), li = m ? Math.min(KL.length - 1, Math.max(0, +m[1] - 1)) : null;
+  v.innerHTML = `<div class="pagehead"><h1>${tx(KUI.title)}</h1><p class="lede">${tx(KUI.sub)}</p></div>
+    <div class="subtabs" role="tablist"><a href="#kicad" role="tab" aria-selected="${!viewTab}">${one(KUI.learn)}</a><a href="#kicad-view" role="tab" aria-selected="${viewTab}">${one(KUI.viewer)}</a></div>
+    <div id="kc-body"></div>`;
+  if (viewTab) renderKViewer();
+  else if (li != null) renderKLesson(li);
+  else renderKCourse();
+}
+
+/* the practice board, drawn with the same renderer as the board library (4 units = 1 mm) */
+function kProjArt() {
+  const parts = [
+    drawComp({ t: "header", x: 12, y: 19, w: 10, h: 20, lb: "", o: { n: 2, o: "v" } }),
+    drawComp({ t: "smd", x: 56, y: 17, w: 8, h: 6, lb: "331", o: {} }),
+    drawComp({ t: "led", x: 80, y: 17, w: 8, h: 5, lb: "", o: { col: "#ff3b30" } })
+  ].join("");
+  const tr = `<path d="M17 24 H33 L38 20 H56 M64 20 H80 M88 20 H94 L100 26 V32 L97 35 H17" class="kc-tr"/>`;
+  const hole = (x, y) => C(x, y, 6.4, GOLD) + C(x, y, 3.6, "#0b1a12");
+  return `<svg viewBox="-6 -6 132 92" role="img" aria-label="LED Kalvi practice board"><rect x="0" y="0" width="120" height="80" rx="3" fill="#1f7a46" stroke="rgba(0,0,0,.4)"/><rect x="0" y="0" width="120" height="80" rx="3" fill="url(#gSheen)"/>${tr}${hole(16, 64)}${hole(104, 64)}${parts}<text x="60" y="52" font-size="6.4" class="silk" text-anchor="middle">LED KALVI v1</text><text x="3" y="25.5" font-size="3.4" class="silk">+</text><text x="60" y="13.5" font-size="3.4" class="silk" text-anchor="middle">R1</text><text x="84" y="13.5" font-size="3.4" class="silk" text-anchor="middle">D1</text></svg>`;
+}
+
+function renderKCourse() {
+  $("#kc-body").innerHTML = `
+    <div class="kc-proj">
+      <div class="kc-proj-t"><h2 class="sec">${tx(KUI.project)}</h2><p>${tx(KUI.projectSub)}</p>
+        <p class="kc-acts"><a class="cb wide accent" href="#kicad-view" data-kc="sample">◎ ${one(KUI.tryIt)}</a><a class="cb wide" href="/static/kicad/led-kalvi.zip" download>⤓ ${one(KUI.download)}</a></p></div>
+      <div class="kc-proj-art">${kProjArt()}</div>
+    </div>
+    <ol class="kc-list">${KL.map((l, i) => `<li><a href="#kicad-${i + 1}" class="kc-item"><span class="kc-n">${i + 1}</span><span class="kc-tt"><b>${tx(l.t)}</b><small>${one(l.g)}</small></span><span class="kc-go" aria-hidden="true">→</span></a></li>`).join("")}</ol>
+    <p class="fine">${tx(KUI.ver)}</p>`;
+}
+
+function renderKLesson(i) {
+  const l = KL[i];
+  $("#kc-body").innerHTML = `
+    <a class="backlink" href="#kicad">← ${one(KUI.learn)}</a>
+    <article class="kc-lesson">
+      <p class="eyebrow">${LANG === "ta" ? "பாடம்" : "Lesson"} ${i + 1} / ${KL.length}</p>
+      <h2 class="kc-h">${tx(l.t)}</h2>
+      <div class="tipbox"><h3>${tx(KUI.goal)}</h3><p>${tx(l.g)}</p></div>
+      <h3 class="sec">${tx(KUI.steps)}</h3>
+      <ol class="kc-steps">${l.s.map(s => `<li>${tx(s)}</li>`).join("")}</ol>
+      ${l.k.length ? `<h3 class="sec">${tx(KUI.keys)}</h3><dl class="kc-keys">${l.k.map(([k, a, b]) => `<div><dt><kbd>${esc(k.trim())}</kbd></dt><dd>${tx([a, b])}</dd></div>`).join("")}</dl>` : ""}
+      ${l.m.length ? `<div class="kc-warn"><h3>⚠ ${tx(KUI.mistakes)}</h3><ul>${l.m.map(x => `<li>${tx(x)}</li>`).join("")}</ul></div>` : ""}
+      <p class="kc-acts"><a class="cb wide" href="#kicad-view" data-kc="sample">◎ ${one(KUI.tryIt)}</a></p>
+      <div class="d-nav kc-nav">
+        ${i > 0 ? `<a class="cb wide" href="#kicad-${i}">← ${one(KUI.prev)}</a>` : `<span></span>`}
+        <span class="d-count">${i + 1} / ${KL.length}</span>
+        ${i < KL.length - 1 ? `<a class="cb wide accent" href="#kicad-${i + 2}">${one(KUI.next)} →</a>` : `<a class="cb wide accent" href="#kicad-view" data-kc="sample">${one(KUI.viewer)} →</a>`}
+      </div>
+    </article>`;
+}
+
+async function kLoad() {
+  try {
+    const r = await fetch("/api/kicad", { cache: "no-store" });
+    if (!r.ok) throw new Error();
+    const d = await r.json();
+    KV.projects = d.projects || []; KV.online = true;
+  } catch (e) { KV.online = false; }
+  KV.fetched = true;
+  if (S.view === "kicad" && KV.tab === "mine") renderKViewer();
+}
+
+function renderKViewer() {
+  const tab = KV.tab, unlocked = !!WS.pin;
+  const tabs = [["sample", KUI.sample], ["local", KUI.local], ["mine", KUI.mine]];
+  let panel = "";
+  if (tab === "sample") panel = `<p class="kc-acts"><a class="cb wide" href="/static/kicad/led-kalvi.zip" download>⤓ ${one(KUI.download)}</a></p>`;
+  if (tab === "local") panel = `<p>${tx(KUI.localSub)}</p><label class="cb wide accent kc-file">📂 ${one(KUI.choose)}<input type="file" id="kc-local" multiple accept=".kicad_pcb,.kicad_sch,.kicad_pro,.kicad_wks"></label>`;
+  if (tab === "mine") {
+    if (!KV.fetched) { kLoad(); panel = `<p class="kc-wait">${one(KUI.loading)}</p>`; }
+    else if (!KV.online) panel = `<p class="empty">${tx(KUI.offline)}</p>`;
+    else {
+      const lockRow = unlocked
+        ? `<button type="button" class="cb wide" data-kc="lock">🔒 ${one(UI.lock)}</button>`
+        : `<button type="button" class="cb wide" data-kc="askpin">🔑 ${one(UI.unlock)}</button>`;
+      const pinForm = KV.askPin && !unlocked ? `<form class="ws-pin" id="kpinform"><label for="kpin">${one(UI.unlock)}</label><div class="crow"><input id="kpin" type="password" inputmode="numeric" autocomplete="current-password" required><button class="cb wide accent" type="submit">${one(UI.unlock)}</button></div></form>` : "";
+      const form = unlocked ? `<form class="kc-form" id="kform">
+          <h3 class="sec">${tx(KUI.add)}</h3>
+          <label>${one(KUI.name)}<input name="title" maxlength="80" placeholder="ESP32 relay board"></label>
+          <label>${one(KUI.note)}<input name="note" maxlength="400"></label>
+          <label>${one(KUI.files)}<input type="file" name="files" multiple required accept=".kicad_pcb,.kicad_sch,.kicad_pro,.kicad_wks"></label>
+          <button class="cb wide accent" type="submit"${KV.busy ? " disabled" : ""}>${KV.busy ? "…" : "⤒ " + one(KUI.save)}</button>
+        </form>` : "";
+      panel = `<p>${tx(KUI.mineSub)}</p><div class="ws-actions">${lockRow}</div>${pinForm}${KV.err ? `<p class="ws-err">${esc(KV.err)}</p>` : ""}${form}
+        ${KV.projects.length ? `<ul class="kc-projects">${KV.projects.map(p => `<li class="kc-pcard${KV.open === p.id ? " on" : ""}">
+          <div><b>${esc(p.title)}</b>${p.note ? `<p>${esc(p.note)}</p>` : ""}<small>${p.files.map(esc).join(" · ")}</small></div>
+          <div class="kc-pbtns"><button type="button" class="cb wide accent" data-kopen="${p.id}">◎ ${one(KUI.open)}</button>
+          ${unlocked ? (KV.confirmDel === p.id
+            ? `<button type="button" class="cb wide danger" data-kdel="${p.id}">${one(KUI.yes)}</button><button type="button" class="cb wide" data-kc="nodel">${one(KUI.no)}</button>`
+            : `<button type="button" class="cb wide" data-kask="${p.id}">🗑 ${one(KUI.del)}</button>`) : ""}</div></li>`).join("")}</ul>` : `<p class="empty">${tx(KUI.none)}</p>`}`;
+    }
+  }
+  const tabsHTML = tabs.map(([k, t]) => `<button type="button" role="tab" class="chip" data-ktab="${k}" aria-pressed="${tab === k}">${one(t)}</button>`).join("");
+  /* the viewer element must never be moved or re-rendered (it cannot be re-attached), so only the tabs and panel are redrawn */
+  if ($("#kc-tabs") && $("#kc-box")) {
+    $("#kc-tabs").innerHTML = tabsHTML;
+    $("#kc-panel").innerHTML = panel;
+    return;
+  }
+  $("#kc-body").innerHTML = `
+    <div class="kc-vtabs" role="tablist" id="kc-tabs">${tabsHTML}</div>
+    <div class="kc-panel" id="kc-panel">${panel}</div>
+    <div class="kc-stage"><div id="kc-box"></div></div>
+    <details class="kc-how"><summary>${tx(KUI.howto)}</summary><ul class="uses">${KUI.howtoList.map(x => `<li>${tx(x)}</li>`).join("")}</ul></details>
+    <p class="fine">${tx(KUI.credit)}</p>`;
+  if (KV.last) mountViewer(KV.last.sources, KV.last.label);
+  else if (tab === "sample") mountViewer(SAMPLE_SRC, "LED Kalvi");
+}
+const SAMPLE_SRC = [{ src: "/static/kicad/led-kalvi.kicad_sch" }, { src: "/static/kicad/led-kalvi.kicad_pcb" }];
+
+function kTab(t) {
+  if (KV.tab === t) return;
+  KV.tab = t; KV.err = "";
+  renderKViewer();
+  if (t === "sample") mountViewer(SAMPLE_SRC, "LED Kalvi");
+  else { KV.last = null; const box = $("#kc-box"); if (box) box.innerHTML = ""; }
+}
+
+async function kOpenLocal(files) {
+  const list = Array.from(files || []).filter(f => /\.(kicad_pcb|kicad_sch|kicad_pro|kicad_wks)$/i.test(f.name));
+  if (!list.some(f => /\.(kicad_pcb|kicad_sch)$/i.test(f.name))) { KV.err = LANG === "ta" ? ".kicad_pcb அல்லது .kicad_sch கோப்பு தேவை." : "Choose at least one .kicad_pcb or .kicad_sch file."; renderKViewer(); return; }
+  const srcs = await Promise.all(list.map(async f => ({ name: f.name, text: await f.text() })));
+  mountViewer(srcs, list.map(f => f.name).join(", "));
+}
+
+function kOpenSaved(id) {
+  const p = KV.projects.find(x => x.id === id); if (!p) return;
+  KV.open = id;
+  $$(".kc-pcard").forEach(c => c.classList.toggle("on", c.querySelector(`[data-kopen="${id}"]`) != null));
+  mountViewer(p.files.map(n => ({ src: `/kicad-files/${p.id}/${encodeURIComponent(n)}` })), p.title);
+  const st = $(".kc-stage"); if (st) st.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+async function kSave(form) {
+  const fd = new FormData();
+  fd.append("title", form.title.value.trim());
+  fd.append("note", form.note.value.trim());
+  Array.from(form.files.files).forEach(f => fd.append("files", f, f.name));
+  KV.busy = true; KV.err = ""; renderKViewer();
+  try {
+    const d = await api("POST", "/api/kicad", fd);
+    KV.projects.unshift(d.project); KV.busy = false;
+    renderKViewer(); kOpenSaved(d.project.id);
+  } catch (e) { KV.busy = false; KV.err = e.message; if (!WS.pin) KV.askPin = true; renderKViewer(); }
+}
+
+document.addEventListener("click", async e => {
+  if (S.view !== "kicad") return;
+  const kc = e.target.closest("[data-kc]");
+  if (kc) {
+    const a = kc.dataset.kc;
+    if (a === "sample") { if (location.hash === "#kicad-view") { e.preventDefault(); kTab("sample"); } else { KV.tab = "sample"; KV.last = null; } return; }
+    if (a === "askpin") { KV.askPin = true; renderKViewer(); setTimeout(() => { const i = $("#kpin"); if (i) i.focus(); }, 30); return; }
+    if (a === "lock") { WS.pin = ""; store.set("pin", ""); renderKViewer(); return; }
+    if (a === "nodel") { KV.confirmDel = null; renderKViewer(); return; }
+  }
+  const t = e.target.closest("[data-ktab]"); if (t) { kTab(t.dataset.ktab); return; }
+  const o = e.target.closest("[data-kopen]"); if (o) { kOpenSaved(o.dataset.kopen); return; }
+  const ask = e.target.closest("[data-kask]"); if (ask) { KV.confirmDel = ask.dataset.kask; renderKViewer(); return; }
+  const del = e.target.closest("[data-kdel]");
+  if (del) {
+    try {
+      await api("DELETE", "/api/kicad/" + del.dataset.kdel);
+      KV.projects = KV.projects.filter(p => p.id !== del.dataset.kdel);
+      if (KV.open === del.dataset.kdel) { KV.open = null; KV.last = null; const b = $("#kc-box"); if (b) b.innerHTML = ""; }
+      KV.confirmDel = null; renderKViewer();
+    } catch (err) { KV.confirmDel = null; KV.err = err.message; KV.askPin = !WS.pin; renderKViewer(); }
+  }
+});
+document.addEventListener("change", e => { if (e.target.id === "kc-local") kOpenLocal(e.target.files); });
+document.addEventListener("submit", async e => {
+  if (e.target.id === "kform") { e.preventDefault(); if (!KV.busy) kSave(e.target); }
+  if (e.target.id === "kpinform") {
+    e.preventDefault();
+    const pin = $("#kpin").value;
+    try {
+      const r = await fetch("/api/workshop/unlock", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ pin }) });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(d.error || "Wrong PIN.");
+      WS.pin = pin; store.set("pin", pin); KV.askPin = false; KV.err = ""; renderKViewer();
+    } catch (err) { KV.err = err.message; renderKViewer(); }
+  }
+});
+route();
 </script>
 </body></html>
