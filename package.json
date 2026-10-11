@@ -1,6 +1,6 @@
 {
   "name": "pcb-kalvi",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "private": true,
   "description": "PCB Kalvi: learn PCB boards part by part in English and Tamil, with a personal workshop inventory",
   "main": "server.js",

@@ -11,6 +11,7 @@ Interactive PCB learning app. Every board is drawn as a digital diagram you can 
 - Search box for boards and parts
 - Parts library (84 components) and PCB basics
 - Language switch: English, Tamil, or both, plus read-aloud
+- Real board view: Arduino Uno, Nano, Mega and NodeMCU show the makers' official PCB design files (converted to KiCad, see `static/real/SOURCES.md`) with the official schematic PDFs
 - KiCad: a 10-lesson Learn KiCad course (English + Tamil) built around a real practice project (LED Kalvi, downloadable), and a KiCad viewer (KiCanvas, self-hosted in `static/vendor`) to open .kicad_sch / .kicad_pcb files: the practice board, files from your device (nothing uploaded), or your own saved projects (PIN-protected)
 - My Workshop: step-by-step wiring guides (pins, jumper wire type, diagram, code) and your own boards with photos, stock count, location, price and project (PIN-protected editing)
 

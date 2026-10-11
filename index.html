@@ -453,6 +453,17 @@ kbd{font-family:var(--f-mono);font-size:.8rem;font-weight:600;background:var(--s
 .kc-pcard small{display:block;color:var(--muted);font-family:var(--f-mono);font-size:.74rem}
 .kc-pbtns{display:flex;gap:6px;flex-wrap:wrap}
 @media (max-width:640px){.kc-proj{grid-template-columns:1fr}.kc-proj-art{max-width:260px}.kc-list{grid-template-columns:1fr}.kc-lesson{padding:14px}}
+.viewsw{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.realchip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.realtag{display:inline-block;font-family:var(--f-mono);font-size:.72rem;font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:1px 7px;margin-left:4px;white-space:nowrap}
+.realbox{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.realhead{padding:14px 16px}
+.realhead h2{font-family:var(--f-display);font-size:1.15rem;margin-bottom:6px}
+.realhead p{margin:0 0 8px}
+.realmeta{font-size:.84rem;color:var(--muted)}
+.realdiff{font-size:.86rem;background:var(--accent-soft);border-radius:8px;padding:8px 10px;margin:0 0 8px}
+.realview{border-top:1px solid var(--line)}
+.realview kicanvas-embed{display:block;width:100%;height:min(70vh,640px);min-height:360px}
 .pinsilk text{fill:#f3f3f0;font-family:var(--f-mono);font-weight:600;pointer-events:none;opacity:.92}
 .pinbig{display:none;pointer-events:none}
 .pinbig rect{fill:#111316;stroke:var(--hl);stroke-width:.7}
@@ -513,7 +524,7 @@ kbd{font-family:var(--f-mono);font-size:.8rem;font-weight:600;background:var(--s
 </main>
 <footer class="foot">
   <p class="powered"><span class="spark s1" aria-hidden="true">✦</span><span class="pw-txt">Powered by <b>Azhar</b></span><span class="spark s2" aria-hidden="true">✦</span><span class="spark s3" aria-hidden="true">✧</span></p>
-  <p class="disc">Board drawings are simplified diagrams for learning; part positions are approximate. · போர்டு வரைபடங்கள் கற்றலுக்கான எளிய வடிவங்கள்; பாகங்களின் இடங்கள் தோராயமானவை.</p>
+  <p class="disc">Boards marked ◆ Real board show the manufacturer's official design files: every part, track and hole is exactly where it is on the real board. Other boards are teaching diagrams: pin names, chips and specs are exact; part positions are drawn by hand. · ◆ Real board என்று குறிக்கப்பட்ட போர்டுகள், தயாரிப்பாளரின் அதிகாரப்பூர்வ வடிவமைப்புக் கோப்புகளைக் காட்டுகின்றன: ஒவ்வொரு பாகமும், track-ம், துளையும் உண்மையான போர்டில் உள்ள அதே இடத்தில் உள்ளன. மற்ற போர்டுகள் கற்பிக்கும் வரைபடங்கள்: பின் பெயர்கள், சிப்புகள், விவரங்கள் சரியானவை; பாகங்களின் இடங்கள் கையால் வரையப்பட்டவை.</p>
 </footer>
 <script>
 /* ---------- PARTS DICTIONARY (English + Tamil) ---------- */
@@ -3041,6 +3052,7 @@ function fxBlocked(b, side) {
 const fxHit = (a, list) => list.some(q => a[0] < q[0] + q[2] && a[0] + a[2] > q[0] && a[1] < q[1] + q[3] && a[1] + a[3] > q[1]);
 
 function makeFillers(b) {
+  if (typeof REAL !== "undefined" && REAL[b.id]) return [];
   const W = b.W, bh = b.bh || b.H, r = rng(hash(b.id + "#fx"));
   const area = W * bh, all = [], cnt = { R: 0, C: 0, Q: 0 };
   ["front", "back"].forEach(side => {
@@ -3342,7 +3354,7 @@ function route() {
   const h = location.hash.slice(1);
   if (h.startsWith("b-") && findB(h.slice(2))) {
     const id = h.slice(2);
-    if (S.board !== id) Object.assign(S, { board: id, sel: null, fsel: null, rz: 0, tx: 0, ty: 0, flip: false, zoom: 1 });
+    if (S.board !== id) Object.assign(S, { board: id, sel: null, fsel: null, real: false, rz: 0, tx: 0, ty: 0, flip: false, zoom: 1 });
     S.view = "board"; store.set("last", id);
   } else if (h === "parts") S.view = "parts";
   else if (h === "basics") S.view = "basics";
@@ -3383,7 +3395,7 @@ function renderLib() {
           <h3>${esc(b.n)}</h3>
           <p class="meta"><code>${esc(b.chip)}</code> · ${esc(b.volt)}</p>
           <p class="card-use">${tx(b.uses[0])}</p>
-          <p class="pts">${b.c.length} ${LANG === "ta" ? "பகுதிகள்" : "points"}${wsBadge(b.id)}</p>
+          <p class="pts">${b.c.length} ${LANG === "ta" ? "பகுதிகள்" : "points"}${REAL[b.id] ? ` <span class="realtag">◆ ${one(RUI.badge)}</span>` : ""}${wsBadge(b.id)}</p>
         </div>
       </a>`).join("")}</div>` : `<p class="empty">${tx(UI.noRes)}</p>`}`;
 }
@@ -3397,11 +3409,13 @@ function renderBoard() {
       <a class="backlink" href="#">← ${one(UI.back)}</a>
       <p class="eyebrow">${one(CATS[b.cat])}</p>
       <h1>${esc(b.n)}</h1>
-      <p class="meta"><code>${esc(b.chip)}</code> · ${esc(b.volt)}${sizeOf(b) ? ` · ${esc(sizeOf(b))}` : ""} · ${pts.length} ${LANG === "ta" ? "பகுதிகள்" : "points"} · ${fxOf(b).length} ${LANG === "ta" ? "சிறிய பாகங்கள்" : "small parts"}</p>
+      <p class="meta"><code>${esc(b.chip)}</code> · ${esc(b.volt)}${sizeOf(b) ? ` · ${esc(sizeOf(b))}` : ""} · ${pts.length} ${LANG === "ta" ? "பகுதிகள்" : "points"} ${REAL[b.id] ? ` · <span class="realtag">◆ ${one(RUI.badge)}</span>` : ` · ${fxOf(b).length} ${LANG === "ta" ? "சிறிய பாகங்கள் (உதாரணம்)" : "example small parts"}`}</p>
     </div>
     <div class="bv">
       <div class="colA">
-        <div class="stagebox">
+        ${REAL[b.id] ? `<div class="viewsw" role="tablist"><button type="button" class="chip" data-real="0" aria-pressed="${!S.real}">✎ ${one(RUI.diagram)}</button><button type="button" class="chip realchip" data-real="1" aria-pressed="${!!S.real}">◆ ${one(RUI.real)}</button></div>` : ""}
+        ${REAL[b.id] && S.real ? realPanel(b) : ""}
+        <div class="stagebox"${REAL[b.id] && S.real ? " hidden" : ""}>
           <div class="stage" id="stage" aria-label="${esc(b.n)} interactive board">
             <div class="b3d" id="b3d">
               <div class="face front">${boardSVG(b, "front", true)}</div>
@@ -3454,6 +3468,7 @@ function renderBoard() {
     </div>`;
   $("#b3d").classList.toggle("nonum", !S.nums);
   if (S.fsel != null) $$(`.fx[data-f="${S.fsel}"]`).forEach(g => g.classList.add("on"));
+  if (REAL[b.id] && S.real) mountReal(b);
   bindStage();
   renderDetail();
   renderMyBoardPanel(b);
@@ -3564,6 +3579,45 @@ function renderDetail() {
     </div>`;
 }
 
+
+/* ---------- REAL BOARDS: official design files, converted to KiCad and shown with KiCanvas ---------- */
+const REAL = {
+  uno: { pcb: "/static/real/uno.kicad_pcb", pdf: "/static/real/uno-schematic.pdf", name: "Arduino UNO Rev3e (A000066)", by: "Arduino", lic: "CC BY-SA 4.0" },
+  nano: { pcb: "/static/real/nano.kicad_pcb", pdf: "/static/real/nano-schematic.pdf", name: "Arduino Nano V3.3 (A000005)", by: "Arduino", lic: "CC BY-SA 4.0",
+    diff: ["This is the original Arduino Nano. It uses an FT232 USB chip. Most low-cost clones use a CH340 chip instead, so that one area of a clone looks different; the rest of the layout is the same.", "இது அசல் Arduino Nano. இதில் FT232 USB சிப் உள்ளது. பெரும்பாலான மலிவான clone-களில் அதற்குப் பதில் CH340 சிப் இருக்கும்; அதனால் clone-இல் அந்தப் பகுதி மட்டும் வேறுபடும், மீதி layout அதேதான்."] },
+  mega: { pcb: "/static/real/mega.kicad_pcb", pdf: "/static/real/mega-schematic.pdf", name: "Arduino Mega 2560 Rev3e (A000067)", by: "Arduino", lic: "CC BY-SA 4.0" },
+  nodemcu: { pcb: "/static/real/nodemcu.kicad_pcb", pdf: "/static/real/nodemcu-schematic.pdf", name: "NodeMCU DevKit v1.0 (original, CP2102)", by: "NodeMCU team", lic: "MIT",
+    diff: ["This is the original NodeMCU v1.0 design. The v3 'LoLin' board in the drawing is a wider copy with a CH340 USB chip; its makers never published their layout, so the original is the closest exact design available.", "இது அசல் NodeMCU v1.0 வடிவமைப்பு. வரைபடத்தில் உள்ள v3 'LoLin' போர்டு, CH340 USB சிப் கொண்ட அகலமான நகல்; அதன் தயாரிப்பாளர்கள் layout-ஐ வெளியிடவில்லை, எனவே கிடைக்கும் மிக நெருக்கமான சரியான வடிவமைப்பு அசல்தான்."] }
+};
+const RUI = {
+  diagram: ["Learning diagram", "கற்றல் வரைபடம்"], real: ["Real board", "உண்மையான போர்டு"],
+  realT: ["Official design files", "அதிகாரப்பூர்வ வடிவமைப்புக் கோப்புகள்"],
+  realSub: ["This is the maker's own PCB design, converted to KiCad. Every resistor, capacitor, track and via is exactly where it is on the real board. Tap once, then zoom in, switch layers or flip to the back.", "இது தயாரிப்பாளரின் சொந்த PCB வடிவமைப்பு, KiCad-க்கு மாற்றப்பட்டது. ஒவ்வொரு ரெசிஸ்டர், கெபாசிட்டர், track, via-வும் உண்மையான போர்டில் உள்ள அதே இடத்தில் உள்ளன. ஒருமுறை தொட்டு, பிறகு zoom செய்யவும், layer-களை மாற்றவும் அல்லது பின்பக்கம் திருப்பவும்."],
+  sch: ["Official schematic (PDF)", "அதிகாரப்பூர்வ schematic (PDF)"], dl: ["Download KiCad board file", "KiCad போர்டு கோப்பைப் பதிவிறக்க"],
+  src: ["Source", "மூலம்"], lic: ["Licence", "உரிமம்"], badge: ["Real board", "உண்மையான போர்டு"],
+  hasReal: ["This board has its official design file. Switch to ◆ Real board above the drawing to see every actual resistor and capacitor in its exact place.", "இந்த போர்டுக்கு அதிகாரப்பூர்வ வடிவமைப்புக் கோப்பு உள்ளது. ஒவ்வொரு உண்மையான ரெசிஸ்டர், கெபாசிட்டரையும் அதன் சரியான இடத்தில் காண, வரைபடத்துக்கு மேலே உள்ள ◆ Real board-க்கு மாறவும்."],
+  exNote: ["Small parts on this drawing (R, C, Q) are typical examples, not this board's exact parts.", "இந்த வரைபடத்தில் உள்ள சிறிய பாகங்கள் (R, C, Q) வழக்கமான உதாரணங்கள்; இந்த போர்டின் சரியான பாகங்கள் அல்ல."]
+};
+function realPanel(b) {
+  const r = REAL[b.id];
+  return `<div class="realbox" id="realbox">
+      <div class="realhead"><h2>◆ ${tx(RUI.realT)}</h2><p>${tx(RUI.realSub)}</p>
+        ${r.diff ? `<p class="realdiff">⚠ ${tx(r.diff)}</p>` : ""}
+        <p class="realmeta"><b>${esc(r.name)}</b> · ${one(RUI.src)}: ${esc(r.by)} · ${one(RUI.lic)}: ${esc(r.lic)}</p>
+        <p class="kc-acts"><a class="cb wide" href="${r.pdf}" target="_blank" rel="noopener">📄 ${one(RUI.sch)}</a><a class="cb wide" href="${r.pcb}" download>⤓ ${one(RUI.dl)}</a></p></div>
+      <div class="realview" id="realview"><p class="kc-wait">${one(KUI.loading)}</p></div>
+    </div>`;
+}
+function mountReal(b) {
+  const r = REAL[b.id];
+  loadKiCanvas().then(() => {
+    const box = $("#realview"); if (!box) return;
+    const emb = document.createElement("kicanvas-embed");
+    emb.setAttribute("controls", "full");
+    emb.setAttribute("src", r.pcb);
+    box.innerHTML = ""; box.appendChild(emb);
+  }).catch(() => { const box = $("#realview"); if (box) box.innerHTML = `<p class="ws-err">${one(KUI.failed)}</p>`; });
+}
 /* ---------- small parts (fillers) on the board page ---------- */
 const fxOf = b => { normBoard(b); if (!b.fx) b.fx = makeFillers(b); return b.fx; };
 function sizeOf(b) { const r = (b.sp || []).find(([k]) => k === "size"); return r ? r[1] : ""; }
@@ -3604,12 +3658,19 @@ function fillerDetail(b, q) {
     <div class="d-nav"><button type="button" class="cb wide" data-act="fxback">← ${one(FX_UI.back)}</button></div>`;
 }
 function smallBox(b) {
+  if (REAL[b.id]) return `<div class="smallbox"><h2 class="sec">${tx(FX_UI.small)}</h2><p>${tx(RUI.hasReal)}</p>
+    <div class="coderd"><label for="rcode">${tx(FX_UI.reader)}</label>
+      <input id="rcode" inputmode="text" maxlength="5" placeholder="103" autocomplete="off" spellcheck="false">
+      <output id="rcodeout" aria-live="polite">${one(FX_UI.readerHint)}</output></div>
+    <h3 class="sec" style="margin-top:12px">${tx(FX_UI.letters)}</h3>
+    <ul class="desig">${DESIG.map(([k, a, t]) => `<li><b>${k}</b><span>${tx([a, t])}</span></li>`).join("")}</ul></div>`;
   const list = fxOf(b), n = { R: 0, C: 0, Q: 0 };
   list.forEach(q => n[q.kind]++);
   const lab = { R: ["resistors", "ரெசிஸ்டர்கள்"], C: ["capacitors", "கெபாசிட்டர்கள்"], Q: ["transistors", "டிரான்சிஸ்டர்கள்"] };
   return `<div class="smallbox">
     <h2 class="sec">${tx(FX_UI.small)}</h2>
     <p>${tx(FX_UI.smallSub)}</p>
+    <p class="realdiff">${tx(RUI.exNote)}</p>
     <div class="scount">${["R", "C", "Q"].filter(k => n[k]).map(k => `<span><b>${n[k]}</b>${one(lab[k])}</span>`).join("")}</div>
     <div class="coderd"><label for="rcode">${tx(FX_UI.reader)}</label>
       <input id="rcode" inputmode="text" maxlength="5" placeholder="103" autocomplete="off" spellcheck="false">
@@ -3698,8 +3759,10 @@ document.addEventListener("click", e => {
   if (chip) { S.cat = chip.dataset.cat; renderLib(); return; }
   const dd = e.target.closest(".dd-item");
   if (dd) { openResult(dd.dataset.type, dd.dataset.id); return; }
+  const rv = e.target.closest("[data-real]");
+  if (rv) { const on = rv.dataset.real === "1"; if (!!S.real !== on) { S.real = on; renderBoard(); } return; }
   const pb = e.target.closest(".pbtn");
-  if (pb) { select(+pb.dataset.i, true); return; }
+  if (pb) { if (S.real) { S.real = false; renderBoard(); } select(+pb.dataset.i, true); return; }
   const nav = e.target.closest("[data-nav]");
   if (nav) { const b = findB(S.board), n = b.c.length; select(((S.sel ?? -1) + +nav.dataset.nav + n) % n, false); return; }
   const cb = e.target.closest(".cb[data-act]");
