@@ -5,6 +5,8 @@ Interactive PCB learning app. Every board is drawn as a digital diagram you can 
 ## What's inside
 - 51 boards: Arduino (Uno, Nano, Mega, Pro Mini, Digispark), ESP (8266, ESP‑01, D1 Mini, ESP32, C3, S3, CAM), Raspberry Pi (4, 5, Zero 2 W, Pico), STM32 Blue Pill, relay and motor drivers, power modules, radios (HC‑05, nRF24, LoRa, GPS, GSM, RFID, Ethernet), displays (OLED, 16×2 LCD, TM1637, MAX7219), sensors and utility modules
 - Tap any point for: what it is, what it does, its role on that board, and how to identify and test it
+- Realistic drawings: shaded parts, silkscreen outlines, tinned pads, vias and fiducials, plus the small resistors (R), capacitors (C) and transistors (Q) a real board carries, each tappable for its value, job and how to read its code
+- SMD resistor code reader (103, 4R7, 1001, EIA-96 01C) and a guide to the letters printed next to parts
 - Uses, key specs and a beginner tip for each board
 - Search box for boards and parts
 - Parts library (84 components) and PCB basics

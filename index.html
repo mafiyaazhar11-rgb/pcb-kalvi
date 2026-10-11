@@ -370,6 +370,30 @@ main{max-width:1280px;margin:0 auto;padding-block:22px 60px;padding-inline:16px}
 @media (prefers-reduced-motion:reduce){.wdiag .wflow{animation:none}}
 
 /* printed pin names */
+.sko{fill:none;stroke:#f4f4f4;stroke-width:.55;opacity:.62;pointer-events:none}
+.fxd{font-size:3.3px;letter-spacing:0;opacity:.78}
+.fx{cursor:pointer}
+.fx .fxhl{fill:transparent;stroke:transparent;stroke-width:.9}
+.fx:hover .fxhl{stroke:var(--hl);fill:rgba(255,154,60,.18)}
+.fx.on .fxhl{stroke:var(--hl);stroke-width:1.3;fill:rgba(255,154,60,.28)}
+.d-num.des{width:auto;min-width:34px;padding:0 9px;border-radius:999px;font-size:.85rem}
+.d-val{font-family:var(--f-mono);font-weight:700;font-size:1.05rem;color:var(--fg)}
+.smallbox{margin-top:12px;border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:var(--surface2)}
+.smallbox .sec{margin:0 0 6px;font-size:1rem}
+.smallbox p{margin:0 0 8px}
+.scount{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px}
+.scount span{font-family:var(--f-mono);font-size:.8rem;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px 10px}
+.scount b{color:var(--accent);margin-right:4px}
+.coderd{display:grid;grid-template-columns:minmax(0,1fr);gap:6px;margin-top:4px}
+.coderd label{font-size:.82rem;color:var(--muted)}
+.coderd input{height:40px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--fg);font:600 1rem var(--f-mono);padding:0 12px;letter-spacing:.08em;text-transform:uppercase;max-width:200px}
+.coderd output{display:block;min-height:1.4em;font-size:.92rem}
+.coderd output b{font-family:var(--f-mono);font-size:1.05rem;color:var(--accent)}
+.desig{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:4px 12px;margin:4px 0 0;padding:0;list-style:none;font-size:.86rem}
+.desig li{display:grid;grid-template-columns:4.6em minmax(0,1fr);align-items:baseline}
+.desig b{font-family:var(--f-mono);color:var(--accent);white-space:nowrap}
+.desig .t-dual{display:inline;margin:0 0 0 4px;font-size:.92em}
+.fine{font-size:.78rem;color:var(--muted);margin:8px 0 0}
 .pinsilk text{fill:#f3f3f0;font-family:var(--f-mono);font-weight:600;pointer-events:none;opacity:.92}
 .pinbig{display:none;pointer-events:none}
 .pinbig rect{fill:#111316;stroke:var(--hl);stroke-width:.7}
@@ -391,6 +415,13 @@ main{max-width:1280px;margin:0 auto;padding-block:22px 60px;padding-inline:16px}
     <linearGradient id="gPin" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e9ecef"/><stop offset="1" stop-color="#9ea5ac"/></linearGradient>
     <linearGradient id="gChip" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a2c31"/><stop offset="1" stop-color="#141518"/></linearGradient>
     <radialGradient id="gSolder"><stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#c6ccd2"/><stop offset="1" stop-color="#8d949b"/></radialGradient>
+    <linearGradient id="gSheen" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".45" stop-color="#fff" stop-opacity=".03"/><stop offset="1" stop-color="#000" stop-opacity=".14"/></linearGradient>
+    <linearGradient id="gChipTop" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".1"/><stop offset=".18" stop-color="#fff" stop-opacity=".02"/><stop offset="1" stop-color="#000" stop-opacity=".18"/></linearGradient>
+    <linearGradient id="gTin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4f6f8"/><stop offset=".5" stop-color="#b9c0c7"/><stop offset="1" stop-color="#8e969e"/></linearGradient>
+    <linearGradient id="gMlcc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c9a77c"/><stop offset=".55" stop-color="#a5835a"/><stop offset="1" stop-color="#7f6342"/></linearGradient>
+    <linearGradient id="gRes" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c2d31"/><stop offset="1" stop-color="#0d0d0f"/></linearGradient>
+    <linearGradient id="gHdr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2d2d30"/><stop offset="1" stop-color="#111113"/></linearGradient>
+    <radialGradient id="gGlow"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset=".35" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
     <pattern id="pMesh" width="3" height="3" patternUnits="userSpaceOnUse"><rect width="3" height="3" fill="#2b2d31"/><path d="M0 0L3 3M3 0L0 3" stroke="#55595f" stroke-width=".5"/></pattern>
   </defs>
 </svg>
@@ -2414,6 +2445,36 @@ function mouth(x, y, w, h, e, fill, depth, span) {
   return R(x + w * (1 - span) / 2, y + h * (1 - depth), w * span, h * depth, fill);
 }
 
+/* a realistic chip resistor / ceramic capacitor seen from above: tinned end caps, solder fillets, printed code */
+function smdPart(x, y, w, h, col, code) {
+  const vert = h > w * 1.15, L = vert ? h : w, T = vert ? w : h;
+  /* a long strip in the data means "a row of these parts": draw them one by one */
+  if (L / T > 3.4) {
+    const n = Math.max(2, Math.round(L / (T * 2.3))), step = L / n, pl = step * 0.78, gap = (step - pl) / 2;
+    let out = "";
+    for (let i = 0; i < n; i++) out += vert ? smdPart(x, y + i * step + gap, w, pl, col, code) : smdPart(x + i * step + gap, y, pl, h, col, code);
+    return out;
+  }
+  const ceramic = col && /^#(9c7a52|a5835a|b08|c9a7)/i.test(col);
+  const body = ceramic ? "url(#gMlcc)" : col ? col : "url(#gRes)";
+  const e = Math.max(0.9, L * 0.2), fl = Math.min(1.2, T * 0.22);
+  let s = "";
+  /* solder fillets on the pads, a little wider than the part */
+  if (vert) s += R(x - fl, y - fl, w + fl * 2, e + fl, "url(#gTin)", `rx=".6" opacity=".9"`) + R(x - fl, y + h - e, w + fl * 2, e + fl, "url(#gTin)", `rx=".6" opacity=".9"`);
+  else s += R(x - fl, y - fl, e + fl, h + fl * 2, "url(#gTin)", `rx=".6" opacity=".9"`) + R(x + w - e, y - fl, e + fl, h + fl * 2, "url(#gTin)", `rx=".6" opacity=".9"`);
+  s += R(x, y, w, h, body, `rx=".4" stroke="rgba(0,0,0,.55)" stroke-width=".25"`);
+  if (vert) s += R(x, y, w, e, "url(#gTin)", `rx=".3"`) + R(x, y + h - e, w, e, "url(#gTin)", `rx=".3"`);
+  else s += R(x, y, e, h, "url(#gTin)", `rx=".3"`) + R(x + w - e, y, e, h, "url(#gTin)", `rx=".3"`);
+  s += vert ? R(x + w * 0.18, y + e, w * 0.14, h - e * 2, "rgba(255,255,255,.12)") : R(x + e, y + h * 0.16, w - e * 2, h * 0.14, "rgba(255,255,255,.12)");
+  if (code && !ceramic) {
+    const tw = vert ? h - e * 2 : w - e * 2, th = vert ? w : h;
+    const fs = Math.max(2, Math.min(th * 0.62, tw / (code.length * 0.64), 5));
+    const cx = x + w / 2, cy = y + h / 2;
+    s += `<text x="${f(cx)}" y="${f(cy)}" font-size="${f(fs)}" fill="#eef0f2" text-anchor="middle" dominant-baseline="central" class="sl"${vert ? ` transform="rotate(-90 ${f(cx)} ${f(cy)})"` : ""}>${esc(code)}</text>`;
+  }
+  return s;
+}
+
 function drawComp(c) {
   const { t, x, y, w, h, lb, o } = c;
   let s = "";
@@ -2433,14 +2494,16 @@ function drawComp(c) {
         for (let i = 0; i < n; i++) { const cy = off + i * pp; s += R(x - pl, cy - pw / 2, pl, pw, PIN) + R(x + w, cy - pw / 2, pl, pw, PIN); }
       }
       s += R(x, y, w, h, o.col || "url(#gChip)", `rx="1.4" stroke="#000" stroke-width=".6"`);
-      if (dip) s += `<path d="M${f(x)} ${f(y + h / 2 - 4)} a4 4 0 0 1 0 8" fill="#2b2d31"/>`;
-      else s += C(x + Math.min(3.5, w * 0.16), y + Math.min(3.5, h * 0.16), Math.min(1.4, w * 0.06), "#3b3e44");
-      s += lbl(x, y, w, h, lb, "#c3c7cd", dip ? 9 : 7.5);
+      s += R(x + 0.6, y + 0.6, w - 1.2, h - 1.2, "url(#gChipTop)", `rx="1"`);
+      if (dip) s += `<path d="M${f(x)} ${f(y + h / 2 - 4)} a4 4 0 0 1 0 8" fill="#1d1e22" stroke="#000" stroke-width=".4"/>`;
+      else s += C(x + Math.min(3.5, w * 0.16), y + Math.min(3.5, h * 0.16), Math.min(1.4, w * 0.06), "#0d0e10", `stroke="#4a4e55" stroke-width=".3"`);
+      s += lbl(x, y, w, h, lb, "#cfd3d9", dip ? 9 : 7.5);
       break;
     }
     case "shield":
       s += R(x, y, w, h, SIL, `rx="1.8" stroke="#80868d" stroke-width=".8"`);
       s += R(x + 2.5, y + 2.5, w - 5, h - 5, "none", `rx="1" stroke="#a1a7ad" stroke-width=".5"`);
+      s += R(x, y, w, h, "url(#gSheen)", `rx="1.8"`);
       s += lbl(x, y, w, h, lb, "#3a3f46", 9);
       break;
     case "antenna": {
@@ -2496,7 +2559,7 @@ function drawComp(c) {
       break;
     case "header": case "jhdr": {
       const pins = hdrPins(c);
-      s += R(x, y, w, h, o.f ? "#151515" : "#1d1d1f", `rx="1"`);
+      s += R(x, y, w, h, o.f ? "#151515" : "url(#gHdr)", `rx="1" stroke="#000" stroke-width=".4"`);
       pins.forEach(([cx, cy, p]) => {
         if (o.f) s += R(cx - p * 0.22, cy - p * 0.22, p * 0.44, p * 0.44, "#000", `stroke="#4a4436" stroke-width=".6"`);
         else s += R(cx - p * 0.19, cy - p * 0.19, p * 0.38, p * 0.38, GOLD, `stroke="#7d5f1d" stroke-width=".4"`);
@@ -2522,11 +2585,14 @@ function drawComp(c) {
       if (lb && Math.min(w, h) >= 16) s += lbl(x, y + h * 0.8, w, h * 0.22, lb, "#e9ecef", 3.6);
       break;
     }
-    case "led":
-      s += R(x, y, w, h, "#d9dde1", `rx=".6"`);
-      s += R(x + w * 0.18, y, w * 0.64, h, o.col || "#ff3b30", `rx=".6"`);
+    case "led": {
+      const col = o.col || "#ff3b30", gx = x + w / 2, gy = y + h / 2, gr = Math.max(w, h);
+      s += C(gx, gy, gr * 0.95, col, `opacity=".16"`) + C(gx, gy, gr * 0.62, col, `opacity=".22"`);
+      s += R(x - 0.5, y - 0.3, w + 1, h + 0.6, "url(#gTin)", `rx=".5"`);
+      s += R(x + w * 0.18, y, w * 0.64, h, col, `rx=".6"`);
       s += R(x + w * 0.3, y + h * 0.22, w * 0.25, h * 0.4, "rgba(255,255,255,.7)", `rx=".4"`);
       break;
+    }
     case "leds": {
       const n = o.n || 2, cols = o.cols || ["#ff3b30", "#30d158", "#ffb000"];
       for (let i = 0; i < n; i++) {
@@ -2536,11 +2602,7 @@ function drawComp(c) {
       }
       break;
     }
-    case "smd":
-      s += R(x, y, w, h, o.col || "#1b1c1f", `rx=".5"`);
-      s += R(x, y, w * 0.2, h, SIL) + R(x + w * 0.8, y, w * 0.2, h, SIL);
-      if (lb) s += lbl(x + w * 0.2, y, w * 0.6, h, lb, "#e6e6e6", 5);
-      break;
+    case "smd": s += smdPart(x, y, w, h, o.col, lb); break;
     case "sot":
       s += R(x + w * 0.15, y - 2, w * 0.18, 2.4, PIN) + R(x + w * 0.67, y - 2, w * 0.18, 2.4, PIN) + R(x + w * 0.41, y + h - 0.4, w * 0.18, 2.4, PIN);
       s += R(x, y, w, h, "#18191c", `rx=".8"`);
@@ -2792,7 +2854,7 @@ function traces(b) {
       x = Math.max(6, Math.min(W - 6, x)); y = Math.max(6, Math.min(H - 6, y));
       d += ` L${f(x)} ${f(y)}`;
     }
-    s += `<path d="${d}" class="tr"/>` + C(x, y, 1.8, "none", `class="via"`);
+    s += `<path d="${d}" class="tr"/>` + C(x, y, 2, "none", `class="via"`) + C(x, y, 0.8, "rgba(0,0,0,.45)");
   }
   return s;
 }
@@ -2809,6 +2871,226 @@ function normBoard(b) {
     return { i, p: a[0], t: a[1], x: a[2], y: a[3], w, h, lb: a[6] || "", ne: a[7] || "", nt: a[8] || "", o, back: !!o.b, pins: (typeof PINS !== "undefined" && PINS[b.id] && PINS[b.id][i]) || null };
   });
   return b;
+}
+
+
+/* ---------- SMALL PARTS ("fillers") ----------
+   Real boards are covered in tiny resistors (R), capacitors (C) and transistors (Q).
+   We place them in the free space around the chips that would need them, deterministically per board,
+   and never on top of a numbered part, a pin label, a hole or the printed text. Each one can be tapped. */
+const FX_ROLE = {
+  dec: { k: "C", v: "100 nF", code: "", en: "Decoupling capacitor: sits right next to a chip's power pin and absorbs tiny, fast voltage dips so the chip does not reset or misbehave.", ta: "டிகப்ளிங் கெபாசிட்டர்: சிப்பின் மின் பின்னுக்கு அருகில் இருந்து, சிறிய வேகமான வோல்டேஜ் வீழ்ச்சிகளை உறிஞ்சுகிறது; இதனால் சிப் reset ஆகாமல், தவறாக இயங்காமல் இருக்கும்." },
+  load: { k: "C", v: "22 pF", code: "", en: "Crystal load capacitor: one on each crystal pin, so the crystal oscillates at exactly its rated frequency.", ta: "கிரிஸ்டல் லோட் கெபாசிட்டர்: கிரிஸ்டலின் ஒவ்வொரு பின்னிலும் ஒன்று; இதனால் கிரிஸ்டல் சரியான அதிர்வெண்ணில் இயங்கும்." },
+  bulk: { k: "C", v: "10 µF", code: "", en: "Bulk capacitor at the regulator: keeps the supply steady when the load suddenly changes. The regulator needs it to stay stable.", ta: "ரெகுலேட்டரில் உள்ள பல்க் கெபாசிட்டர்: சுமை திடீரென மாறும்போது மின்சாரத்தை நிலையாக வைக்கிறது. ரெகுலேட்டர் நிலையாக இயங்க இது அவசியம்." },
+  filt: { k: "C", v: "1 µF", code: "", en: "Filter capacitor: smooths a supply or signal line and removes noise.", ta: "வடிகட்டி கெபாசிட்டர்: மின் அல்லது சிக்னல் வரியை சீராக்கி இரைச்சலை நீக்குகிறது." },
+  pull: { k: "R", v: "10 kΩ", code: "103", en: "Pull-up / pull-down resistor: holds a pin at a fixed HIGH or LOW level when nothing is driving it, so it never 'floats'.", ta: "Pull-up / pull-down ரெசிஸ்டர்: ஒரு பின்னை எதுவும் இயக்காதபோது நிலையான HIGH அல்லது LOW நிலையில் வைக்கிறது; பின் 'மிதக்காது'." },
+  led: { k: "R", v: "1 kΩ", code: "102", en: "LED current-limiting resistor: without it the LED would draw too much current and burn out.", ta: "LED மின்னோட்டக் கட்டுப்பாட்டு ரெசிஸ்டர்: இது இல்லையென்றால் LED அதிக மின்னோட்டம் எடுத்து எரிந்துவிடும்." },
+  ser: { k: "R", v: "22 Ω", code: "220", en: "Series resistor on a data line: softens fast signal edges and reduces ringing and radio noise.", ta: "Data வரியில் உள்ள series ரெசிஸ்டர்: வேகமான சிக்னல் விளிம்புகளை மென்மையாக்கி, ringing மற்றும் ரேடியோ இரைச்சலைக் குறைக்கிறது." },
+  cc: { k: "R", v: "5.1 kΩ", code: "512", en: "USB-C CC resistor: tells the charger 'I am a device, please give me 5V'. Without it many USB-C chargers give no power.", ta: "USB-C CC ரெசிஸ்டர்: சார்ஜரிடம் 'நான் ஒரு device, 5V கொடு' என்று சொல்கிறது. இது இல்லையென்றால் பல USB-C சார்ஜர்கள் மின்சாரம் தராது." },
+  div: { k: "R", v: "4.7 kΩ", code: "472", en: "Resistor in a voltage divider or bias network: sets a voltage or a small current for the chip next to it.", ta: "வோல்டேஜ் டிவைடர் அல்லது bias அமைப்பில் உள்ள ரெசிஸ்டர்: அருகிலுள்ள சிப்புக்கு ஒரு வோல்டேஜ் அல்லது சிறிய மின்னோட்டத்தை அமைக்கிறது." },
+  gate: { k: "R", v: "100 Ω", code: "101", en: "Base / gate resistor: limits the current into a transistor's control pin.", ta: "Base / gate ரெசிஸ்டர்: டிரான்சிஸ்டரின் கட்டுப்பாட்டு பின்னுக்குச் செல்லும் மின்னோட்டத்தைக் கட்டுப்படுத்துகிறது." },
+  sw: { k: "Q", v: "SOT-23", code: "J3Y", en: "Small transistor (SOT-23): an electronic switch. Used for auto-reset, driving an LED or relay, or switching power between USB and the battery.", ta: "சிறிய டிரான்சிஸ்டர் (SOT-23): மின்னணு ஸ்விட்ச். Auto-reset, LED அல்லது ரிலேவை இயக்க, USB மற்றும் பேட்டரி இடையே மின்சாரத்தை மாற்ற பயன்படுகிறது." }
+};
+const FX_KIND = {
+  R: { n: ["SMD resistor", "SMD ரெசிஸ்டர்"], t: ["Black body with a white printed code. Read the code (see above). To test, measure across its two ends with the multimeter on Ω, with the board unpowered. Parts around it can make the reading lower than printed.", "கருப்பு உடல், வெள்ளை அச்சிடப்பட்ட code. Code-ஐப் படிக்கவும் (மேலே பார்க்கவும்). சோதிக்க, போர்டுக்கு மின்சாரம் இல்லாமல், மல்டிமீட்டரை Ω-இல் வைத்து இரு முனைகளுக்கும் இடையே அளவிடுங்கள். அருகிலுள்ள பாகங்களால் அளவு குறைவாகக் காட்டலாம்."] },
+  C: { n: ["SMD ceramic capacitor (MLCC)", "SMD செராமிக் கெபாசிட்டர் (MLCC)"], t: ["Tan or brown body with no printing: ceramic capacitors are not marked, so their value comes from the schematic. A shorted one (0 Ω between its ends) is a common cause of a dead board.", "பழுப்பு நிற உடல், அச்சு இல்லை: செராமிக் கெபாசிட்டர்களில் மதிப்பு அச்சிடப்படுவதில்லை, schematic-இல் இருந்தே மதிப்பு தெரியும். இரு முனைகளுக்கும் இடையே 0 Ω காட்டினால் (short), போர்டு இயங்காததற்கு அதுவே பொதுவான காரணம்."] },
+  Q: { n: ["SOT-23 transistor", "SOT-23 டிரான்சிஸ்டர்"], t: ["A tiny black part with three legs and a 2–3 character code (like J3Y = S8050, A1SHB = SI2302). Search the code with 'SMD code' to find the real part number.", "மூன்று கால்கள் மற்றும் 2–3 எழுத்து code கொண்ட சிறிய கருப்பு பாகம் (J3Y = S8050, A1SHB = SI2302 போல). உண்மையான part number அறிய code-ஐ 'SMD code' என்று சேர்த்துத் தேடுங்கள்."] }
+};
+const FX_UI = {
+  read: ["How to read the code", "Code-ஐப் படிப்பது எப்படி"],
+  role: ["Job on this board", "இந்த போர்டில் இதன் வேலை"],
+  back: ["Back to the numbered points", "எண் குறியிட்ட பகுதிகளுக்குத் திரும்ப"],
+  small: ["Small parts on this board", "இந்த போர்டில் உள்ள சிறிய பாகங்கள்"],
+  smallSub: ["The tiny parts drawn between the numbered points are the resistors (R), capacitors (C) and transistors (Q) every real board needs. Tap any of them on the board to see its value and job.", "எண் குறியிட்ட பகுதிகளுக்கு இடையே வரையப்பட்டுள்ள சிறிய பாகங்கள், ஒவ்வொரு உண்மையான போர்டுக்கும் தேவையான ரெசிஸ்டர்கள் (R), கெபாசிட்டர்கள் (C), டிரான்சிஸ்டர்கள் (Q). அவற்றின் மதிப்பு, வேலையைக் காண போர்டில் ஏதாவது ஒன்றைத் தொடவும்."],
+  reader: ["SMD resistor code reader", "SMD ரெசிஸ்டர் code படிப்பான்"],
+  readerHint: ["Type the code printed on a resistor: 103, 4R7, 1001, 01C…", "ரெசிஸ்டரில் அச்சிடப்பட்ட code-ஐ உள்ளிடவும்: 103, 4R7, 1001, 01C…"],
+  letters: ["Letters printed next to parts", "பாகங்களுக்கு அருகில் அச்சிடப்படும் எழுத்துகள்"],
+  approx: ["Small-part positions and values are typical examples for learning, not an exact copy of one manufacturer's board.", "சிறிய பாகங்களின் இடங்களும் மதிப்புகளும் கற்றலுக்கான வழக்கமான உதாரணங்கள்; ஒரு குறிப்பிட்ட நிறுவனத்தின் போர்டின் சரியான நகல் அல்ல."]
+};
+const DESIG = [["R", "Resistor", "ரெசிஸ்டர்"], ["C", "Capacitor", "கெபாசிட்டர்"], ["L", "Inductor", "இண்டக்டர்"], ["D", "Diode / LED", "டையோடு / LED"], ["Q", "Transistor", "டிரான்சிஸ்டர்"], ["U", "IC (chip)", "IC (சிப்)"], ["Y / X", "Crystal", "கிரிஸ்டல்"], ["J / P", "Connector / header", "கனெக்டர் / ஹெடர்"], ["SW / S", "Switch / button", "ஸ்விட்ச் / பட்டன்"], ["F", "Fuse", "ஃப்யூஸ்"], ["K", "Relay", "ரிலே"], ["TP", "Test point", "சோதனைப் புள்ளி"]];
+
+/* EIA resistor codes: 103 → 10 kΩ, 4R7 → 4.7 Ω, 1001 → 1 kΩ, EIA-96 01C → 10 kΩ */
+const E96 = [100,102,105,107,110,113,115,118,121,124,127,130,133,137,140,143,147,150,154,158,162,165,169,174,178,182,187,191,196,200,205,210,215,221,226,232,237,243,249,255,261,267,274,280,287,294,301,309,316,324,332,340,348,357,365,374,383,392,402,412,422,432,442,453,464,475,487,499,511,523,536,549,562,576,590,604,619,634,649,665,681,698,715,732,750,768,787,806,825,845,866,887,909,931,953,976];
+function fmtOhm(v) {
+  const t = (n, u) => (Math.round(n * 100) / 100).toString() + " " + u;
+  return v >= 1e6 ? t(v / 1e6, "MΩ") : v >= 1e3 ? t(v / 1e3, "kΩ") : t(v, "Ω");
+}
+function decodeRes(code) {
+  const c = String(code || "").trim().toUpperCase().replace(/\s/g, "");
+  if (!c) return null;
+  if (/^0+$/.test(c)) return { v: 0, how: ["0 means a zero-ohm link: a jumper in a resistor body.", "0 என்றால் zero-ohm இணைப்பு: ரெசிஸ்டர் வடிவிலான ஜம்பர்."] };
+  let m;
+  if ((m = c.match(/^(\d*)R(\d+)$/)) || (m = c.match(/^(\d+)R(\d*)$/))) {
+    const v = parseFloat((m[1] || "0") + "." + (m[2] || "0"));
+    return { v, how: ["R marks the decimal point: " + c + " = " + fmtOhm(v) + ".", "R என்பது தசமப் புள்ளி: " + c + " = " + fmtOhm(v) + "."] };
+  }
+  if ((m = c.match(/^(\d{2})([ZYRXSABCDEFHZ])$/))) {
+    const i = +m[1]; if (i < 1 || i > 96) return null;
+    const mult = { Z: 0.001, Y: 0.01, R: 0.01, X: 0.1, S: 0.1, A: 1, B: 10, H: 10, C: 100, D: 1e3, E: 1e4, F: 1e5 }[m[2]];
+    const v = E96[i - 1] * mult;
+    return { v, how: ["EIA-96 code (1% resistor): " + m[1] + " → " + E96[i - 1] + ", letter " + m[2] + " → ×" + mult + ". So " + fmtOhm(v) + ".", "EIA-96 code (1% ரெசிஸ்டர்): " + m[1] + " → " + E96[i - 1] + ", எழுத்து " + m[2] + " → ×" + mult + ". எனவே " + fmtOhm(v) + "."] };
+  }
+  if ((m = c.match(/^(\d{2,3})(\d)$/))) {
+    const v = +m[1] * Math.pow(10, +m[2]);
+    const z = "0".repeat(+m[2]);
+    return { v, how: ["First " + m[1].length + " digits are the value, the last digit is how many zeros to add: " + m[1] + " + " + (z || "no zeros") + " = " + v.toLocaleString("en-IN") + " Ω = " + fmtOhm(v) + ".", "முதல் " + m[1].length + " இலக்கங்கள் மதிப்பு, கடைசி இலக்கம் சேர்க்க வேண்டிய பூஜ்ஜியங்களின் எண்ணிக்கை: " + m[1] + " + " + (z || "பூஜ்ஜியம் இல்லை") + " = " + v.toLocaleString("en-IN") + " Ω = " + fmtOhm(v) + "."] };
+  }
+  return null;
+}
+
+const FX_ANCHOR = { chip: 1, shield: 1, reg: 1, to220: 1, sot: 1, crystal: 1, led: 1, leds: 1, usbc: 1, usbmicro: 1, usbb: 1, button: 1, subpcb: 1, relay: 1, eth: 1 };
+function fxRoleFor(c, r) {
+  const t = c ? c.t : "";
+  if (t === "crystal") return r() < 0.8 ? "load" : "dec";
+  if (t === "reg" || t === "to220") return r() < 0.7 ? "bulk" : "filt";
+  if (t === "led" || t === "leds") return "led";
+  if (t === "usbc") return r() < 0.6 ? "cc" : "dec";
+  if (t === "usbmicro" || t === "usbb") return r() < 0.5 ? "ser" : "filt";
+  if (t === "button") return r() < 0.6 ? "pull" : "filt";
+  if (t === "relay") return r() < 0.5 ? "gate" : "sw";
+  const x = r();
+  return x < 0.42 ? "dec" : x < 0.62 ? "pull" : x < 0.74 ? "div" : x < 0.84 ? "filt" : x < 0.92 ? "ser" : "sw";
+}
+
+/* rectangles (x, y, w, h) that small parts must stay clear of */
+function fxBlocked(b, side) {
+  const out = [], bh = b.bh || b.H;
+  b.cs.forEach(c => {
+    if (side === "front" && c.back) return;
+    /* seen from the back, front parts are mirrored; their legs come through, so back fillers avoid them too */
+    const mir = side === "back" && !c.back;
+    if (mir) c = Object.assign({}, c, { x: b.W - c.x - c.w });
+    let m = 3, l = m, rgt = m, t = m, bot = m;
+    if (c.t === "chip") { const k = c.o.dip ? 7 : 5.5; l = rgt = t = bot = k; }
+    if (["reg", "sot", "to220"].includes(c.t)) { l = rgt = t = bot = 4.5; }
+    if (["header", "pads", "jhdr"].includes(c.t) && c.pins) {
+      const o = c.o, v = o.o === "v", r = o.r || 1, longest = Math.max(1, ...c.pins.map(p => (p || "").length));
+      const ext = Math.min(4.3, (o.p || 10) * 0.43) * 0.66 * longest + (o.p || 10) * 0.5 + 3;
+      const nearTop = c.y + c.h / 2 < bh / 2, nearLeft = c.x + c.w / 2 < b.W / 2;
+      if (v) { if (r === 2 || !nearLeft) l = ext; if (r === 2 || nearLeft) rgt = ext; }
+      else { if (r === 2 || !nearTop) t = ext; if (r === 2 || nearTop) bot = ext; }
+    }
+    out.push([c.x - l, c.y - t, c.w + l + rgt, c.h + t + bot]);
+    if (!mir) out.push([c.x - 9, c.y - 9, 16, 16]); /* the numbered marker */
+  });
+  (b.holes || []).forEach(([hx, hy]) => { const X = side === "back" ? b.W - hx : hx; out.push([X - 10, hy - 10, 20, 20]); });
+  if (side === "front") (b.silk || []).forEach(([sx, sy, txt, sz]) => { sz = sz || 7; const w = String(txt).length * sz * 0.66 + 4; out.push([sx - w / 2, sy - sz - 1, w, sz * 1.5 + 2]); });
+  else out.push([b.W / 2 - 30, bh - 18, 60, 14]); /* "BACK SIDE" text */
+  return out;
+}
+const fxHit = (a, list) => list.some(q => a[0] < q[0] + q[2] && a[0] + a[2] > q[0] && a[1] < q[1] + q[3] && a[1] + a[3] > q[1]);
+
+function makeFillers(b) {
+  const W = b.W, bh = b.bh || b.H, r = rng(hash(b.id + "#fx"));
+  const area = W * bh, all = [], cnt = { R: 0, C: 0, Q: 0 };
+  ["front", "back"].forEach(side => {
+    const nBack = b.cs.filter(c => c.back).length;
+    if (side === "back" && (area < 9000 || nBack > 4)) return;
+    let target = Math.round(Math.max(3, Math.min(34, Math.sqrt(area) * 0.13)) * (side === "back" ? 0.35 : 1));
+    if (area < 4000) target = Math.min(target, 4);
+    const blocked = fxBlocked(b, side), placed = [];
+    /* tighter keep-outs for small, crowded modules: shrink every blocked box a little */
+    const blockedT = blocked.map(([x, y, w, h]) => w > 18 && h > 18 ? [x + 2.5, y + 2.5, w - 5, h - 5] : [x + 1, y + 1, w - 2, h - 2]);
+    const anchors = b.cs.filter(c => (side === "front" ? !c.back : c.back) && FX_ANCHOR[c.t]);
+    let tight = false;
+    const tryPlace = (cx, cy, vert, anchor) => {
+      const role0 = fxRoleFor(anchor, r), role = tight && role0 === "sw" ? "dec" : role0, def = FX_ROLE[role];
+      const kind = def.k, small = tight || (kind === "C" && r() < 0.5);
+      let w = kind === "Q" ? 9 : small ? 6.4 : 8, h = kind === "Q" ? 5.4 : small ? 3.4 : 4.2;
+      if (vert && kind !== "Q") [w, h] = [h, w];
+      const x = cx - w / 2, y = cy - h / 2;
+      /* room for the printed designator (R12) beside the part */
+      const lw = 9, lh = 4.4;
+      const lx = vert ? x + w + 1 : x + w / 2 - lw / 2, ly = vert ? y + h / 2 - lh / 2 : y - lh - 0.8;
+      const box = [Math.min(x, lx) - 1.2, Math.min(y, ly) - 1.6, Math.max(x + w, lx + lw) - Math.min(x, lx) + 2.4, Math.max(y + h, ly + lh) - Math.min(y, ly) + 3.6];
+      if (box[0] < 3 || box[1] < 3 || box[0] + box[2] > W - 3 || box[1] + box[3] > bh - 3) return false;
+      if (fxHit(box, tight ? blockedT : blocked) || fxHit(box, placed)) return false;
+      placed.push(box);
+      cnt[kind]++;
+      const k = all.length;
+      all.push({ k, side, kind, role, x, y, w, h, vert, lx, ly, des: kind + cnt[kind], code: def.code, v: def.v, near: anchor ? anchor.i : null });
+      return true;
+    };
+    let n = 0, guard = 0;
+    /* first hug the chips that need them */
+    const ring = anchors.slice().sort((a, c) => c.w * c.h - a.w * a.h);
+    while (n < target * 0.75 && guard++ < 900 && ring.length) {
+      const a = ring[Math.floor(r() * Math.min(ring.length, 6))];
+      const sideK = Math.floor(r() * 4), d = 7 + r() * 9;
+      const pad = a.t === "chip" ? (a.o.dip ? 7 : 5.5) : 3;
+      let cx, cy, vert;
+      if (sideK < 2) { cx = a.x + r() * a.w; cy = sideK === 0 ? a.y - pad - d : a.y + a.h + pad + d; vert = r() < 0.3; }
+      else { cy = a.y + r() * a.h; cx = sideK === 2 ? a.x - pad - d : a.x + a.w + pad + d; vert = r() < 0.7; }
+      if (tryPlace(cx, cy, vert, a)) n++;
+    }
+    /* then a few scattered over the free board */
+    guard = 0;
+    while (n < target && guard++ < 700) {
+      const cx = 8 + r() * (W - 16), cy = 8 + r() * (bh - 16);
+      let near = null, best = 1e9;
+      anchors.forEach(a => { const dd = Math.hypot(a.x + a.w / 2 - cx, a.y + a.h / 2 - cy); if (dd < best) { best = dd; near = a; } });
+      if (tryPlace(cx, cy, r() < 0.5, best < 70 ? near : null)) n++;
+    }
+    /* crowded board: a second, tighter pass with 0603-size parts */
+    if (n < Math.min(target, 3) && side === "front") {
+      tight = true; guard = 0;
+      const want = Math.min(target, 6);
+      while (n < want && guard++ < 900) {
+        const cx = 6 + r() * (W - 12), cy = 6 + r() * (bh - 12);
+        let near = null, best = 1e9;
+        anchors.forEach(a => { const dd = Math.hypot(a.x + a.w / 2 - cx, a.y + a.h / 2 - cy); if (dd < best) { best = dd; near = a; } });
+        if (tryPlace(cx, cy, r() < 0.5, best < 60 ? near : null)) n++;
+      }
+    }
+  });
+  return all;
+}
+
+function drawFiller(fx, inter) {
+  const { x, y, w, h, kind, vert } = fx;
+  let s = R(x + 0.5, y + 0.8, w, h, "rgba(0,0,0,.3)", `rx=".5"`);
+  if (kind === "Q") {
+    s += R(x + w * 0.14, y - 1.6, w * 0.16, 2, "url(#gTin)") + R(x + w * 0.7, y - 1.6, w * 0.16, 2, "url(#gTin)") + R(x + w * 0.42, y + h - 0.4, w * 0.16, 2, "url(#gTin)");
+    s += R(x, y, w, h, "url(#gRes)", `rx=".5" stroke="#000" stroke-width=".25"`);
+    s += `<text x="${f(x + w / 2)}" y="${f(y + h / 2)}" font-size="2.6" fill="#d9dde2" text-anchor="middle" dominant-baseline="central" class="sl">${esc(fx.code)}</text>`;
+  } else s += smdPart(x, y, w, h, kind === "C" ? "#a5835a" : "", kind === "R" ? fx.code : "");
+  const tx0 = vert ? fx.lx : fx.lx + 4.5, ty0 = fx.ly + 2.3;
+  s += `<text x="${f(tx0)}" y="${f(ty0)}" font-size="3.3" class="silk fxd" text-anchor="${vert ? "start" : "middle"}" dominant-baseline="central">${fx.des}</text>`;
+  if (!inter) return s;
+  return `<g class="fx" data-f="${fx.k}">${s}<rect class="fxhl" x="${f(x - 1.6)}" y="${f(y - 1.6)}" width="${f(w + 3.2)}" height="${f(h + 3.2)}" rx="1.4"/></g>`;
+}
+
+/* small copper fiducial marks used by pick-and-place machines */
+function fiducials(b, side) {
+  const W = b.W, bh = b.bh || b.H, blocked = fxBlocked(b, side), out = [];
+  [[9, bh - 9], [W - 9, 9], [W - 9, bh - 9], [9, 9]].forEach(([x, y]) => {
+    if (out.length >= 2) return;
+    const box = [x - 4, y - 4, 8, 8];
+    if (!fxHit(box, blocked) && !fxHit(box, (b.fx || []).filter(q => q.side === side).map(q => [q.x - 2, q.y - 6, q.w + 12, q.h + 10]))) out.push([x, y]);
+  });
+  return out.map(([x, y]) => C(x, y, 3.2, "rgba(0,0,0,.25)") + C(x, y, 1.5, "url(#gTin)")).join("");
+}
+
+/* parts that sit up off the board get a soft shadow; round ones get a round shadow */
+const NO_SHADOW = { antenna: 1, pads: 1, usbfinger: 1, coil: 1, smd: 1, led: 1, leds: 1, probe: 1 };
+const ROUND = { cap: 1, coin: 1, dome: 1, usonic: 1, rled: 1 };
+function shadowOf(c) {
+  if (NO_SHADOW[c.t]) return "";
+  const k = ["relay", "to220", "heatsink", "usbb", "jack", "eth", "usba", "dht", "lcd", "display", "cap", "dome", "usonic", "term", "pot"].includes(c.t) ? 2.6 : 1.4;
+  if (ROUND[c.t]) { const r = Math.min(c.w, c.h) / 2; return C(c.x + c.w / 2 + k * 0.6, c.y + c.h / 2 + k, r, "rgba(0,0,0,.32)"); }
+  return R(c.x + k * 0.6, c.y + k, c.w, c.h, "rgba(0,0,0,.3)", `rx="1.6"`);
+}
+/* the white silkscreen outline that real boards print around each part */
+const OUTLINE = { chip: 1, crystal: 1, reg: 1, to220: 1, button: 1, inductor: 1, diode: 1, relay: 1, pot: 1, jst: 1, term: 1, sot: 1, ufl: 1 };
+function outlineOf(c) {
+  if (c.back) return "";
+  if (ROUND[c.t] && c.t === "cap") {
+    const r = Math.min(c.w, c.h) / 2 + 2, cx = c.x + c.w / 2, cy = c.y + c.h / 2;
+    return `<circle cx="${f(cx)}" cy="${f(cy)}" r="${f(r)}" class="sko"/><text x="${f(cx - r - 1)}" y="${f(cy - r + 1)}" font-size="5" class="silk" text-anchor="end">+</text>`;
+  }
+  if (!OUTLINE[c.t]) return "";
+  const m = c.t === "chip" ? (c.o.dip ? 6.5 : 5) : c.t === "reg" || c.t === "sot" ? 3.4 : 2;
+  return `<rect x="${f(c.x - m)}" y="${f(c.y - m)}" width="${f(c.w + m * 2)}" height="${f(c.h + m * 2)}" rx="1" class="sko"/>`;
 }
 
 const PAD = 16;
@@ -2838,14 +3120,22 @@ function boardSVG(b, side, inter) {
   normBoard(b);
   const W = b.W, H = b.H, bh = b.bh || H, back = side === "back";
   let s = `<svg viewBox="${-PAD} ${-PAD} ${W + PAD * 2} ${H + PAD * 2}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${esc(b.n)} ${back ? "back" : "front"}">`;
-  s += R(0, 0, W, bh, b.col, `rx="6" stroke="rgba(0,0,0,.35)" stroke-width="1.4"`);
+  if (!b.fx) b.fx = makeFillers(b);
+  const side0 = back ? "back" : "front";
+  s += R(0, 0, W, bh, b.col, `rx="6" stroke="rgba(0,0,0,.45)" stroke-width="1.4"`);
   if (back) s += R(0, 0, W, bh, "rgba(0,0,0,.2)", `rx="6"`);
   s += `<g ${back ? `transform="translate(${W} 0) scale(-1 1)"` : ""}>` + traces(b) + `</g>`;
+  s += R(0, 0, W, bh, "url(#gSheen)", `rx="6" pointer-events="none"`);
+  s += R(1.2, 1.2, W - 2.4, bh - 2.4, "none", `rx="5" stroke="rgba(255,255,255,.1)" stroke-width=".8" pointer-events="none"`);
   (b.holes || []).forEach(([hx, hy]) => {
     const X = back ? W - hx : hx;
-    s += C(X, hy, 6.4, GOLD) + C(X, hy, 3.8, "#000", `class="holein"`);
+    s += C(X, hy, 6.4, GOLD) + C(X, hy, 5.2, "none", `stroke="rgba(0,0,0,.25)" stroke-width=".5"`) + C(X, hy, 3.8, "#000", `class="holein"`);
+    for (let a = 0; a < 8; a++) s += C(X + Math.cos(a * Math.PI / 4) * 8.6, hy + Math.sin(a * Math.PI / 4) * 8.6, 0.9, "url(#gTin)", `opacity=".7"`);
   });
   if (!back) (b.silk || []).forEach(([sx, sy, txt, sz]) => { s += `<text x="${sx}" y="${sy}" font-size="${sz || 7}" class="silk" text-anchor="middle">${esc(txt)}</text>`; });
+  s += fiducials(b, side0);
+  s += b.cs.filter(c => c.back === back).map(outlineOf).join("");
+  s += b.fx.filter(q => q.side === side0).map(q => drawFiller(q, inter)).join("");
   if (back) {
     s += `<g transform="translate(${W} 0) scale(-1 1)">` + b.cs.filter(c => !c.back).map(backSolder).join("") + `</g>`;
     s += `<text x="${W / 2}" y="${bh - 8}" font-size="7" class="silk" text-anchor="middle">BACK SIDE</text>`;
@@ -2853,7 +3143,7 @@ function boardSVG(b, side, inter) {
   b.cs.forEach(c => {
     if (c.back !== back) return;
     const pl = pinLabels(c, b);
-    const art = drawComp(c) + pl.small;
+    const art = shadowOf(c) + drawComp(c) + pl.small;
     if (!inter) { s += art; return; }
     const m = 3;
     s += `<g class="hs" data-i="${c.i}" tabindex="-1">${art}<rect class="hl" x="${f(c.x - m)}" y="${f(c.y - m)}" width="${f(c.w + m * 2)}" height="${f(c.h + m * 2)}" rx="3"/>${pl.big}<g class="mk"><circle cx="${f(c.x - 1)}" cy="${f(c.y - 1)}" r="6.4"/><text x="${f(c.x - 1)}" y="${f(c.y - 0.6)}">${c.i + 1}</text></g></g>`;
@@ -2986,7 +3276,7 @@ function route() {
   const h = location.hash.slice(1);
   if (h.startsWith("b-") && findB(h.slice(2))) {
     const id = h.slice(2);
-    if (S.board !== id) Object.assign(S, { board: id, sel: null, rz: 0, tx: 0, ty: 0, flip: false, zoom: 1 });
+    if (S.board !== id) Object.assign(S, { board: id, sel: null, fsel: null, rz: 0, tx: 0, ty: 0, flip: false, zoom: 1 });
     S.view = "board"; store.set("last", id);
   } else if (h === "parts") S.view = "parts";
   else if (h === "basics") S.view = "basics";
@@ -3039,7 +3329,7 @@ function renderBoard() {
       <a class="backlink" href="#">← ${one(UI.back)}</a>
       <p class="eyebrow">${one(CATS[b.cat])}</p>
       <h1>${esc(b.n)}</h1>
-      <p class="meta"><code>${esc(b.chip)}</code> · ${esc(b.volt)} · ${pts.length} ${LANG === "ta" ? "பகுதிகள்" : "points"}</p>
+      <p class="meta"><code>${esc(b.chip)}</code> · ${esc(b.volt)}${sizeOf(b) ? ` · ${esc(sizeOf(b))}` : ""} · ${pts.length} ${LANG === "ta" ? "பகுதிகள்" : "points"} · ${fxOf(b).length} ${LANG === "ta" ? "சிறிய பாகங்கள்" : "small parts"}</p>
     </div>
     <div class="bv">
       <div class="colA">
@@ -3089,11 +3379,13 @@ function renderBoard() {
           <h2 class="sec">${tx(UI.uses)}</h2>
           <ul class="uses">${b.uses.map(u => `<li>${tx(u)}</li>`).join("")}</ul>
           <div class="tipbox"><h3>${tx(UI.tip)}</h3><p>${tx(b.tip)}</p></div>
+          ${smallBox(b)}
           ${guidesForBoard(b.id).length ? `<h2 class="sec">${tx(UI.guidesWith)}</h2><ul class="uses glinks">${guidesForBoard(b.id).map(g => `<li><a href="#wire-${g.id}">${tx(g.t)}</a></li>`).join("")}</ul>` : ""}
         </section>
       </div>
     </div>`;
   $("#b3d").classList.toggle("nonum", !S.nums);
+  if (S.fsel != null) $$(`.fx[data-f="${S.fsel}"]`).forEach(g => g.classList.add("on"));
   bindStage();
   renderDetail();
   renderMyBoardPanel(b);
@@ -3153,6 +3445,7 @@ function bindStage() {
   st.addEventListener("pointercancel", end);
   st.addEventListener("click", e => {
     if (suppress) return;
+    const fx = e.target.closest(".fx"); if (fx) { selectF(+fx.dataset.f); return; }
     const g = e.target.closest(".hs"); if (g) select(+g.dataset.i, false);
   });
 }
@@ -3160,7 +3453,8 @@ function bindStage() {
 function select(i, fromList) {
   const b = findB(S.board); if (!b) return;
   const c = b.cs[i];
-  S.sel = i;
+  S.sel = i; S.fsel = null;
+  $$(".fx").forEach(g => g.classList.remove("on"));
   if (c.back !== visibleBack()) S.flip = !S.flip;
   applyT(false);
   $$(".hs").forEach(g => g.classList.toggle("on", +g.dataset.i === i));
@@ -3177,6 +3471,7 @@ function select(i, fromList) {
 
 function renderDetail() {
   const d = $("#detail"), b = findB(S.board); if (!d) return;
+  if (S.fsel != null && fxOf(b)[S.fsel]) { d.innerHTML = fillerDetail(b, fxOf(b)[S.fsel]); return; }
   if (S.sel == null) {
     d.innerHTML = `<div class="d-empty"><span class="d-ico">☝</span><p>${tx(UI.tap)}</p></div>`;
     return;
@@ -3201,12 +3496,74 @@ function renderDetail() {
     </div>`;
 }
 
+/* ---------- small parts (fillers) on the board page ---------- */
+const fxOf = b => { normBoard(b); if (!b.fx) b.fx = makeFillers(b); return b.fx; };
+function sizeOf(b) { const r = (b.sp || []).find(([k]) => k === "size"); return r ? r[1] : ""; }
+function selectF(k) {
+  const b = findB(S.board), q = fxOf(b)[k]; if (!q) return;
+  S.fsel = k; S.sel = null;
+  if ((q.side === "back") !== visibleBack()) { S.flip = !S.flip; applyT(false); }
+  $$(".hs").forEach(g => g.classList.remove("on"));
+  $$(".pbtn").forEach(x => x.setAttribute("aria-current", "false"));
+  $$(".fx").forEach(g => g.classList.toggle("on", +g.dataset.f === k));
+  renderDetail();
+  const d = $("#detail"); if (d) { const r = d.getBoundingClientRect(); if (r.top < 0 || r.bottom > window.innerHeight) d.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "nearest" }); }
+}
+function fxIcon(q) {
+  const w = q.vert ? q.h : q.w, h = q.vert ? q.w : q.h, k = 6;
+  const c = Object.assign({}, q, { vert: false, w, h, x: 50 / k - w / 2, y: 35 / k - h / 2, lx: 50 / k - 4.5, ly: 35 / k - h / 2 - 4.6 });
+  return `<svg viewBox="0 0 100 70" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="2" y="2" width="96" height="66" rx="6" fill="#1d6a42"/><g transform="scale(${k})">${drawFiller(c, false)}</g></svg>`;
+}
+function fillerDetail(b, q) {
+  const role = FX_ROLE[q.role], kind = FX_KIND[q.kind];
+  const near = q.near != null ? b.cs[q.near] : null;
+  const row = (h, val) => `<div class="drow"><h3>${tx(h)}</h3><p>${val}</p></div>`;
+  let read = "";
+  if (q.kind === "R") { const dc = decodeRes(q.code); if (dc) read = row(FX_UI.read, tx(dc.how)); }
+  else if (q.kind === "C") read = row(FX_UI.read, tx(["Ceramic capacitors carry no printing. Typical value for this job: " + q.v + ". 1 µF = 1000 nF = 1,000,000 pF.", "செராமிக் கெபாசிட்டர்களில் அச்சு இருக்காது. இந்த வேலைக்கான வழக்கமான மதிப்பு: " + q.v + ". 1 µF = 1000 nF = 1,000,000 pF."]));
+  const nearTxt = near ? tx(["Next to point " + (near.i + 1) + ": " + en(partName(near)) + ".", "புள்ளி " + (near.i + 1) + " அருகில்: " + ta(partName(near)) + "."]) : "";
+  return `
+    <div class="d-top">
+      <span class="d-num des">${esc(q.des)}</span>
+      <div class="d-title"><h2>${tx(kind.n)}</h2>
+        <p><span class="d-val">${esc(q.v)}</span>${q.code ? `<code>${esc(q.code)}</code>` : ""}${q.side === "back" ? `<span class="bk">${one(UI.backSide)}</span>` : ""}</p></div>
+      <div class="d-icon">${fxIcon(q)}</div>
+    </div>
+    ${row(FX_UI.role, tx([role.en, role.ta]) + (nearTxt ? `<span class="fine" style="display:block">${nearTxt}</span>` : ""))}
+    ${read}
+    ${row(UI.test, tx(kind.t))}
+    <p class="fine">${tx(FX_UI.approx)}</p>
+    <div class="d-nav"><button type="button" class="cb wide" data-act="fxback">← ${one(FX_UI.back)}</button></div>`;
+}
+function smallBox(b) {
+  const list = fxOf(b), n = { R: 0, C: 0, Q: 0 };
+  list.forEach(q => n[q.kind]++);
+  const lab = { R: ["resistors", "ரெசிஸ்டர்கள்"], C: ["capacitors", "கெபாசிட்டர்கள்"], Q: ["transistors", "டிரான்சிஸ்டர்கள்"] };
+  return `<div class="smallbox">
+    <h2 class="sec">${tx(FX_UI.small)}</h2>
+    <p>${tx(FX_UI.smallSub)}</p>
+    <div class="scount">${["R", "C", "Q"].filter(k => n[k]).map(k => `<span><b>${n[k]}</b>${one(lab[k])}</span>`).join("")}</div>
+    <div class="coderd"><label for="rcode">${tx(FX_UI.reader)}</label>
+      <input id="rcode" inputmode="text" maxlength="5" placeholder="103" autocomplete="off" spellcheck="false">
+      <output id="rcodeout" aria-live="polite">${one(FX_UI.readerHint)}</output></div>
+    <h3 class="sec" style="margin-top:12px">${tx(FX_UI.letters)}</h3>
+    <ul class="desig">${DESIG.map(([k, a, t]) => `<li><b>${k}</b><span>${tx([a, t])}</span></li>`).join("")}</ul>
+  </div>`;
+}
+function showCode(v) {
+  const o = $("#rcodeout"); if (!o) return;
+  if (!v.trim()) { o.innerHTML = one(FX_UI.readerHint); return; }
+  const dc = decodeRes(v);
+  o.innerHTML = dc ? `<b>${esc(fmtOhm(dc.v))}</b><br>${tx(dc.how)}` : one(["Not a resistor code I recognise. Try 3 digits (103), 4 digits (1002), R codes (4R7) or EIA-96 (01C).", "இது தெரிந்த ரெசிஸ்டர் code அல்ல. 3 இலக்கம் (103), 4 இலக்கம் (1002), R code (4R7), EIA-96 (01C) முயற்சிக்கவும்."]);
+}
+
 /* ---------- speech ---------- */
 function speak() {
   try {
     const synth = window.speechSynthesis; if (!synth) return;
     if (synth.speaking) { synth.cancel(); return; }
-    const b = findB(S.board), c = b.cs[S.sel], p = P[c.p];
+    const b = findB(S.board), c = b.cs[S.sel]; if (!c) return;
+    const p = P[c.p];
     const parts = [];
     const add = (o) => { if (LANG !== "ta") parts.push([en(o), "en-IN"]); if (LANG !== "en") parts.push([ta(o), "ta-IN"]); };
     [p.n, c.ne ? [c.ne, c.nt] : null, p.w, p.d, p.t].forEach(o => { if (o) add(o); });
@@ -3289,11 +3646,13 @@ document.addEventListener("click", e => {
     if (a === "nums") { S.nums = !S.nums; cb.setAttribute("aria-pressed", S.nums); $("#b3d").classList.toggle("nonum", !S.nums); return; }
     if (a === "reset") Object.assign(S, { rz: 0, tx: 0, ty: 0, flip: false, zoom: 1, tilt: false });
     if (a === "speak") { speak(); return; }
+    if (a === "fxback") { S.fsel = null; $$(".fx").forEach(g => g.classList.remove("on")); renderDetail(); return; }
     applyT(false);
   }
 });
 document.addEventListener("input", e => {
   if (e.target.id === "rot") { S.rz = +e.target.value; applyT(false); }
+  if (e.target.id === "rcode") showCode(e.target.value);
   if (e.target.id === "q") {
     S.q = e.target.value; ddIndex = -1; renderDropdown();
     if (S.view === "lib") renderLib();
